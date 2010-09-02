@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="hxeclipse.haxelib.ui.HaxeLibView"
+            id="hxeclipse.haxelib.HaxeLib"
+            name="HaxeLib"
+            restorable="true">
+      </view>
+      <view
+            category="hxeclipse.core.haxe"
+            class="hxeclipse.haxelib.ui.HaxeLibraryManager"
+            id="hxeclipse.haxelib.haxeLibraryManager"
+            name="Haxe Library Manager"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>

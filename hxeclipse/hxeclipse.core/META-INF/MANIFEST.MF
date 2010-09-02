@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core
+Bundle-SymbolicName: hxeclipse.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: hxeclipse.core.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: hxeclipse.core,
+ hxeclipse.core.ui,
+ hxeclipse.core.utils

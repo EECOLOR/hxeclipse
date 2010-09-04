@@ -1,16 +1,6 @@
-package hxeclipse.core;
+package hxeclipse.haxelib;
 
-import hxeclipse.core.ui.ISharedImages;
-
-import java.net.URL;
-
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -57,14 +47,4 @@ public class Activator extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	@Override
-	protected void initializeImageRegistry(ImageRegistry imageRegistry) {
-		super.initializeImageRegistry(imageRegistry);
-		
-		Bundle bundle = getBundle();
-        IPath path = new Path("icons/haxe.ico");
-        URL url = FileLocator.find(bundle, path, null);
-        imageRegistry.put(ISharedImages.IMG_ICON_HAXE, ImageDescriptor.createFromURL(url));
-	}
-	
 }

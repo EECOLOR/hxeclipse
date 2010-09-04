@@ -25,6 +25,7 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 	private ListViewer _listViewer; 
 	private IInputConsumer _details;
 	private PatternFilter _filter;
+	private Text _filterText;
 	
 	public ListDetails(Composite parent, int style) {
 		super(parent, style);
@@ -37,7 +38,8 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		
 		Composite container = createContainer(this);
 		_filter = new PatternFilter();
-		_listViewer = createList(container);
+		
+		createListContainer(container);
 		_details = createDetails(container);
 	}
 
@@ -52,13 +54,20 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		return container;
 	}
 	
-	protected ListViewer createList(Composite parent) {
+	protected void createListContainer(Composite parent) {
+		GridData containerLayout = new GridData(SWT.NONE, SWT.FILL, false, true);
+		containerLayout.widthHint = 200;
+		
 		Composite listContainer = new Composite(parent, SWT.NONE);
 		listContainer.setLayout(new GridLayout());
-		GridData containerLayout = new GridData(SWT.NONE, SWT.FILL, false, true);
-		containerLayout.widthHint = 300;
 		listContainer.setLayoutData(containerLayout);
 		
+		_filterText = createFilterText(listContainer);
+		
+		_listViewer = createList(listContainer);
+	}
+
+	protected Text createFilterText(Composite listContainer) {
 		//filter text
 		final Text filterText = new Text(listContainer, SWT.BORDER | SWT.SEARCH);
 		filterText.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
@@ -71,6 +80,10 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 			}
 		});
 		
+		return filterText;
+	}
+
+	protected ListViewer createList(Composite listContainer) {
 		//list viewer
 		ListViewer listViewer = new ListViewer(listContainer, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -86,7 +99,6 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		});
 		
 		listViewer.addFilter(_filter);
-		
 		return listViewer;
 	}
 	
@@ -151,5 +163,16 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		}
 		
 		_details.setInput(input);
+	}
+
+	@Override
+	public boolean setFocus() {
+		return _filterText.setFocus();
+	}
+	
+	public void refresh() {
+		_listViewer.refresh();
+		_listViewer.setSelection(null);
+		_details.setInput(null);
 	}
 }

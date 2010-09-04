@@ -3,7 +3,7 @@ package hxeclipse.core;
 import hxeclipse.core.preferences.HaxePreferencePage;
 
 public class HaxePreferences {
-	static public String getHaxePath() {
+	public String getHaxePath() {
 		String haxePath = Activator.getDefault().getPreferenceStore().getString(HaxePreferencePage.HAXE_PATH);
 		
 		if (haxePath == null) {

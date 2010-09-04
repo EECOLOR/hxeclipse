@@ -19,8 +19,8 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -60,6 +60,9 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 	
 	protected Composite createDetails() {
 		GridLayout gridLayout = new GridLayout(2, false);
+		gridLayout.marginWidth = 0;
+		gridLayout.marginHeight = 0;
+		
 		Composite details = new Composite(this, SWT.NONE);
 		details.setLayout(gridLayout);
 		details.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -72,9 +75,14 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 	}
 
 	protected Composite createDetailsLeftPart(Composite details) {
+		GridLayout layout = new GridLayout(2, false);
+		layout.marginWidth = 0;
+		layout.marginHeight = 0;
+		
 		Composite leftPart = new Composite(details, SWT.NONE);
-		leftPart.setLayout(new GridLayout(2, false));
+		leftPart.setLayout(layout);
 		leftPart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		
 		_nameDisplay = _createText("Name:", leftPart);
 		_tagsDisplay = _createText("Tags:", leftPart);
 		_licenseDisplay = _createText("License:", leftPart);
@@ -93,8 +101,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		Link link = new Link(rightPart, SWT.SINGLE);
 		link.setFont(getFont());
 		link.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
-		link.addSelectionListener(new SelectionListener() {
-			
+		link.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				try {
@@ -102,11 +109,6 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 				} catch (Exception e) {
 					//ignore any errors
 				}
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				//not used
 			}
 		});
 		_websiteDisplay = link;
@@ -129,7 +131,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		label.setText("Installed versions:");
 		
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		layoutData.heightHint = 40;
+		layoutData.heightHint = 100;
 		
 		_versionList = new ListViewer(parent);
 		_versionList.getControl().setLayoutData(layoutData);
@@ -162,7 +164,9 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		
 		//this composite allows us to manage the table columns through tableLayour
 		Composite composite = new Composite(this, SWT.NONE);
-		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		layoutData.heightHint = 100;
+		composite.setLayoutData(layoutData);
 		composite.setLayout(tableLayout);
 		
 		createReleaseTable(composite, tableLayout);
@@ -172,7 +176,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 
 	protected TableViewer createReleaseTable(Composite parent, TableColumnLayout tableLayout) {
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		layoutData.heightHint = 50;
+		layoutData.heightHint = 100;
 		
 		_releaseList = new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION);
 		_releaseList.getControl().setLayoutData(layoutData);
@@ -248,7 +252,28 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 	public void setInput(Object input) {
 		if (input instanceof Library) {
 			setHaxeLibrary((Library) input);
+		} else
+		{
+			_clear();
 		}
 	}
 
+	private void _clear() {
+		_haxeLibrary = null;
+		
+		_nameDisplay.setText("");
+		_tagsDisplay.setText("");
+		_descriptionDisplay.setText("");
+		_websiteDisplay.setText("");
+		_licenseDisplay.setText("");
+		_ownerDisplay.setText("");
+		_versionDisplay.setText("");
+		
+		_versionList.setInput(null);
+		_releaseList.setInput(null);
+		
+		_releaseList.getControl().getParent().layout(true);
+		
+		layout();
+	}
 }

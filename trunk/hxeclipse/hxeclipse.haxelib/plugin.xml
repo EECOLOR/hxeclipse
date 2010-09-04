@@ -4,14 +4,9 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="hxeclipse.haxelib.ui.HaxeLibView"
-            id="hxeclipse.haxelib.HaxeLib"
-            name="HaxeLib"
-            restorable="true">
-      </view>
-      <view
             category="hxeclipse.core.haxe"
-            class="hxeclipse.haxelib.ui.HaxeLibraryManager"
+            class="hxeclipse.haxelib.ui.HaxeLibraryManagerView"
+            icon="platform:/plugin/hxeclipse.core/icons/haxe.ico"
             id="hxeclipse.haxelib.haxeLibraryManager"
             name="Haxe Library Manager"
             restorable="true">

@@ -14,20 +14,26 @@ public class LibraryListDetails extends ListDetails {
 	public LibraryListDetails(Composite parent, int style) {
 		super(parent, style);
 	}
-	
+
 	@Override
 	protected void initialize() {
 		super.initialize();
 		
 		setContentProvider(ArrayContentProvider.getInstance());
 		setLabelProvider(LibraryLabelProvider.getInstance());
-		setComparator(new ViewerComparator());
+		setComparator(new ViewerComparator());				
 	}
+
+
 
 	@Override
 	protected IInputConsumer createDetails(Composite parent) {
+		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		layoutData.widthHint = 500;
+		
 		LibraryDetails libraryDetails = createLibraryDetails(parent);
-		libraryDetails.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		libraryDetails.setLayoutData(layoutData);
+		
 		return libraryDetails;
 	}
 	
@@ -35,5 +41,4 @@ public class LibraryListDetails extends ListDetails {
 		LibraryDetails libraryDetails = new LibraryDetails(parent, SWT.NONE);
 		return libraryDetails;
 	}
-
 }

@@ -7,3 +7,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.ui,
  hxeclipse.core;bundle-version="1.0.0",
  org.eclipse.core.runtime;bundle-version="3.6.0"
+Bundle-Activator: hxeclipse.haxelib.Activator
+Bundle-ActivationPolicy: lazy

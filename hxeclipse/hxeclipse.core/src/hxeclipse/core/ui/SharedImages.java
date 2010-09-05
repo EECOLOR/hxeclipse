@@ -1,6 +1,6 @@
 package hxeclipse.core.ui;
 
-import hxeclipse.core.Activator;
+import hxeclipse.core.HXEclipse;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -13,12 +13,12 @@ public class SharedImages implements ISharedImages {
 
 	@Override
 	public Image getImage(String symbolicName) {
-		return Activator.getDefault().getImageRegistry().get(symbolicName);
+		return HXEclipse.getDefault().getImageRegistry().get(symbolicName);
 	}
 
 	@Override
 	public ImageDescriptor getImageDescriptor(String symbolicName) {
-		return Activator.getDefault().getImageRegistry().getDescriptor(symbolicName);
+		return HXEclipse.getDefault().getImageRegistry().getDescriptor(symbolicName);
 	}
 
 }

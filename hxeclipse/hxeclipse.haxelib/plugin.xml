@@ -5,7 +5,7 @@
          point="org.eclipse.ui.views">
       <view
             category="hxeclipse.core.haxe"
-            class="hxeclipse.haxelib.ui.HaxeLibraryManagerView"
+            class="hxeclipse.haxelib.ui.views.HaxeLibraryManagerView"
             icon="platform:/plugin/hxeclipse.core/icons/haxe.ico"
             id="hxeclipse.haxelib.haxeLibraryManager"
             name="Haxe Library Manager"

@@ -1,6 +1,6 @@
 package hxeclipse.core.preferences;
 
-import hxeclipse.core.Activator;
+import hxeclipse.core.HXEclipse;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -20,7 +20,7 @@ public class HaxePreferencePage extends FieldEditorPreferencePage implements IWo
 	
 	public HaxePreferencePage() {
 		super(GRID);
-		setPreferenceStore(Activator.getDefault().getPreferenceStore());
+		setPreferenceStore(HXEclipse.getDefault().getPreferenceStore());
 		setDescription("Compiler related preferences");
 	}
 	

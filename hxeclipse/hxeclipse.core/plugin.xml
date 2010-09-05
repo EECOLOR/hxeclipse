@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="hxeclipse.core.targets" name="Haxe Targets" schema="schema/hxeclipse.core.target.exsd"/>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -15,6 +16,79 @@
             id="hxeclipse.core.haxe"
             name="Haxe">
       </category>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            base-type="org.eclipse.core.runtime.text"
+            file-extensions="hx"
+            id="hxeclipse.core.haxe"
+            name="Haxe File"
+            priority="high">
+      </content-type>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="hxeclipse.core.editor.HaxeEditor"
+            default="true"
+            extensions="hx"
+            icon="icons/haxe.ico"
+            id="hxeclipse.core.editor"
+            name="Haxe Editor">
+         <contentTypeBinding
+               contentTypeId="hxeclipse.core.haxe">
+         </contentTypeBinding>
+      </editor>
+   </extension>
+   <extension
+         id="hxeclipse.core.haxeNature"
+         name="Haxe Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="hxeclipse.core.project.HaxeProjectNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension
+         id="hxeclipse.core.haxeBuilder"
+         name="Haxe Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            callOnEmptyDelta="false"
+            hasNature="true"
+            isConfigurable="false">
+         <run
+               class="hxeclipse.core.project.HaxeProjectBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="hxeclipse.core.haxe"
+            name="Haxe">
+      </category>
+      <wizard
+            category="hxeclipse.core.haxe"
+            class="hxeclipse.core.ui.wizards.NewHaxeProjectWizard"
+            hasPages="true"
+            icon="icons/haxe.ico"
+            id="hxeclipse.core.newHaxeProject"
+            name="Haxe Project"
+            project="true">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.core.resources.IFile"
+            class="hxeclipse.core.internal.HaxeClassAdapterFactory">
+         <adapter
+               type="hxeclipse.core.IHaxeClass">
+         </adapter>
+      </factory>
    </extension>
 
 </plugin>

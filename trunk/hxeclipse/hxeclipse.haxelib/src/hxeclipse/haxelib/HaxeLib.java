@@ -1,6 +1,6 @@
 package hxeclipse.haxelib;
 
-import hxeclipse.core.HXEclipseCore;
+import hxeclipse.core.HXEclipse;
 import hxeclipse.core.utils.FileUtils;
 import hxeclipse.haxelib.model.Library;
 import hxeclipse.haxelib.model.LibraryRelease;
@@ -41,7 +41,7 @@ public class HaxeLib {
 	
 	private void _initialize() throws FileNotFoundException {
 		//get the haxelib absolute path
-		File haxePath = new File(HXEclipseCore.getHaxePreferences().getHaxePath());
+		File haxePath = new File(HXEclipse.getHaxePreferences().getHaxePath());
 		File haxeLib = new File(haxePath, FileUtils.getFile(haxePath, "haxelib")); 
 		_haxeLibLocation = haxeLib.getAbsolutePath();
 		

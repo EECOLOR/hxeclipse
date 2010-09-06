@@ -14,9 +14,11 @@ import java.util.List;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
@@ -47,6 +49,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 	private LabelText _versionDisplay;
 	private ListViewer _installedVersionList;
 	private TableViewer _releaseList;
+	protected IStructuredSelection _inStalledVersionSelection;
 	
 	public LibraryDetails(Composite parent, int style) {
 		super(parent, style);
@@ -154,6 +157,13 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 				return super.getText(libraryRelease.getVersion() + (libraryRelease.isCurrent() ? " *" : ""));
 			}
 			
+		});
+		_installedVersionList.addSelectionChangedListener(new ISelectionChangedListener() {
+			
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				_inStalledVersionSelection = (IStructuredSelection) _installedVersionList.getSelection();
+			}
 		});
 		
 		return _installedVersionList;
@@ -267,7 +277,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 	}
 
 	public LibraryRelease getSelectedInstalledRelease() {
-		IStructuredSelection selection = (IStructuredSelection) _installedVersionList.getSelection();
+		IStructuredSelection selection = _inStalledVersionSelection;
 		
 		LibraryRelease libraryRelease = null;
 		if (!selection.isEmpty() && selection.size() == 1) {

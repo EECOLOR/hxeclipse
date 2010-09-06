@@ -1,6 +1,7 @@
 package hxeclipse.core.internal;
 
 import hxeclipse.core.IHaxePreferences;
+import hxeclipse.core.exceptions.HaxePathNotFoundException;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -14,11 +15,11 @@ public class HaxePreferences implements IHaxePreferences {
 	}
 	
 	@Override
-	public String getHaxePath() {
+	public String getHaxePath() throws HaxePathNotFoundException {
 		String haxePath = _preferenceStore.getString(PreferenceConstants.HAXE_PATH);
 		
-		if (haxePath == null) {
-			//TODO make sure an error is displayed as long as this thing is not filled
+		if (haxePath == null || haxePath.length() == 0) {
+			throw new HaxePathNotFoundException("No Haxe path has been set in the preferences");
 		}
 		
 		return haxePath;

@@ -14,8 +14,7 @@ public class DefaultLibrarySelectorFactory implements ILibrarySelectorFactory {
 
 	@Override
 	public String getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "default";
 	}
 
 }

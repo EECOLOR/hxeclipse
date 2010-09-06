@@ -7,11 +7,11 @@
          point="org.eclipse.ui.preferencePages">
       <page
             class="hxeclipse.core.preferences.HaxePreferencePage"
-            id="hxeclipse.core.Haxe"
+            id="hxeclipse.core.preferences.Haxe"
             name="Haxe">
       </page>
       <page
-            category="hxeclipse.core.Haxe"
+            category="hxeclipse.core.preferences.Haxe"
             class="hxeclipse.core.preferences.AdvancedPreferencePage"
             id="hxeclipse.core.Advanced"
             name="Advanced">

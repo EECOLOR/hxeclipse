@@ -1,17 +1,17 @@
 package hxeclipse.core.internal;
 
-import java.util.Iterator;
-
 import hxeclipse.core.HXEclipse;
 import hxeclipse.core.IHaxeProject;
 import hxeclipse.core.extensions.ITargetDescription;
 import hxeclipse.core.model.HaxeProjectDescription;
 
-import org.eclipse.core.resources.IFile;
+import java.util.Iterator;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.osgi.service.prefs.Preferences;
 
 public class HaxeProject implements IHaxeProject {
 	
@@ -22,8 +22,8 @@ public class HaxeProject implements IHaxeProject {
 		initialize(project, haxeProjectDescription);
 	}
 	
-	public HaxeProject(IProject project, IFile file) throws CoreException {
-		//TODO load all project information from the file
+	public HaxeProject(IProject project, Preferences projectPreferences) throws CoreException {
+		//TODO load all project settings from the projectPreferences
 		HaxeProjectDescription haxeProjectDescription = new HaxeProjectDescription();
 		initialize(project, haxeProjectDescription);
 	}
@@ -35,8 +35,10 @@ public class HaxeProject implements IHaxeProject {
 		_addNature();
 	}
 	
-	public void save() {
-		//TODO save to file
+	public void save(Preferences projectPreferences) {
+		Preferences preferences = projectPreferences.node("projectDescription");
+		_projectDescription.save(preferences);
+		//TODO save to projectPreferences
 	}
 	
 	private void _addNature() throws CoreException {
@@ -50,11 +52,6 @@ public class HaxeProject implements IHaxeProject {
 	@Override
 	public IProject getProject() {
 		return _project;
-	}
-
-	@Override
-	public void setProjectDescription(HaxeProjectDescription projectDescription) {
-		_projectDescription = projectDescription;
 	}
 
 	@Override

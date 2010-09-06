@@ -1,14 +1,15 @@
 package hxeclipse.haxelib.ui.dialogs;
 
+import hxeclipse.core.exceptions.HaxePathNotFoundException;
 import hxeclipse.core.extensions.ILibrary;
 import hxeclipse.core.extensions.ILibrarySelector;
-import hxeclipse.core.model.Library;
 import hxeclipse.core.ui.dialogs.HaxeDialog;
+import hxeclipse.core.ui.widgets.HaxePathMissing;
 import hxeclipse.haxelib.HaxeLib;
+import hxeclipse.haxelib.exceptions.HaxeLibNotFoundException;
+import hxeclipse.haxelib.model.Library;
 import hxeclipse.haxelib.model.LibraryRelease;
 import hxeclipse.haxelib.ui.widgets.LibraryListDetails;
-
-import java.io.FileNotFoundException;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.util.SafeRunnable;
@@ -51,7 +52,9 @@ public class HaxeLibrarySelector extends HaxeDialog implements ILibrarySelector 
 	@Override
 	public void create() {
 		super.create();
-		_libraryListDetails.setFocus();
+		if (_libraryListDetails != null) {
+			_libraryListDetails.setFocus();
+		}
 		
 		_okButton = getButton(IDialogConstants.OK_ID);
 		_okButton.setEnabled(false);
@@ -61,61 +64,70 @@ public class HaxeLibrarySelector extends HaxeDialog implements ILibrarySelector 
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 		
-		_libraryListDetails = new LibraryListDetails(composite, SWT.NONE);
-		_libraryListDetails.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				
-				boolean isEmpty = selection.isEmpty();
-				
-				_okButton.setEnabled(!isEmpty);
-				
-				if (!isEmpty) {
-					final Library haxeLibrary = (Library) selection.getFirstElement();
-					
-					SafeRunnable.run(new SafeRunnable() {
-						@Override
-						public void run() throws Exception {
-							//gather information
-							_haxeLib.info(haxeLibrary.getName());
-						}
-					});
-				}
-			}
-		});
-		
+		//create library manager
+		boolean haxeLibAvilable = true;
 		if (_haxeLib == null) {
 			try {
 				_haxeLib = HaxeLib.getInstance();
-			} catch (FileNotFoundException e) {
-				throw new RuntimeException(e);
-			}		
+			} catch (HaxePathNotFoundException e) {
+				haxeLibAvilable = false;
+			} catch (HaxeLibNotFoundException e) {
+				haxeLibAvilable = false;
+			}
 		}
 		
-		SafeRunnable.run(new SafeRunnable() {
-			@Override
-			public void run() throws Exception {
-				_libraryListDetails.setInput(_haxeLib.list());
-			}
-		});	
-		
-		Link link = new Link(composite, SWT.SINGLE);
-		link.setFont(composite.getFont());
-		link.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
-		link.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent event) {
-				HaxeLibraryManagerDialog haxeLibraryManagerDialog = new HaxeLibraryManagerDialog(getShell());
-				haxeLibraryManagerDialog.open();
-				_libraryListDetails.refresh();
-			}
-		});
-		link.setText("You can manage libraries using the <a>Haxe Library Manager</a>");
-		
+		if (haxeLibAvilable) {		
+			_libraryListDetails = new LibraryListDetails(composite, SWT.NONE);
+			_libraryListDetails.addSelectionChangedListener(new ISelectionChangedListener() {
+				@Override
+				public void selectionChanged(SelectionChangedEvent event) {
+					IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+					
+					boolean isEmpty = selection.isEmpty();
+					
+					_okButton.setEnabled(!isEmpty);
+					
+					if (!isEmpty) {
+						final Library haxeLibrary = (Library) selection.getFirstElement();
+						
+						SafeRunnable.run(new SafeRunnable() {
+							@Override
+							public void run() throws Exception {
+								//gather information
+								_haxeLib.info(haxeLibrary.getName());
+							}
+						});
+					}
+				}
+			});
+			
+			SafeRunnable.run(new SafeRunnable() {
+				@Override
+				public void run() throws Exception {
+					_libraryListDetails.setInput(_haxeLib.list());
+				}
+			});	
+			
+			Link link = new Link(composite, SWT.SINGLE);
+			link.setFont(composite.getFont());
+			link.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
+			link.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent event) {
+					HaxeLibraryManagerDialog haxeLibraryManagerDialog = new HaxeLibraryManagerDialog(getShell());
+					haxeLibraryManagerDialog.open();
+					_libraryListDetails.refresh();
+				}
+			});
+			link.setText("You can manage libraries using the <a>Haxe Library Manager</a>");
+			
+		} else
+		{
+			new HaxePathMissing(composite, SWT.NONE);
+		}
 		return composite;
 	}
-	
+
 	public ISelection getSelections() {
 		return _libraryListDetails.getSelection();
 	}
@@ -127,7 +139,7 @@ public class HaxeLibrarySelector extends HaxeDialog implements ILibrarySelector 
 		
 		LibraryRelease selectedInstalledRelease = _libraryListDetails.getSelectedInstalledRelease();
 		
-		Library library = new Library(selectedLibrary.getName());
+		hxeclipse.core.model.Library library = new hxeclipse.core.model.Library(selectedLibrary.getName());
 		
 		if (selectedInstalledRelease != null) {
 			library.setVersion(selectedInstalledRelease.getVersion());

@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
+import org.osgi.service.prefs.Preferences;
 
 public interface ITargetDescription {
 
@@ -18,4 +19,5 @@ public interface ITargetDescription {
 	public HaxeTarget<? extends ITargetDescription> getHaxeTarget();
 	public void setHaxeTarget(HaxeTarget<? extends ITargetDescription> haxeTarget);
 	public IPath getSourceFolderRelativePath(IResource resource);
+	public void save(Preferences preferences);
 }

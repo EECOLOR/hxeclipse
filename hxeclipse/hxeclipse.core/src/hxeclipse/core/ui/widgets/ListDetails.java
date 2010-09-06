@@ -30,6 +30,7 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 	private IInputConsumer _details;
 	private PatternFilter _filter;
 	private Text _filterText;
+	private IStructuredSelection _selection;
 	
 	public ListDetails(Composite parent, int style) {
 		super(parent, style);
@@ -97,6 +98,7 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		listViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
+				_selection = (IStructuredSelection) _listViewer.getSelection();
 				fireSelectionChanged(event);
 				updateDetails();
 			}
@@ -136,7 +138,7 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 
 	@Override
 	public ISelection getSelection() {
-		return _listViewer.getSelection();
+		return _selection;
 	}
 
 	@Override
@@ -162,12 +164,10 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 	}
 	
 	protected void updateDetails() {
-		IStructuredSelection selection = (IStructuredSelection) _listViewer.getSelection();
-		
 		Object input = null;
 		
-		if (!selection.isEmpty()) {
-			input = selection.getFirstElement();
+		if (!_selection.isEmpty()) {
+			input = _selection.getFirstElement();
 		}
 		
 		_details.setInput(input);

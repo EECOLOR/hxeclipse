@@ -1,7 +1,9 @@
 package hxeclipse.haxelib;
 
 import hxeclipse.core.HXEclipse;
+import hxeclipse.core.exceptions.HaxePathNotFoundException;
 import hxeclipse.core.utils.FileUtils;
+import hxeclipse.haxelib.exceptions.HaxeLibNotFoundException;
 import hxeclipse.haxelib.model.Library;
 import hxeclipse.haxelib.model.LibraryRelease;
 import hxeclipse.haxelib.utils.StringUtils;
@@ -22,7 +24,7 @@ public class HaxeLib {
 	static private HaxeLib _instance;
 	
 	//TODO can we use dependency injection instead of this nasty Singleton pattern?
-	static public HaxeLib getInstance() throws FileNotFoundException {
+	static public HaxeLib getInstance() throws HaxePathNotFoundException, HaxeLibNotFoundException {
 		synchronized(HaxeLib.class) {
 			if (_instance == null) {
 				_instance = new HaxeLib();
@@ -37,14 +39,19 @@ public class HaxeLib {
 	private List<Library> _installedLibrariesCache;
 	private List<Library> _availableLibrariesCache;
 	
-	private HaxeLib() throws FileNotFoundException {
+	private HaxeLib() throws HaxePathNotFoundException, HaxeLibNotFoundException {
 		_initialize();
 	}
 	
-	private void _initialize() throws FileNotFoundException {
+	private void _initialize() throws HaxePathNotFoundException, HaxeLibNotFoundException {
 		//get the haxelib absolute path
 		File haxePath = new File(HXEclipse.getHaxePreferences().getHaxePath());
-		File haxeLib = new File(haxePath, FileUtils.getFile(haxePath, "haxelib")); 
+		File haxeLib;
+		try {
+			haxeLib = new File(haxePath, FileUtils.getFile(haxePath, "haxelib"));
+		} catch (FileNotFoundException e) {
+			throw new HaxeLibNotFoundException("Could not find the Haxe library tool", e);
+		} 
 		_haxeLibLocation = haxeLib.getAbsolutePath();
 		
 		//initialize the caches

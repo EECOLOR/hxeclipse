@@ -1,5 +1,7 @@
 package hxeclipse.core.model;
 
+import org.osgi.service.prefs.Preferences;
+
 import hxeclipse.core.extensions.ILibrary;
 
 public class Library implements ILibrary {
@@ -10,6 +12,12 @@ public class Library implements ILibrary {
 		this(name, null);
 	}
 	
+	@Override
+	public void save(Preferences preferences) {
+		if (_name != null) preferences.put("name", _name);
+		if (_version != null) preferences.put("version", _version);
+	}
+
 	public Library(String name, String version) {
 		_name = name;
 		_version = version;

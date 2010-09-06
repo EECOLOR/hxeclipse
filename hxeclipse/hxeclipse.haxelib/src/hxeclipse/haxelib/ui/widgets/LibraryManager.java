@@ -3,8 +3,6 @@ package hxeclipse.haxelib.ui.widgets;
 import hxeclipse.haxelib.HaxeLib;
 import hxeclipse.haxelib.model.Library;
 
-import java.io.FileNotFoundException;
-
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -13,8 +11,8 @@ import org.eclipse.swt.widgets.Composite;
 
 public class LibraryManager extends LibraryListDetailsManager {
 
-	public LibraryManager(Composite parent, int style) throws FileNotFoundException {
-		super(parent, style, HaxeLib.getInstance());
+	public LibraryManager(Composite parent, int style, HaxeLib haxeLib) {
+		super(parent, style, haxeLib);
 		
 		addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override

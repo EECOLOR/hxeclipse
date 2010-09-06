@@ -65,7 +65,7 @@ public class SourceBlock extends Composite {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) _outputPathOption.getSelection();
-				_generalOptionCollection.setOutputPath((IFolder) selection.getFirstElement());
+				_generalOptionCollection.setOutputFolder((IFolder) selection.getFirstElement());
 			}
 		});
 	}
@@ -79,7 +79,7 @@ public class SourceBlock extends Composite {
 		
 		_classPathOption.setInput(_generalOptionCollection.getSourceFolders());
 		
-		_outputPathOption.setInput(_generalOptionCollection.getOutputPath());
+		_outputPathOption.setInput(_generalOptionCollection.getOutputFolder());
 		
 		layout();
 	}

@@ -1,5 +1,7 @@
 package hxeclipse.core.model;
 
+import org.osgi.service.prefs.Preferences;
+
 public class Mapping {
 	private String _sourcePackage;
 	private String _targetPackage;
@@ -8,6 +10,11 @@ public class Mapping {
 		_sourcePackage = sourcePackage;
 		_targetPackage = targetPackage;
 	}
+	
+	public void save(Preferences preferences) {
+		if (_sourcePackage != null) preferences.put("sourcePackage", _sourcePackage);
+		if (_targetPackage != null) preferences.put("targetPackage", _targetPackage);
+	}	
 	
 	public void setSourcePackage(String sourcePackage) {
 		_sourcePackage = sourcePackage;
@@ -24,6 +31,4 @@ public class Mapping {
 	public String getTargetPackage() {
 		return _targetPackage;
 	}
-	
-	
 }

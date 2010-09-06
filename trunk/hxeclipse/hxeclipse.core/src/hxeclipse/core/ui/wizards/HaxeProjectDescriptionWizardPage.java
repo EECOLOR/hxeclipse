@@ -25,7 +25,7 @@ public class HaxeProjectDescriptionWizardPage extends WizardPage {
 
 	@Override
 	public void createControl(Composite parent) {
-		// TODO Auto-generated method stub
+		// TODO Create wizard page
 		
 		//needed to prevent null pointer exception
 		setControl(new Composite(parent, SWT.NONE));
@@ -54,6 +54,7 @@ public class HaxeProjectDescriptionWizardPage extends WizardPage {
 	}
 	
 	class TempTargetDescription extends AbstractTargetDescription {
+
 	}
 }
 

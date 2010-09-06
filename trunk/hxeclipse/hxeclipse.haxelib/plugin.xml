@@ -4,6 +4,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
+            allowMultiple="false"
             category="hxeclipse.core.haxe"
             class="hxeclipse.haxelib.ui.views.HaxeLibraryManagerView"
             icon="platform:/plugin/hxeclipse.core/icons/haxe.ico"
@@ -11,6 +12,13 @@
             name="Haxe Library Manager"
             restorable="true">
       </view>
+   </extension>
+   <extension
+         point="hxeclipse.core.librarySelectors">
+      <library-selector
+            class="hxeclipse.haxelib.ui.dialogs.HaxeLibrarySelectorFactory"
+            id="hxeclipse.haxelib.librarySelector">
+      </library-selector>
    </extension>
 
 </plugin>

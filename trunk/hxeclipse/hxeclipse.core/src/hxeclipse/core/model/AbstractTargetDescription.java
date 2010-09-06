@@ -13,6 +13,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
+import org.osgi.service.prefs.Preferences;
 
 abstract public class AbstractTargetDescription implements ITargetDescription {
 	private List<IOptionCollection> _optionCollections;
@@ -45,7 +46,7 @@ abstract public class AbstractTargetDescription implements ITargetDescription {
 		
 		GeneralOptionCollection generalOptionCollection = getGeneralOptionCollection();
 		generalOptionCollection.setSourceFolders(sourcePaths );
-		generalOptionCollection.setOutputPath(project.getFolder(DefaultValues.OUTPUT_PATH));
+		generalOptionCollection.setOutputFolder(project.getFolder(DefaultValues.OUTPUT_PATH));
 	}
 	
 	@Override
@@ -112,5 +113,18 @@ abstract public class AbstractTargetDescription implements ITargetDescription {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public void save(Preferences preferences) {
+		Iterator<IOptionCollection> optionCollections = _optionCollections.iterator();
+		
+		while (optionCollections.hasNext()) {
+			IOptionCollection optionCollection = optionCollections.next();
+			Preferences optionCollectionPreferences = preferences.node(optionCollection.getClass().getName());
+			optionCollection.save(optionCollectionPreferences);
+
+		}
+		
 	}
 }

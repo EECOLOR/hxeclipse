@@ -6,9 +6,11 @@ import hxeclipse.core.extensions.ILibrarySelector;
 import hxeclipse.core.extensions.ILibrarySelectorFactory;
 import hxeclipse.core.model.GeneralOptionCollection;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -102,7 +104,7 @@ public class LibrariesOption extends Composite {
 	protected void _addButtonClicked() {
 		ILibrarySelectorFactory currentLibrarySelector = HXEclipse.getLibrarySelectorManager().getCurrentLibrarySelector();
 		ILibrarySelector librarySelector = currentLibrarySelector.newInstance(getShell());
-		if (librarySelector.open() == SWT.OK) {
+		if (librarySelector.open() == IDialogConstants.OK_ID) {
 			_libraries.add(librarySelector.getSelectedLibrary());
 		}
 		_libraryList.refresh();
@@ -120,6 +122,12 @@ public class LibrariesOption extends Composite {
 	
 	public void setGeneralOptionCollection(GeneralOptionCollection generalOptionsCollection) {
 		_libraries = generalOptionsCollection.getLibraries();
+		
+		if (_libraries == null) {
+			_libraries = new ArrayList<ILibrary>();
+			generalOptionsCollection.setLibraries(_libraries);
+		}
+		
 		_libraryList.setInput(_libraries);
 	}
 	

@@ -15,16 +15,18 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Iterator;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -53,7 +55,9 @@ public class HXEclipse extends AbstractUIPlugin {
 	
 	static public final QualifiedName HAXE_PROJECT_PROPERTY = new QualifiedName(HXEclipse.PLUGIN_ID, "haxeProject");
 	
-	public static final String HAXE_PROJECT_FILE = ".haxeProject";
+	public static final String HAXE_PREFERENCE_PAGE = "hxeclipse.core.preferences.Haxe";
+	
+	public static final String FLAG_IS_HAXE_PROJECT = "isHaxeProject";
 	
 	// The shared instance
 	private static HXEclipse _plugin;
@@ -152,10 +156,14 @@ public class HXEclipse extends AbstractUIPlugin {
 		
 		//check the session scope
 		if (haxeProject == null) {
-			IFile haxeProjectFile = project.getFile(HAXE_PROJECT_FILE);
-			if (haxeProjectFile.exists()) {
+			
+			IScopeContext projectScope = new ProjectScope(project);
+			IEclipsePreferences projectPreferences = projectScope.getNode(PLUGIN_ID);
+			boolean isHaxeProject = projectPreferences.getBoolean(FLAG_IS_HAXE_PROJECT, false);
+			
+			if (isHaxeProject) {
 				//load the haxe project from disk
-				haxeProject = new HaxeProject(project, haxeProjectFile);
+				haxeProject = new HaxeProject(project, projectPreferences);
 			} else
 			{
 				if (haxeProjectDescription == null) {
@@ -165,7 +173,7 @@ public class HXEclipse extends AbstractUIPlugin {
 				//create a new haxe project
 				haxeProject = new HaxeProject(project, haxeProjectDescription);
 				//save it to disk
-				haxeProject.save();
+				haxeProject.save(projectPreferences);
 				//add it as session property
 				project.setSessionProperty(HAXE_PROJECT_PROPERTY, haxeProject);
 			}
@@ -198,7 +206,7 @@ public class HXEclipse extends AbstractUIPlugin {
 				}
 				
 				//create output folder
-				IFolder outputPath = generalOptionCollection.getOutputPath();
+				IFolder outputPath = generalOptionCollection.getOutputFolder();
 				if (!outputPath.exists()) {
 					outputPath.create(false, true, null);
 				}

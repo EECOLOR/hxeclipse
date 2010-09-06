@@ -4,6 +4,7 @@ import hxeclipse.core.HXEclipse;
 import hxeclipse.core.HaxeTarget;
 import hxeclipse.core.extensions.IOptionCollection;
 import hxeclipse.core.extensions.IOptionCollectionEditorFactory;
+import hxeclipse.core.extensions.ITargetDescription;
 import hxeclipse.core.model.AbstractTargetDescription;
 import hxeclipse.core.model.GeneralOptionCollection;
 import hxeclipse.core.ui.widgets.target.general.GeneralOptionCollectionEditorFactory;
@@ -31,10 +32,13 @@ public class TargetManager {
 	
 	private List<HaxeTarget<? extends AbstractTargetDescription>> _targets;
 	private Map<Class<? extends IOptionCollection>, IOptionCollectionEditorFactory> _optionCollectionEditors;
+	private Map<String, IConfigurationElement> _availableTargetDescriptions;
+	private Map<String, IConfigurationElement> _availableOptionCollections;
 	
 	public TargetManager() throws CoreException {
 		_targets = new ArrayList<HaxeTarget<? extends AbstractTargetDescription>>();
 		_optionCollectionEditors = new HashMap<Class<? extends IOptionCollection>, IOptionCollectionEditorFactory>();
+		_availableTargetDescriptions = new HashMap<String, IConfigurationElement>();
 		
 		_optionCollectionEditors.put(GeneralOptionCollection.class, new GeneralOptionCollectionEditorFactory());
 		
@@ -54,6 +58,12 @@ public class TargetManager {
 			ImageDescriptor icon = ImageDescriptor.createFromURL(iconURL);
 			
 			AbstractTargetDescription targetDescription = (AbstractTargetDescription) targetElement.createExecutableExtension(ATTRIBUTE_CLASS);
+			String className = targetElement.getAttribute(ATTRIBUTE_CLASS);
+			if (_availableTargetDescriptions.containsKey(className)) {
+				throw new RuntimeException("Double class name in different targets. Targets should be stored in another fasion to make sure we can distinguish between same named classes from different plugins");
+			} else {
+				_availableTargetDescriptions.put(className, targetElement);
+			}
 			
 			HaxeTarget<AbstractTargetDescription> target = new HaxeTarget<AbstractTargetDescription>(name, icon, targetDescription);
 			target.setTargetDescription(targetDescription);
@@ -71,7 +81,9 @@ public class TargetManager {
 				
 				Class<? extends IOptionCollection> optionCollectionClass = optionCollection.getClass();
 				
-				if (_optionCollectionEditors.containsKey(optionCollectionClass)) {
+				_availableOptionCollections.put(optionCollectionClass.getName(), optionCollectionElement);
+				
+				if (!_optionCollectionEditors.containsKey(optionCollectionClass)) {
 					_optionCollectionEditors.put(optionCollectionClass, optionCollectionEditorFactory);
 				}
 			}
@@ -84,5 +96,33 @@ public class TargetManager {
 	
 	public IOptionCollectionEditorFactory getOptionCollectionEditorFactory(IOptionCollection optionCollection) {
 		return _optionCollectionEditors.get(optionCollection.getClass());
+	}
+	
+	public boolean hasTargetDescription(String className) {
+		return _availableTargetDescriptions.containsKey(className);
+	}
+	
+	public ITargetDescription createTargetDescription(String className) throws CoreException {
+		ITargetDescription targetDescription = null;
+		
+		if (hasTargetDescription(className)) {
+			targetDescription = (ITargetDescription) _availableTargetDescriptions.get(className).createExecutableExtension(ATTRIBUTE_CLASS);
+		}
+		
+		return targetDescription;
+	}
+	
+	public boolean hasOptionCollection(String className) {
+		return _availableOptionCollections.containsKey(className);
+	}
+	
+	public IOptionCollection createOptionCollection(String className) throws CoreException {
+		IOptionCollection optionCollection = null;
+		
+		if (hasOptionCollection(className)) {
+			optionCollection = (IOptionCollection) _availableOptionCollections.get(className).createExecutableExtension(ATTRIBUTE_CLASS);
+		}
+		
+		return optionCollection;
 	}
 }

@@ -46,8 +46,8 @@ public class LibraryDetailsManager extends LibraryDetails {
 	}
 
 	@Override
-	protected ListViewer createVersionList(Composite parent) {
-		_versionList = super.createVersionList(parent);
+	protected ListViewer createInstalledVersionList(Composite parent) {
+		_versionList = super.createInstalledVersionList(parent);
 		
 		_versionList.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override

@@ -6,7 +6,7 @@ import hxeclipse.haxelib.model.Library;
 import java.util.List;
 
 import org.eclipse.jface.util.SafeRunnable;
-import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
@@ -22,7 +22,7 @@ public class LibraryListDetailsManager extends LibraryListDetails {
 	private Button _checkBox;
 	private ViewerFilter _filter;
 	private List<Library> _installedLibraries;
-	private ListViewer _listViewer;
+	private StructuredViewer _listViewer;
 	
 	public LibraryListDetailsManager(Composite parent, int style, HaxeLib haxeLib) {
 		super(parent, style);
@@ -79,7 +79,7 @@ public class LibraryListDetailsManager extends LibraryListDetails {
 	}	
 	
 	@Override
-	protected ListViewer createList(Composite listContainer) {
+	protected StructuredViewer createList(Composite listContainer) {
 		_listViewer = super.createList(listContainer);
 		
 		return _listViewer;

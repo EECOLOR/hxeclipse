@@ -1,14 +1,16 @@
 package hxeclipse.core.model;
 
 import hxeclipse.core.IHaxeClass;
+import hxeclipse.core.extensions.ILibrary;
+import hxeclipse.core.extensions.IOptionCollection;
 
 import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
 
-abstract public class TargetDescription {
+public class GeneralOptionCollection implements IOptionCollection {
 	private IHaxeClass _main;
-	private List<String> _libraries;
+	private List<ILibrary> _libraries;
 	private List<String> _conditionalCompilationFlags;
 	private List<Resource> _resources;
 	private List<String> _excludes;
@@ -17,9 +19,31 @@ abstract public class TargetDescription {
 	private boolean _noTraces;
 	private boolean _noInlining;
 	private List<Mapping> _mappings;
-	private List<IFolder> _sourcePaths;
+	private List<IFolder> _sourceFolder;
+	private IFolder _outputPath;
 	
-	public TargetDescription() {
+	@Override
+	public String getName() {
+		return "General";
+	}
+	
+	@Override
+	public IOptionCollection copy() {
+		GeneralOptionCollection generalOptionCollection = new GeneralOptionCollection();
+		generalOptionCollection._main = _main;
+		generalOptionCollection._libraries = _libraries;
+		generalOptionCollection._conditionalCompilationFlags = _conditionalCompilationFlags;
+		generalOptionCollection._resources = _resources;
+		generalOptionCollection._excludes = _excludes;
+		generalOptionCollection._includeDebugInformation = _includeDebugInformation;
+		generalOptionCollection._noOptimalisation = _noOptimalisation;
+		generalOptionCollection._noTraces = _noTraces;
+		generalOptionCollection._noInlining = _noInlining;
+		generalOptionCollection._mappings = _mappings;
+		generalOptionCollection._sourceFolder = _sourceFolder;
+		generalOptionCollection._outputPath = _outputPath;
+		
+		return generalOptionCollection;
 	}
 	
 	public void setMain(IHaxeClass main) {
@@ -30,11 +54,11 @@ abstract public class TargetDescription {
 		return _main;
 	}
 
-	public void setLibraries(List<String> libraries) {
+	public void setLibraries(List<ILibrary> libraries) {
 		_libraries = libraries;
 	}
 
-	public List<String> getLibraries() {
+	public List<ILibrary> getLibraries() {
 		return _libraries;
 	}
 
@@ -103,11 +127,19 @@ abstract public class TargetDescription {
 		return _mappings;
 	}
 
-	public void setSourcePaths(List<IFolder> sourcePaths) {
-		_sourcePaths = sourcePaths;
+	public void setSourceFolders(List<IFolder> sourceFolders) {
+		_sourceFolder = sourceFolders;
 	}
 
-	public List<IFolder> getSourcePaths() {
-		return _sourcePaths;
+	public List<IFolder> getSourceFolders() {
+		return _sourceFolder;
+	}
+
+	public void setOutputPath(IFolder outputPath) {
+		_outputPath = outputPath;
+	}
+
+	public IFolder getOutputPath() {
+		return _outputPath;
 	}
 }

@@ -14,8 +14,10 @@ public class HaxeTargetLabelProvider extends LabelProvider {
 	private static HaxeTargetLabelProvider _instance;
 	
 	public static HaxeTargetLabelProvider getInstance() {
-		if (_instance == null) {
-			_instance = new HaxeTargetLabelProvider();
+		synchronized(HaxeTargetLabelProvider.class) {
+			if (_instance == null) {
+				_instance = new HaxeTargetLabelProvider();
+			}
 		}
 		
 		return _instance;
@@ -32,7 +34,7 @@ public class HaxeTargetLabelProvider extends LabelProvider {
 		@SuppressWarnings("rawtypes")
 		HaxeTarget target = (HaxeTarget) element;
 		
-		Image image = target.getImage();
+		Image image = target.getIcon().createImage();
 		
 		if (!_images.contains(image)) {
 			_images.add(image);

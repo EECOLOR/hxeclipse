@@ -23,8 +23,10 @@ public class HaxeLib {
 	
 	//TODO can we use dependency injection instead of this nasty Singleton pattern?
 	static public HaxeLib getInstance() throws FileNotFoundException {
-		if (_instance == null) {
-			_instance = new HaxeLib();
+		synchronized(HaxeLib.class) {
+			if (_instance == null) {
+				_instance = new HaxeLib();
+			}
 		}
 		return _instance;
 	}

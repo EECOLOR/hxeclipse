@@ -1,20 +1,19 @@
 package hxeclipse.core;
 
-import hxeclipse.core.model.TargetDescription;
+import hxeclipse.core.extensions.ITargetDescription;
 
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
+import org.eclipse.jface.resource.ImageDescriptor;
 
-public class HaxeTarget<T extends TargetDescription> {
+public class HaxeTarget<T extends ITargetDescription> {
 	private String _name;
-	private Image _image;
-	//TODO change class to an appropriate interface
-	private Composite _targetEditor;
+	private ImageDescriptor _icon;
 	private T _targetDescription;
 	
-	public HaxeTarget(String name, Image image) {
+	public HaxeTarget(String name, ImageDescriptor icon, T targetDescription) {
 		_name = name;
-		_image = image;
+		_icon = icon;
+		_targetDescription = targetDescription;
+		_targetDescription.setHaxeTarget(this);
 	}
 	
 	public void setName(String name) {
@@ -25,20 +24,12 @@ public class HaxeTarget<T extends TargetDescription> {
 		return _name;
 	}
 
-	public void setImage(Image image) {
-		_image = image;
+	public void setIcon(ImageDescriptor icon) {
+		_icon = icon;
 	}
 
-	public Image getImage() {
-		return _image;
-	}
-
-	public void setTargetEditor(Composite targetEditor) {
-		_targetEditor = targetEditor;
-	}
-
-	public Composite getTargetEditor() {
-		return _targetEditor;
+	public ImageDescriptor getIcon() {
+		return _icon;
 	}
 
 	public void setTargetDescription(T targetDescription) {

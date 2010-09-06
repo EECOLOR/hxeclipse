@@ -1,6 +1,7 @@
 package hxeclipse.core.preferences;
 
 import hxeclipse.core.HXEclipse;
+import hxeclipse.core.internal.PreferenceConstants;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -13,19 +14,16 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 public class HaxePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
-	public static final String HAXE_PATH = "hxeclipse.preferences.haxePath";
-		
 	private DirectoryFieldEditor _haxePath;
-	
 	
 	public HaxePreferencePage() {
 		super(GRID);
-		setPreferenceStore(HXEclipse.getDefault().getPreferenceStore());
+		setPreferenceStore(HXEclipse.getInternalPreferenceStore());
 		setDescription("Compiler related preferences");
 	}
 	
 	public void createFieldEditors() {
-		_haxePath = new DirectoryFieldEditor(HAXE_PATH, "&Haxe path:", getFieldEditorParent());
+		_haxePath = new DirectoryFieldEditor(PreferenceConstants.HAXE_PATH, "&Haxe path:", getFieldEditorParent());
 		_haxePath.setEmptyStringAllowed(false);
 		addField(_haxePath);
 	}

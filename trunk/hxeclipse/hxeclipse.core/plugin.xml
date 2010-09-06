@@ -2,12 +2,19 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="hxeclipse.core.targets" name="Haxe Targets" schema="schema/hxeclipse.core.target.exsd"/>
+   <extension-point id="hxeclipse.core.librarySelectors" name="Library Selectors" schema="schema/hxeclipse.core.librarySelectors.exsd"/>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
             class="hxeclipse.core.preferences.HaxePreferencePage"
             id="hxeclipse.core.Haxe"
             name="Haxe">
+      </page>
+      <page
+            category="hxeclipse.core.Haxe"
+            class="hxeclipse.core.preferences.AdvancedPreferencePage"
+            id="hxeclipse.core.Advanced"
+            name="Advanced">
       </page>
    </extension>
    <extension
@@ -89,6 +96,30 @@
                type="hxeclipse.core.IHaxeClass">
          </adapter>
       </factory>
+      <factory
+            adaptableType="org.eclipse.core.resources.IProject"
+            class="hxeclipse.core.internal.HaxeProjectAdapterFactory">
+         <adapter
+               type="hxeclipse.core.IHaxeProject">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="hxeclipse.core.properties.HaxeTargetsPropertyPage"
+            id="hxeclipse.core.haxeTargets"
+            name="Haxe Targets">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+               <test
+                     property="org.eclipse.core.resources.projectNature"
+                     value="hxeclipse.core.haxeNature">
+               </test>
+            </adapt>
+         </enabledWhen>
+      </page>
    </extension>
 
 </plugin>

@@ -14,6 +14,7 @@ import java.util.List;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.TableViewer;
@@ -44,7 +45,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 	private LabelText _licenseDisplay;
 	private LabelText _ownerDisplay;
 	private LabelText _versionDisplay;
-	private ListViewer _versionList;
+	private ListViewer _installedVersionList;
 	private TableViewer _releaseList;
 	
 	public LibraryDetails(Composite parent, int style) {
@@ -90,7 +91,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		_licenseDisplay = new LabelText(leftPart, "License:");
 		_ownerDisplay = new LabelText(leftPart, "Owner:");
 		_versionDisplay = new LabelText(leftPart, "Latest version:");
-		createVersionList(leftPart);
+		createInstalledVersionList(leftPart);
 		
 		return leftPart;
 	}
@@ -127,7 +128,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		return rightPart;
 	}
 
-	protected ListViewer createVersionList(Composite parent) {
+	protected ListViewer createInstalledVersionList(Composite parent) {
 		Label label = new Label(parent, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.NONE, SWT.BEGINNING, false, false));
 		label.setText("Installed versions:");
@@ -135,18 +136,18 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		layoutData.heightHint = 100;
 		
-		_versionList = new ListViewer(parent);
-		_versionList.getControl().setLayoutData(layoutData);
-		_versionList.setComparator(new WorkbenchViewerComparator());
-		_versionList.setContentProvider(ArrayContentProvider.getInstance());
-		_versionList.addFilter(new ViewerFilter() {
+		_installedVersionList = new ListViewer(parent);
+		_installedVersionList.getControl().setLayoutData(layoutData);
+		_installedVersionList.setComparator(new WorkbenchViewerComparator());
+		_installedVersionList.setContentProvider(ArrayContentProvider.getInstance());
+		_installedVersionList.addFilter(new ViewerFilter() {
 			@Override
 			public boolean select(Viewer viewer, Object parentElement, Object element) {
 				LibraryRelease libraryRelease = (LibraryRelease) element;
 				return libraryRelease.isInstalled();
 			}
 		});
-		_versionList.setLabelProvider(new LabelProvider() {
+		_installedVersionList.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
 				LibraryRelease libraryRelease = (LibraryRelease) element;
@@ -155,7 +156,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 			
 		});
 		
-		return _versionList;
+		return _installedVersionList;
 	}	
 
 	protected Composite createReleasePart() {
@@ -224,7 +225,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		_versionDisplay.setText(_library.getLatestVersion());
 		
 		List<LibraryRelease> releases = _library.getReleases();
-		_versionList.setInput(releases);
+		_installedVersionList.setInput(releases);
 		_releaseList.setInput(haxeLibrary.getReleases());
 		
 		_releaseList.getControl().getParent().layout(true);
@@ -257,11 +258,22 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		_ownerDisplay.setText("");
 		_versionDisplay.setText("");
 		
-		_versionList.setInput(null);
+		_installedVersionList.setInput(null);
 		_releaseList.setInput(null);
 		
 		_releaseList.getControl().getParent().layout(true);
 		
 		layout();
+	}
+
+	public LibraryRelease getSelectedInstalledRelease() {
+		IStructuredSelection selection = (IStructuredSelection) _installedVersionList.getSelection();
+		
+		LibraryRelease libraryRelease = null;
+		if (!selection.isEmpty() && selection.size() == 1) {
+			libraryRelease = (LibraryRelease) selection.getFirstElement();
+		}
+		
+		return libraryRelease;
 	}
 }

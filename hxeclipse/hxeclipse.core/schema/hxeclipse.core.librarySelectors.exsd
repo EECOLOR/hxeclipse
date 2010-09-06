@@ -3,10 +3,10 @@
 <schema targetNamespace="hxeclipse.core" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="hxeclipse.core" id="hxeclipse.core.targets" name="Haxe Target"/>
+         <meta.schema plugin="hxeclipse.core" id="hxeclipse.core.librarySelectors" name="Library Selectors"/>
       </appinfo>
       <documentation>
-         Allows additional Haxe Targets to be specified.
+         Allows plugins to provide a library selector.
       </documentation>
    </annotation>
 
@@ -17,8 +17,8 @@
          </appinfo>
       </annotation>
       <complexType>
-         <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="target"/>
+         <sequence>
+            <element ref="library-selector"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,66 +47,23 @@
       </complexType>
    </element>
 
-   <element name="target">
-      <complexType>
-         <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="option-collection"/>
-         </sequence>
-         <attribute name="name" type="string" use="required">
-            <annotation>
-               <documentation>
-                  The name of the target.
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="class" type="string" use="required">
-            <annotation>
-               <documentation>
-                  A description of the target
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.ITargetDescription"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-         <attribute name="icon" type="string" use="required">
-            <annotation>
-               <documentation>
-                  An icon to identify the target.
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="resource"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
-   <element name="option-collection">
-      <annotation>
-         <documentation>
-            Describes a collection of options
-         </documentation>
-      </annotation>
+   <element name="library-selector">
       <complexType>
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  A class containing getters and setters for all options
+                  
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.IOptionCollectionEditor"/>
+                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.ILibrarySelectorFactory"/>
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="editor" type="string" use="required">
+         <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
-                  An editor for the given set of options
+                  
                </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.swt.widgets.Composite:hxeclipse.core.extensions.IOptionCollectionEditorFactory"/>
-               </appinfo>
             </annotation>
          </attribute>
       </complexType>

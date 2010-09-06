@@ -13,6 +13,7 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -25,7 +26,7 @@ import org.eclipse.swt.widgets.Text;
 abstract public class ListDetails extends Composite implements ISelectionProvider, IInputConsumer {
 
 	private ListenerList _selectionChangedListeners = new ListenerList();
-	private ListViewer _listViewer; 
+	private StructuredViewer _listViewer; 
 	private IInputConsumer _details;
 	private PatternFilter _filter;
 	private Text _filterText;
@@ -86,9 +87,9 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		return filterText;
 	}
 
-	protected ListViewer createList(Composite listContainer) {
+	protected StructuredViewer createList(Composite listContainer) {
 		//list viewer
-		ListViewer listViewer = new ListViewer(listContainer, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		StructuredViewer listViewer = createViewer(listContainer);
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		layoutData.heightHint = 100;
 		listViewer.getControl().setLayoutData(layoutData);
@@ -103,6 +104,10 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		
 		listViewer.addFilter(_filter);
 		return listViewer;
+	}
+
+	protected StructuredViewer createViewer(Composite container) {
+		return  new ListViewer(container, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 	}
 	
     protected void fireSelectionChanged(final SelectionChangedEvent event) {

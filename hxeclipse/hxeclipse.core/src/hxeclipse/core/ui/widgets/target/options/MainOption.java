@@ -1,4 +1,4 @@
-package hxeclipse.core.ui.widgets.options;
+package hxeclipse.core.ui.widgets.target.options;
 
 import hxeclipse.core.IHaxeClass;
 import hxeclipse.core.ui.IInputConsumer;
@@ -12,6 +12,7 @@ import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -29,25 +30,22 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.model.WorkbenchViewerComparator;
 
-public class MainSelector extends Composite implements IInputConsumer, ISelectionProvider {
+public class MainOption extends Composite implements IInputConsumer, ISelectionProvider {
 	private ListenerList _selectionChangedListeners = new ListenerList();
 	private ElementTreeSelectionDialog _mainFileSelector;
 	private Text _mainFileField;
 	
-	private ISelection _selection;
+	private IStructuredSelection _selection;
 	
-	public MainSelector(Composite parent, int style) {
+	public MainOption(Composite parent, int style) {
 		super(parent, style);
 		
 		initialize();
-		createChildren();
 	}
 	
 	protected void initialize() {
 		setLayout(new GridLayout(3, false));
-	}
-	
-	protected void createChildren() {
+		
 		_createLabel();
 		_createMainFileField();
 		_createButton();
@@ -84,13 +82,9 @@ public class MainSelector extends Composite implements IInputConsumer, ISelectio
 						IResource resource = (IResource) elements[0];
 						IHaxeClass haxeClass = (IHaxeClass) resource.getAdapter(IHaxeClass.class);
 						
-						String mainFile = resource.getProjectRelativePath().toString();
-						_mainFileField.setText(mainFile);
+						setSelection(new StructuredSelection(haxeClass));
 						
-						
-						_selection = new StructuredSelection(haxeClass);
-						
-						fireSelectionChanged(new SelectionChangedEvent(MainSelector.this, _selection));
+						fireSelectionChanged(new SelectionChangedEvent(MainOption.this, _selection));
 						layout(true);
 					}
 				}
@@ -99,6 +93,7 @@ public class MainSelector extends Composite implements IInputConsumer, ISelectio
 	}
 
 	private void _createMainFileSelector() {
+		//TODO add create file button
 		_mainFileSelector = new ElementTreeSelectionDialog(getShell(), new WorkbenchLabelProvider(), new WorkbenchContentProvider());
 		_mainFileSelector.setAllowMultiple(false);
 		_mainFileSelector.setTitle("Select main file");
@@ -130,6 +125,9 @@ public class MainSelector extends Composite implements IInputConsumer, ISelectio
 	}
 
 	@Override
+	/**
+	 * Expects a list of source paths as input.
+	 */
 	public void setInput(Object input) {
 		_mainFileSelector.setInput(input);
 	}
@@ -163,6 +161,17 @@ public class MainSelector extends Composite implements IInputConsumer, ISelectio
 
 	@Override
 	public void setSelection(ISelection selection) {
-		_selection = selection;
+		_selection = (IStructuredSelection) selection;
+		_updateMainFileField();
+	}
+	
+	private void _updateMainFileField() {
+		if (_selection == null) {
+			_mainFileField.setText("");
+		} else
+		{
+			IHaxeClass haxeClass = (IHaxeClass) _selection.getFirstElement();
+			_mainFileField.setText(haxeClass.getClassPath());
+		}
 	}
 }

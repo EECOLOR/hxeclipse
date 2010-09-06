@@ -2,6 +2,7 @@ package hxeclipse.haxelib.ui.widgets;
 
 import hxeclipse.core.ui.IInputConsumer;
 import hxeclipse.core.ui.widgets.ListDetails;
+import hxeclipse.haxelib.model.LibraryRelease;
 import hxeclipse.haxelib.ui.viewers.LibraryLabelProvider;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -11,6 +12,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
 public class LibraryListDetails extends ListDetails {
+
+	private LibraryDetails _libraryDetails;
 
 	public LibraryListDetails(Composite parent, int style) {
 		super(parent, style);
@@ -37,7 +40,11 @@ public class LibraryListDetails extends ListDetails {
 	}
 	
 	protected LibraryDetails createLibraryDetails(Composite parent) {
-		LibraryDetails libraryDetails = new LibraryDetails(parent, SWT.NONE);
-		return libraryDetails;
+		_libraryDetails = new LibraryDetails(parent, SWT.NONE);
+		return _libraryDetails;
+	}
+	
+	public LibraryRelease getSelectedInstalledRelease() {
+		return _libraryDetails.getSelectedInstalledRelease();
 	}
 }

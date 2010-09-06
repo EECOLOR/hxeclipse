@@ -9,9 +9,10 @@ public class LibraryLabelProvider extends LabelProvider {
 	static private LibraryLabelProvider _instance;
 	
 	static public LibraryLabelProvider getInstance() {
-		
-		if (_instance == null) {
-			_instance = new LibraryLabelProvider();
+		synchronized(LibraryLabelProvider.class) {
+			if (_instance == null) {
+				_instance = new LibraryLabelProvider();
+			}
 		}
 		
 		return _instance;

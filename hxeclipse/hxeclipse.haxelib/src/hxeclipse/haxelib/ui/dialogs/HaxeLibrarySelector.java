@@ -1,8 +1,11 @@
 package hxeclipse.haxelib.ui.dialogs;
 
+import hxeclipse.core.extensions.ILibrary;
+import hxeclipse.core.extensions.ILibrarySelector;
+import hxeclipse.core.model.Library;
 import hxeclipse.core.ui.dialogs.HaxeDialog;
 import hxeclipse.haxelib.HaxeLib;
-import hxeclipse.haxelib.model.Library;
+import hxeclipse.haxelib.model.LibraryRelease;
 import hxeclipse.haxelib.ui.widgets.LibraryListDetails;
 
 import java.io.FileNotFoundException;
@@ -13,6 +16,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -23,13 +27,17 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 
-public class HaxeLibrarySelector extends HaxeDialog {
+public class HaxeLibrarySelector extends HaxeDialog implements ILibrarySelector {
 
 	private LibraryListDetails _libraryListDetails;
 	private HaxeLib _haxeLib;
 	private Button _okButton;
 	
 	public HaxeLibrarySelector(Shell parentShell) {
+		super(parentShell);
+	}
+
+	public HaxeLibrarySelector(IShellProvider parentShell) {
 		super(parentShell);
 	}
 
@@ -108,7 +116,23 @@ public class HaxeLibrarySelector extends HaxeDialog {
 		return composite;
 	}
 	
-	public ISelection getSelection() {
+	public ISelection getSelections() {
 		return _libraryListDetails.getSelection();
+	}
+
+	@Override
+	public ILibrary getSelectedLibrary() {
+		IStructuredSelection selection = (IStructuredSelection) _libraryListDetails.getSelection();
+		hxeclipse.haxelib.model.Library selectedLibrary = (hxeclipse.haxelib.model.Library) selection.getFirstElement();
+		
+		LibraryRelease selectedInstalledRelease = _libraryListDetails.getSelectedInstalledRelease();
+		
+		Library library = new Library(selectedLibrary.getName());
+		
+		if (selectedInstalledRelease != null) {
+			library.setVersion(selectedInstalledRelease.getVersion());
+		}
+		
+		return library;
 	}
 }

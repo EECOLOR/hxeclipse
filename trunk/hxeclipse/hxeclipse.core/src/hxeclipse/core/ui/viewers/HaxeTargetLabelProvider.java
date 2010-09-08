@@ -1,6 +1,6 @@
 package hxeclipse.core.ui.viewers;
 
-import hxeclipse.core.HaxeTarget;
+import hxeclipse.core.internal.HaxeTarget;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +31,6 @@ public class HaxeTargetLabelProvider extends LabelProvider {
 	
 	@Override
 	public Image getImage(Object element) {
-		@SuppressWarnings("rawtypes")
 		HaxeTarget target = (HaxeTarget) element;
 		
 		Image image = target.getIcon().createImage();
@@ -45,7 +44,6 @@ public class HaxeTargetLabelProvider extends LabelProvider {
 
 	@Override
 	public String getText(Object element) {
-		@SuppressWarnings("rawtypes")
 		HaxeTarget target = (HaxeTarget) element;
 		
 		return target.getName();

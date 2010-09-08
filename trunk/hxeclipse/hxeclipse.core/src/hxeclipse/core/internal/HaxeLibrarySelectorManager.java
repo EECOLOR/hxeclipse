@@ -1,7 +1,7 @@
 package hxeclipse.core.internal;
 
 import hxeclipse.core.HXEclipse;
-import hxeclipse.core.extensions.ILibrarySelectorFactory;
+import hxeclipse.core.extensions.IHaxeLibrarySelectorFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,20 +14,20 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-public class LibrarySelectorManager {
+public class HaxeLibrarySelectorManager {
 															
 	private static final String ATTRIBUTE_ID = "id";
 	private static final String ATTRIBUTE_CLASS = "class";
 	
-	private List<ILibrarySelectorFactory> _librarySelectorFactories;
-	private Map<String, ILibrarySelectorFactory> _librarySelectorFactoryReference;
-	private Map<ILibrarySelectorFactory, String> _idReference;
+	private List<IHaxeLibrarySelectorFactory> _librarySelectorFactories;
+	private Map<String, IHaxeLibrarySelectorFactory> _librarySelectorFactoryReference;
+	private Map<IHaxeLibrarySelectorFactory, String> _idReference;
 	
-	public LibrarySelectorManager() throws CoreException
+	public HaxeLibrarySelectorManager() throws CoreException
 	{
-		_librarySelectorFactories = new ArrayList<ILibrarySelectorFactory>();
-		_librarySelectorFactoryReference = new HashMap<String, ILibrarySelectorFactory>();
-		_idReference = new HashMap<ILibrarySelectorFactory, String>();
+		_librarySelectorFactories = new ArrayList<IHaxeLibrarySelectorFactory>();
+		_librarySelectorFactoryReference = new HashMap<String, IHaxeLibrarySelectorFactory>();
+		_idReference = new HashMap<IHaxeLibrarySelectorFactory, String>();
 		
 		_processExtensions();
 	}
@@ -39,7 +39,7 @@ public class LibrarySelectorManager {
 		
 		for (IConfigurationElement librarySelectorElement : librarySelectorElements) {
 			String id = librarySelectorElement.getAttribute(ATTRIBUTE_ID);
-			ILibrarySelectorFactory librarySelectorFactory = (ILibrarySelectorFactory) librarySelectorElement.createExecutableExtension(ATTRIBUTE_CLASS);
+			IHaxeLibrarySelectorFactory librarySelectorFactory = (IHaxeLibrarySelectorFactory) librarySelectorElement.createExecutableExtension(ATTRIBUTE_CLASS);
 			
 			_librarySelectorFactories.add(librarySelectorFactory);
 			_librarySelectorFactoryReference.put(id, librarySelectorFactory);
@@ -47,9 +47,9 @@ public class LibrarySelectorManager {
 		}
 	}
 	
-	public ILibrarySelectorFactory getCurrentLibrarySelector() {
+	public IHaxeLibrarySelectorFactory getCurrentLibrarySelector() {
 		IPreferenceStore internalPreferenceStore = HXEclipse.getInternalPreferenceStore();
-		String librarySelectorId = internalPreferenceStore.getString(PreferenceConstants.LIBRARY_SELECTOR);
+		String librarySelectorId = internalPreferenceStore.getString(HaxePreferenceConstants.LIBRARY_SELECTOR);
 		
 		if (_librarySelectorFactoryReference.containsKey(librarySelectorId)) {
 			return _librarySelectorFactoryReference.get(librarySelectorId);
@@ -61,16 +61,16 @@ public class LibrarySelectorManager {
 		}
 	}
 	
-	public void setCurrentLibrarySelector(ILibrarySelectorFactory librarySelectorFactory) {
+	public void setCurrentLibrarySelector(IHaxeLibrarySelectorFactory librarySelectorFactory) {
 		String id = getLibrarySelectorId(librarySelectorFactory);
 		
 		if (id != null) {
 			IPreferenceStore internalPreferenceStore = HXEclipse.getInternalPreferenceStore();
-			internalPreferenceStore.setValue(PreferenceConstants.LIBRARY_SELECTOR, id);
+			internalPreferenceStore.setValue(HaxePreferenceConstants.LIBRARY_SELECTOR, id);
 		}
 	}
 	
-	public String getLibrarySelectorId(ILibrarySelectorFactory librarySelectorFactory) {
+	public String getLibrarySelectorId(IHaxeLibrarySelectorFactory librarySelectorFactory) {
 		String id = null;
 		
 		if (_idReference.containsKey(librarySelectorFactory)) {
@@ -80,7 +80,7 @@ public class LibrarySelectorManager {
 		return id;
 	}
 	
-	public List<ILibrarySelectorFactory> getLibrarySelectorFactories() {
+	public List<IHaxeLibrarySelectorFactory> getLibrarySelectorFactories() {
 		return _librarySelectorFactories;
 	}
 }

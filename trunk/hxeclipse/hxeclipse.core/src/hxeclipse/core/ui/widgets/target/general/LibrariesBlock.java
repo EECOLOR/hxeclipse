@@ -1,6 +1,6 @@
 package hxeclipse.core.ui.widgets.target.general;
 
-import hxeclipse.core.model.GeneralOptionCollection;
+import hxeclipse.core.internal.GeneralOptionCollection;
 import hxeclipse.core.ui.widgets.target.options.LibrariesOption;
 
 import org.eclipse.swt.SWT;

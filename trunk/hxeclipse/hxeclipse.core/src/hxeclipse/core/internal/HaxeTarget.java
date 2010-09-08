@@ -1,15 +1,15 @@
-package hxeclipse.core;
+package hxeclipse.core.internal;
 
-import hxeclipse.core.extensions.ITargetDescription;
+import hxeclipse.core.extensions.IHaxeTargetDescription;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-public class HaxeTarget<T extends ITargetDescription> {
+public class HaxeTarget {
 	private String _name;
 	private ImageDescriptor _icon;
-	private T _targetDescription;
+	private IHaxeTargetDescription _targetDescription;
 	
-	public HaxeTarget(String name, ImageDescriptor icon, T targetDescription) {
+	public HaxeTarget(String name, ImageDescriptor icon, IHaxeTargetDescription targetDescription) {
 		_name = name;
 		_icon = icon;
 		_targetDescription = targetDescription;
@@ -32,11 +32,7 @@ public class HaxeTarget<T extends ITargetDescription> {
 		return _icon;
 	}
 
-	public void setTargetDescription(T targetDescription) {
-		_targetDescription = targetDescription;
-	}
-
-	public T getTargetDescription() {
+	public IHaxeTargetDescription getTargetDescription() {
 		return _targetDescription;
 	}
 }

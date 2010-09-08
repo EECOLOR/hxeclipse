@@ -1,32 +1,19 @@
 package hxeclipse.core;
 
-import hxeclipse.core.extensions.ITargetDescription;
+import hxeclipse.core.internal.HaxeLibrarySelectorManager;
 import hxeclipse.core.internal.HaxePreferences;
-import hxeclipse.core.internal.HaxeProject;
-import hxeclipse.core.internal.LibrarySelectorManager;
+import hxeclipse.core.internal.HaxeProjectManager;
+import hxeclipse.core.internal.HaxeTargetManager;
 import hxeclipse.core.internal.SharedImages;
-import hxeclipse.core.internal.TargetManager;
-import hxeclipse.core.model.AbstractTargetDescription;
-import hxeclipse.core.model.GeneralOptionCollection;
-import hxeclipse.core.model.HaxeProjectDescription;
 import hxeclipse.core.ui.ISharedImages;
 
-import java.net.URI;
 import java.net.URL;
-import java.util.Iterator;
 
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.ProjectScope;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -64,8 +51,9 @@ public class HXEclipse extends AbstractUIPlugin {
 
 	private static IHaxePreferences _haxePreferences;
 	private static SharedImages _sharedImages;
-	private static LibrarySelectorManager _librarySelectorManager;
-	private static TargetManager _targetManager;
+	private static HaxeLibrarySelectorManager _librarySelectorManager;
+	private static HaxeTargetManager _targetManager;
+	private static HaxeProjectManager _projectManager;
 	
 	/**
 	 * The constructor
@@ -125,115 +113,10 @@ public class HXEclipse extends AbstractUIPlugin {
 		return _sharedImages;
 	}	
 	
-	static public IHaxeProject createProject(String name, URI location, HaxeProjectDescription haxeProjectDescription) throws CoreException {
-		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
-		
-		if (!project.exists()) {
-			final IProjectDescription projectDescription = project.getWorkspace().newProjectDescription(project.getName());
-			projectDescription.setLocationURI(location);
-			
-			project.create(projectDescription, null);
-			
-			if (!project.isOpen()) {
-				project.open(null);
-			}
-		}
-		
-		IHaxeProject haxeProject = (IHaxeProject) project.getAdapter(IHaxeProject.class);
-		
-		if (haxeProject == null) {
-			haxeProject = getHaxeProject(project, haxeProjectDescription);
-		}
-
-		_createFolders(haxeProject);
-		
-		return haxeProject;
-	}
-	
-	static public IHaxeProject getHaxeProject(IProject project, HaxeProjectDescription haxeProjectDescription) throws CoreException {
-		
-		IHaxeProject haxeProject = (IHaxeProject) project.getSessionProperty(HAXE_PROJECT_PROPERTY);
-		
-		//check the session scope
-		if (haxeProject == null) {
-			
-			IScopeContext projectScope = new ProjectScope(project);
-			IEclipsePreferences projectPreferences = projectScope.getNode(PLUGIN_ID);
-			boolean isHaxeProject = projectPreferences.getBoolean(FLAG_IS_HAXE_PROJECT, false);
-			
-			if (isHaxeProject) {
-				//load the haxe project from disk
-				haxeProject = new HaxeProject(project, projectPreferences);
-			} else
-			{
-				if (haxeProjectDescription == null) {
-					throw new RuntimeException("This should not happen, can not request a haxe project if no haxeProjectDescription is available in the session or in a file");
-				}
-				
-				//create a new haxe project
-				haxeProject = new HaxeProject(project, haxeProjectDescription);
-				//save it to disk
-				haxeProject.save(projectPreferences);
-				//add it as session property
-				project.setSessionProperty(HAXE_PROJECT_PROPERTY, haxeProject);
-			}
-		}
-
-		return haxeProject;
-	}
-	
-	//TODO refactor this to the IOptionCollections themselves through the ITargetDescription (prepareProject(project) or something)
-	private static void _createFolders(IHaxeProject haxeProject) throws CoreException {
-		
-		Iterator<ITargetDescription> targets = haxeProject.getProjectDescription().getTargets().iterator();
-		
-		while (targets.hasNext()) {
-			ITargetDescription targetDescription = targets.next();
-			
-			if (targetDescription instanceof AbstractTargetDescription) {
-				AbstractTargetDescription abstractTargetDescription = (AbstractTargetDescription) targetDescription;
-				abstractTargetDescription.setDefaultValues(haxeProject.getProject());
-				
-				GeneralOptionCollection generalOptionCollection = abstractTargetDescription.getGeneralOptionCollection();
-					
-				//create source folders
-				Iterator<IFolder> sourcePaths = generalOptionCollection.getSourceFolders().iterator();
-				while (sourcePaths.hasNext()) {
-					IFolder sourcePath = sourcePaths.next();
-					if (!sourcePath.exists()) {
-						sourcePath.create(false, true, null);
-					}
-				}
-				
-				//create output folder
-				IFolder outputPath = generalOptionCollection.getOutputFolder();
-				if (!outputPath.exists()) {
-					outputPath.create(false, true, null);
-				}
-			}
-		}
-	}
-
-	static public void addHaxeNature(IProject project) throws CoreException {
-		if (!project.hasNature(NATURE_ID)) {
-			IProjectDescription projectDescription = project.getDescription();
-			String[] natures = projectDescription.getNatureIds();
-			
-			int natureCount = natures.length;
-			String[] newNatures = new String[natureCount + 1];
-			System.arraycopy(natures, 0, newNatures, 0, natureCount);
-			
-			newNatures[natureCount] = NATURE_ID;
-			
-			projectDescription.setNatureIds(newNatures);
-			project.setDescription(projectDescription, null);
-		}
-	}
-
-	public static LibrarySelectorManager getLibrarySelectorManager() {
+	public static HaxeLibrarySelectorManager getLibrarySelectorManager() {
 		if (_librarySelectorManager == null) {
 			try {
-				_librarySelectorManager = new LibrarySelectorManager();
+				_librarySelectorManager = new HaxeLibrarySelectorManager();
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
@@ -242,15 +125,23 @@ public class HXEclipse extends AbstractUIPlugin {
 		return _librarySelectorManager;
 	}
 
-	public static TargetManager getTargetManager() {
+	public static HaxeTargetManager getTargetManager() {
 		if (_targetManager == null) {
 			try {
-				_targetManager = new TargetManager();
+				_targetManager = new HaxeTargetManager();
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
 		}
 		
 		return _targetManager;
+	}
+	
+	public static HaxeProjectManager getProjectManager() {
+		if (_projectManager == null) {
+			_projectManager = new HaxeProjectManager();
+		}
+		
+		return _projectManager;
 	}
 }

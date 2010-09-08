@@ -1,8 +1,8 @@
 package hxeclipse.haxelib.ui.dialogs;
 
 import hxeclipse.core.exceptions.HaxePathNotFoundException;
-import hxeclipse.core.extensions.ILibrary;
-import hxeclipse.core.extensions.ILibrarySelector;
+import hxeclipse.core.extensions.IHaxeLibrary;
+import hxeclipse.core.extensions.IHaxeLibrarySelector;
 import hxeclipse.core.ui.dialogs.HaxeDialog;
 import hxeclipse.core.ui.widgets.HaxePathMissing;
 import hxeclipse.haxelib.HaxeLib;
@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 
-public class HaxeLibrarySelector extends HaxeDialog implements ILibrarySelector {
+public class HaxeLibrarySelector extends HaxeDialog implements IHaxeLibrarySelector {
 
 	private LibraryListDetails _libraryListDetails;
 	private HaxeLib _haxeLib;
@@ -133,7 +133,7 @@ public class HaxeLibrarySelector extends HaxeDialog implements ILibrarySelector 
 	}
 
 	@Override
-	public ILibrary getSelectedLibrary() {
+	public IHaxeLibrary getSelectedLibrary() {
 		IStructuredSelection selection = (IStructuredSelection) _libraryListDetails.getSelection();
 		hxeclipse.haxelib.model.Library selectedLibrary = (hxeclipse.haxelib.model.Library) selection.getFirstElement();
 		

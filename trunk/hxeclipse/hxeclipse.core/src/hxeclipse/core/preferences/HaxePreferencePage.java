@@ -1,7 +1,7 @@
 package hxeclipse.core.preferences;
 
 import hxeclipse.core.HXEclipse;
-import hxeclipse.core.internal.PreferenceConstants;
+import hxeclipse.core.internal.HaxePreferenceConstants;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -23,7 +23,7 @@ public class HaxePreferencePage extends FieldEditorPreferencePage implements IWo
 	}
 	
 	public void createFieldEditors() {
-		_haxePath = new DirectoryFieldEditor(PreferenceConstants.HAXE_PATH, "&Haxe path:", getFieldEditorParent());
+		_haxePath = new DirectoryFieldEditor(HaxePreferenceConstants.HAXE_PATH, "&Haxe path:", getFieldEditorParent());
 		_haxePath.setEmptyStringAllowed(false);
 		addField(_haxePath);
 	}

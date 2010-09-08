@@ -2,13 +2,13 @@ package hxeclipse.core.internal;
 
 import org.eclipse.swt.widgets.Shell;
 
-import hxeclipse.core.extensions.ILibrarySelector;
-import hxeclipse.core.extensions.ILibrarySelectorFactory;
+import hxeclipse.core.extensions.IHaxeLibrarySelector;
+import hxeclipse.core.extensions.IHaxeLibrarySelectorFactory;
 
-public class DefaultLibrarySelectorFactory implements ILibrarySelectorFactory {
+public class DefaultLibrarySelectorFactory implements IHaxeLibrarySelectorFactory {
 
 	@Override
-	public ILibrarySelector newInstance(Shell shell) {
+	public IHaxeLibrarySelector newInstance(Shell shell) {
 		return new DefaultLibrarySelector(shell);
 	}
 

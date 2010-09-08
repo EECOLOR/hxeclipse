@@ -3,13 +3,13 @@ package hxeclipse.core.ui.widgets.target.general;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-import hxeclipse.core.extensions.IOptionCollectionEditor;
-import hxeclipse.core.extensions.IOptionCollectionEditorFactory;
+import hxeclipse.core.extensions.IHaxeOptionCollectionEditor;
+import hxeclipse.core.extensions.IHaxeOptionCollectionEditorFactory;
 
-public class GeneralOptionCollectionEditorFactory implements IOptionCollectionEditorFactory {
+public class GeneralOptionCollectionEditorFactory implements IHaxeOptionCollectionEditorFactory {
 
 	@Override
-	public IOptionCollectionEditor newInstance(Composite parent) {
+	public IHaxeOptionCollectionEditor newInstance(Composite parent) {
 		return new GeneralOptionCollectionEditor(parent, SWT.NONE);
 	}
 

@@ -65,7 +65,7 @@
                   A description of the target
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.ITargetDescription"/>
+                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.IHaxeTargetDescription"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -95,7 +95,7 @@
                   A class containing getters and setters for all options
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.IOptionCollectionEditor"/>
+                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.IHaxeOptionCollection"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -105,7 +105,7 @@
                   An editor for the given set of options
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.swt.widgets.Composite:hxeclipse.core.extensions.IOptionCollectionEditorFactory"/>
+                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.IHaxeOptionCollectionEditorFactory"/>
                </appinfo>
             </annotation>
          </attribute>

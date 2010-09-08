@@ -1,12 +1,10 @@
 package hxeclipse.core.internal;
 
 import hxeclipse.core.HXEclipse;
-import hxeclipse.core.HaxeTarget;
-import hxeclipse.core.extensions.IOptionCollection;
-import hxeclipse.core.extensions.IOptionCollectionEditorFactory;
-import hxeclipse.core.extensions.ITargetDescription;
-import hxeclipse.core.model.AbstractTargetDescription;
-import hxeclipse.core.model.GeneralOptionCollection;
+import hxeclipse.core.extensions.AbstractHaxeTargetDescription;
+import hxeclipse.core.extensions.IHaxeOptionCollection;
+import hxeclipse.core.extensions.IHaxeOptionCollectionEditorFactory;
+import hxeclipse.core.extensions.IHaxeTargetDescription;
 import hxeclipse.core.ui.widgets.target.general.GeneralOptionCollectionEditorFactory;
 
 import java.net.URL;
@@ -22,7 +20,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.Bundle;
 
-public class TargetManager {
+public class HaxeTargetManager {
 	
 	private static final String ELEMENT_OPTION_COLLECTION = "option-collection";
 	private static final String ATTRIBUTE_NAME = "name";
@@ -30,15 +28,16 @@ public class TargetManager {
 	private static final String ATTRIBUTE_ICON = "icon";
 	private static final String ATTRIBUTE_EDITOR = "editor";
 	
-	private List<HaxeTarget<? extends AbstractTargetDescription>> _targets;
-	private Map<Class<? extends IOptionCollection>, IOptionCollectionEditorFactory> _optionCollectionEditors;
+	private List<HaxeTarget> _targets;
+	private Map<Class<? extends IHaxeOptionCollection>, IHaxeOptionCollectionEditorFactory> _optionCollectionEditors;
 	private Map<String, IConfigurationElement> _availableTargetDescriptions;
 	private Map<String, IConfigurationElement> _availableOptionCollections;
 	
-	public TargetManager() throws CoreException {
-		_targets = new ArrayList<HaxeTarget<? extends AbstractTargetDescription>>();
-		_optionCollectionEditors = new HashMap<Class<? extends IOptionCollection>, IOptionCollectionEditorFactory>();
+	public HaxeTargetManager() throws CoreException {
+		_targets = new ArrayList<HaxeTarget>();
+		_optionCollectionEditors = new HashMap<Class<? extends IHaxeOptionCollection>, IHaxeOptionCollectionEditorFactory>();
 		_availableTargetDescriptions = new HashMap<String, IConfigurationElement>();
+		_availableOptionCollections = new HashMap<String, IConfigurationElement>();
 		
 		_optionCollectionEditors.put(GeneralOptionCollection.class, new GeneralOptionCollectionEditorFactory());
 		
@@ -57,7 +56,7 @@ public class TargetManager {
 			URL iconURL = bundle.getResource(targetElement.getAttribute(ATTRIBUTE_ICON));
 			ImageDescriptor icon = ImageDescriptor.createFromURL(iconURL);
 			
-			AbstractTargetDescription targetDescription = (AbstractTargetDescription) targetElement.createExecutableExtension(ATTRIBUTE_CLASS);
+			AbstractHaxeTargetDescription targetDescription = (AbstractHaxeTargetDescription) targetElement.createExecutableExtension(ATTRIBUTE_CLASS);
 			String className = targetElement.getAttribute(ATTRIBUTE_CLASS);
 			if (_availableTargetDescriptions.containsKey(className)) {
 				throw new RuntimeException("Double class name in different targets. Targets should be stored in another fasion to make sure we can distinguish between same named classes from different plugins");
@@ -65,21 +64,20 @@ public class TargetManager {
 				_availableTargetDescriptions.put(className, targetElement);
 			}
 			
-			HaxeTarget<AbstractTargetDescription> target = new HaxeTarget<AbstractTargetDescription>(name, icon, targetDescription);
-			target.setTargetDescription(targetDescription);
+			HaxeTarget target = new HaxeTarget(name, icon, targetDescription);
 			_targets.add(target);
 			
 			IConfigurationElement[] optionCollectionElements = targetElement.getChildren(ELEMENT_OPTION_COLLECTION);
 			
-			List<IOptionCollection> optionCollections = targetDescription.getOptionCollections();
+			List<IHaxeOptionCollection> optionCollections = targetDescription.getOptionCollections();
 			
 			for (IConfigurationElement optionCollectionElement : optionCollectionElements) {
-				IOptionCollection optionCollection = (IOptionCollection) optionCollectionElement.createExecutableExtension(ATTRIBUTE_CLASS);
-				IOptionCollectionEditorFactory optionCollectionEditorFactory = (IOptionCollectionEditorFactory) optionCollectionElement.createExecutableExtension(ATTRIBUTE_EDITOR);
+				IHaxeOptionCollection optionCollection = (IHaxeOptionCollection) optionCollectionElement.createExecutableExtension(ATTRIBUTE_CLASS);
+				IHaxeOptionCollectionEditorFactory optionCollectionEditorFactory = (IHaxeOptionCollectionEditorFactory) optionCollectionElement.createExecutableExtension(ATTRIBUTE_EDITOR);
 
 				optionCollections.add(optionCollection);
 				
-				Class<? extends IOptionCollection> optionCollectionClass = optionCollection.getClass();
+				Class<? extends IHaxeOptionCollection> optionCollectionClass = optionCollection.getClass();
 				
 				_availableOptionCollections.put(optionCollectionClass.getName(), optionCollectionElement);
 				
@@ -90,11 +88,11 @@ public class TargetManager {
 		}
 	}
 
-	public List<HaxeTarget<? extends AbstractTargetDescription>> getTargets() {
+	public List<HaxeTarget> getTargets() {
 		return _targets;
 	}
 	
-	public IOptionCollectionEditorFactory getOptionCollectionEditorFactory(IOptionCollection optionCollection) {
+	public IHaxeOptionCollectionEditorFactory getOptionCollectionEditorFactory(IHaxeOptionCollection optionCollection) {
 		return _optionCollectionEditors.get(optionCollection.getClass());
 	}
 	
@@ -102,11 +100,11 @@ public class TargetManager {
 		return _availableTargetDescriptions.containsKey(className);
 	}
 	
-	public ITargetDescription createTargetDescription(String className) throws CoreException {
-		ITargetDescription targetDescription = null;
+	public IHaxeTargetDescription createTargetDescription(String className) throws CoreException {
+		IHaxeTargetDescription targetDescription = null;
 		
 		if (hasTargetDescription(className)) {
-			targetDescription = (ITargetDescription) _availableTargetDescriptions.get(className).createExecutableExtension(ATTRIBUTE_CLASS);
+			targetDescription = (IHaxeTargetDescription) _availableTargetDescriptions.get(className).createExecutableExtension(ATTRIBUTE_CLASS);
 		}
 		
 		return targetDescription;
@@ -116,11 +114,11 @@ public class TargetManager {
 		return _availableOptionCollections.containsKey(className);
 	}
 	
-	public IOptionCollection createOptionCollection(String className) throws CoreException {
-		IOptionCollection optionCollection = null;
+	public IHaxeOptionCollection createOptionCollection(String className) throws CoreException {
+		IHaxeOptionCollection optionCollection = null;
 		
 		if (hasOptionCollection(className)) {
-			optionCollection = (IOptionCollection) _availableOptionCollections.get(className).createExecutableExtension(ATTRIBUTE_CLASS);
+			optionCollection = (IHaxeOptionCollection) _availableOptionCollections.get(className).createExecutableExtension(ATTRIBUTE_CLASS);
 		}
 		
 		return optionCollection;

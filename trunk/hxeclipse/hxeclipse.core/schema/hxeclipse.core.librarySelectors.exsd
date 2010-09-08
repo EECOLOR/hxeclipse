@@ -55,7 +55,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.ILibrarySelectorFactory"/>
+                  <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.IHaxeLibrarySelectorFactory"/>
                </appinfo>
             </annotation>
          </attribute>

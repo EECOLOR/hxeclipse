@@ -2,8 +2,8 @@ package hxeclipse.core.ui.viewers;
 
 import java.util.List;
 
-import hxeclipse.core.extensions.IOptionCollection;
-import hxeclipse.core.extensions.ITargetDescription;
+import hxeclipse.core.extensions.IHaxeOptionCollection;
+import hxeclipse.core.extensions.IHaxeTargetDescription;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -24,15 +24,15 @@ public class HaxeTargetTreeProvider extends ArrayContentProvider implements ITre
 	
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		if (parentElement instanceof ITargetDescription) {
+		if (parentElement instanceof IHaxeTargetDescription) {
 			return _getOptionCollection(parentElement).toArray();
 		}
 		return new Object[0];
 	}
 
-	private List<IOptionCollection> _getOptionCollection(Object element) {
-		if (element instanceof ITargetDescription) {
-			return ((ITargetDescription) element).getOptionCollections();
+	private List<IHaxeOptionCollection> _getOptionCollection(Object element) {
+		if (element instanceof IHaxeTargetDescription) {
+			return ((IHaxeTargetDescription) element).getOptionCollections();
 		} 
 		
 		return null;
@@ -40,7 +40,7 @@ public class HaxeTargetTreeProvider extends ArrayContentProvider implements ITre
 	
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof ITargetDescription) {
+		if (element instanceof IHaxeTargetDescription) {
 			return !_getOptionCollection(element).isEmpty();
 		}
 		return false;

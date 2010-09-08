@@ -280,7 +280,7 @@ public class LibraryDetails extends Composite implements IInputConsumer {
 		IStructuredSelection selection = _inStalledVersionSelection;
 		
 		LibraryRelease libraryRelease = null;
-		if (!selection.isEmpty() && selection.size() == 1) {
+		if (selection!= null && !selection.isEmpty() && selection.size() == 1) {
 			libraryRelease = (LibraryRelease) selection.getFirstElement();
 		}
 		

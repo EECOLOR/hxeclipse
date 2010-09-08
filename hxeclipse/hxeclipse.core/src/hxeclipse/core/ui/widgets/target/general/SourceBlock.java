@@ -1,7 +1,7 @@
 package hxeclipse.core.ui.widgets.target.general;
 
 import hxeclipse.core.IHaxeClass;
-import hxeclipse.core.model.GeneralOptionCollection;
+import hxeclipse.core.internal.GeneralOptionCollection;
 import hxeclipse.core.ui.widgets.FolderSelectionField;
 import hxeclipse.core.ui.widgets.target.options.ClassPathOption;
 import hxeclipse.core.ui.widgets.target.options.MainOption;
@@ -78,7 +78,7 @@ public class SourceBlock extends Composite {
 		_mainOption.setInput(adaptableList);
 		
 		_classPathOption.setInput(_generalOptionCollection.getSourceFolders());
-		
+
 		_outputPathOption.setInput(_generalOptionCollection.getOutputFolder());
 		
 		layout();

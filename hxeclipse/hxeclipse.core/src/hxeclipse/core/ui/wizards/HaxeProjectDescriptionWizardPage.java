@@ -1,23 +1,24 @@
 package hxeclipse.core.ui.wizards;
 
-import hxeclipse.core.HaxeTarget;
-import hxeclipse.core.extensions.ITargetDescription;
-import hxeclipse.core.model.AbstractTargetDescription;
+import hxeclipse.core.HXEclipse;
+import hxeclipse.core.extensions.AbstractHaxeTargetDescription;
+import hxeclipse.core.extensions.IHaxeTargetDescription;
+import hxeclipse.core.internal.HaxeTarget;
 import hxeclipse.core.model.HaxeProjectDescription;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.PlatformUI;
 
 public class HaxeProjectDescriptionWizardPage extends WizardPage {
 
 	private HaxeProjectDescription _projectDescription;
+	private IProject _project;
 	
 	protected HaxeProjectDescriptionWizardPage(String pageName) {
 		super(pageName);
@@ -29,32 +30,42 @@ public class HaxeProjectDescriptionWizardPage extends WizardPage {
 		
 		//needed to prevent null pointer exception
 		setControl(new Composite(parent, SWT.NONE));
-		
-		//create temp target
-		ImageDescriptor imageDescriptor = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_DEC_FIELD_WARNING);
-		TempTargetDescription tempTargetDescription = new TempTargetDescription();
-		new HaxeTarget<TempTargetDescription>("temp", imageDescriptor, tempTargetDescription);
-		
-		//create a list of target descriptions
-		List<ITargetDescription> targetDescriptions = new ArrayList<ITargetDescription>();
-		targetDescriptions.add(tempTargetDescription);
-		
-		_projectDescription = new HaxeProjectDescription();
-		_projectDescription.setTargets(targetDescriptions);
 	}
 
 	@Override
 	public boolean isPageComplete() {
-		// TODO Auto-generated method stub
-		return super.isPageComplete();
+		return _projectDescription != null;
 	}
 
 	public HaxeProjectDescription getProjectDescription() {
 		return _projectDescription;
 	}
 	
-	class TempTargetDescription extends AbstractTargetDescription {
+	public class TempTargetDescription extends AbstractHaxeTargetDescription {
 
+	}
+
+	public void setProject(IProject project) {
+		_project = project;
+		
+		if (project == null) {
+			_projectDescription = null;
+		} else
+		{
+			//create test target
+			Iterator<HaxeTarget> targets = HXEclipse.getTargetManager().getTargets().iterator();
+			List<IHaxeTargetDescription> targetDescriptions = new ArrayList<IHaxeTargetDescription>();
+			while (targets.hasNext()) {
+				IHaxeTargetDescription newTargetDescription = targets.next().getTargetDescription().copy();
+				newTargetDescription.setDefaultValues(_project);
+				targetDescriptions.add(newTargetDescription);
+			}
+			
+			_projectDescription = new HaxeProjectDescription();
+			_projectDescription.setTargets(targetDescriptions);		
+		}
+		
+		setPageComplete(isPageComplete());
 	}
 }
 

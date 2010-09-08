@@ -1,10 +1,10 @@
 package hxeclipse.core.ui.widgets.target;
 
 import hxeclipse.core.HXEclipse;
-import hxeclipse.core.extensions.IOptionCollection;
-import hxeclipse.core.extensions.IOptionCollectionEditor;
-import hxeclipse.core.extensions.IOptionCollectionEditorFactory;
-import hxeclipse.core.internal.TargetManager;
+import hxeclipse.core.extensions.IHaxeOptionCollection;
+import hxeclipse.core.extensions.IHaxeOptionCollectionEditor;
+import hxeclipse.core.extensions.IHaxeOptionCollectionEditorFactory;
+import hxeclipse.core.internal.HaxeTargetManager;
 import hxeclipse.core.ui.IInputConsumer;
 
 import org.eclipse.core.resources.IProject;
@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 public class TargetDetails extends Composite implements IInputConsumer {
 
 	private IProject _project;
-	private IOptionCollectionEditor _optionCollectionEditor;
+	private IHaxeOptionCollectionEditor _optionCollectionEditor;
 
 	public TargetDetails(Composite parent, int style) {
 		super(parent, style);
@@ -28,14 +28,14 @@ public class TargetDetails extends Composite implements IInputConsumer {
 		setLayout(new GridLayout());
 	}
 	
-	private void setOptionCollection(IOptionCollection optionCollection) {
-		TargetManager targetManager = HXEclipse.getTargetManager();
+	private void setOptionCollection(IHaxeOptionCollection optionCollection) {
+		HaxeTargetManager targetManager = HXEclipse.getTargetManager();
 		
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		layoutData.widthHint = 100;
 		layoutData.heightHint = 100;
 		
-		IOptionCollectionEditorFactory optionCollectionEditorFactory = targetManager.getOptionCollectionEditorFactory(optionCollection);
+		IHaxeOptionCollectionEditorFactory optionCollectionEditorFactory = targetManager.getOptionCollectionEditorFactory(optionCollection);
 		_optionCollectionEditor = optionCollectionEditorFactory.newInstance(this);
 		_optionCollectionEditor.setProject(_project);
 		_optionCollectionEditor.setOptionCollection(optionCollection);
@@ -54,8 +54,8 @@ public class TargetDetails extends Composite implements IInputConsumer {
 	public void setInput(Object input) {
 		_clear();
 		
-		if (input instanceof IOptionCollection) {
-			setOptionCollection((IOptionCollection) input);
+		if (input instanceof IHaxeOptionCollection) {
+			setOptionCollection((IHaxeOptionCollection) input);
 		}
 	}
 	

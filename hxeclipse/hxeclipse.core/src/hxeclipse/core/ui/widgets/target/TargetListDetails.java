@@ -1,7 +1,7 @@
 package hxeclipse.core.ui.widgets.target;
 
-import hxeclipse.core.HaxeTarget;
-import hxeclipse.core.extensions.IOptionCollection;
+import hxeclipse.core.extensions.IHaxeOptionCollection;
+import hxeclipse.core.internal.HaxeTarget;
 import hxeclipse.core.ui.IInputConsumer;
 import hxeclipse.core.ui.viewers.HaxeTargetTreeLabelProvider;
 import hxeclipse.core.ui.viewers.HaxeTargetTreeProvider;
@@ -62,9 +62,8 @@ public class TargetListDetails extends ListDetails {
 		if (input instanceof HaxeTarget) {
 			//move the selection to a child 
 			
-			@SuppressWarnings("rawtypes")
 			HaxeTarget haxeTarget = (HaxeTarget) input;
-			List<IOptionCollection> optionCollections = haxeTarget.getTargetDescription().getOptionCollections();
+			List<IHaxeOptionCollection> optionCollections = haxeTarget.getTargetDescription().getOptionCollections();
 			
 			Object newSelection = null;
 			

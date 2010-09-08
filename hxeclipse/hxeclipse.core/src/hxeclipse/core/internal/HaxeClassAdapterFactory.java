@@ -29,7 +29,7 @@ public class HaxeClassAdapterFactory implements IAdapterFactory {
 					IContentType contentType = file.getContentDescription().getContentType();
 					
 					if (HXEclipse.HAXE_FILE_TYPE.equals(contentType.getId())) {
-						return  new HaxeClass(file);
+						return  new HaxeClass(file.getProjectRelativePath());
 					}
 				} catch (CoreException e) {
 					e.printStackTrace();

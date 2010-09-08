@@ -1,7 +1,7 @@
 package hxeclipse.core.ui.viewers;
 
-import hxeclipse.core.extensions.IOptionCollection;
-import hxeclipse.core.extensions.ITargetDescription;
+import hxeclipse.core.extensions.IHaxeOptionCollection;
+import hxeclipse.core.extensions.IHaxeTargetDescription;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -22,8 +22,8 @@ public class HaxeTargetTreeLabelProvider extends HaxeTargetLabelProvider {
 	@Override
 	public Image getImage(Object element) {
 		
-		if (element instanceof ITargetDescription) {
-			return super.getImage(((ITargetDescription) element).getHaxeTarget());
+		if (element instanceof IHaxeTargetDescription) {
+			return super.getImage(((IHaxeTargetDescription) element).getHaxeTarget());
 		}
 		
 		return null;
@@ -31,13 +31,13 @@ public class HaxeTargetTreeLabelProvider extends HaxeTargetLabelProvider {
 	
 	@Override
 	public String getText(Object element) {
-		if (element instanceof ITargetDescription) {
-			return super.getText(((ITargetDescription) element).getHaxeTarget());
+		if (element instanceof IHaxeTargetDescription) {
+			return super.getText(((IHaxeTargetDescription) element).getHaxeTarget());
 		}
 		
-		if (element instanceof IOptionCollection)
+		if (element instanceof IHaxeOptionCollection)
 		{
-			return ((IOptionCollection) element).getName();
+			return ((IHaxeOptionCollection) element).getName();
 		}
 		
 		return null;

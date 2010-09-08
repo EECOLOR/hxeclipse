@@ -2,7 +2,7 @@ package hxeclipse.core.internal;
 
 import hxeclipse.core.HXEclipse;
 import hxeclipse.core.IHaxeProject;
-import hxeclipse.core.extensions.ITargetDescription;
+import hxeclipse.core.extensions.IHaxeTargetDescription;
 import hxeclipse.core.model.HaxeProjectDescription;
 
 import java.util.Iterator;
@@ -11,6 +11,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 public class HaxeProject implements IHaxeProject {
@@ -22,9 +23,9 @@ public class HaxeProject implements IHaxeProject {
 		initialize(project, haxeProjectDescription);
 	}
 	
-	public HaxeProject(IProject project, Preferences projectPreferences) throws CoreException {
-		//TODO load all project settings from the projectPreferences
+	public HaxeProject(IProject project, Preferences projectPreferences) throws CoreException, BackingStoreException {
 		HaxeProjectDescription haxeProjectDescription = new HaxeProjectDescription();
+		haxeProjectDescription.load(projectPreferences.node("projectDescription"));
 		initialize(project, haxeProjectDescription);
 	}
 	
@@ -32,23 +33,14 @@ public class HaxeProject implements IHaxeProject {
 		_project = project;
 		_projectDescription = haxeProjectDescription;
 		
-		_addNature();
+		HXEclipse.getProjectManager().addHaxeNature(project);
 	}
 	
 	public void save(Preferences projectPreferences) {
 		Preferences preferences = projectPreferences.node("projectDescription");
 		_projectDescription.save(preferences);
-		//TODO save to projectPreferences
 	}
 	
-	private void _addNature() throws CoreException {
-		HXEclipse.addHaxeNature(_project);
-	}
-	
-	public void setProject(IProject project) {
-		_project = project;
-	}
-
 	@Override
 	public IProject getProject() {
 		return _project;
@@ -61,10 +53,10 @@ public class HaxeProject implements IHaxeProject {
 
 	@Override
 	public IPath getSourceFolderRelativePath(IResource resource) {
-		Iterator<ITargetDescription> targets = _projectDescription.getTargets().iterator();
+		Iterator<IHaxeTargetDescription> targets = _projectDescription.getTargets().iterator();
 		
 		while (targets.hasNext()) {
-			ITargetDescription target = targets.next();
+			IHaxeTargetDescription target = targets.next();
 			IPath sourceFolderRelativePath = target.getSourceFolderRelativePath(resource);
 			
 			if (sourceFolderRelativePath != null) {

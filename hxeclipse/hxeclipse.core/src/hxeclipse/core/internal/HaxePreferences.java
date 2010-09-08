@@ -16,7 +16,7 @@ public class HaxePreferences implements IHaxePreferences {
 	
 	@Override
 	public String getHaxePath() throws HaxePathNotFoundException {
-		String haxePath = _preferenceStore.getString(PreferenceConstants.HAXE_PATH);
+		String haxePath = _preferenceStore.getString(HaxePreferenceConstants.HAXE_PATH);
 		
 		if (haxePath == null || haxePath.length() == 0) {
 			throw new HaxePathNotFoundException("No Haxe path has been set in the preferences");

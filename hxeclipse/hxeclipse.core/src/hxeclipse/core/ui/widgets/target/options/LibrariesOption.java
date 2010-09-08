@@ -1,10 +1,10 @@
 package hxeclipse.core.ui.widgets.target.options;
 
 import hxeclipse.core.HXEclipse;
-import hxeclipse.core.extensions.ILibrary;
-import hxeclipse.core.extensions.ILibrarySelector;
-import hxeclipse.core.extensions.ILibrarySelectorFactory;
-import hxeclipse.core.model.GeneralOptionCollection;
+import hxeclipse.core.extensions.IHaxeLibrary;
+import hxeclipse.core.extensions.IHaxeLibrarySelector;
+import hxeclipse.core.extensions.IHaxeLibrarySelectorFactory;
+import hxeclipse.core.internal.GeneralOptionCollection;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +31,7 @@ public class LibrariesOption extends Composite {
 	private ListViewer _libraryList;
 	private Button _addButton;
 	private Button _removeButton;
-	private List<ILibrary> _libraries;
+	private List<IHaxeLibrary> _libraries;
 	
 	public LibrariesOption(Composite parent, int style) {
 		super(parent, style);
@@ -57,7 +57,7 @@ public class LibrariesOption extends Composite {
 		_libraryList.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
-				ILibrary library = (ILibrary) element;
+				IHaxeLibrary library = (IHaxeLibrary) element;
 				String version = library.getVersion();
 				String text = library.getName() + (version == null ? "" : " (" + version + ")");
 				return super.getText(text);
@@ -102,8 +102,8 @@ public class LibrariesOption extends Composite {
 	}
 
 	protected void _addButtonClicked() {
-		ILibrarySelectorFactory currentLibrarySelector = HXEclipse.getLibrarySelectorManager().getCurrentLibrarySelector();
-		ILibrarySelector librarySelector = currentLibrarySelector.newInstance(getShell());
+		IHaxeLibrarySelectorFactory currentLibrarySelector = HXEclipse.getLibrarySelectorManager().getCurrentLibrarySelector();
+		IHaxeLibrarySelector librarySelector = currentLibrarySelector.newInstance(getShell());
 		if (librarySelector.open() == IDialogConstants.OK_ID) {
 			_libraries.add(librarySelector.getSelectedLibrary());
 		}
@@ -124,7 +124,7 @@ public class LibrariesOption extends Composite {
 		_libraries = generalOptionsCollection.getLibraries();
 		
 		if (_libraries == null) {
-			_libraries = new ArrayList<ILibrary>();
+			_libraries = new ArrayList<IHaxeLibrary>();
 			generalOptionsCollection.setLibraries(_libraries);
 		}
 		

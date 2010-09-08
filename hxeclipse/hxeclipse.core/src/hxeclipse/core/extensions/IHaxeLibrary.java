@@ -2,8 +2,12 @@ package hxeclipse.core.extensions;
 
 import org.osgi.service.prefs.Preferences;
 
-public interface IOptionCollection {
+public interface IHaxeLibrary {
+
 	public String getName();
-	public IOptionCollection copy();
+
+	public String getVersion();
+
 	public void save(Preferences preferences);
+
 }

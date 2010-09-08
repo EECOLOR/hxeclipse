@@ -1,8 +1,8 @@
 package hxeclipse.core.ui.widgets.target.general;
 
-import hxeclipse.core.extensions.IOptionCollection;
-import hxeclipse.core.extensions.IOptionCollectionEditor;
-import hxeclipse.core.model.GeneralOptionCollection;
+import hxeclipse.core.extensions.IHaxeOptionCollection;
+import hxeclipse.core.extensions.IHaxeOptionCollectionEditor;
+import hxeclipse.core.internal.GeneralOptionCollection;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
-public class GeneralOptionCollectionEditor implements IOptionCollectionEditor {
+public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEditor {
 	
 	private TabFolder _tabFolder;
 	private SourceBlock _sourceBlock;
@@ -44,7 +44,7 @@ public class GeneralOptionCollectionEditor implements IOptionCollectionEditor {
 	}
 
 	@Override
-	public void setOptionCollection(IOptionCollection optionCollection) {
+	public void setOptionCollection(IHaxeOptionCollection optionCollection) {
 		GeneralOptionCollection generalOptionsCollection = (GeneralOptionCollection) optionCollection;
 		_sourceBlock.setGeneralOptionCollection(generalOptionsCollection);
 		_librariesBlock.setGeneralOptionCollection(generalOptionsCollection);

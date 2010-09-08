@@ -2,7 +2,7 @@ package hxeclipse.core.internal;
 
 import hxeclipse.core.HXEclipse;
 
-public class PreferenceConstants {
+public class HaxePreferenceConstants {
 	private static final String PREFERENCES = HXEclipse.PLUGIN_ID + ".preferences";
 	
 	public static final String HAXE_PATH = PREFERENCES + ".haxePath";

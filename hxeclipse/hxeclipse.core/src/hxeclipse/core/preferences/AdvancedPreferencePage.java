@@ -1,9 +1,9 @@
 package hxeclipse.core.preferences;
 
 import hxeclipse.core.HXEclipse;
-import hxeclipse.core.extensions.ILibrarySelectorFactory;
-import hxeclipse.core.internal.LibrarySelectorManager;
-import hxeclipse.core.internal.PreferenceConstants;
+import hxeclipse.core.extensions.IHaxeLibrarySelectorFactory;
+import hxeclipse.core.internal.HaxeLibrarySelectorManager;
+import hxeclipse.core.internal.HaxePreferenceConstants;
 
 import java.util.List;
 
@@ -26,8 +26,8 @@ public class AdvancedPreferencePage extends FieldEditorPreferencePage implements
 	}
 
 	private void _createLibrarySelectorChooser() {
-		LibrarySelectorManager librarySelectorManager = HXEclipse.getLibrarySelectorManager();
-		List<ILibrarySelectorFactory> librarySelectorFactories = librarySelectorManager.getLibrarySelectorFactories();
+		HaxeLibrarySelectorManager librarySelectorManager = HXEclipse.getLibrarySelectorManager();
+		List<IHaxeLibrarySelectorFactory> librarySelectorFactories = librarySelectorManager.getLibrarySelectorFactories();
 		int size = librarySelectorFactories.size();
 		
 		if (size > 1)
@@ -36,12 +36,12 @@ public class AdvancedPreferencePage extends FieldEditorPreferencePage implements
 			String[][] entryNamesAndValues = new String[size][2];
 			
 			for (int i = 0; i < size; i++) {
-				ILibrarySelectorFactory librarySelectorFactory = librarySelectorFactories.get(i);
+				IHaxeLibrarySelectorFactory librarySelectorFactory = librarySelectorFactories.get(i);
 				entryNamesAndValues[i][0] = librarySelectorFactory.getDisplayName();
 				entryNamesAndValues[i][1] = librarySelectorManager.getLibrarySelectorId(librarySelectorFactory);
 			}
 			
-			ComboFieldEditor comboEditor = new ComboFieldEditor(PreferenceConstants.LIBRARY_SELECTOR, "Library Selector:", entryNamesAndValues, getFieldEditorParent());
+			ComboFieldEditor comboEditor = new ComboFieldEditor(HaxePreferenceConstants.LIBRARY_SELECTOR, "Library Selector:", entryNamesAndValues, getFieldEditorParent());
 			addField(comboEditor);
 		}
 	}

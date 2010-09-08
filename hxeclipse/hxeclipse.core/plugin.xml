@@ -121,5 +121,17 @@
          </enabledWhen>
       </page>
    </extension>
+   <extension
+         point="hxeclipse.core.targets">
+      <target
+            class="hxeclipse.core.TestTargetDescription"
+            icon="icons/haxe.ico"
+            name="hxeclipse.core.testTarget">
+         <option-collection
+               class="hxeclipse.core.TestOptionCollection"
+               editor="hxeclipse.core.TestOptionCollectionEditorFactory">
+         </option-collection>
+      </target>
+   </extension>
 
 </plugin>

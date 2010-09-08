@@ -1,7 +1,7 @@
 package hxeclipse.core.internal;
 
-import hxeclipse.core.extensions.ILibrary;
-import hxeclipse.core.extensions.ILibrarySelector;
+import hxeclipse.core.extensions.IHaxeLibrary;
+import hxeclipse.core.extensions.IHaxeLibrarySelector;
 import hxeclipse.core.model.Library;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -9,7 +9,7 @@ import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.swt.widgets.Shell;
 
-public class DefaultLibrarySelector extends InputDialog implements ILibrarySelector {
+public class DefaultLibrarySelector extends InputDialog implements IHaxeLibrarySelector {
 
 	private Library _library;
 
@@ -54,7 +54,7 @@ public class DefaultLibrarySelector extends InputDialog implements ILibrarySelec
 	}
 
 	@Override
-	public ILibrary getSelectedLibrary() {
+	public IHaxeLibrary getSelectedLibrary() {
 		return _library;
 	}
 }

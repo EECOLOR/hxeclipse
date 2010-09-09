@@ -129,9 +129,7 @@ public class NewHaxeProjectWizard extends Wizard implements INewWizard, IPageCha
 
 	@Override
 	public boolean canFinish() {
-		// TODO check if we can finish (we need a project description)
-		
-		return super.canFinish();
+		return _pageTwo.getProjectDescription() != null;
 	}
 
 	@Override

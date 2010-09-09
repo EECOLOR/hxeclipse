@@ -11,6 +11,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -76,6 +77,11 @@ public class SourceBlock extends Composite {
 		//add all source paths to the adaptable list
 		AdaptableList adaptableList = new AdaptableList(_generalOptionCollection.getSourceFolders());
 		_mainOption.setInput(adaptableList);
+		
+		IHaxeClass main = _generalOptionCollection.getMain();
+		if (main != null) {
+			_mainOption.setSelection(new StructuredSelection(main));
+		}
 		
 		_classPathOption.setInput(_generalOptionCollection.getSourceFolders());
 

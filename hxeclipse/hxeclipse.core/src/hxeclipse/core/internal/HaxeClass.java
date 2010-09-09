@@ -1,20 +1,17 @@
 package hxeclipse.core.internal;
 
-import hxeclipse.core.HXEclipse;
 import hxeclipse.core.IHaxeClass;
 import hxeclipse.core.IHaxeProject;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 
 public class HaxeClass implements IHaxeClass {
-	private IPath _path;
+	private IFile _file;
 	private HaxeProject _haxeProject;
 	
-	public HaxeClass(IPath path) {
-		_path = path;
+	public HaxeClass(IFile file) {
+		_file = file;
 	}
 	
 	@Override
@@ -41,19 +38,13 @@ public class HaxeClass implements IHaxeClass {
 	
 	@Override
 	public IFile getFile() {
-		IProject project = _haxeProject.getProject();
-		return project.getFile(_path);
+		return _file;
 	}
 
 	@Override
 	public IPath getSourceFolderRelativePath() {
-		IHaxeProject haxeProject;
-		try {
-			haxeProject = HXEclipse.getProjectManager().getHaxeProject(_haxeProject.getProject());
-		} catch (CoreException e) {
-			throw new RuntimeException(e);
-		}
+		IHaxeProject haxeProject = (IHaxeProject) _file.getProject().getAdapter(IHaxeProject.class);
 		
-		return haxeProject.getSourceFolderRelativePath(getFile());
+		return haxeProject.getSourceFolderRelativePath(_file);
 	}
 }

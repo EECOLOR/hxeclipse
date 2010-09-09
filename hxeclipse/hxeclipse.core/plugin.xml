@@ -126,7 +126,7 @@
       <target
             class="hxeclipse.core.TestTargetDescription"
             icon="icons/haxe.ico"
-            name="hxeclipse.core.testTarget">
+            name="Test Target">
          <option-collection
                class="hxeclipse.core.TestOptionCollection"
                editor="hxeclipse.core.TestOptionCollectionEditorFactory">

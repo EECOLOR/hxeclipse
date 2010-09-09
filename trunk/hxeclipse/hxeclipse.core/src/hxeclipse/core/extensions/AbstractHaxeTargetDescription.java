@@ -2,9 +2,12 @@ package hxeclipse.core.extensions;
 
 import hxeclipse.core.HXEclipse;
 import hxeclipse.core.IHaxeProject;
+import hxeclipse.core.internal.ClassOptionCollectionFactory;
 import hxeclipse.core.internal.GeneralOptionCollection;
 import hxeclipse.core.internal.HaxeTarget;
 import hxeclipse.core.internal.HaxeTargetManager;
+import hxeclipse.core.ui.widgets.target.EmptyOptionCollectionEditorFactory;
+import hxeclipse.core.ui.widgets.target.general.GeneralOptionCollectionEditorFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,12 +28,6 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 	private HaxeTarget _haxeTarget;
 	
 	public AbstractHaxeTargetDescription() {
-		
-		List<IHaxeOptionCollection> optionCollections = new ArrayList<IHaxeOptionCollection>(2);
-		optionCollections.add(new GeneralOptionCollection());
-		optionCollections.add(new CompilerOptionCollection());
-		
-		setOptionCollections(optionCollections);
 	}
 	
 	@Override
@@ -45,12 +42,36 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 
 	@Override
 	public void setDefaultValues(IProject project) {
+		createDefaultOptionCollections();
+		
 		Iterator<IHaxeOptionCollection> optionCollections = _optionCollections.iterator();
 		
 		while (optionCollections.hasNext()) {
 			optionCollections.next().setDefaultValues(project);
 		}
 	}
+	
+	protected void createDefaultOptionCollections() {
+		_optionCollections = new ArrayList<IHaxeOptionCollection>(2);
+		
+		//general option collection
+		_generalOptionCollection = new GeneralOptionCollection();
+		_optionCollections.add(_generalOptionCollection);
+		registerOptionCollection(_generalOptionCollection, new GeneralOptionCollectionEditorFactory());
+
+		//compiler option collection
+		_compilerOptionCollection = new CompilerOptionCollection();
+		_optionCollections.add(_compilerOptionCollection);
+		registerOptionCollection(_compilerOptionCollection, new EmptyOptionCollectionEditorFactory());
+	}
+	
+	protected void registerOptionCollection(IHaxeOptionCollection optionCollection, IHaxeOptionCollectionEditorFactory optionCollectionEditorFactory) {
+
+		ClassOptionCollectionFactory optionCollectionFactory = new ClassOptionCollectionFactory(optionCollection.getClass());
+		
+		HaxeTargetManager targetManager = HXEclipse.getTargetManager();
+		targetManager.registerOptionCollection(optionCollectionFactory, optionCollectionEditorFactory);
+	}	
 	
 	@Override
 	public void initializeProject(IHaxeProject haxeProject) throws CoreException {

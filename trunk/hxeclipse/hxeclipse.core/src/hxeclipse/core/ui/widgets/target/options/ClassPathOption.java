@@ -30,7 +30,7 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 	private Button _addButton;
 	private Button _removeButton;
 	private FolderSelectionDialog _folderSelectionDialog;
-	private List<IFolder> _classPaths;
+	private List<IFolder> _sourceFolders;
 	
 	public ClassPathOption(Composite parent, int style) {
 		super(parent, style);
@@ -99,8 +99,8 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 	private void _addButtonClicked() {
 		if (_folderSelectionDialog.open() == SWT.OK) {
 			IFolder folder = (IFolder) _folderSelectionDialog.getFirstResult();
-			_classPaths.add(folder);
-			_classPathsChanged();
+			_sourceFolders.add(folder);
+			_sourceFoldersChanged();
 		}
 	}
 	
@@ -110,16 +110,16 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 		Iterator<?> iterator = selection.iterator();
 		
 		while (iterator.hasNext()) {
-			_classPaths.remove(iterator.next());
+			_sourceFolders.remove(iterator.next());
 		}
 		
-		_classPathsChanged();
+		_sourceFoldersChanged();
 	}
 
-	private void _classPathsChanged() {
-		_folderSelectionDialog.setInitialSelections(_classPaths.toArray());
+	private void _sourceFoldersChanged() {
+		_folderSelectionDialog.setInitialSelections(_sourceFolders.toArray());
 
-		AdaptableList adaptableList = new AdaptableList(_classPaths);
+		AdaptableList adaptableList = new AdaptableList(_sourceFolders);
 		_listViewer.setInput(adaptableList);
 	}
 	
@@ -129,9 +129,9 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 	 * Expects a list of folders as input's, this list contains all classPaths
 	 */
 	public void setInput(Object input) {
-		_classPaths = (List<IFolder>) input;
+		_sourceFolders = (List<IFolder>) input;
 		
-		_classPathsChanged();
+		_sourceFoldersChanged();
 	}
 
 	public void setProject(IProject project) {

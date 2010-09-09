@@ -8,6 +8,8 @@ import hxeclipse.core.model.Library;
 import hxeclipse.core.model.Mapping;
 import hxeclipse.core.model.Resource;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +48,15 @@ public class GeneralOptionCollection implements IHaxeOptionCollection {
 				sourceFolder.create(false, true, null);
 			}
 		}
+
+		//create main file
+		if (_main != null) {
+			IFile file = _main.getFile();
+			if (!file.exists()) {
+				ByteArrayInputStream source = new ByteArrayInputStream(DefaultValues.MAIN_SOURCE.getBytes(Charset.forName("UTF-8")));
+				file.create(source, false, null);
+			}
+		}
 		
 		//create output folder
 		if (_outputFolder != null) {
@@ -55,8 +66,11 @@ public class GeneralOptionCollection implements IHaxeOptionCollection {
 
 	@Override
 	public void setDefaultValues(IProject project) {
+		IFolder sourceFolder = project.getFolder(DefaultValues.SOURCE_PATH);
+		_main = new HaxeClass(sourceFolder.getFile(DefaultValues.MAIN));
+		
 		_sourceFolders = new ArrayList<IFolder>(1);
-		_sourceFolders.add(project.getFolder(DefaultValues.SOURCE_PATH));
+		_sourceFolders.add(sourceFolder);
 		
 		_outputFolder = project.getFolder(DefaultValues.OUTPUT_PATH);		
 	}

@@ -4,8 +4,8 @@ import hxeclipse.core.HXEclipse;
 import hxeclipse.core.extensions.AbstractHaxeTargetDescription;
 import hxeclipse.core.extensions.IHaxeOptionCollection;
 import hxeclipse.core.extensions.IHaxeOptionCollectionEditorFactory;
+import hxeclipse.core.extensions.IHaxeOptionCollectionFactory;
 import hxeclipse.core.extensions.IHaxeTargetDescription;
-import hxeclipse.core.ui.widgets.target.general.GeneralOptionCollectionEditorFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,17 +29,15 @@ public class HaxeTargetManager {
 	private static final String ATTRIBUTE_EDITOR = "editor";
 	
 	private List<HaxeTarget> _targets;
-	private Map<Class<? extends IHaxeOptionCollection>, IHaxeOptionCollectionEditorFactory> _optionCollectionEditors;
+	private Map<String, IHaxeOptionCollectionEditorFactory> _optionCollectionEditors;
 	private Map<String, IConfigurationElement> _availableTargetDescriptions;
-	private Map<String, IConfigurationElement> _availableOptionCollections;
+	private Map<String, IHaxeOptionCollectionFactory> _availableOptionCollections;
 	
 	public HaxeTargetManager() throws CoreException {
 		_targets = new ArrayList<HaxeTarget>();
-		_optionCollectionEditors = new HashMap<Class<? extends IHaxeOptionCollection>, IHaxeOptionCollectionEditorFactory>();
+		_optionCollectionEditors = new HashMap<String, IHaxeOptionCollectionEditorFactory>();
 		_availableTargetDescriptions = new HashMap<String, IConfigurationElement>();
-		_availableOptionCollections = new HashMap<String, IConfigurationElement>();
-		
-		_optionCollectionEditors.put(GeneralOptionCollection.class, new GeneralOptionCollectionEditorFactory());
+		_availableOptionCollections = new HashMap<String, IHaxeOptionCollectionFactory>();
 		
 		_processExtensions();
 	}
@@ -71,19 +69,20 @@ public class HaxeTargetManager {
 			
 			List<IHaxeOptionCollection> optionCollections = targetDescription.getOptionCollections();
 			
+			if (optionCollections == null) {
+				optionCollections = new ArrayList<IHaxeOptionCollection>();
+				targetDescription.setOptionCollections(optionCollections);
+			}
+			
 			for (IConfigurationElement optionCollectionElement : optionCollectionElements) {
 				IHaxeOptionCollection optionCollection = (IHaxeOptionCollection) optionCollectionElement.createExecutableExtension(ATTRIBUTE_CLASS);
 				IHaxeOptionCollectionEditorFactory optionCollectionEditorFactory = (IHaxeOptionCollectionEditorFactory) optionCollectionElement.createExecutableExtension(ATTRIBUTE_EDITOR);
 
+				ConfigurationElementOptionCollectionFactory optionCollectionFactory = new ConfigurationElementOptionCollectionFactory(optionCollectionElement, ATTRIBUTE_CLASS);
+				
+				registerOptionCollection(optionCollectionFactory, optionCollectionEditorFactory);
+				
 				optionCollections.add(optionCollection);
-				
-				Class<? extends IHaxeOptionCollection> optionCollectionClass = optionCollection.getClass();
-				
-				_availableOptionCollections.put(optionCollectionClass.getName(), optionCollectionElement);
-				
-				if (!_optionCollectionEditors.containsKey(optionCollectionClass)) {
-					_optionCollectionEditors.put(optionCollectionClass, optionCollectionEditorFactory);
-				}
 			}
 		}
 	}
@@ -93,7 +92,7 @@ public class HaxeTargetManager {
 	}
 	
 	public IHaxeOptionCollectionEditorFactory getOptionCollectionEditorFactory(IHaxeOptionCollection optionCollection) {
-		return _optionCollectionEditors.get(optionCollection.getClass());
+		return _optionCollectionEditors.get(optionCollection.getClass().getName());
 	}
 	
 	public boolean hasTargetDescription(String className) {
@@ -118,9 +117,17 @@ public class HaxeTargetManager {
 		IHaxeOptionCollection optionCollection = null;
 		
 		if (hasOptionCollection(className)) {
-			optionCollection = (IHaxeOptionCollection) _availableOptionCollections.get(className).createExecutableExtension(ATTRIBUTE_CLASS);
+			optionCollection = _availableOptionCollections.get(className).newInstance();
 		}
 		
 		return optionCollection;
+	}
+	
+	public void registerOptionCollection(IHaxeOptionCollectionFactory optionCollectionFactory, IHaxeOptionCollectionEditorFactory optionCollectionEditorFactory) {
+		String className = optionCollectionFactory.getClassName();
+		
+		_availableOptionCollections.put(className, optionCollectionFactory);
+		_optionCollectionEditors.put(className, optionCollectionEditorFactory);
+
 	}
 }

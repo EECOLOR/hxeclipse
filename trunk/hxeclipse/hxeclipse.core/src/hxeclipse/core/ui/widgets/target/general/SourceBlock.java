@@ -40,7 +40,7 @@ public class SourceBlock extends Composite {
 	}
 
 	private void _createMain() {
-		_mainOption = new MainOption(this, SWT.NONE);
+		_mainOption = new MainOption(this, SWT.MULTI);
 		_mainOption.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
 		_mainOption.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
@@ -85,12 +85,13 @@ public class SourceBlock extends Composite {
 		
 		_classPathOption.setInput(_generalOptionCollection.getSourceFolders());
 
-		_outputPathOption.setInput(_generalOptionCollection.getOutputFolder());
+		_outputPathOption.setSelection(new StructuredSelection(_generalOptionCollection.getOutputFolder()));
 		
 		layout();
 	}
 
 	public void setProject(IProject project) {
+		_outputPathOption.setInput(project);
 		_classPathOption.setProject(project);
 	}
 }

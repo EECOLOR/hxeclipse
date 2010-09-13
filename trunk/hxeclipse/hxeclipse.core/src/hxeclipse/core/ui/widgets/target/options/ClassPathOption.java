@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
@@ -49,10 +50,11 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 	
 	private void _createFolderSelectionDialog() {
 		_folderSelectionDialog = new FolderSelectionDialog(getShell(), new WorkbenchLabelProvider(), new WorkbenchContentProvider());
+		_folderSelectionDialog.setAllowMultiple(true);
 	}
 
 	private void _createClassPathList() {
-		GridData layoutData = new GridData(SWT.NONE, SWT.FILL, false, true);
+		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		layoutData.heightHint = 50;
 		
 		_listViewer = new ListViewer(this);
@@ -70,9 +72,11 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 
 	private void _createButtons() {
 		Composite buttons = new Composite(this, SWT.NONE);
+		buttons.setLayoutData(new GridData(SWT.NONE, SWT.BEGINNING, false, false));
 		buttons.setLayout(new GridLayout());
 		
 		_addButton = new Button(buttons, SWT.PUSH);
+		_addButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
 		_addButton.setText("Add folder...");
 		_addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -82,6 +86,7 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 		});
 		
 		_removeButton = new Button(buttons, SWT.PUSH);
+		_removeButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
 		_removeButton.setText("Remove");
 		_removeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -97,10 +102,14 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 	}
 	
 	private void _addButtonClicked() {
-		if (_folderSelectionDialog.open() == SWT.OK) {
-			IFolder folder = (IFolder) _folderSelectionDialog.getFirstResult();
-			_sourceFolders.add(folder);
-			_sourceFoldersChanged();
+		if (_folderSelectionDialog.open() == IDialogConstants.OK_ID) {
+			Object[] results = _folderSelectionDialog.getResult();
+			
+			for (Object result : results) {
+				IFolder folder = (IFolder) result;
+				_sourceFolders.add(folder);
+				_sourceFoldersChanged();
+			}
 		}
 	}
 	
@@ -118,7 +127,7 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 
 	private void _sourceFoldersChanged() {
 		_folderSelectionDialog.setInitialSelections(_sourceFolders.toArray());
-
+		
 		AdaptableList adaptableList = new AdaptableList(_sourceFolders);
 		_listViewer.setInput(adaptableList);
 	}

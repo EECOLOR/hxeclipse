@@ -4,6 +4,7 @@ import hxeclipse.core.IHaxeClass;
 import hxeclipse.core.IHaxeProject;
 import hxeclipse.core.extensions.IHaxeLibrary;
 import hxeclipse.core.extensions.IHaxeOptionCollection;
+import hxeclipse.core.extensions.IHaxeSourceFolderProvider;
 import hxeclipse.core.model.Library;
 import hxeclipse.core.model.Mapping;
 import hxeclipse.core.model.Resource;
@@ -24,7 +25,7 @@ import org.eclipse.core.runtime.Path;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
-public class GeneralOptionCollection implements IHaxeOptionCollection {
+public class GeneralOptionCollection implements IHaxeOptionCollection, IHaxeSourceFolderProvider {
 	private IHaxeClass _main;
 	private List<IHaxeLibrary> _libraries;
 	private List<Resource> _resources;
@@ -162,7 +163,7 @@ public class GeneralOptionCollection implements IHaxeOptionCollection {
 		
 		Preferences librariesPreferences = preferences.node("libraries");
 		childrenNames = librariesPreferences.childrenNames();
-		_libraries = new ArrayList<IHaxeLibrary>();
+		_libraries = new ArrayList<IHaxeLibrary>(childrenNames.length);
 		for (String childName : childrenNames) {
 			Preferences libraryPreferences = librariesPreferences.node(childName);
 			Library library = new Library(libraryPreferences);
@@ -171,7 +172,7 @@ public class GeneralOptionCollection implements IHaxeOptionCollection {
 		
 		Preferences resourcesPreferences = preferences.node("resources");
 		childrenNames = resourcesPreferences.childrenNames();
-		_resources = new ArrayList<Resource>();
+		_resources = new ArrayList<Resource>(childrenNames.length);
 		for (String childName : childrenNames) {
 			Preferences resourcePreferences = resourcesPreferences.node(childName);
 			Resource resource = new Resource(resourcePreferences);
@@ -179,15 +180,15 @@ public class GeneralOptionCollection implements IHaxeOptionCollection {
 		}
 		
 		Preferences excludesPreferences = preferences.node("excludes");
-		childrenNames = excludesPreferences.childrenNames();
-		_excludes = new ArrayList<String>();
+		childrenNames = excludesPreferences.keys();
+		_excludes = new ArrayList<String>(childrenNames.length);
 		for (String childName : childrenNames) {
 			_excludes.add(excludesPreferences.get(childName, null));
 		}
 		
 		Preferences mappingsPreferences = preferences.node("mappings");
 		childrenNames = mappingsPreferences.childrenNames();
-		_mappings = new ArrayList<Mapping>();
+		_mappings = new ArrayList<Mapping>(childrenNames.length);
 		for (String childName : childrenNames) {
 			Preferences mappingPreferences = mappingsPreferences.node(childName);
 			Mapping mapping = new Mapping(mappingPreferences);
@@ -195,8 +196,8 @@ public class GeneralOptionCollection implements IHaxeOptionCollection {
 		}
 		
 		Preferences sourceFoldersPreferences = preferences.node("sourceFolders");
-		childrenNames = sourceFoldersPreferences.childrenNames();
-		_sourceFolders = new ArrayList<IFolder>();
+		childrenNames = sourceFoldersPreferences.keys();
+		_sourceFolders = new ArrayList<IFolder>(childrenNames.length);
 		for (String childName : childrenNames) {
 			IFolder folder = root.getFolder(new Path(sourceFoldersPreferences.get(childName, null)));
 			_sourceFolders.add(folder);

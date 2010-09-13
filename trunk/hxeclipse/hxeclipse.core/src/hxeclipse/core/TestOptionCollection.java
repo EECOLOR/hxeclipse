@@ -9,6 +9,8 @@ import org.osgi.service.prefs.Preferences;
 
 public class TestOptionCollection implements IHaxeOptionCollection {
 
+	private String _test;
+	
 	@Override
 	public String getName() {
 		return "testOptionCollection";
@@ -21,12 +23,12 @@ public class TestOptionCollection implements IHaxeOptionCollection {
 
 	@Override
 	public void save(Preferences preferences) {
-		//nothing to save
+		if (_test != null) preferences.put("test", _test);
 	}
 
 	@Override
 	public void load(Preferences preferences) throws BackingStoreException {
-		//nothing to load
+		_test = preferences.get("test", null);
 	}
 
 	@Override
@@ -36,7 +38,15 @@ public class TestOptionCollection implements IHaxeOptionCollection {
 
 	@Override
 	public void setDefaultValues(IProject project) {
-		//nothing to default
+		_test = "test";
+	}
+
+	public void setTest(String test) {
+		_test = test;
+	}
+
+	public String getTest() {
+		return _test;
 	}
 
 

@@ -1,6 +1,10 @@
 package hxeclipse.core.ui.widgets;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -16,6 +20,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.NewFolderDialog;
 import org.eclipse.ui.views.navigator.ResourceComparator;
@@ -35,9 +40,28 @@ public class FolderSelectionDialog extends ElementTreeSelectionDialog {
 	}
 
 	@Override
+	protected TreeViewer doCreateTreeViewer(Composite parent, int style) {
+		CheckboxTreeViewer checkboxTreeViewer = new CheckboxTreeViewer(new Tree(parent, style | SWT.CHECK));
+		checkboxTreeViewer.setGrayedElements(getInitialElementSelections().toArray());
+		checkboxTreeViewer.setCheckStateProvider(new ICheckStateProvider() {
+			@Override
+			public boolean isGrayed(Object element) {
+				IResource resource = (IResource) element;
+				return resource.getAdapter(IFolder.class) != null;
+			}
+			
+			@Override
+			public boolean isChecked(Object element) {
+				//not implemented
+				return false;
+			}
+		});
+		return checkboxTreeViewer;
+	}
+	
+	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite result = (Composite) super.createDialogArea(parent);
-
 		_treeViewer = getTreeViewer();
 		_treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
@@ -83,9 +107,9 @@ public class FolderSelectionDialog extends ElementTreeSelectionDialog {
 		if (newFolderDialog.open() == Window.OK) {
 			Object createdFolder = newFolderDialog.getResult()[0];
 			
-			_treeViewer.refresh(_selectedContainer);
 			_treeViewer.reveal(createdFolder);
 			_treeViewer.setSelection(new StructuredSelection(createdFolder));
+			_treeViewer.refresh(_selectedContainer);
 		}
 	}
 

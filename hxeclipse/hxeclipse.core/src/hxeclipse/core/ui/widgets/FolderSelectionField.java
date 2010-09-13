@@ -4,6 +4,7 @@ import hxeclipse.core.ui.IInputConsumer;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -55,6 +56,7 @@ public class FolderSelectionField extends Composite implements IInputConsumer, I
 
 	private void _createChangeButton() {
 		_changeButton = new Button(this, SWT.PUSH);
+		_changeButton.setText("Browse...");
 		_changeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -64,7 +66,7 @@ public class FolderSelectionField extends Composite implements IInputConsumer, I
 	}
 
 	private void _changeButtonClicked() {
-		if (_folderSelectionDialog.open() == SWT.OK) {
+		if (_folderSelectionDialog.open() == IDialogConstants.OK_ID) {
 			Object folder = _folderSelectionDialog.getFirstResult();
 			StructuredSelection selection = new StructuredSelection(folder);
 			setSelection(selection);
@@ -112,10 +114,10 @@ public class FolderSelectionField extends Composite implements IInputConsumer, I
 		_folderSelectionDialog.setInitialSelection(folder);
 	}
 
-	@Override
 	/**
-	 * Expects the selected folder as input
+	 * Expects the root of folders as input
 	 */
+	@Override
 	public void setInput(Object input) {
 		_folderSelectionDialog.setInput(input);
 	}

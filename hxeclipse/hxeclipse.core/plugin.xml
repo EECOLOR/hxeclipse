@@ -123,15 +123,37 @@
    </extension>
    <extension
          point="hxeclipse.core.targets">
+      <option-collection
+            class="hxeclipse.core.internal.GeneralOptionCollection"
+            editor-factory="hxeclipse.core.ui.widgets.target.general.GeneralOptionCollectionEditorFactory"
+            id="hxeclipse.core.GeneralOptionCollection">
+      </option-collection>
+      <option-collection
+            class="hxeclipse.core.extensions.CompilerOptionCollection"
+            editor-factory="hxeclipse.core.ui.widgets.target.EmptyOptionCollectionEditorFactory"
+            id="hxeclipse.core.CompilerOptionCollection">
+      </option-collection>
+   </extension>
+   <extension
+         point="hxeclipse.core.targets">
       <target
             class="hxeclipse.core.TestTargetDescription"
             icon="icons/haxe.ico"
             name="Test Target">
-         <option-collection
-               class="hxeclipse.core.TestOptionCollection"
-               editor="hxeclipse.core.TestOptionCollectionEditorFactory">
-         </option-collection>
+         <option-collection-reference
+               reference="hxeclipse.core.GeneralOptionCollection"></option-collection-reference>
+         <option-collection-reference
+               reference="hxeclipse.core.CompilerOptionCollection">
+         </option-collection-reference>
+         <option-collection-reference
+               reference="hxeclipse.core.TestOptionCollection">
+         </option-collection-reference>
       </target>
+      <option-collection
+            class="hxeclipse.core.TestOptionCollection"
+            editor-factory="hxeclipse.core.TestOptionCollectionEditorFactory"
+            id="hxeclipse.core.TestOptionCollection">
+      </option-collection>
    </extension>
 
 </plugin>

@@ -28,6 +28,7 @@ public class HaxeProjectDescription {
 		
 		while(targets.hasNext()) {
 			IHaxeTargetDescription targetDescription = targets.next();
+			System.out.println("saving " + targetDescription.getClass().getName());
 			Preferences targetPreferences = preferences.node(targetDescription.getClass().getName());
 			targetDescription.save(targetPreferences);
 		}
@@ -37,7 +38,7 @@ public class HaxeProjectDescription {
 		HaxeTargetManager targetManager = HXEclipse.getTargetManager();
 		
 		String[] childrenNames = preferences.childrenNames();
-		_targets = new ArrayList<IHaxeTargetDescription>();
+		_targets = new ArrayList<IHaxeTargetDescription>(childrenNames.length);
 		
 		for (String childName : childrenNames) {
 			System.out.println("trying to load target " + childName);

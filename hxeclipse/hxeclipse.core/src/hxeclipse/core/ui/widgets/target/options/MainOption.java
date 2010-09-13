@@ -37,14 +37,20 @@ public class MainOption extends Composite implements IInputConsumer, ISelectionP
 	
 	private IStructuredSelection _selection;
 	
+	private int _style;
+	
 	public MainOption(Composite parent, int style) {
-		super(parent, style);
+		super(parent, SWT.NONE);
+		
+		_style = style;
 		
 		initialize();
 	}
 	
 	protected void initialize() {
-		setLayout(new GridLayout(3, false));
+		int columns = _style == SWT.MULTI ? 2 : 3;
+		
+		setLayout(new GridLayout(columns, false));
 		
 		_createLabel();
 		_createMainFileField();
@@ -54,7 +60,13 @@ public class MainOption extends Composite implements IInputConsumer, ISelectionP
 
 	private void _createLabel() {
 		Label label = new Label(this, SWT.NONE);
-		label.setText("Main file");
+		label.setText("Main file:");
+		
+		if (_style == SWT.MULTI) {
+			GridData layoutData = new GridData();
+			layoutData.horizontalSpan = 2;
+			label.setLayoutData(layoutData);
+		}
 	}
 	
 	private void _createMainFileField() {
@@ -71,7 +83,7 @@ public class MainOption extends Composite implements IInputConsumer, ISelectionP
 	
 	private void _createButton() {
 		Button button = new Button(this, SWT.PUSH);
-		button.setText("Browse");
+		button.setText("Browse...");
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

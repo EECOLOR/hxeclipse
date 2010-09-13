@@ -18,7 +18,8 @@
       </annotation>
       <complexType>
          <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="target"/>
+            <element ref="target" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="option-collection" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -50,7 +51,7 @@
    <element name="target">
       <complexType>
          <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="option-collection"/>
+            <element ref="option-collection-reference"/>
          </sequence>
          <attribute name="name" type="string" use="required">
             <annotation>
@@ -99,13 +100,35 @@
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="editor" type="string" use="required">
+         <attribute name="editor-factory" type="string" use="required">
             <annotation>
                <documentation>
                   An editor for the given set of options
                </documentation>
                <appinfo>
                   <meta.attribute kind="java" basedOn=":hxeclipse.core.extensions.IHaxeOptionCollectionEditorFactory"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="option-collection-reference">
+      <complexType>
+         <attribute name="reference" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier" basedOn="hxeclipse.core.targets/option-collection/@id"/>
                </appinfo>
             </annotation>
          </attribute>

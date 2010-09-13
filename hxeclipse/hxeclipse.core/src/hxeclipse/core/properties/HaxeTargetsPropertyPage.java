@@ -1,6 +1,9 @@
 package hxeclipse.core.properties;
 
+import java.util.List;
+
 import hxeclipse.core.IHaxeProject;
+import hxeclipse.core.extensions.IHaxeTargetDescription;
 import hxeclipse.core.ui.widgets.target.TargetListDetails;
 
 import org.eclipse.core.resources.IProject;
@@ -27,7 +30,8 @@ public class HaxeTargetsPropertyPage extends PropertyPage implements IWorkbenchP
 		}
 		
 		targetListDetails.setProject(project);
-		targetListDetails.setInput(haxeProject.getProjectDescription().getTargets());
+		List<IHaxeTargetDescription> targets = haxeProject.getProjectDescription().getTargets();
+		targetListDetails.setInput(targets);
 		
 		return targetListDetails;
 	}

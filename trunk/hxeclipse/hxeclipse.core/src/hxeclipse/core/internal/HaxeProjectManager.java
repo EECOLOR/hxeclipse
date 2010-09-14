@@ -72,7 +72,8 @@ public class HaxeProjectManager {
 		}
 
 		//initialize the project using the targets
-		Iterator<IHaxeTargetDescription> targets = haxeProject.getProjectDescription().getTargets().iterator();
+		//TODO add initialize method to haxe project
+		Iterator<IHaxeTargetDescription> targets = haxeProject.getProjectDescription().getTargetDescriptions().iterator();
 		
 		while (targets.hasNext()) {
 			IHaxeTargetDescription targetDescription = targets.next();
@@ -168,16 +169,31 @@ public class HaxeProjectManager {
 					//create a new haxe project
 					haxeProject = new HaxeProject(project, haxeProjectDescription);
 					//save it to disk
-					haxeProject.save(projectPreferences);
+					haxeProject.save();
 					projectPreferences.putBoolean(HXEclipse.FLAG_IS_HAXE_PROJECT, true);
 					projectPreferences.flush();
-					//add it as session property
-					project.setSessionProperty(HXEclipse.HAXE_PROJECT_PROPERTY, haxeProject);
 				}
+			}
+			
+			if (haxeProject != null) {
+				//add it as session property
+				project.setSessionProperty(HXEclipse.HAXE_PROJECT_PROPERTY, haxeProject);
 			}
 		}
 
 		return haxeProject;
+	}
+	
+	public IHaxeProject createTempHaxeProject(IProject project, HaxeProjectDescription projectDescription) throws CoreException {
+		IHaxeProject haxeProject = new TempHaxeProject(project, projectDescription);
+		//add it as session property
+		project.setSessionProperty(HXEclipse.HAXE_PROJECT_PROPERTY, haxeProject);
+
+		return haxeProject;
+	}
+	
+	public void removeTempHaxeProject(IHaxeProject haxeProject) throws CoreException {
+		haxeProject.getProject().setSessionProperty(HXEclipse.HAXE_PROJECT_PROPERTY, null);
 	}
 	
 	/**

@@ -59,7 +59,7 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		return container;
 	}
 	
-	protected void createListContainer(Composite parent) {
+	protected Composite createListContainer(Composite parent) {
 		GridData containerLayout = new GridData(SWT.NONE, SWT.FILL, false, true);
 		containerLayout.widthHint = 200;
 		
@@ -70,6 +70,8 @@ abstract public class ListDetails extends Composite implements ISelectionProvide
 		_filterText = createFilterText(listContainer);
 		
 		_listViewer = createList(listContainer);
+		
+		return listContainer;
 	}
 
 	protected Text createFilterText(Composite listContainer) {

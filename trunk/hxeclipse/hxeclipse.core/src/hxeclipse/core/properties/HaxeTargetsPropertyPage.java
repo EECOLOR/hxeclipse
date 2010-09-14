@@ -20,7 +20,6 @@ public class HaxeTargetsPropertyPage extends PropertyPage implements IWorkbenchP
 
 	@Override
 	protected Control createContents(Composite parent) {
-		TargetListDetails targetListDetails = new TargetListDetails(parent, SWT.NONE);
 		
 		IProject project = (IProject) getElement().getAdapter(IProject.class);
 		IHaxeProject haxeProject = (IHaxeProject) project.getAdapter(IHaxeProject.class);
@@ -29,9 +28,10 @@ public class HaxeTargetsPropertyPage extends PropertyPage implements IWorkbenchP
 			throw new RuntimeException("This should not happen. The project could not be adapted from IProject to IHaxeProject");
 		}
 		
+		TargetListDetails targetListDetails = new TargetListDetails(parent, SWT.NONE);
 		targetListDetails.setProject(project);
-		List<IHaxeTargetDescription> targets = haxeProject.getProjectDescription().getTargets();
-		targetListDetails.setInput(targets);
+		List<IHaxeTargetDescription> targets = haxeProject.getProjectDescription().getTargetDescriptions();
+		targetListDetails.setTargetDescriptions(targets);
 		
 		return targetListDetails;
 	}

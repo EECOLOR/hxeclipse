@@ -22,9 +22,7 @@ public class HaxeProjectAdapterFactory implements IAdapterFactory {
 			if (adaptableObject instanceof IProject) {
 				IProject project = (IProject) adaptableObject;
 				try {
-					if (project.hasNature(HXEclipse.NATURE_ID)) {
-						return HXEclipse.getProjectManager().getHaxeProject(project);
-					}
+					return HXEclipse.getProjectManager().getHaxeProject(project);
 				} catch (CoreException e) {
 					//fail silently
 				}

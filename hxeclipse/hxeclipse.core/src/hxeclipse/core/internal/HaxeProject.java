@@ -9,8 +9,11 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
@@ -36,7 +39,9 @@ public class HaxeProject implements IHaxeProject {
 		HXEclipse.getProjectManager().addHaxeNature(project);
 	}
 	
-	public void save(Preferences projectPreferences) {
+	public void save() {
+		IScopeContext projectScope = new ProjectScope(_project);
+		IEclipsePreferences projectPreferences = projectScope.getNode(HXEclipse.PLUGIN_ID);
 		Preferences preferences = projectPreferences.node("projectDescription");
 		_projectDescription.save(preferences);
 	}
@@ -53,7 +58,7 @@ public class HaxeProject implements IHaxeProject {
 
 	@Override
 	public IPath getSourceFolderRelativePath(IResource resource) {
-		Iterator<IHaxeTargetDescription> targets = _projectDescription.getTargets().iterator();
+		Iterator<IHaxeTargetDescription> targets = _projectDescription.getTargetDescriptions().iterator();
 		
 		while (targets.hasNext()) {
 			IHaxeTargetDescription target = targets.next();

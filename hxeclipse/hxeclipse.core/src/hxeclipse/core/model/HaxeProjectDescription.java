@@ -13,18 +13,18 @@ import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 public class HaxeProjectDescription {
-	private List<IHaxeTargetDescription> _targets;
+	private List<IHaxeTargetDescription> _targetDescriptions;
 
-	public void setTargets(List<IHaxeTargetDescription> targets) {
-		_targets = targets;
+	public void setTargets(List<IHaxeTargetDescription> targetDescriptions) {
+		_targetDescriptions = targetDescriptions;
 	}
 
-	public List<IHaxeTargetDescription> getTargets() {
-		return _targets;
+	public List<IHaxeTargetDescription> getTargetDescriptions() {
+		return _targetDescriptions;
 	}
 
 	public void save(Preferences preferences) {
-		Iterator<IHaxeTargetDescription> targets = _targets.iterator();
+		Iterator<IHaxeTargetDescription> targets = _targetDescriptions.iterator();
 		
 		while(targets.hasNext()) {
 			IHaxeTargetDescription targetDescription = targets.next();
@@ -38,7 +38,7 @@ public class HaxeProjectDescription {
 		HaxeTargetManager targetManager = HXEclipse.getTargetManager();
 		
 		String[] childrenNames = preferences.childrenNames();
-		_targets = new ArrayList<IHaxeTargetDescription>(childrenNames.length);
+		_targetDescriptions = new ArrayList<IHaxeTargetDescription>(childrenNames.length);
 		
 		for (String childName : childrenNames) {
 			System.out.println("trying to load target " + childName);
@@ -46,7 +46,7 @@ public class HaxeProjectDescription {
 				System.out.println("loading target " + childName);
 				IHaxeTargetDescription targetDescription = targetManager.createTargetDescription(childName);
 				targetDescription.load(preferences.node(childName));
-				_targets.add(targetDescription);
+				_targetDescriptions.add(targetDescription);
 			}
 		}
 	}

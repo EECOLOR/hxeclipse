@@ -15,6 +15,7 @@ public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEdito
 	private TabFolder _tabFolder;
 	private SourceBlock _sourceBlock;
 	private LibrariesBlock _librariesBlock;
+	private ResourcesBlock _resourcesBlock;
 	
 	public GeneralOptionCollectionEditor(Composite parent, int style) {
 		_tabFolder = new TabFolder(parent, style);
@@ -25,6 +26,7 @@ public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEdito
 	protected void initialize() {
 		_createSourceTab();
 		_createLibrariesTab();
+		_createResourcesTab();
 	}
 
 	private void _createSourceTab() {
@@ -43,16 +45,26 @@ public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEdito
 		tabItem.setControl(_librariesBlock);
 	}
 
+	private void _createResourcesTab() {
+		_resourcesBlock = new ResourcesBlock(_tabFolder, SWT.NONE);
+		
+		TabItem tabItem = new TabItem(_tabFolder, SWT.NONE);
+		tabItem.setText("Resources");
+		tabItem.setControl(_resourcesBlock);
+	}
+
 	@Override
 	public void setOptionCollection(IHaxeOptionCollection optionCollection) {
 		GeneralOptionCollection generalOptionsCollection = (GeneralOptionCollection) optionCollection;
 		_sourceBlock.setGeneralOptionCollection(generalOptionsCollection);
 		_librariesBlock.setGeneralOptionCollection(generalOptionsCollection);
+		_resourcesBlock.setGeneralOptionCollection(generalOptionsCollection);
 	}
 
 	@Override
 	public void setProject(IProject project) {
 		_sourceBlock.setProject(project);
+		_resourcesBlock.setProject(project);
 	}
 
 	@Override

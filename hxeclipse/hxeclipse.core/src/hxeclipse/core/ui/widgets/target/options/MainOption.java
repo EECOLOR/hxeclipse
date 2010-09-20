@@ -1,7 +1,6 @@
 package hxeclipse.core.ui.widgets.target.options;
 
 import hxeclipse.core.IHaxeClass;
-import hxeclipse.core.ui.IInputConsumer;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
@@ -26,11 +25,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
+import org.eclipse.ui.model.AdaptableList;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.model.WorkbenchViewerComparator;
 
-public class MainOption extends Composite implements IInputConsumer, ISelectionProvider {
+public class MainOption extends Composite implements ISelectionProvider {
 	private ListenerList _selectionChangedListeners = new ListenerList();
 	private ElementTreeSelectionDialog _mainFileSelector;
 	private Text _mainFileField;
@@ -136,12 +136,11 @@ public class MainOption extends Composite implements IInputConsumer, ISelectionP
 		});
 	}
 
-	@Override
 	/**
 	 * Expects a list of source paths as input.
 	 */
-	public void setInput(Object input) {
-		_mainFileSelector.setInput(input);
+	public void setSourcePaths(AdaptableList adaptableList) {
+		_mainFileSelector.setInput(adaptableList);
 	}
 	
     protected void fireSelectionChanged(final SelectionChangedEvent event) {

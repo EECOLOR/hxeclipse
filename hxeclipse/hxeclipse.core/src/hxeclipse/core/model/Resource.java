@@ -1,39 +1,43 @@
 package hxeclipse.core.model;
 
-import java.io.File;
-
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.osgi.service.prefs.Preferences;
 
 public class Resource {
-	private File _file;
+	private IFile _file;
 	private String _name;
 	
 	public Resource(Preferences preferences) {
 		load(preferences);
 	}
 
-	public Resource(File file) {
+	public Resource(IFile file) {
 		_file = file;
 	}
 	
 	public void save(Preferences preferences) {
-		if (_file != null) preferences.put("file", _file.getAbsolutePath());
+		if (_file != null) preferences.put("file", _file.getFullPath().toString());
 		if (_name != null) preferences.put("name", _name);
 	}
 	
 	public void load(Preferences preferences) {
 		String file = preferences.get("file", null);
-		if (file != null) {
-			_file = new File(file);
-		}
+		
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		
+		if (file != null) _file = root.getFile(new Path(file));
+		
 		_name = preferences.get("name", null);
 	}
 	
-	public void setFile(File file) {
+	public void setFile(IFile file) {
 		_file = file;
 	}
 	
-	public File getFile() {
+	public IFile getFile() {
 		return _file;
 	}
 
@@ -43,5 +47,10 @@ public class Resource {
 
 	public String getName() {
 		return _name;
+	}
+
+	@Override
+	public String toString() {
+		return _file.getName() + (_name == null ? "" : "@" + _name);
 	}
 }

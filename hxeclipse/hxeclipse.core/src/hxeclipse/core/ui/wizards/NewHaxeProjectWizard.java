@@ -1,6 +1,7 @@
 package hxeclipse.core.ui.wizards;
 
 import hxeclipse.core.HXEclipse;
+import hxeclipse.core.internal.HaxeProjectManager;
 
 import java.net.URI;
 
@@ -129,7 +130,7 @@ public class NewHaxeProjectWizard extends Wizard implements INewWizard, IPageCha
 
 	@Override
 	public boolean canFinish() {
-		return _pageTwo.getProjectDescription() != null;
+		return _pageTwo.isPageComplete();
 	}
 
 	@Override
@@ -138,7 +139,8 @@ public class NewHaxeProjectWizard extends Wizard implements INewWizard, IPageCha
 		SafeRunnable.run(new SafeRunnable() {
 			@Override
 			public void run() throws Exception {
-				HXEclipse.getProjectManager().createHaxeProject(_project, _pageTwo.getProjectDescription());
+				HaxeProjectManager projectManager = HXEclipse.getProjectManager();
+				projectManager.createHaxeProject(_pageTwo.getHaxeProject());
 			}
 		});
 		

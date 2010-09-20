@@ -1,6 +1,5 @@
 package hxeclipse.core.ui.widgets.target.options;
 
-import hxeclipse.core.ui.IInputConsumer;
 import hxeclipse.core.ui.widgets.FolderSelectionDialog;
 
 import java.util.Iterator;
@@ -25,7 +24,7 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.model.WorkbenchViewerComparator;
 
-public class ClassPathOption extends Composite implements IInputConsumer {
+public class ClassPathOption extends Composite {
 
 	private ListViewer _listViewer;
 	private Button _addButton;
@@ -132,13 +131,11 @@ public class ClassPathOption extends Composite implements IInputConsumer {
 		_listViewer.setInput(adaptableList);
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
 	/**
 	 * Expects a list of folders as input's, this list contains all classPaths
 	 */
-	public void setInput(Object input) {
-		_sourceFolders = (List<IFolder>) input;
+	public void setSourceFolders(List<IFolder> sourceFolders) {
+		_sourceFolders = sourceFolders;
 		
 		_sourceFoldersChanged();
 	}

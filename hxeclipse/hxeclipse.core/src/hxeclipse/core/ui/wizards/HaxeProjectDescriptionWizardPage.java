@@ -10,7 +10,6 @@ import hxeclipse.core.ui.widgets.target.TargetDescriptionsChangedEvent;
 import hxeclipse.core.ui.widgets.target.TargetListDetails;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -21,7 +20,6 @@ import org.eclipse.ui.statushandlers.StatusManager;
 
 public class HaxeProjectDescriptionWizardPage extends WizardPage {
 
-	private HaxeProjectDescription _projectDescription;
 	private IProject _project;
 	private TargetListDetails _targetListDetails;
 	private IHaxeProject _haxeProject;
@@ -47,27 +45,22 @@ public class HaxeProjectDescriptionWizardPage extends WizardPage {
 	}
 
 	private void _targetDescriptionsChanged() {
-		List<IHaxeTargetDescription> targetDescriptions = _targetListDetails.getTargetDescriptions();
 		
-		if (targetDescriptions.size() > 0) {
-			_projectDescription.setTargets(targetDescriptions);
-		} else
-		{
-			_projectDescription = null;
-		}
+		HaxeProjectDescription projectDescription = _haxeProject.getProjectDescription();
+		projectDescription.setTargetDescriptions(_targetListDetails.getTargetDescriptions());
 		
 		setPageComplete(isPageComplete());
 	}
 
 	@Override
 	public boolean isPageComplete() {
-		return _projectDescription != null &&
-			   _projectDescription.getTargetDescriptions().size() > 0 &&
+		return _haxeProject != null &&
+			   _haxeProject.getProjectDescription().getTargetDescriptions().size() > 0 &&
 			   _project != null;
 	}
 
-	public HaxeProjectDescription getProjectDescription() {
-		return _projectDescription;
+	public IHaxeProject getHaxeProject() {
+		return _haxeProject;
 	}
 	
 	public void setProject(IProject project) {
@@ -78,7 +71,6 @@ public class HaxeProjectDescriptionWizardPage extends WizardPage {
 		HaxeProjectManager projectManager = HXEclipse.getProjectManager();
 		
 		if (_project == null) {
-			_projectDescription = null;
 			try {
 				projectManager.removeTempHaxeProject(_haxeProject);
 			} catch (CoreException e) {
@@ -86,9 +78,8 @@ public class HaxeProjectDescriptionWizardPage extends WizardPage {
 			}
 		} else
 		{
-			_projectDescription = new HaxeProjectDescription();
 			try {
-				_haxeProject = projectManager.createTempHaxeProject(_project, _projectDescription);
+				_haxeProject = projectManager.createTempHaxeProject(_project, new HaxeProjectDescription());
 			} catch (CoreException e) {
 				StatusManager.getManager().handle(e.getStatus());
 			}

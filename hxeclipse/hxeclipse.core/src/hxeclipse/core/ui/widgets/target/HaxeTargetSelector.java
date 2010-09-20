@@ -2,11 +2,13 @@ package hxeclipse.core.ui.widgets.target;
 
 import hxeclipse.core.HXEclipse;
 import hxeclipse.core.internal.HaxeTarget;
+import hxeclipse.core.ui.dialogs.HaxeDialog;
 import hxeclipse.core.ui.viewers.HaxeTargetLabelProvider;
 
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -19,15 +21,31 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-public class HaxeTargetSelector extends Dialog {
+public class HaxeTargetSelector extends HaxeDialog {
 
 	private TableViewer _tableViewer;
 	private HaxeTarget _haxeTarget;
+	private Button _okButton;
 	
 	public HaxeTargetSelector(Shell parentShell) {
 		super(parentShell);
 	}
 
+	@Override
+	protected void configureShell(Shell shell) {
+		super.configureShell(shell);
+		
+		shell.setText("Select Haxe Target");
+	}
+
+	@Override
+	public void create() {
+		super.create();
+		
+		_okButton = getButton(IDialogConstants.OK_ID);
+		_okButton.setEnabled(false);		
+	}	
+	
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		
@@ -46,6 +64,12 @@ public class HaxeTargetSelector extends Dialog {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				_tableViewerSelectionChanged();
+			}
+		});
+		_tableViewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				buttonPressed(IDialogConstants.OK_ID);
 			}
 		});
 		
@@ -70,8 +94,7 @@ public class HaxeTargetSelector extends Dialog {
 		
 		boolean empty = selection.isEmpty();
 		
-		Button okButton = getButton(IDialogConstants.OK_ID);
-		okButton.setEnabled(!empty);
+		_okButton.setEnabled(!empty);
 		
 		if (empty) {
 			_haxeTarget = null;

@@ -76,14 +76,14 @@ public class SourceBlock extends Composite {
 		
 		//add all source paths to the adaptable list
 		AdaptableList adaptableList = new AdaptableList(_generalOptionCollection.getSourceFolders());
-		_mainOption.setInput(adaptableList);
+		_mainOption.setSourcePaths(adaptableList);
 		
 		IHaxeClass main = _generalOptionCollection.getMain();
 		if (main != null) {
 			_mainOption.setSelection(new StructuredSelection(main));
 		}
 		
-		_classPathOption.setInput(_generalOptionCollection.getSourceFolders());
+		_classPathOption.setSourceFolders(_generalOptionCollection.getSourceFolders());
 
 		_outputPathOption.setSelection(new StructuredSelection(_generalOptionCollection.getOutputFolder()));
 		

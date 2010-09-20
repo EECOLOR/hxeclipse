@@ -74,8 +74,10 @@ public class LibrariesOption extends Composite {
 	private void _createButtons() {
 		Composite buttonBar = new Composite(this, SWT.NONE);
 		buttonBar.setLayout(new GridLayout());
+		buttonBar.setLayoutData(new GridData(SWT.NONE, SWT.BEGINNING, false, false));
 		
 		_addButton = new Button(buttonBar, SWT.PUSH);
+		_addButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
 		_addButton.setText("Add...");
 		_addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -85,6 +87,7 @@ public class LibrariesOption extends Composite {
 		});
 		
 		_removeButton = new Button(buttonBar, SWT.PUSH);
+		_removeButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
 		_removeButton.setText("Remove");
 		_removeButton.setEnabled(false);
 		_removeButton.addSelectionListener(new SelectionAdapter() {

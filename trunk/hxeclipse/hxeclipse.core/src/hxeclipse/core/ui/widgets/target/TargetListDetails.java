@@ -65,9 +65,10 @@ public class TargetListDetails extends ListDetails {
 	private void _createButtonBar(Composite parent) {
 		Composite buttonBar = new Composite(parent, SWT.NONE);
 		buttonBar.setLayout(new GridLayout(2, false));
+		buttonBar.setLayoutData(new GridData(SWT.END));
 		
 		_addButton = new Button(buttonBar, SWT.PUSH);
-		_addButton.setText("Add...");
+		_addButton.setText("&Add...");
 		_addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

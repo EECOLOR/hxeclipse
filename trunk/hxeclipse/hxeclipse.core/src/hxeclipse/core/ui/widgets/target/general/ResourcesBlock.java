@@ -1,18 +1,18 @@
 package hxeclipse.core.ui.widgets.target.general;
 
 import hxeclipse.core.internal.GeneralOptionCollection;
-import hxeclipse.core.ui.widgets.target.options.LibrariesOption;
+import hxeclipse.core.ui.widgets.target.options.ResourcesOption;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
-public class LibrariesBlock extends Composite {
+public class ResourcesBlock extends Composite {
+	private ResourcesOption _resourcesOption;
 
-	private LibrariesOption _librariesOption;
-
-	public LibrariesBlock(Composite parent, int style) {
+	public ResourcesBlock(Composite parent, int style) {
 		super(parent, style);
 		
 		initialize();
@@ -25,12 +25,15 @@ public class LibrariesBlock extends Composite {
 	}
 
 	private void _createLibrariesOption() {
-		_librariesOption = new LibrariesOption(this, SWT.NONE);
-		_librariesOption.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		_resourcesOption = new ResourcesOption(this, SWT.NONE);
+		_resourcesOption.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 	}
 
 	public void setGeneralOptionCollection(GeneralOptionCollection generalOptionsCollection) {
-		_librariesOption.setGeneralOptionCollection(generalOptionsCollection);
+		_resourcesOption.setGeneralOptionCollection(generalOptionsCollection);
 	}
-	
+
+	public void setProject(IProject project) {
+		_resourcesOption.setProject(project);
+	}
 }

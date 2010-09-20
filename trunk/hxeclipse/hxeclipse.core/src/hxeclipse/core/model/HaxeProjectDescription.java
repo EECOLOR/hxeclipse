@@ -15,7 +15,7 @@ import org.osgi.service.prefs.Preferences;
 public class HaxeProjectDescription {
 	private List<IHaxeTargetDescription> _targetDescriptions;
 
-	public void setTargets(List<IHaxeTargetDescription> targetDescriptions) {
+	public void setTargetDescriptions(List<IHaxeTargetDescription> targetDescriptions) {
 		_targetDescriptions = targetDescriptions;
 	}
 

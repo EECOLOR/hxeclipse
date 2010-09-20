@@ -217,4 +217,15 @@ public class HaxeProjectManager {
 			project.setDescription(projectDescription, null);
 		}
 	}
+
+	public void createHaxeProject(IHaxeProject haxeProject) throws CoreException {
+		if (haxeProject instanceof TempHaxeProject)
+		{
+			HaxeProjectDescription projectDescription = haxeProject.getProjectDescription();
+			IProject project = haxeProject.getProject();
+			
+			removeTempHaxeProject(haxeProject);
+			createHaxeProject(project, projectDescription);
+		}
+	}
 }

@@ -16,6 +16,7 @@ public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEdito
 	private SourceBlock _sourceBlock;
 	private LibrariesBlock _librariesBlock;
 	private ResourcesBlock _resourcesBlock;
+	private MappingsBlock _mappingsBlock;
 	
 	public GeneralOptionCollectionEditor(Composite parent, int style) {
 		_tabFolder = new TabFolder(parent, style);
@@ -27,6 +28,7 @@ public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEdito
 		_createSourceTab();
 		_createLibrariesTab();
 		_createResourcesTab();
+		_createMappingsTab();
 	}
 
 	private void _createSourceTab() {
@@ -52,6 +54,14 @@ public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEdito
 		tabItem.setText("Resources");
 		tabItem.setControl(_resourcesBlock);
 	}
+	
+	private void _createMappingsTab() {
+		_mappingsBlock = new MappingsBlock(_tabFolder, SWT.NONE);
+		
+		TabItem tabItem = new TabItem(_tabFolder, SWT.NONE);
+		tabItem.setText("Mappings");
+		tabItem.setControl(_mappingsBlock);
+	}
 
 	@Override
 	public void setOptionCollection(IHaxeOptionCollection optionCollection) {
@@ -59,6 +69,7 @@ public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEdito
 		_sourceBlock.setGeneralOptionCollection(generalOptionsCollection);
 		_librariesBlock.setGeneralOptionCollection(generalOptionsCollection);
 		_resourcesBlock.setGeneralOptionCollection(generalOptionsCollection);
+		_mappingsBlock.setGeneralOptionCollection(generalOptionsCollection);
 	}
 
 	@Override

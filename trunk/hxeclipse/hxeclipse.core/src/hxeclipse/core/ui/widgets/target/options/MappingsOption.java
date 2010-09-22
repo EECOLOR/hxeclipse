@@ -1,13 +1,13 @@
 package hxeclipse.core.ui.widgets.target.options;
 
 import hxeclipse.core.internal.GeneralOptionCollection;
+import hxeclipse.core.model.Mapping;
 import hxeclipse.core.model.Resource;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -24,24 +24,23 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
-public class ResourcesOption extends Composite {
+public class MappingsOption extends Composite {
 
-	private ListViewer _resourceList;
-	private List<Resource> _resources;
-	private Button _addButton;
+	private List<Mapping> _mappings;
 	private Button _removeButton;
-	private ResourceDialog _resourceDialog;
+	private Button _addButton;
+	private ListViewer _mappingList;
+	private MappingDialog _mappingDialog;
 
-	public ResourcesOption(Composite parent, int style) {
+	public MappingsOption(Composite parent, int style) {
 		super(parent, style);
-		
 		initialize();
 	}
 
 	protected void initialize() {
 		setLayout(new GridLayout(2, false));
 		
-		_resourceDialog = new ResourceDialog(getShell());
+		_mappingDialog = new MappingDialog(getShell());
 		
 		_createList();
 		_createButtons();
@@ -52,12 +51,12 @@ public class ResourcesOption extends Composite {
 		layoutData.widthHint = 100;
 		layoutData.heightHint = 100;
 		
-		_resourceList = new ListViewer(this);
-		_resourceList.getControl().setLayoutData(layoutData);
-		_resourceList.setContentProvider(ArrayContentProvider.getInstance());
-		_resourceList.setLabelProvider(new LabelProvider());
-		_resourceList.setComparator(new ViewerComparator());
-		_resourceList.addSelectionChangedListener(new ISelectionChangedListener() {
+		_mappingList = new ListViewer(this);
+		_mappingList.getControl().setLayoutData(layoutData);
+		_mappingList.setContentProvider(ArrayContentProvider.getInstance());
+		_mappingList.setLabelProvider(new LabelProvider());
+		_mappingList.setComparator(new ViewerComparator());
+		_mappingList.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				_resourceListChanged();
@@ -72,7 +71,7 @@ public class ResourcesOption extends Composite {
 		
 		_addButton = new Button(buttonBar, SWT.PUSH);
 		_addButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
-		_addButton.setText("Add file...");
+		_addButton.setText("Add mapping...");
 		_addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -93,7 +92,7 @@ public class ResourcesOption extends Composite {
 	}
 	
 	private void _resourceListChanged() {
-		IStructuredSelection selection = (IStructuredSelection) _resourceList.getSelection();
+		IStructuredSelection selection = (IStructuredSelection) _mappingList.getSelection();
 		
 		_removeButton.setEnabled(!selection.isEmpty());
 	}
@@ -101,41 +100,36 @@ public class ResourcesOption extends Composite {
 	private void _removeButtonClicked() {
 		_removeButton.setEnabled(false);
 		
-		IStructuredSelection selection = (IStructuredSelection) _resourceList.getSelection();
+		IStructuredSelection selection = (IStructuredSelection) _mappingList.getSelection();
 		@SuppressWarnings("unchecked")
-		Iterator<Resource> resources = selection.iterator();
+		Iterator<Resource> mappings = selection.iterator();
 		
-		while (resources.hasNext()) {
-			_resources.remove(resources.next());
+		while (mappings.hasNext()) {
+			_mappings.remove(mappings.next());
 		}
-		_resourceList.refresh();
+		_mappingList.refresh();
 	}
 
 	private void _addButtonClicked() {
-		if (_resourceDialog.open() == IDialogConstants.OK_ID) {
-			Resource resource = new Resource(_resourceDialog.getFile());
-			resource.setName(_resourceDialog.getName());
+		if (_mappingDialog.open() == IDialogConstants.OK_ID) {
+			Mapping mapping = new Mapping(_mappingDialog.getSourcePackage(), _mappingDialog.getDestinationPackage());
 			
-			_resources.add(resource);
-			_resourceList.refresh();
+			_mappings.add(mapping);
+			_mappingList.refresh();
 		}
 	}
 
-	public void setProject(IProject project) {
-		_resourceDialog.setProject(project);
-	}
-	
 	public void setGeneralOptionCollection(GeneralOptionCollection generalOptionCollection) {
-		List<Resource> resources = generalOptionCollection.getResources();
+		List<Mapping> mappings = generalOptionCollection.getMappings();
 		
-		if (resources == null) {
-			_resources = new ArrayList<Resource>();
-			generalOptionCollection.setResources(_resources);
+		if (mappings == null) {
+			_mappings = new ArrayList<Mapping>();
+			generalOptionCollection.setMappings(_mappings);
 		} else
 		{
-			_resources = resources;
+			_mappings = mappings;
 		}
 		
-		_resourceList.setInput(_resources);
+		_mappingList.setInput(_mappings);
 	}
 }

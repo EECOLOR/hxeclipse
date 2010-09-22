@@ -129,7 +129,7 @@
             id="hxeclipse.core.GeneralOptionCollection">
       </option-collection>
       <option-collection
-            class="hxeclipse.core.extensions.CompilerOptionCollection"
+            class="hxeclipse.core.internal.CompilerOptionCollection"
             editor-factory="hxeclipse.core.ui.widgets.target.EmptyOptionCollectionEditorFactory"
             id="hxeclipse.core.CompilerOptionCollection">
       </option-collection>

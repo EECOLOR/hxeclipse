@@ -65,11 +65,11 @@ public class GeneralOptionCollectionEditor implements IHaxeOptionCollectionEdito
 
 	@Override
 	public void setOptionCollection(IHaxeOptionCollection optionCollection) {
-		GeneralOptionCollection generalOptionsCollection = (GeneralOptionCollection) optionCollection;
-		_sourceBlock.setGeneralOptionCollection(generalOptionsCollection);
-		_librariesBlock.setGeneralOptionCollection(generalOptionsCollection);
-		_resourcesBlock.setGeneralOptionCollection(generalOptionsCollection);
-		_mappingsBlock.setGeneralOptionCollection(generalOptionsCollection);
+		GeneralOptionCollection generalOptionCollection = (GeneralOptionCollection) optionCollection;
+		_sourceBlock.setGeneralOptionCollection(generalOptionCollection);
+		_librariesBlock.setGeneralOptionCollection(generalOptionCollection);
+		_resourcesBlock.setGeneralOptionCollection(generalOptionCollection);
+		_mappingsBlock.setGeneralOptionCollection(generalOptionCollection);
 	}
 
 	@Override

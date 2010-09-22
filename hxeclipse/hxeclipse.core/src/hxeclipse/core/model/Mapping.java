@@ -40,4 +40,8 @@ public class Mapping {
 	public String getTargetPackage() {
 		return _targetPackage;
 	}
+	
+	public String toString() {
+		return _sourcePackage + " > " + _targetPackage;
+	}
 }

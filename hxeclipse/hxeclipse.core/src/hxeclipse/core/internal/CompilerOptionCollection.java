@@ -1,10 +1,11 @@
-package hxeclipse.core.extensions;
+package hxeclipse.core.internal;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import hxeclipse.core.IHaxeProject;
+import hxeclipse.core.extensions.IHaxeOptionCollection;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;

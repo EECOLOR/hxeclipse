@@ -27,5 +27,5 @@ public interface IHaxeTargetDescription {
 	public void save(Preferences preferences);
 	public void load(Preferences preferences) throws BackingStoreException, CoreException;
 	public List<IFolder> getSourceFolders();
-	public IFolder getOutputFolder();
+	public IFolder getOutputFolder() throws CoreException;
 }

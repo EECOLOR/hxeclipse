@@ -1,4 +1,4 @@
-package hxeclipse.core.ui.widgets.target.compiler.options;
+package hxeclipse.core.ui.widgets.target.options;
 
 import hxeclipse.core.ui.dialogs.HaxeDialog;
 

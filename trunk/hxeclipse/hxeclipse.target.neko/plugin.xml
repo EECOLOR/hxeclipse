@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="hxeclipse.core.targets">
+      <option-collection
+            class="hxeclipse.target.neko.extensions.NekoOptionCollection"
+            editor-factory="hxeclipse.target.neko.ui.widgets.NekoOptionCollectionEditorFactory"
+            id="hxeclipse.target.neko.NekoOptionCollection">
+      </option-collection>
+      <target
+            class="hxeclipse.target.neko.extensions.NekoTargetDescription"
+            icon="icons/neko.ico"
+            name="Neko">
+         <option-collection-reference
+               reference="hxeclipse.core.GeneralOptionCollection">
+         </option-collection-reference>
+         <option-collection-reference
+               reference="hxeclipse.core.CompilerOptionCollection">
+         </option-collection-reference>
+         <option-collection-reference
+               reference="hxeclipse.target.neko.NekoOptionCollection">
+         </option-collection-reference>
+      </target>
+   </extension>
+
+</plugin>

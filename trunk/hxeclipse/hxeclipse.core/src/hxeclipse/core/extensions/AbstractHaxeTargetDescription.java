@@ -21,6 +21,7 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 	private List<IHaxeOptionCollection> _optionCollections;
 	private HaxeTarget _haxeTarget;
 	private List<IHaxeSourceFolderProvider> _sourceFolderProviders;
+	private IHaxeOutputFolderProvider _outputFolderProvider;
 	
 	public AbstractHaxeTargetDescription() {
 	}
@@ -86,7 +87,7 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 		_optionCollections = optionCollections;
 	}
 	
-	private List<IFolder> _getSourceFolders()
+	public List<IFolder> getSourceFolders()
 	{
 		if (_sourceFolderProviders == null) {
 			_sourceFolderProviders = new ArrayList<IHaxeSourceFolderProvider>(1);
@@ -117,7 +118,7 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 	public IPath getSourceFolderRelativePath(IResource resource) {
 		IPath resourcePath = resource.getFullPath();
 		
-		Iterator<IFolder> sourceFolders = _getSourceFolders().iterator();
+		Iterator<IFolder> sourceFolders = getSourceFolders().iterator();
 		
 		while (sourceFolders.hasNext()) {
 			IPath sourceFolderPath = sourceFolders.next().getFullPath();
@@ -127,6 +128,28 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 		}
 		
 		return null;
+	}
+
+	@Override
+	public IFolder getOutputFolder() {
+		if (_outputFolderProvider == null) {
+			
+			//find output folder provider
+			Iterator<IHaxeOptionCollection> optionCollections = _optionCollections.iterator();
+			
+			while (optionCollections.hasNext()) {
+				IHaxeOptionCollection optionCollection = optionCollections.next();
+				if (optionCollection instanceof IHaxeOutputFolderProvider) {
+					_outputFolderProvider = (IHaxeOutputFolderProvider) optionCollection;
+				}
+			}
+		}
+		
+		if (_outputFolderProvider == null) {
+			return null;
+		} else {
+			return _outputFolderProvider.getOutputFolder();
+		}
 	}
 
 	@Override

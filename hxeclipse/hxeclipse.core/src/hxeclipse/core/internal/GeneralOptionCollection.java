@@ -4,7 +4,9 @@ import hxeclipse.core.IHaxeClass;
 import hxeclipse.core.IHaxeProject;
 import hxeclipse.core.extensions.IHaxeLibrary;
 import hxeclipse.core.extensions.IHaxeOptionCollection;
+import hxeclipse.core.extensions.IHaxeOutputFolderProvider;
 import hxeclipse.core.extensions.IHaxeSourceFolderProvider;
+import hxeclipse.core.model.DefaultValues;
 import hxeclipse.core.model.Library;
 import hxeclipse.core.model.Mapping;
 import hxeclipse.core.model.Resource;
@@ -25,7 +27,7 @@ import org.eclipse.core.runtime.Path;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
-public class GeneralOptionCollection implements IHaxeOptionCollection, IHaxeSourceFolderProvider {
+public class GeneralOptionCollection implements IHaxeOptionCollection, IHaxeSourceFolderProvider, IHaxeOutputFolderProvider {
 	private IHaxeClass _main;
 	private List<IHaxeLibrary> _libraries;
 	private List<Resource> _resources;

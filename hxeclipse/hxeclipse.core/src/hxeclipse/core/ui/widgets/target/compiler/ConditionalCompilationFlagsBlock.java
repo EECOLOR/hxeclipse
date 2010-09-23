@@ -1,7 +1,7 @@
 package hxeclipse.core.ui.widgets.target.compiler;
 
 import hxeclipse.core.internal.CompilerOptionCollection;
-import hxeclipse.core.ui.widgets.target.compiler.options.ConditionalCompilationFlagsOption;
+import hxeclipse.core.ui.widgets.target.options.ConditionalCompilationFlagsOption;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;

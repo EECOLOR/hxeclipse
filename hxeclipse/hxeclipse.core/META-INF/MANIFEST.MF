@@ -20,4 +20,5 @@ Export-Package: hxeclipse.core,
  hxeclipse.core.ui.dialogs,
  hxeclipse.core.ui.viewers,
  hxeclipse.core.ui.widgets,
+ hxeclipse.core.ui.widgets.target.options,
  hxeclipse.core.utils

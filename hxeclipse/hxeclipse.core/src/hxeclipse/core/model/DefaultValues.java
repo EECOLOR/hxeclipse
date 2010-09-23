@@ -1,4 +1,4 @@
-package hxeclipse.core.internal;
+package hxeclipse.core.model;
 
 
 public class DefaultValues {

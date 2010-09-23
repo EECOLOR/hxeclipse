@@ -79,7 +79,7 @@ abstract public class AbstractHaxeProject implements IHaxeProject {
 	}
 
 	@Override
-	public IFolder getOutputFolder() {
+	public IFolder getOutputFolder() throws CoreException {
 		Iterator<IHaxeTargetDescription> targetDescriptions = _projectDescription.getTargetDescriptions().iterator();
 		
 		while (targetDescriptions.hasNext()) {

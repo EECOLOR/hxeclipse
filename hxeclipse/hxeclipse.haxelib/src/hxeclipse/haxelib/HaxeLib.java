@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +39,11 @@ public class HaxeLib {
 	private Map<String, CacheElement> _libraryCache;
 	private List<Library> _installedLibrariesCache;
 	private List<Library> _availableLibrariesCache;
+
+	private File _haxePath;
+	
+	//TODO get this from the settings
+	private File _nekoPath = new File("D:\\neko\\1.8.1");
 	
 	private HaxeLib() throws HaxePathNotFoundException, HaxeLibNotFoundException {
 		_initialize();
@@ -45,10 +51,10 @@ public class HaxeLib {
 	
 	private void _initialize() throws HaxePathNotFoundException, HaxeLibNotFoundException {
 		//get the haxelib absolute path
-		File haxePath = new File(HXEclipse.getHaxePreferences().getHaxePath());
+		_haxePath = new File(HXEclipse.getHaxePreferences().getHaxePath());
 		File haxeLib;
 		try {
-			haxeLib = new File(haxePath, FileUtils.getFile(haxePath, "haxelib"));
+			haxeLib = new File(_haxePath, FileUtils.getFile(_haxePath, "haxelib"));
 		} catch (FileNotFoundException e) {
 			throw new HaxeLibNotFoundException("Could not find the Haxe library tool", e);
 		} 
@@ -58,9 +64,22 @@ public class HaxeLib {
 		clearCache();
 	}
 
-	private void _execute(LineAppender appender, String command) throws IOException {
-		Process process = Runtime.getRuntime().exec(_haxeLibLocation + " " + command);
-
+	private void _execute(LineAppender appender, List<String> arguments) throws IOException {
+		List<String> command = new ArrayList<String>(1 + arguments.size());
+		command.add(_haxeLibLocation);
+		command.addAll(arguments);
+		
+		ProcessBuilder processBuilder = new ProcessBuilder(command);
+		//TODO file an issue so that normal environment variables can be used, for now execute in the dir of neko
+		processBuilder.directory(_nekoPath);
+		
+		//set environment variables
+		Map<String, String> environment = processBuilder.environment();
+		environment.put("HAXEPATH", _haxePath.getAbsolutePath());
+		environment.put("NEKO_INSTPATH", _nekoPath.getAbsolutePath());
+		
+		Process process = processBuilder.start();
+		
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		String line = null;
 		while ((line = bufferedReader.readLine()) != null)
@@ -167,7 +186,9 @@ public class HaxeLib {
 		} else {
 			StringAppender appender = new StringAppender();
 			
-			_execute(appender, "install " + library + (version == null ? "" : " " + version));
+			String installArgument = "install " + library + (version == null ? "" : " " + version);
+			
+			_execute(appender, Arrays.asList(new String[] {installArgument}));
 			
 			//update install information
 			Library haxeLibrary;
@@ -270,7 +291,12 @@ public class HaxeLib {
 		} else {
 			LibraryAppender appender = new LibraryAppender();
 			
-			_execute(appender, "search " + word);
+			//TODO fix all other calls in this file
+			List<String> searchArguments = new ArrayList<String>(2);
+			searchArguments.add("search");
+			searchArguments.add(word);
+			
+			_execute(appender, searchArguments);
 			
 			List<Library> result = appender.getResult();
 			
@@ -317,7 +343,9 @@ public class HaxeLib {
 		if (getInfo) {
 			StringAppender appender = new StringAppender();
 			
-			_execute(appender, "info " + library);
+			String infoArgument = "info " + library;
+			
+			_execute(appender, Arrays.asList(new String[] {infoArgument}));
 			
 			Library haxeLibraryDetails = StringUtils.createHaxeLibrary(appender.getResult());
 			
@@ -379,7 +407,9 @@ public class HaxeLib {
 		} else {
 			LibraryAppender appender = new LibraryAppender();
 			
-			_execute(appender, "list");
+			String listArgument = "list";
+			
+			_execute(appender, Arrays.asList(new String[] {listArgument}));
 			
 			List<Library> result = appender.getResult();
 			
@@ -472,7 +502,10 @@ public class HaxeLib {
 		StringAppender appender = new StringAppender();
 		
 		System.out.println("calling 'remove " + library + (version == null ? "" : " " + version) + "'");
-		_execute(appender, "remove " + library + (version == null ? "" : " " + version));
+		String removeArgument = "remove " + library + (version == null ? "" : " " + version);
+		
+		_execute(appender, Arrays.asList(new String[] {removeArgument }));
+		
 		System.out.println(appender.getResult());
 		return appender.getResult();
 	}
@@ -512,7 +545,9 @@ public class HaxeLib {
 			
 		StringAppender appender = new StringAppender();
 		
-		_execute(appender, "set " + library + " " + version);
+		String setArgument = "set " + library + " " + version;
+		
+		_execute(appender, Arrays.asList(new String[] {setArgument}));
 		
 		return appender.getResult();
 	}

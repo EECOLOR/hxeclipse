@@ -5,6 +5,7 @@ import hxeclipse.core.extensions.AbstractOutputOptionCollection;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -38,7 +39,12 @@ public class OutputFileOption extends Composite {
 		_outputFileText.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
-				IFile outputFile = _haxeProject.getOutputFolder().getFile(_outputFileText.getText());
+				IFile outputFile;
+				try {
+					outputFile = _haxeProject.getOutputFolder().getFile(_outputFileText.getText());
+				} catch (CoreException e1) {
+					throw new RuntimeException(e1);
+				}
 				_abstractOutputOptionCollection.setOutputFile(outputFile);
 			}
 		});

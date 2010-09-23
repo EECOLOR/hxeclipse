@@ -14,6 +14,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
@@ -131,7 +133,7 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 	}
 
 	@Override
-	public IFolder getOutputFolder() {
+	public IFolder getOutputFolder() throws CoreException {
 		if (_outputFolderProvider == null) {
 			
 			//find output folder provider
@@ -146,7 +148,8 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 		}
 		
 		if (_outputFolderProvider == null) {
-			return null;
+			IStatus status = new Status(IStatus.ERROR, HXEclipse.PLUGIN_ID, "Could not find output folder");
+			throw new CoreException(status);
 		} else {
 			return _outputFolderProvider.getOutputFolder();
 		}

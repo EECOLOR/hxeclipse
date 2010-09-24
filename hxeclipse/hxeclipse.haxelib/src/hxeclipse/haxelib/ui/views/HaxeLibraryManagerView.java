@@ -1,6 +1,7 @@
 package hxeclipse.haxelib.ui.views;
 
 import hxeclipse.core.exceptions.HaxePathNotFoundException;
+import hxeclipse.core.exceptions.NekoPathNotFoundException;
 import hxeclipse.core.ui.widgets.HaxePathMissing;
 import hxeclipse.haxelib.HaxeLib;
 import hxeclipse.haxelib.exceptions.HaxeLibNotFoundException;
@@ -29,6 +30,8 @@ public class HaxeLibraryManagerView extends ViewPart {
 			} catch (HaxePathNotFoundException e) {
 				haxeLibAvilable = false;
 			} catch (HaxeLibNotFoundException e) {
+				haxeLibAvilable = false;
+			} catch (NekoPathNotFoundException e) {
 				haxeLibAvilable = false;
 			}
 		}

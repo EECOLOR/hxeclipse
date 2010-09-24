@@ -1,7 +1,9 @@
 package hxeclipse.haxelib;
 
 import hxeclipse.core.HXEclipse;
+import hxeclipse.core.IHaxePreferences;
 import hxeclipse.core.exceptions.HaxePathNotFoundException;
+import hxeclipse.core.exceptions.NekoPathNotFoundException;
 import hxeclipse.core.utils.FileUtils;
 import hxeclipse.haxelib.exceptions.HaxeLibNotFoundException;
 import hxeclipse.haxelib.model.Library;
@@ -15,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +26,7 @@ public class HaxeLib {
 	static private HaxeLib _instance;
 	
 	//TODO can we use dependency injection instead of this nasty Singleton pattern?
-	static public HaxeLib getInstance() throws HaxePathNotFoundException, HaxeLibNotFoundException {
+	static public HaxeLib getInstance() throws HaxePathNotFoundException, HaxeLibNotFoundException, NekoPathNotFoundException {
 		synchronized(HaxeLib.class) {
 			if (_instance == null) {
 				_instance = new HaxeLib();
@@ -41,17 +42,19 @@ public class HaxeLib {
 	private List<Library> _availableLibrariesCache;
 
 	private File _haxePath;
+	private File _nekoPath;
 	
-	//TODO get this from the settings
-	private File _nekoPath = new File("D:\\neko\\1.8.1");
-	
-	private HaxeLib() throws HaxePathNotFoundException, HaxeLibNotFoundException {
+	private HaxeLib() throws HaxePathNotFoundException, HaxeLibNotFoundException, NekoPathNotFoundException {
 		_initialize();
 	}
 	
-	private void _initialize() throws HaxePathNotFoundException, HaxeLibNotFoundException {
+	private void _initialize() throws HaxePathNotFoundException, HaxeLibNotFoundException, NekoPathNotFoundException {
+		IHaxePreferences haxePreferences = HXEclipse.getHaxePreferences();
+		
+		_haxePath = new File(haxePreferences.getHaxePath());
+		_nekoPath = new File(haxePreferences.getNekoPath());
+		
 		//get the haxelib absolute path
-		_haxePath = new File(HXEclipse.getHaxePreferences().getHaxePath());
 		File haxeLib;
 		try {
 			haxeLib = new File(_haxePath, FileUtils.getFile(_haxePath, "haxelib"));
@@ -59,6 +62,7 @@ public class HaxeLib {
 			throw new HaxeLibNotFoundException("Could not find the Haxe library tool", e);
 		} 
 		_haxeLibLocation = haxeLib.getAbsolutePath();
+		
 		
 		//initialize the caches
 		clearCache();
@@ -186,9 +190,14 @@ public class HaxeLib {
 		} else {
 			StringAppender appender = new StringAppender();
 			
-			String installArgument = "install " + library + (version == null ? "" : " " + version);
+			List<String> searchArguments = new ArrayList<String>(3);
+			searchArguments.add("install");
+			searchArguments.add(library);
+			if (version != null) {
+				searchArguments.add(version);
+			}
 			
-			_execute(appender, Arrays.asList(new String[] {installArgument}));
+			_execute(appender, searchArguments);
 			
 			//update install information
 			Library haxeLibrary;
@@ -343,9 +352,11 @@ public class HaxeLib {
 		if (getInfo) {
 			StringAppender appender = new StringAppender();
 			
-			String infoArgument = "info " + library;
+			List<String> searchArguments = new ArrayList<String>(2);
+			searchArguments.add("info");
+			searchArguments.add(library);
 			
-			_execute(appender, Arrays.asList(new String[] {infoArgument}));
+			_execute(appender, searchArguments);
 			
 			Library haxeLibraryDetails = StringUtils.createHaxeLibrary(appender.getResult());
 			
@@ -407,9 +418,10 @@ public class HaxeLib {
 		} else {
 			LibraryAppender appender = new LibraryAppender();
 			
-			String listArgument = "list";
+			List<String> searchArguments = new ArrayList<String>(1);
+			searchArguments.add("list");
 			
-			_execute(appender, Arrays.asList(new String[] {listArgument}));
+			_execute(appender, searchArguments);
 			
 			List<Library> result = appender.getResult();
 			
@@ -502,9 +514,15 @@ public class HaxeLib {
 		StringAppender appender = new StringAppender();
 		
 		System.out.println("calling 'remove " + library + (version == null ? "" : " " + version) + "'");
-		String removeArgument = "remove " + library + (version == null ? "" : " " + version);
 		
-		_execute(appender, Arrays.asList(new String[] {removeArgument }));
+		List<String> searchArguments = new ArrayList<String>(3);
+		searchArguments.add("remove");
+		searchArguments.add(library);
+		if (version != null) {
+			searchArguments.add(version);
+		}
+		
+		_execute(appender, searchArguments);
 		
 		System.out.println(appender.getResult());
 		return appender.getResult();
@@ -545,9 +563,12 @@ public class HaxeLib {
 			
 		StringAppender appender = new StringAppender();
 		
-		String setArgument = "set " + library + " " + version;
+		List<String> searchArguments = new ArrayList<String>(3);
+		searchArguments.add("set");
+		searchArguments.add(library);
+		searchArguments.add(version);
 		
-		_execute(appender, Arrays.asList(new String[] {setArgument}));
+		_execute(appender, searchArguments);
 		
 		return appender.getResult();
 	}

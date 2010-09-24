@@ -2,6 +2,7 @@ package hxeclipse.core.internal;
 
 import hxeclipse.core.IHaxePreferences;
 import hxeclipse.core.exceptions.HaxePathNotFoundException;
+import hxeclipse.core.exceptions.NekoPathNotFoundException;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -23,5 +24,16 @@ public class HaxePreferences implements IHaxePreferences {
 		}
 		
 		return haxePath;
+	}
+	
+	@Override
+	public String getNekoPath() throws NekoPathNotFoundException {
+		String nekoPath = _preferenceStore.getString(HaxePreferenceConstants.NEKO_PATH);
+		
+		if (nekoPath == null || nekoPath.length() == 0) {
+			throw new NekoPathNotFoundException("No Neko path has been set in the preferences");
+		}
+		
+		return nekoPath;
 	}
 }

@@ -1,6 +1,7 @@
 package hxeclipse.haxelib.ui.dialogs;
 
 import hxeclipse.core.exceptions.HaxePathNotFoundException;
+import hxeclipse.core.exceptions.NekoPathNotFoundException;
 import hxeclipse.core.ui.dialogs.HaxeDialog;
 import hxeclipse.core.ui.widgets.HaxePathMissing;
 import hxeclipse.haxelib.HaxeLib;
@@ -41,6 +42,8 @@ public class HaxeLibraryManagerDialog extends HaxeDialog {
 			} catch (HaxePathNotFoundException e) {
 				haxeLibAvilable = false;
 			} catch (HaxeLibNotFoundException e) {
+				haxeLibAvilable = false;
+			} catch (NekoPathNotFoundException e) {
 				haxeLibAvilable = false;
 			}
 		}

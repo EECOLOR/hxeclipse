@@ -15,6 +15,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 public class HaxePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
 	private DirectoryFieldEditor _haxePath;
+	private DirectoryFieldEditor _nekoPath;
 	
 	public HaxePreferencePage() {
 		super(GRID);
@@ -26,6 +27,10 @@ public class HaxePreferencePage extends FieldEditorPreferencePage implements IWo
 		_haxePath = new DirectoryFieldEditor(HaxePreferenceConstants.HAXE_PATH, "&Haxe path:", getFieldEditorParent());
 		_haxePath.setEmptyStringAllowed(false);
 		addField(_haxePath);
+		
+		_nekoPath = new DirectoryFieldEditor(HaxePreferenceConstants.NEKO_PATH, "&Neko path:", getFieldEditorParent());
+		_nekoPath.setEmptyStringAllowed(false);
+		addField(_nekoPath);
 	}
 
 	@Override
@@ -34,6 +39,8 @@ public class HaxePreferencePage extends FieldEditorPreferencePage implements IWo
 		
 		if (event.getSource().equals(_haxePath)) {
 			checkState();
+		} else if (event.getSource().equals(_nekoPath)) {
+			checkState();
 		}
 	}
 
@@ -41,6 +48,13 @@ public class HaxePreferencePage extends FieldEditorPreferencePage implements IWo
 	protected void checkState() {
 		super.checkState();
 		
+		boolean valid = _checkHaxePath();
+		valid = valid && _checkNekoPath();
+		
+		setValid(valid);
+	}
+	
+	public boolean _checkHaxePath() {
 		String haxePathString = _haxePath.getStringValue();
 		File haxePath = new File(haxePathString);
 		
@@ -62,11 +76,40 @@ public class HaxePreferencePage extends FieldEditorPreferencePage implements IWo
 			valid = haxeFiles.length > 1;
 			
 			if (!valid) {
-				setErrorMessage("Could not find 'haxe' or 'haxelib' in the given directory");
+				setErrorMessage("Could not find 'haxe' or 'haxelib' in the given Haxe directory");
 			}
 		}
 		
-		setValid(valid);
+		return valid;
+	}
+
+	public boolean _checkNekoPath() {
+		String nekoPathString = _nekoPath.getStringValue();
+		File nekoPath = new File(nekoPathString);
+		
+		boolean valid = nekoPath.exists() && nekoPath.isDirectory();
+		
+		if (!valid) {
+			setErrorMessage("Neko path is not a directory");
+		} else {
+			String[] nekoFiles = nekoPath.list(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					String lowerCaseName = name.toLowerCase();
+					String[] split = lowerCaseName.split("\\.");
+					String testName = split[0];
+					return testName.equals("neko") || testName.equals("nekoc");
+				}
+			});
+			
+			valid = nekoFiles.length > 1;
+			
+			if (!valid) {
+				setErrorMessage("Could not find 'neko' or 'nekoc' in the given Neko directory");
+			}
+		}
+		
+		return valid;
 	}
 
 	@Override

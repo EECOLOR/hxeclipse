@@ -39,8 +39,8 @@ public class HaxePathMissing extends Composite {
 				}
 			}
 		});
-		link.setText("For this object to function you need to have the Haxe path specified. " +
-					 "You can change the Haxe path in the <a>Haxe Preference Page</a>. " +
+		link.setText("For this object to function you need to have the Haxe and Neko path specified. " +
+					 "You can change these at the <a>Haxe Preference Page</a>. " +
 					 "You need to close and reopen this object for the changes to be visible.");
 	}
 }

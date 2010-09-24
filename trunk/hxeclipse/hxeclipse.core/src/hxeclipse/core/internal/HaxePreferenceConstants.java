@@ -6,5 +6,7 @@ public class HaxePreferenceConstants {
 	private static final String PREFERENCES = HXEclipse.PLUGIN_ID + ".preferences";
 	
 	public static final String HAXE_PATH = PREFERENCES + ".haxePath";
+	public static final String NEKO_PATH = PREFERENCES + ".nekoPath";
 	public static final String LIBRARY_SELECTOR = PREFERENCES + ".librarySelector";
+
 }

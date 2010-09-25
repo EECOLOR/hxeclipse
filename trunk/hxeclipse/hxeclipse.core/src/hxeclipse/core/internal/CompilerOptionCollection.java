@@ -26,6 +26,37 @@ public class CompilerOptionCollection implements IHaxeOptionCollection {
 	}
 
 	@Override
+	public List<String> getCommandLineArguments(IHaxeProject haxeProject) {
+		List<String> commandLineArguments = new ArrayList<String>();
+		
+		if (_conditionalCompilationFlags != null) {
+			Iterator<String> conditionalCompilationFlags = _conditionalCompilationFlags.iterator();
+			
+			while (conditionalCompilationFlags.hasNext()) {
+				String conditionalCompilationFlag = conditionalCompilationFlags.next();
+				
+				commandLineArguments.add("-D");
+				commandLineArguments.add(conditionalCompilationFlag);
+			}
+		}
+		
+		if (_includeDebugInformation) {
+			commandLineArguments.add("-debug");
+		}
+		if (_noOptimalisation) {
+			commandLineArguments.add("--no-opt");
+		}
+		if (_noTraces) {
+			commandLineArguments.add("--no-traces");
+		}
+		if (_noInlining) {
+			commandLineArguments.add("--no-inline");
+		}
+		
+		return commandLineArguments;
+	}
+
+	@Override
 	public IHaxeOptionCollection copy() {
 		CompilerOptionCollection compilerOptionCollection = new CompilerOptionCollection();
 		compilerOptionCollection._conditionalCompilationFlags = _conditionalCompilationFlags;

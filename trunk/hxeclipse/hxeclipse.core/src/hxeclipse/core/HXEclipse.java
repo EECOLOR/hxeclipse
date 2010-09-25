@@ -1,5 +1,6 @@
 package hxeclipse.core;
 
+import hxeclipse.core.compiler.HaxeCompiler;
 import hxeclipse.core.internal.HaxeLibrarySelectorManager;
 import hxeclipse.core.internal.HaxePreferences;
 import hxeclipse.core.internal.HaxeProjectManager;
@@ -46,6 +47,10 @@ public class HXEclipse extends AbstractUIPlugin {
 	
 	public static final String FLAG_IS_HAXE_PROJECT = "isHaxeProject";
 	
+	public static final String HAXE_PROBLEM_MARKER = PLUGIN_ID + ".haxeProblemMarker";
+	
+	public static final String QUICK_FIX_EXTENSION = PLUGIN_ID + ".editor.quickFix";
+	
 	// The shared instance
 	private static HXEclipse _plugin;
 
@@ -54,6 +59,8 @@ public class HXEclipse extends AbstractUIPlugin {
 	private static HaxeLibrarySelectorManager _librarySelectorManager;
 	private static HaxeTargetManager _targetManager;
 	private static HaxeProjectManager _projectManager;
+
+	private static HaxeCompiler _compiler;
 	
 	/**
 	 * The constructor
@@ -143,5 +150,13 @@ public class HXEclipse extends AbstractUIPlugin {
 		}
 		
 		return _projectManager;
+	}
+
+	public static HaxeCompiler getCompiler() {
+		if (_compiler == null) {
+			_compiler = new HaxeCompiler();
+		}
+		
+		return _compiler;
 	}
 }

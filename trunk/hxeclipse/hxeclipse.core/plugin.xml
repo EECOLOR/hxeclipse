@@ -3,6 +3,7 @@
 <plugin>
    <extension-point id="hxeclipse.core.targets" name="Haxe Targets" schema="schema/hxeclipse.core.target.exsd"/>
    <extension-point id="hxeclipse.core.librarySelectors" name="Library Selectors" schema="schema/hxeclipse.core.librarySelectors.exsd"/>
+   <extension-point id="hxeclipse.core.editor.quickFix" name="Quick Fix" schema="schema/hxeclipse.core.editor.quickFix.exsd"/>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -57,6 +58,9 @@
                class="hxeclipse.core.project.HaxeProjectNature">
          </run>
       </runtime>
+      <builder
+            id="hxeclipse.core.haxeBuilder">
+      </builder>
    </extension>
    <extension
          id="hxeclipse.core.haxeBuilder"
@@ -154,6 +158,21 @@
             editor-factory="hxeclipse.core.TestOptionCollectionEditorFactory"
             id="hxeclipse.core.TestOptionCollection">
       </option-collection>
+   </extension>
+   <extension
+         id="hxeclipse.core.haxeProblemMarker"
+         name="Haxe Problem Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+            class="hxeclipse.core.editor.quickFix.QuickFix"
+            markerType="hxeclipse.core.haxeProblemMarker">
+      </markerResolutionGenerator>
    </extension>
 
 </plugin>

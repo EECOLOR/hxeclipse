@@ -185,4 +185,16 @@ abstract public class AbstractHaxeTargetDescription implements IHaxeTargetDescri
 			}
 		}
 	}
+
+	@Override
+	public List<String> getCommandLineArguments(IHaxeProject haxeProject) {
+		Iterator<IHaxeOptionCollection> optionCollections = _optionCollections.iterator();
+		List<String> commandLineArguments = new ArrayList<String>();
+		
+		while (optionCollections.hasNext()) {
+			commandLineArguments.addAll(optionCollections.next().getCommandLineArguments(haxeProject));
+		}
+		
+		return commandLineArguments;
+	}
 }

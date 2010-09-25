@@ -42,6 +42,70 @@ public class GeneralOptionCollection implements IHaxeOptionCollection, IHaxeSour
 	}
 	
 	@Override
+	public List<String> getCommandLineArguments(IHaxeProject haxeProject) {
+		List<String> commandLineArguments = new ArrayList<String>();
+		
+		if (_main != null) {
+			commandLineArguments.add("-main");
+			commandLineArguments.add(_main.getSourceFolderRelativePath().removeFileExtension().toString().replaceAll("/", "."));
+		}
+		
+		if (_libraries != null) {
+			Iterator<IHaxeLibrary> libraries = _libraries.iterator();
+			
+			while (libraries.hasNext()) {
+				IHaxeLibrary library = libraries.next();
+				String version = library.getVersion();
+				
+				commandLineArguments.add("-lib");
+				commandLineArguments.add(library.getName() + (version == null ? "" : ":" + version));
+			}
+		}
+		
+		if (_resources != null) {
+			Iterator<Resource> resources = _resources.iterator();
+			
+			while (resources.hasNext()) {
+				Resource resource = resources.next();
+				String name = resource.getName();
+				
+				commandLineArguments.add("-resource");
+				String resourceString = resource.getFile().getProjectRelativePath().toOSString();
+				if (name != null) {
+					resourceString += "@" + name;
+				}
+				commandLineArguments.add(resourceString);
+			}
+		}
+		
+		if (_mappings != null) {
+			Iterator<Mapping> mappings = _mappings.iterator();
+			
+			while (mappings.hasNext()) {
+				Mapping mapping = mappings.next();
+				
+				commandLineArguments.add("--remap");
+				commandLineArguments.add(mapping.getSourcePackage() + ":" + mapping.getTargetPackage());
+			}
+		}
+		
+		if (_sourceFolders != null) {
+			Iterator<IFolder> sourceFolders = _sourceFolders.iterator();
+			
+			while (sourceFolders.hasNext()) {
+				IFolder sourceFolder = sourceFolders.next();
+				
+				System.out.println("Project relative path: " + sourceFolder.getProjectRelativePath());
+				
+				commandLineArguments.add("-cp");
+				commandLineArguments.add(sourceFolder.getProjectRelativePath().toOSString());
+			}
+		}
+		
+		return commandLineArguments;
+	}
+
+	@Override
 	public void initializeProject(IHaxeProject haxeProject) throws CoreException {
 		//create source folders
 		Iterator<IFolder> sourceFolders = _sourceFolders.iterator();

@@ -28,4 +28,5 @@ public interface IHaxeTargetDescription {
 	public void load(Preferences preferences) throws BackingStoreException, CoreException;
 	public List<IFolder> getSourceFolders();
 	public IFolder getOutputFolder() throws CoreException;
+	public List<String> getCommandLineArguments(IHaxeProject haxeProject);
 }

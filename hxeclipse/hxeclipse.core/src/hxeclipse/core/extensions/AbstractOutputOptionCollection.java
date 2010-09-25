@@ -3,6 +3,9 @@ package hxeclipse.core.extensions;
 import hxeclipse.core.IHaxeProject;
 import hxeclipse.core.model.DefaultValues;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -20,6 +23,20 @@ public abstract class AbstractOutputOptionCollection implements IHaxeOptionColle
 	@Override
 	abstract public String getName();
 
+	@Override
+	public List<String> getCommandLineArguments(IHaxeProject haxeProject) {
+		List<String> commandLineArguments = new ArrayList<String>();
+		
+		if (_outputFile != null) {
+			commandLineArguments.add(getOutputFileArgument());
+			commandLineArguments.add(_outputFile.getProjectRelativePath().toOSString());
+		}
+		
+		return commandLineArguments;
+	}
+
+	abstract protected String getOutputFileArgument();
+	
 	@Override
 	public void setDefaultValues(IProject project) {
 		IFolder outputFolder = project.getFolder(DefaultValues.OUTPUT_PATH);

@@ -12,6 +12,7 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+//TODO add conventions page to support protected with code hinting (private var x shows up in subclass where private var _x does not)
 public class HaxePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
 	private DirectoryFieldEditor _haxePath;

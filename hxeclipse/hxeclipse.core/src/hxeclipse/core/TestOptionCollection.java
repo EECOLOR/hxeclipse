@@ -1,5 +1,8 @@
 package hxeclipse.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hxeclipse.core.extensions.IHaxeOptionCollection;
 
 import org.eclipse.core.resources.IProject;
@@ -14,6 +17,11 @@ public class TestOptionCollection implements IHaxeOptionCollection {
 	@Override
 	public String getName() {
 		return "testOptionCollection";
+	}
+
+	@Override
+	public List<String> getCommandLineArguments(IHaxeProject haxeProject) {
+		return new ArrayList<String>();
 	}
 
 	@Override

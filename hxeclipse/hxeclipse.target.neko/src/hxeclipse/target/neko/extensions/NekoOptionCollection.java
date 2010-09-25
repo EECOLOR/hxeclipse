@@ -1,5 +1,8 @@
 package hxeclipse.target.neko.extensions;
 
+import java.util.List;
+
+import hxeclipse.core.IHaxeProject;
 import hxeclipse.core.extensions.AbstractOutputOptionCollection;
 import hxeclipse.core.extensions.IHaxeOptionCollection;
 
@@ -13,6 +16,22 @@ public class NekoOptionCollection extends AbstractOutputOptionCollection {
 	@Override
 	public String getName() {
 		return "Neko";
+	}
+
+	@Override
+	protected String getOutputFileArgument() {
+		return "-neko";
+	}
+	
+	@Override
+	public List<String> getCommandLineArguments(IHaxeProject haxeProject) {
+		List<String> commandLineArguments = super.getCommandLineArguments(haxeProject);
+		
+		if (_outputSource) {
+			commandLineArguments.add("--neko-source");
+		}
+		
+		return commandLineArguments;
 	}
 
 	@Override

@@ -1,0 +1,250 @@
+grammar ee.xtext.haxe.Haxe hidden(WS, ML_COMMENT, SL_COMMENT)
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate haxe "http://www.xtext.ee/haxe/Haxe"
+
+File:
+	blockExpression+=(BlockExpression)*
+;
+
+TypeReference returns TypeReference:
+	type=QualifiedName (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
+
+Expression returns Expression :
+	Assignment;
+
+Assignment returns Expression :
+	{Assignment} feature=[Feature|IdOrSuper] OpSingleAssign value=Assignment |	
+	OrExpression (=>({Operation.left=current} feature=OpMultiAssign) right=Assignment)?;
+
+OpSingleAssign:
+	'='
+;
+
+OpMultiAssign:
+	'+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | ">>>=";
+
+OrExpression returns Expression:
+	AndExpression (=>({Operation.left=current} feature=OpOr) right=AndExpression)*;
+
+OpOr:
+	'||';
+
+AndExpression returns Expression:
+	OtherOperatorExpression (=>({Operation.left=current} feature=OpAnd) right=OtherOperatorExpression)*;
+
+OpAnd:
+	'&&';
+
+OtherOperatorExpression returns Expression:
+	CompareExpression (=>({Operation.left=current} feature=OpOther) right=CompareExpression)*;
+
+OpOther:
+	'...';
+
+CompareExpression returns Expression:
+	BitwiseExpression (=>({Operation.left=current} feature=OpCompare) right=BitwiseExpression)*;
+
+OpCompare:
+	'==' | '!=' | '>=' | '<=' | '>' | '<';
+
+BitwiseExpression returns Expression:
+	BitshiftExpression (=>({Operation.left=current} feature=OpBitwise) right=BitshiftExpression)*;
+
+OpBitwise:
+	'|' | '&' | '^';
+
+BitshiftExpression returns Expression:
+	AddExpression (=>({Operation.left=current} feature=OpBitshift) right=AddExpression)*;
+
+OpBitshift:
+	'<<' | '>>' | '>>>';
+
+AddExpression returns Expression:
+	SubtractExpression (=>({Operation.left=current} feature=OpAdd) right=SubtractExpression)*;
+
+OpAdd:
+	'+';
+
+SubtractExpression returns Expression:
+	MultiplyExpression (=>({Operation.left=current} feature=OpSubtract) right=MultiplyExpression)*;
+
+OpSubtract:
+	'-';
+
+MultiplyExpression returns Expression:
+	DivideExpression (=>({Operation.left=current} feature=OpMultiply) right=DivideExpression)*;
+
+OpMultiply:
+	'*';
+
+DivideExpression returns Expression:
+	ModuloExpression (=>({Operation.left=current} feature=OpDivide) right=ModuloExpression)*;
+
+OpDivide:
+	'/';
+
+ModuloExpression returns Expression:
+	UnaryOperation (=>({Operation.left=current} feature=OpModulo) right=UnaryOperation)*;
+
+OpModulo:
+	'%';
+
+UnaryOperation returns Expression:
+	{UnaryOperation} feature=OpUnary operand=PreIncrementOperation
+	| PreIncrementOperation;
+		
+OpUnary:
+	"!" | "-" | "~";
+	
+PreIncrementOperation returns Expression:
+	=>({PreIncrementOperation} feature=OpIncrement operand=PostIncrementOperation) |
+	PostIncrementOperation;
+	
+PostIncrementOperation returns Expression:
+	=>({PostIncrementOperation} operand=MemberFeatureCall feature=OpIncrement) |
+	MemberFeatureCall;
+	
+OpIncrement:
+	"++" | "--";
+
+	
+MemberFeatureCall returns Expression:
+	PrimaryExpression 
+	(=>({Assignment.assignable=current} '.' feature=[Feature|ValidID] OpSingleAssign) value=Assignment
+	|=>({MemberFeatureCall.target=current} ".") 
+		feature=ValidID (
+			=>explicitOperationCall?='(' 
+				(
+				    //memberCallArguments+=XShortClosure |
+					arguments+=Expression (',' arguments+=Expression)*
+				)? 
+			')')?
+		)*;
+
+PrimaryExpression returns Expression:
+	Literal |
+	BlockExpression |
+	ParenthesizedExpression |
+	FeatureCall |
+	ConstructorCall
+;
+
+Literal returns Expression:
+	BooleanLiteral |
+	IntLiteral |
+	NullLiteral |
+	StringLiteral |
+	FloatLiteral |
+	RegularExpressionLiteral |
+	ArrayLiteral
+;
+
+BlockExpression returns Expression: 
+	{BlockExpression}
+	'{'
+		(expressions+=ExpressionInsideBlock ';'?)*
+	'}';
+
+ExpressionInsideBlock returns Expression:
+	VariableDeclarations | 
+	Expression;
+
+VariableDeclarations returns Expression:
+	{VariableDeclarations} 'var' declarations+=VariableDeclaration (',' declarations+=VariableDeclaration)*;
+
+VariableDeclaration:
+	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
+
+ParenthesizedExpression returns Expression:
+	'(' Expression ')';
+
+FeatureCall returns Expression:
+	{FeatureCall}
+	feature=[Feature|IdOrSuper]
+	(=>explicitOperationCall?='(' 
+		(
+		    //featureCallArguments+=XShortClosure |
+			arguments+=Expression (',' arguments+=Expression)*
+		)? 
+	')')?; 
+
+Feature returns Feature:
+	VariableDeclaration
+;
+
+ConstructorCall returns XExpression:
+	{ConstructorCall}
+	'new' constructor=QualifiedName 
+	'(' 
+		(
+		    //arguments+=XShortClosure |
+			arguments+=Expression (',' arguments+=Expression)*
+		)? 
+	')';
+
+IdOrSuper:
+	ValidID | 'super'
+;
+
+BooleanLiteral returns Expression:
+	{BooleanLiteral} ('false' | isTrue?='true');
+
+NullLiteral returns Expression:
+	{NullLiteral} 'null';
+
+IntLiteral returns Expression:
+	{IntLiteral} (value= INT | HEX);
+
+FloatLiteral returns Expression:
+	{FloatLiteral} value=FLOAT;
+
+StringLiteral returns Expression:
+	{StringLiteral} value=STRING;
+
+RegularExpressionLiteral returns Expression:
+	{RegularExpressionLiteral} value=REGULAR_EXPRESSION;
+
+ArrayLiteral returns Expression:
+	{ArrayLiteral} '[' (elements+=Expression)? (',' elements+=Expression)* ']';
+
+QualifiedName:
+  ValidID ('.' ValidID)*;
+  
+ValidID:
+	ID
+;
+
+
+terminal ID:
+	('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')*;
+
+terminal FLOAT returns ecore::EDouble:
+	(INT 'e' INT) | (INT? ('.' INT));
+
+terminal HEX:
+	'0x' ('0'..'9'|'A'..'F')+;
+
+terminal INT returns ecore::EInt: 
+	'-'? ('0'..'9')+;
+
+terminal REGULAR_EXPRESSION:
+	'~/' ('\\/' | !'/')+ '/' ('i' | 'g' | 'm' | 's' | 'u')*;
+	
+terminal STRING: 
+	'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
+	"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
+;
+ 
+terminal ML_COMMENT:
+	'/*' -> '*/';
+	
+terminal SL_COMMENT:
+	'//' !('\n'|'\r')* ('\r'? '\n')?;
+
+terminal WS:
+	(' '|'\t'|'\r'|'\n')+;
+
+terminal ANY_OTHER: 
+	.;

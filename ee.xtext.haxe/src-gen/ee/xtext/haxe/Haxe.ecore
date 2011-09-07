@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="haxe"
+    nsURI="http://www.xtext.ee/haxe/Haxe" nsPrefix="haxe">
+  <eClassifiers xsi:type="ecore:EClass" name="File">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="blockExpression" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeReference">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Expression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableDeclaration" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Feature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Assignment" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignable" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operation" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnaryOperation" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreIncrementOperation" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PostIncrementOperation" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MemberFeatureCall" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="explicitOperationCall"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BlockExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableDeclarations" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declarations" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableDeclaration"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureCall" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="explicitOperationCall"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstructorCall" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//XExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constructor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isTrue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NullLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FloatLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StringLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegularExpressionLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -4,12 +4,24 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 generate haxe "http://www.xtext.ee/haxe/Haxe"
 
+//TODO, we might need to implement AbstractFeatureCall (see xbase.ecore)
+
 File:
 	blockExpression+=(BlockExpression)*
+	classes+=(Class)*
+;
+
+Type returns Type:
+	Class
+;
+
+Class returns Class:
+	'class' name=QualifiedName
+	body=BlockExpression
 ;
 
 TypeReference returns TypeReference:
-	type=QualifiedName (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
+	type=[Type|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
 
 Expression returns Expression :
 	Assignment;
@@ -109,26 +121,172 @@ PostIncrementOperation returns Expression:
 OpIncrement:
 	"++" | "--";
 
-	
+
 MemberFeatureCall returns Expression:
 	PrimaryExpression 
 	(=>({Assignment.assignable=current} '.' feature=[Feature|ValidID] OpSingleAssign) value=Assignment
+	|=>({ArrayAssignment.assigname=current} '[' feature=Expression ']' OpSingleAssign) value=Assignment
 	|=>({MemberFeatureCall.target=current} ".") 
-		feature=ValidID (
+		feature=[Feature|ValidID] (
 			=>explicitOperationCall?='(' 
 				(
 				    //memberCallArguments+=XShortClosure |
 					arguments+=Expression (',' arguments+=Expression)*
 				)? 
-			')')?
-		)*;
+			')'
+		)?
+	|=>({ArrayAccess.target=current})
+		'[' feature=Expression ']' (
+			=>explicitOperationCall?='(' 
+				(
+				    //memberCallArguments+=XShortClosure |
+					arguments+=Expression (',' arguments+=Expression)*
+				)? 
+			')'
+		)?
+	)*
+;
 
 PrimaryExpression returns Expression:
-	Literal |
 	BlockExpression |
 	ParenthesizedExpression |
+	IfExpression |
+	WhileExpression |
+	DoWhileExpression |
+	ForLoopExpression |
+	ReturnExpression |
+	BreakExpression |
+	ContinueExpression |
+	ThrowExpression |
+	TryCatchExpression |
+	SwitchExpression |
+	FunctionExpression |
 	FeatureCall |
-	ConstructorCall
+	ConstructorCall |
+	Literal
+;
+
+BlockExpression returns Expression: 
+	{BlockExpression}
+	'{'// '[' temp=STRING ']' 
+		(expressions+=ExpressionInsideBlock ';'?)*
+	'}';
+
+ExpressionInsideBlock returns Expression:
+	VariableDeclarations |
+	FunctionDeclaration | 
+	Expression;
+
+VariableDeclarations returns Expression:
+	{VariableDeclarations} 'var' declarations+=VariableDeclaration (',' declarations+=VariableDeclaration)*;
+
+VariableDeclaration returns VariableDeclaration:
+	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
+
+FunctionDeclaration:
+	{FunctionDeclaration} 'function' name=ValidID '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')' (':' returnType=[Type|QualifiedName])?
+		body=FunctionBody;
+
+FunctionBody returns Expression:
+	{FunctionBody}
+	'{'
+		(expressions+=ExpressionInsideFunction ';'?)*
+	'}';
+
+ExpressionInsideFunction returns Expression:
+	VariableDeclarations |
+	ThisExpression |
+	Expression;
+
+FormalParameter returns FormalParameter:
+	name=ValidID (':' type=TypeReference)?;
+
+ParenthesizedExpression returns Expression:
+	'(' Expression ')';
+
+IfExpression returns Expression:
+	{IfExpression}
+	'if' '(' if=Expression ')'
+	then=Expression
+	(=>'else' else=Expression)?;
+
+WhileExpression returns Expression:
+	{WhileExpression}
+	'while' '(' predicate=Expression ')'
+		body=Expression;
+
+DoWhileExpression returns Expression:
+	{DoWhileExpression}
+   'do'
+       body=Expression
+   'while' '(' predicate=Expression ')';
+
+ForLoopExpression returns Expression:
+	{ForLoopExpression}
+	=>('for' '(' declaredParam=FormalParameter 'in' forExpression=Expression ')')
+		body=Expression;
+
+ReturnExpression returns Expression :
+	{ReturnExpression} 'return' (=>expression=Expression)?;
+
+BreakExpression returns Expression:
+	{BreakExpression} 'break';
+
+ContinueExpression returns Expression:
+	{BreakExpression} 'continue';
+
+ThrowExpression returns Expression :
+	{ThrowExpression} 'throw' expression=Expression;
+	
+TryCatchExpression returns Expression:
+	{TryCatchFinallyExpression}
+	'try' 
+		expression=Expression
+	(
+		catchClauses+=CatchClause+
+	);
+	
+CatchClause:
+	=>'catch' '(' declaredParam=FormalParameter ')' expression=Expression;
+
+SwitchExpression returns Expression:
+	{SwitchExpression}
+	'switch' switch=Expression '{'
+	(cases+=CasePart)+
+	('default' ':' default=Expression )?
+	'}';
+
+CasePart:
+	'case' case=Expression ':' 
+		then=Expression ;
+
+FunctionExpression returns Expression:
+	{FunctionExpression} 'function' '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')' (':' returnType=[Type|QualifiedName])?
+		body=BlockExpression;
+
+ThisExpression returns Expression:
+	{ThisExpression} 'this';
+
+FeatureCall returns Expression:
+	{FeatureCall}
+	feature=[Feature|IdOrSuper]
+	(=>explicitOperationCall?='(' 
+		(arguments+=Expression)? (',' arguments+=Expression)*
+	')')?; 
+
+Feature returns Feature:
+	VariableDeclaration
+;
+
+ConstructorCall returns Expression:
+	{ConstructorCall}
+	'new' constructor=[Type|QualifiedName] 
+	'(' 
+		(arguments+=Expression)? (',' arguments+=Expression)*
+	')';
+
+IdOrSuper:
+	ValidID | 'super'
 ;
 
 Literal returns Expression:
@@ -138,54 +296,8 @@ Literal returns Expression:
 	StringLiteral |
 	FloatLiteral |
 	RegularExpressionLiteral |
-	ArrayLiteral
-;
-
-BlockExpression returns Expression: 
-	{BlockExpression}
-	'{'
-		(expressions+=ExpressionInsideBlock ';'?)*
-	'}';
-
-ExpressionInsideBlock returns Expression:
-	VariableDeclarations | 
-	Expression;
-
-VariableDeclarations returns Expression:
-	{VariableDeclarations} 'var' declarations+=VariableDeclaration (',' declarations+=VariableDeclaration)*;
-
-VariableDeclaration:
-	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
-
-ParenthesizedExpression returns Expression:
-	'(' Expression ')';
-
-FeatureCall returns Expression:
-	{FeatureCall}
-	feature=[Feature|IdOrSuper]
-	(=>explicitOperationCall?='(' 
-		(
-		    //featureCallArguments+=XShortClosure |
-			arguments+=Expression (',' arguments+=Expression)*
-		)? 
-	')')?; 
-
-Feature returns Feature:
-	VariableDeclaration
-;
-
-ConstructorCall returns XExpression:
-	{ConstructorCall}
-	'new' constructor=QualifiedName 
-	'(' 
-		(
-		    //arguments+=XShortClosure |
-			arguments+=Expression (',' arguments+=Expression)*
-		)? 
-	')';
-
-IdOrSuper:
-	ValidID | 'super'
+	ArrayLiteral |
+	ObjectLiteral
 ;
 
 BooleanLiteral returns Expression:
@@ -208,6 +320,12 @@ RegularExpressionLiteral returns Expression:
 
 ArrayLiteral returns Expression:
 	{ArrayLiteral} '[' (elements+=Expression)? (',' elements+=Expression)* ']';
+
+ObjectLiteral returns Expression:
+	{ObjectLiteral} '{' elements+=ObjectElement (',' elements+=ObjectElement)* '}';
+
+ObjectElement:
+	key=ValidID ':' value=Expression;
 
 QualifiedName:
   ValidID ('.' ValidID)*;

@@ -13,6 +13,8 @@ import ee.xtext.haxe.haxe.VariableDeclarations;
 
 public class HaxeJavaValidator extends AbstractHaxeJavaValidator {
 
+	//TODO super and this can only be used in the bodies of function declarations, not in function expressions
+	
 	@Check
 	public void checkUniqueVariableName(VariableDeclaration variableDeclaration)
 	{
@@ -43,7 +45,7 @@ public class HaxeJavaValidator extends AbstractHaxeJavaValidator {
 				{
 					if (!foundVariableDeclaration.equals(variableDeclaration) && foundVariableDeclaration.getName().equals(name))
 					{
-						error("Duplicate variable name '" + name + "'", variableDeclaration, HaxePackage.Literals.VARIABLE_DECLARATION__NAME, -1);
+						error("Duplicate variable name '" + name + "'", variableDeclaration, HaxePackage.Literals.FEATURE__NAME, -1);
 					}
 				}
 			}

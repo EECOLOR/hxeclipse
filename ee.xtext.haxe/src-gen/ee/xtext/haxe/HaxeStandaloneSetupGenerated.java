@@ -47,6 +47,5 @@ public class HaxeStandaloneSetupGenerated implements ISetup {
 
 
 
-
 	}
 }

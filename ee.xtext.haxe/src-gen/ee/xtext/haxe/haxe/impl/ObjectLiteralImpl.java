@@ -6,9 +6,9 @@
  */
 package ee.xtext.haxe.haxe.impl;
 
-import ee.xtext.haxe.haxe.Expression;
-import ee.xtext.haxe.haxe.File;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.ObjectElement;
+import ee.xtext.haxe.haxe.ObjectLiteral;
 
 import java.util.Collection;
 
@@ -19,42 +19,40 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>File</b></em>'.
+ * An implementation of the model object '<em><b>Object Literal</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ee.xtext.haxe.haxe.impl.FileImpl#getBlockExpression <em>Block Expression</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ObjectLiteralImpl#getElements <em>Elements</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FileImpl extends MinimalEObjectImpl.Container implements File
+public class ObjectLiteralImpl extends ExpressionImpl implements ObjectLiteral
 {
   /**
-   * The cached value of the '{@link #getBlockExpression() <em>Block Expression</em>}' containment reference list.
+   * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getBlockExpression()
+   * @see #getElements()
    * @generated
    * @ordered
    */
-  protected EList<Expression> blockExpression;
+  protected EList<ObjectElement> elements;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected FileImpl()
+  protected ObjectLiteralImpl()
   {
     super();
   }
@@ -67,7 +65,7 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File
   @Override
   protected EClass eStaticClass()
   {
-    return HaxePackage.Literals.FILE;
+    return HaxePackage.Literals.OBJECT_LITERAL;
   }
 
   /**
@@ -75,13 +73,13 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getBlockExpression()
+  public EList<ObjectElement> getElements()
   {
-    if (blockExpression == null)
+    if (elements == null)
     {
-      blockExpression = new EObjectContainmentEList<Expression>(Expression.class, this, HaxePackage.FILE__BLOCK_EXPRESSION);
+      elements = new EObjectContainmentEList<ObjectElement>(ObjectElement.class, this, HaxePackage.OBJECT_LITERAL__ELEMENTS);
     }
-    return blockExpression;
+    return elements;
   }
 
   /**
@@ -94,8 +92,8 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File
   {
     switch (featureID)
     {
-      case HaxePackage.FILE__BLOCK_EXPRESSION:
-        return ((InternalEList<?>)getBlockExpression()).basicRemove(otherEnd, msgs);
+      case HaxePackage.OBJECT_LITERAL__ELEMENTS:
+        return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -110,8 +108,8 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File
   {
     switch (featureID)
     {
-      case HaxePackage.FILE__BLOCK_EXPRESSION:
-        return getBlockExpression();
+      case HaxePackage.OBJECT_LITERAL__ELEMENTS:
+        return getElements();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -127,9 +125,9 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File
   {
     switch (featureID)
     {
-      case HaxePackage.FILE__BLOCK_EXPRESSION:
-        getBlockExpression().clear();
-        getBlockExpression().addAll((Collection<? extends Expression>)newValue);
+      case HaxePackage.OBJECT_LITERAL__ELEMENTS:
+        getElements().clear();
+        getElements().addAll((Collection<? extends ObjectElement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -145,8 +143,8 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File
   {
     switch (featureID)
     {
-      case HaxePackage.FILE__BLOCK_EXPRESSION:
-        getBlockExpression().clear();
+      case HaxePackage.OBJECT_LITERAL__ELEMENTS:
+        getElements().clear();
         return;
     }
     super.eUnset(featureID);
@@ -162,10 +160,10 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File
   {
     switch (featureID)
     {
-      case HaxePackage.FILE__BLOCK_EXPRESSION:
-        return blockExpression != null && !blockExpression.isEmpty();
+      case HaxePackage.OBJECT_LITERAL__ELEMENTS:
+        return elements != null && !elements.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //FileImpl
+} //ObjectLiteralImpl

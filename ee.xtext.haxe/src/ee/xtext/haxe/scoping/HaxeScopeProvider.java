@@ -14,9 +14,14 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 
 import com.google.common.collect.Lists;
 
+import ee.xtext.haxe.haxe.Assignment;
 import ee.xtext.haxe.haxe.BlockExpression;
-import ee.xtext.haxe.haxe.Expression;
+import ee.xtext.haxe.haxe.CatchClause;
+import ee.xtext.haxe.haxe.Feature;
 import ee.xtext.haxe.haxe.FeatureCall;
+import ee.xtext.haxe.haxe.ForLoopExpression;
+import ee.xtext.haxe.haxe.FunctionDeclaration;
+import ee.xtext.haxe.haxe.FunctionExpression;
 import ee.xtext.haxe.haxe.VariableDeclaration;
 import ee.xtext.haxe.haxe.VariableDeclarations;
 
@@ -28,62 +33,94 @@ import ee.xtext.haxe.haxe.VariableDeclarations;
  *
  */
 public class HaxeScopeProvider extends AbstractDeclarativeScopeProvider {
-	
-	public IScope getBlockExpressionScope(int index, BlockExpression context)
+
+	public IScope getAvailableFeatures(int index, EObject context)
 	{
-		IScope parentScope = getParentScopes(context);
+		IScope parentScope = getAvailableFeaturesFromParents(context);
+				
+		if (context instanceof BlockExpression)
+		{
+			List<Feature> elements = getFeatures(index, ((BlockExpression) context).getExpressions());
+			return Scopes.scopeFor(elements, parentScope);
+		}
 		
-		List<VariableDeclaration> elements = getVariableDeclarations(index, context.getExpressions());
+		if (context instanceof FunctionExpression)
+		{
+			List<? extends Feature> elements = ((FunctionExpression) context).getParameters();
+			return Scopes.scopeFor(elements, parentScope);
+		}
 		
-		return Scopes.scopeFor(elements, parentScope);
+		if (context instanceof FunctionDeclaration)
+		{
+			List<? extends Feature> elements = ((FunctionDeclaration) context).getParameters();
+			return Scopes.scopeFor(elements, parentScope);
+		}
+		
+		if (context instanceof ForLoopExpression)
+		{
+			List<? extends Feature> elements = Lists.newArrayList(((ForLoopExpression) context).getDeclaredParam());
+			return Scopes.scopeFor(elements, parentScope);
+		}
+		
+		if (context instanceof CatchClause)
+		{
+			List<? extends Feature> elements = Lists.newArrayList(((CatchClause) context).getDeclaredParam());
+			return Scopes.scopeFor(elements, parentScope);
+		}
+		
+		return parentScope;
+	}
+	
+	private IScope getAvailableFeaturesFromParents(EObject context)
+	{
+		EObject parent = context.eContainer();
+		
+		if (parent == null)
+		{
+			return IScope.NULLSCOPE;
+		} else
+		{
+			int index = parent.eContents().indexOf(context);
+			
+			return getAvailableFeatures(index, parent);
+		}
+	}
+	
+	public IScope scope_Assignment_feature(Assignment context, EReference reference)
+	{
+		return getAvailableFeaturesFromParents(context);
 	}
 	
 	public IScope scope_FeatureCall_feature(FeatureCall context, EReference reference)
 	{
-		BlockExpression block = (BlockExpression) context.eContainer();
-		
-		IScope parentScope = getParentScopes(block);
-		
-		EList<Expression> expressions = block.getExpressions();
-		int index = expressions.indexOf(context);
-		
-		List<VariableDeclaration> elements = getVariableDeclarations(index, expressions);
-		
-		return Scopes.scopeFor(elements, parentScope);
+		return getAvailableFeaturesFromParents(context);
 	}
 
-	private IScope getParentScopes(BlockExpression block) {
+	private List<Feature> getFeatures(int currentIndex, EList<? extends EObject> expressions) {
 		
-		EObject container = block.eContainer();
-		
-		if (container instanceof BlockExpression)
-		{
-			BlockExpression parentBlock = (BlockExpression) container;
-			IScope parentScope = getParentScopes(parentBlock);
-			
-			EList<Expression> expressions = parentBlock.getExpressions();
-			int index = expressions.indexOf(block);
-
-			List<VariableDeclaration> elements = getVariableDeclarations(index, expressions);
-			
-			return Scopes.scopeFor(elements, parentScope);
-		} else
-		{
-			return IScope.NULLSCOPE;
-		}
-	}
-	
-	private List<VariableDeclaration> getVariableDeclarations(int currentIndex, EList<Expression> expressions) {
-		
-		List<VariableDeclaration> elements = Lists.newArrayList();
+		List<Feature> elements = Lists.newArrayList();
 		
 		for (int i = 0; i < currentIndex; i++)
 		{
-			Expression expression = expressions.get(i);
+			EObject expression = expressions.get(i);
 			
 			if (expression instanceof VariableDeclarations)
 			{
-				elements.addAll(((VariableDeclarations) expression).getDeclarations());
+				EList<VariableDeclaration> declarations = ((VariableDeclarations) expression).getDeclarations();
+				/*
+				String variables = "";
+				
+				for (VariableDeclaration v : declarations)
+				{
+					variables += v.getName() + ", ";
+				}
+				
+				System.out.println(variables);
+				*/
+				elements.addAll(declarations);
+			} else if (expression instanceof Feature)
+			{
+				elements.add((Feature) expression);
 			}
 		}
 		return elements;

@@ -3,6 +3,9 @@
  */
 package ee.xtext.haxe;
 
+import ee.xtext.haxe.converter.HaxeValueConverterService;
+
+
 
 
 
@@ -10,5 +13,18 @@ package ee.xtext.haxe;
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class HaxeRuntimeModule extends ee.xtext.haxe.AbstractHaxeRuntimeModule {
-
+	/*
+	public void configureIScopeProviderDelegate(Binder binder) {
+		binder.bind(IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(HaxeSimpleLocalScopeProvider.class);
+	}
+	
+	
+	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return HaxeImportUriGlobalScopeProvider.class;
+	}
+	*/
+	
+	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
+		return HaxeValueConverterService.class;
+	}
 }

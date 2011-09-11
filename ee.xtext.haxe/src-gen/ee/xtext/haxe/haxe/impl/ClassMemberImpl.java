@@ -6,28 +6,30 @@
  */
 package ee.xtext.haxe.haxe.impl;
 
+import ee.xtext.haxe.haxe.ClassMember;
 import ee.xtext.haxe.haxe.HaxePackage;
-import ee.xtext.haxe.haxe.XExpression;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>XExpression</b></em>'.
+ * An implementation of the model object '<em><b>Class Member</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class XExpressionImpl extends ExpressionImpl implements XExpression
+public class ClassMemberImpl extends MinimalEObjectImpl.Container implements ClassMember
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected XExpressionImpl()
+  protected ClassMemberImpl()
   {
     super();
   }
@@ -40,7 +42,7 @@ public class XExpressionImpl extends ExpressionImpl implements XExpression
   @Override
   protected EClass eStaticClass()
   {
-    return HaxePackage.Literals.XEXPRESSION;
+    return HaxePackage.Literals.CLASS_MEMBER;
   }
 
-} //XExpressionImpl
+} //ClassMemberImpl

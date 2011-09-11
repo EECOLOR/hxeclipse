@@ -56,30 +56,30 @@ public interface MemberFeatureCall extends Expression
   void setTarget(Expression value);
 
   /**
-   * Returns the value of the '<em><b>Feature</b></em>' attribute.
+   * Returns the value of the '<em><b>Feature</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Feature</em>' attribute isn't clear,
+   * If the meaning of the '<em>Feature</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Feature</em>' attribute.
-   * @see #setFeature(String)
+   * @return the value of the '<em>Feature</em>' reference.
+   * @see #setFeature(Feature)
    * @see ee.xtext.haxe.haxe.HaxePackage#getMemberFeatureCall_Feature()
    * @model
    * @generated
    */
-  String getFeature();
+  Feature getFeature();
 
   /**
-   * Sets the value of the '{@link ee.xtext.haxe.haxe.MemberFeatureCall#getFeature <em>Feature</em>}' attribute.
+   * Sets the value of the '{@link ee.xtext.haxe.haxe.MemberFeatureCall#getFeature <em>Feature</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Feature</em>' attribute.
+   * @param value the new value of the '<em>Feature</em>' reference.
    * @see #getFeature()
    * @generated
    */
-  void setFeature(String value);
+  void setFeature(Feature value);
 
   /**
    * Returns the value of the '<em><b>Explicit Operation Call</b></em>' attribute.

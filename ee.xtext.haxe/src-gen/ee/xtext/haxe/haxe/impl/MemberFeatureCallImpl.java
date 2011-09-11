@@ -7,6 +7,7 @@
 package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.Expression;
+import ee.xtext.haxe.haxe.Feature;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.MemberFeatureCall;
 
@@ -54,24 +55,14 @@ public class MemberFeatureCallImpl extends ExpressionImpl implements MemberFeatu
   protected Expression target;
 
   /**
-   * The default value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFeature()
    * @generated
    * @ordered
    */
-  protected static final String FEATURE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getFeature() <em>Feature</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFeature()
-   * @generated
-   * @ordered
-   */
-  protected String feature = FEATURE_EDEFAULT;
+  protected Feature feature;
 
   /**
    * The default value of the '{@link #isExplicitOperationCall() <em>Explicit Operation Call</em>}' attribute.
@@ -177,7 +168,27 @@ public class MemberFeatureCallImpl extends ExpressionImpl implements MemberFeatu
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getFeature()
+  public Feature getFeature()
+  {
+    if (feature != null && feature.eIsProxy())
+    {
+      InternalEObject oldFeature = (InternalEObject)feature;
+      feature = (Feature)eResolveProxy(oldFeature);
+      if (feature != oldFeature)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, HaxePackage.MEMBER_FEATURE_CALL__FEATURE, oldFeature, feature));
+      }
+    }
+    return feature;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Feature basicGetFeature()
   {
     return feature;
   }
@@ -187,9 +198,9 @@ public class MemberFeatureCallImpl extends ExpressionImpl implements MemberFeatu
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFeature(String newFeature)
+  public void setFeature(Feature newFeature)
   {
-    String oldFeature = feature;
+    Feature oldFeature = feature;
     feature = newFeature;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.MEMBER_FEATURE_CALL__FEATURE, oldFeature, feature));
@@ -263,7 +274,8 @@ public class MemberFeatureCallImpl extends ExpressionImpl implements MemberFeatu
       case HaxePackage.MEMBER_FEATURE_CALL__TARGET:
         return getTarget();
       case HaxePackage.MEMBER_FEATURE_CALL__FEATURE:
-        return getFeature();
+        if (resolve) return getFeature();
+        return basicGetFeature();
       case HaxePackage.MEMBER_FEATURE_CALL__EXPLICIT_OPERATION_CALL:
         return isExplicitOperationCall();
       case HaxePackage.MEMBER_FEATURE_CALL__ARGUMENTS:
@@ -287,7 +299,7 @@ public class MemberFeatureCallImpl extends ExpressionImpl implements MemberFeatu
         setTarget((Expression)newValue);
         return;
       case HaxePackage.MEMBER_FEATURE_CALL__FEATURE:
-        setFeature((String)newValue);
+        setFeature((Feature)newValue);
         return;
       case HaxePackage.MEMBER_FEATURE_CALL__EXPLICIT_OPERATION_CALL:
         setExplicitOperationCall((Boolean)newValue);
@@ -314,7 +326,7 @@ public class MemberFeatureCallImpl extends ExpressionImpl implements MemberFeatu
         setTarget((Expression)null);
         return;
       case HaxePackage.MEMBER_FEATURE_CALL__FEATURE:
-        setFeature(FEATURE_EDEFAULT);
+        setFeature((Feature)null);
         return;
       case HaxePackage.MEMBER_FEATURE_CALL__EXPLICIT_OPERATION_CALL:
         setExplicitOperationCall(EXPLICIT_OPERATION_CALL_EDEFAULT);
@@ -339,7 +351,7 @@ public class MemberFeatureCallImpl extends ExpressionImpl implements MemberFeatu
       case HaxePackage.MEMBER_FEATURE_CALL__TARGET:
         return target != null;
       case HaxePackage.MEMBER_FEATURE_CALL__FEATURE:
-        return FEATURE_EDEFAULT == null ? feature != null : !FEATURE_EDEFAULT.equals(feature);
+        return feature != null;
       case HaxePackage.MEMBER_FEATURE_CALL__EXPLICIT_OPERATION_CALL:
         return explicitOperationCall != EXPLICIT_OPERATION_CALL_EDEFAULT;
       case HaxePackage.MEMBER_FEATURE_CALL__ARGUMENTS:
@@ -359,9 +371,7 @@ public class MemberFeatureCallImpl extends ExpressionImpl implements MemberFeatu
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (feature: ");
-    result.append(feature);
-    result.append(", explicitOperationCall: ");
+    result.append(" (explicitOperationCall: ");
     result.append(explicitOperationCall);
     result.append(')');
     return result.toString();

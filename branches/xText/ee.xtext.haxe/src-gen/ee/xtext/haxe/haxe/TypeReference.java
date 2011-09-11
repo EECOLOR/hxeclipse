@@ -30,30 +30,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface TypeReference extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Type</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' attribute.
-   * @see #setType(String)
+   * @return the value of the '<em>Type</em>' reference.
+   * @see #setType(Type)
    * @see ee.xtext.haxe.haxe.HaxePackage#getTypeReference_Type()
    * @model
    * @generated
    */
-  String getType();
+  Type getType();
 
   /**
-   * Sets the value of the '{@link ee.xtext.haxe.haxe.TypeReference#getType <em>Type</em>}' attribute.
+   * Sets the value of the '{@link ee.xtext.haxe.haxe.TypeReference#getType <em>Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' attribute.
+   * @param value the new value of the '<em>Type</em>' reference.
    * @see #getType()
    * @generated
    */
-  void setType(String value);
+  void setType(Type value);
 
   /**
    * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.

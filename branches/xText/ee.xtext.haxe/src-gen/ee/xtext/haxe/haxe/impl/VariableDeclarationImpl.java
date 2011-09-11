@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ee.xtext.haxe.haxe.impl.VariableDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.VariableDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.VariableDeclarationImpl#getExpression <em>Expression</em>}</li>
  * </ul>
@@ -36,26 +35,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class VariableDeclarationImpl extends FeatureImpl implements VariableDeclaration
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -95,29 +74,6 @@ public class VariableDeclarationImpl extends FeatureImpl implements VariableDecl
   protected EClass eStaticClass()
   {
     return HaxePackage.Literals.VARIABLE_DECLARATION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.VARIABLE_DECLARATION__NAME, oldName, name));
   }
 
   /**
@@ -244,8 +200,6 @@ public class VariableDeclarationImpl extends FeatureImpl implements VariableDecl
   {
     switch (featureID)
     {
-      case HaxePackage.VARIABLE_DECLARATION__NAME:
-        return getName();
       case HaxePackage.VARIABLE_DECLARATION__TYPE:
         return getType();
       case HaxePackage.VARIABLE_DECLARATION__EXPRESSION:
@@ -264,9 +218,6 @@ public class VariableDeclarationImpl extends FeatureImpl implements VariableDecl
   {
     switch (featureID)
     {
-      case HaxePackage.VARIABLE_DECLARATION__NAME:
-        setName((String)newValue);
-        return;
       case HaxePackage.VARIABLE_DECLARATION__TYPE:
         setType((TypeReference)newValue);
         return;
@@ -287,9 +238,6 @@ public class VariableDeclarationImpl extends FeatureImpl implements VariableDecl
   {
     switch (featureID)
     {
-      case HaxePackage.VARIABLE_DECLARATION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case HaxePackage.VARIABLE_DECLARATION__TYPE:
         setType((TypeReference)null);
         return;
@@ -310,31 +258,12 @@ public class VariableDeclarationImpl extends FeatureImpl implements VariableDecl
   {
     switch (featureID)
     {
-      case HaxePackage.VARIABLE_DECLARATION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case HaxePackage.VARIABLE_DECLARATION__TYPE:
         return type != null;
       case HaxePackage.VARIABLE_DECLARATION__EXPRESSION:
         return expression != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //VariableDeclarationImpl

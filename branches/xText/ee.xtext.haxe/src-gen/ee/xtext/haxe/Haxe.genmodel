@@ -8,21 +8,51 @@
     copyrightFields="false" editPluginID="ee.xtext.haxe.edit" editorPluginID="ee.xtext.haxe.editor">
   <genPackages prefix="Haxe" basePackage="ee.xtext.haxe" disposableProviderFactory="true"
       ecorePackage="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#/">
-    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//File">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//File/blockExpression"/>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Package">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Package/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Package/classes"/>
     </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type"/>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Class">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Class/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Class/members"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassMember"/>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature/name"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FormalParameter">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FormalParameter/type"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"/>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableDeclaration">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableDeclaration/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableDeclaration/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableDeclaration/expression"/>
     </genClasses>
-    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature"/>
-    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//XExpression"/>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableMemberDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableMemberDeclaration/type"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionDeclaration/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionDeclaration/returnType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionDeclaration/body"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CatchClause">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CatchClause/declaredParam"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CatchClause/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CasePart">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CasePart/cases"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CasePart/then"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ObjectElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ObjectElement/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ObjectElement/value"/>
+    </genClasses>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Assignment">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Assignment/feature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Assignment/value"/>
@@ -45,11 +75,22 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//PostIncrementOperation/operand"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//PostIncrementOperation/feature"/>
     </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAssignment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAssignment/assigname"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAssignment/feature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAssignment/value"/>
+    </genClasses>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//MemberFeatureCall">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//MemberFeatureCall/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//MemberFeatureCall/feature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//MemberFeatureCall/feature"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//MemberFeatureCall/explicitOperationCall"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//MemberFeatureCall/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAccess">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAccess/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAccess/feature"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAccess/explicitOperationCall"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayAccess/arguments"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//BlockExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//BlockExpression/expressions"/>
@@ -57,13 +98,54 @@
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableDeclarations">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableDeclarations/declarations"/>
     </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//IfExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//IfExpression/if"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//IfExpression/then"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//IfExpression/else"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//WhileExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//WhileExpression/predicate"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//WhileExpression/body"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//DoWhileExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//DoWhileExpression/body"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//DoWhileExpression/predicate"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ForLoopExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ForLoopExpression/declaredParam"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ForLoopExpression/forExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ForLoopExpression/body"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ReturnExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ReturnExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//BreakExpression"/>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ThrowExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ThrowExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TryCatchExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TryCatchExpression/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TryCatchExpression/catchClauses"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//SwitchExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//SwitchExpression/switch"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//SwitchExpression/cases"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//SwitchExpression/default"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionExpression/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionExpression/returnType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionExpression/body"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ThisExpression"/>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//SuperExpression"/>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FeatureCall">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FeatureCall/feature"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FeatureCall/explicitOperationCall"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FeatureCall/arguments"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ConstructorCall">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ConstructorCall/constructor"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ConstructorCall/constructor"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ConstructorCall/arguments"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//BooleanLiteral">
@@ -84,6 +166,9 @@
     </genClasses>
     <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayLiteral">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ArrayLiteral/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ObjectLiteral">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ObjectLiteral/elements"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

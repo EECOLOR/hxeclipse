@@ -6,9 +6,9 @@ generate haxe "http://www.xtext.ee/haxe/Haxe"
 
 //TODO, we might need to implement AbstractFeatureCall (see xbase.ecore)
 
-File:
-	blockExpression+=(BlockExpression)*
-	classes+=(Class)*
+Package:
+	('package' name=QualifiedName ';')? 
+	(classes+=Class)*
 ;
 
 Type returns Type:
@@ -17,17 +17,38 @@ Type returns Type:
 
 Class returns Class:
 	'class' name=QualifiedName
-	body=BlockExpression
+	'{'
+		(members+=ClassMember)+
+	'}'
+;
+
+ClassMember:
+	FunctionMemberDeclaration | VariableMemberDeclaration
 ;
 
 TypeReference returns TypeReference:
 	type=[Type|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
 
+QualifiedName:
+  ValidID ('.' ValidID)*;
+  
+ValidID:
+	ID;
+
+FeatureID:
+	ValidID | 'super' | 'this';
+
+Feature returns Feature:
+	VariableDeclaration | FormalParameter | FunctionMemberDeclaration | VariableMemberDeclaration;
+
+FormalParameter returns FormalParameter:
+	name=ValidID (':' type=TypeReference)?;
+
 Expression returns Expression :
-	Assignment;
+	Assignment ';'?;
 
 Assignment returns Expression :
-	{Assignment} feature=[Feature|IdOrSuper] OpSingleAssign value=Assignment |	
+	{Assignment} feature=[Feature|FeatureID] OpSingleAssign value=Assignment |	
 	OrExpression (=>({Operation.left=current} feature=OpMultiAssign) right=Assignment)?;
 
 OpSingleAssign:
@@ -124,10 +145,10 @@ OpIncrement:
 
 MemberFeatureCall returns Expression:
 	PrimaryExpression 
-	(=>({Assignment.assignable=current} '.' feature=[Feature|ValidID] OpSingleAssign) value=Assignment
+	(=>({Assignment.assignable=current} '.' feature=[Feature|FeatureID] OpSingleAssign) value=Assignment
 	|=>({ArrayAssignment.assigname=current} '[' feature=Expression ']' OpSingleAssign) value=Assignment
 	|=>({MemberFeatureCall.target=current} ".") 
-		feature=[Feature|ValidID] (
+		feature=[Feature|FeatureID] (
 			=>explicitOperationCall?='(' 
 				(
 				    //memberCallArguments+=XShortClosure |
@@ -174,7 +195,6 @@ BlockExpression returns Expression:
 
 ExpressionInsideBlock returns Expression:
 	VariableDeclarations |
-	FunctionDeclaration | 
 	Expression;
 
 VariableDeclarations returns Expression:
@@ -183,23 +203,12 @@ VariableDeclarations returns Expression:
 VariableDeclaration returns VariableDeclaration:
 	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
 
-FunctionDeclaration:
+VariableMemberDeclaration returns VariableMemberDeclaration:
+	{VariableMemberDeclaration} 'var' name=ValidID ':' type=TypeReference ';'?;
+
+FunctionMemberDeclaration returns FunctionDeclaration:
 	{FunctionDeclaration} 'function' name=ValidID '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')' (':' returnType=[Type|QualifiedName])?
-		body=FunctionBody;
-
-FunctionBody returns Expression:
-	{FunctionBody}
-	'{'
-		(expressions+=ExpressionInsideFunction ';'?)*
-	'}';
-
-ExpressionInsideFunction returns Expression:
-	VariableDeclarations |
-	ThisExpression |
-	Expression;
-
-FormalParameter returns FormalParameter:
-	name=ValidID (':' type=TypeReference)?;
+		body=BlockExpression;
 
 ParenthesizedExpression returns Expression:
 	'(' Expression ')';
@@ -239,11 +248,11 @@ ThrowExpression returns Expression :
 	{ThrowExpression} 'throw' expression=Expression;
 	
 TryCatchExpression returns Expression:
-	{TryCatchFinallyExpression}
+	{TryCatchExpression}
 	'try' 
 		expression=Expression
 	(
-		catchClauses+=CatchClause+
+		(catchClauses+=CatchClause)+
 	);
 	
 CatchClause:
@@ -252,13 +261,12 @@ CatchClause:
 SwitchExpression returns Expression:
 	{SwitchExpression}
 	'switch' switch=Expression '{'
-	(cases+=CasePart)+
-	('default' ':' default=Expression )?
+		(cases+=CasePart)+
+		('default' ':' default=Expression )?
 	'}';
 
 CasePart:
-	'case' case=Expression ':' 
-		then=Expression ;
+	=>'case' cases+=Expression ((',' cases+=Expression)+)? ':' then=Expression;
 
 FunctionExpression returns Expression:
 	{FunctionExpression} 'function' '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')' (':' returnType=[Type|QualifiedName])?
@@ -267,16 +275,15 @@ FunctionExpression returns Expression:
 ThisExpression returns Expression:
 	{ThisExpression} 'this';
 
+SuperExpression returns Expression:
+	{SuperExpression} 'super';
+
 FeatureCall returns Expression:
 	{FeatureCall}
-	feature=[Feature|IdOrSuper]
+	feature=[Feature|FeatureID]
 	(=>explicitOperationCall?='(' 
 		(arguments+=Expression)? (',' arguments+=Expression)*
 	')')?; 
-
-Feature returns Feature:
-	VariableDeclaration
-;
 
 ConstructorCall returns Expression:
 	{ConstructorCall}
@@ -285,16 +292,12 @@ ConstructorCall returns Expression:
 		(arguments+=Expression)? (',' arguments+=Expression)*
 	')';
 
-IdOrSuper:
-	ValidID | 'super'
-;
-
 Literal returns Expression:
 	BooleanLiteral |
-	IntLiteral |
 	NullLiteral |
 	StringLiteral |
 	FloatLiteral |
+	IntLiteral |
 	RegularExpressionLiteral |
 	ArrayLiteral |
 	ObjectLiteral
@@ -310,7 +313,7 @@ IntLiteral returns Expression:
 	{IntLiteral} (value= INT | HEX);
 
 FloatLiteral returns Expression:
-	{FloatLiteral} value=FLOAT;
+	{FloatLiteral} value=Float;
 
 StringLiteral returns Expression:
 	{StringLiteral} value=STRING;
@@ -327,25 +330,23 @@ ObjectLiteral returns Expression:
 ObjectElement:
 	key=ValidID ':' value=Expression;
 
-QualifiedName:
-  ValidID ('.' ValidID)*;
-  
-ValidID:
-	ID
+
+Float returns ecore::EDouble hidden():
+	EFLOAT | INT '.' INT | '.' INT
 ;
 
 
+terminal EFLOAT:
+	INT 'e' '-'? INT;
+
 terminal ID:
 	('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')*;
-
-terminal FLOAT returns ecore::EDouble:
-	(INT 'e' INT) | (INT? ('.' INT));
 
 terminal HEX:
 	'0x' ('0'..'9'|'A'..'F')+;
 
 terminal INT returns ecore::EInt: 
-	'-'? ('0'..'9')+;
+	('0'..'9')+;
 
 terminal REGULAR_EXPRESSION:
 	'~/' ('\\/' | !'/')+ '/' ('i' | 'g' | 'm' | 's' | 'u')*;

@@ -7,6 +7,7 @@
 package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Type;
 import ee.xtext.haxe.haxe.TypeReference;
 
 import java.util.Collection;
@@ -42,24 +43,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class TypeReferenceImpl extends MinimalEObjectImpl.Container implements TypeReference
 {
   /**
-   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getType()
    * @generated
    * @ordered
    */
-  protected static final String TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected String type = TYPE_EDEFAULT;
+  protected Type type;
 
   /**
    * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
@@ -97,7 +88,27 @@ public class TypeReferenceImpl extends MinimalEObjectImpl.Container implements T
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getType()
+  public Type getType()
+  {
+    if (type != null && type.eIsProxy())
+    {
+      InternalEObject oldType = (InternalEObject)type;
+      type = (Type)eResolveProxy(oldType);
+      if (type != oldType)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, HaxePackage.TYPE_REFERENCE__TYPE, oldType, type));
+      }
+    }
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Type basicGetType()
   {
     return type;
   }
@@ -107,9 +118,9 @@ public class TypeReferenceImpl extends MinimalEObjectImpl.Container implements T
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(String newType)
+  public void setType(Type newType)
   {
-    String oldType = type;
+    Type oldType = type;
     type = newType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.TYPE_REFERENCE__TYPE, oldType, type));
@@ -156,7 +167,8 @@ public class TypeReferenceImpl extends MinimalEObjectImpl.Container implements T
     switch (featureID)
     {
       case HaxePackage.TYPE_REFERENCE__TYPE:
-        return getType();
+        if (resolve) return getType();
+        return basicGetType();
       case HaxePackage.TYPE_REFERENCE__ARGUMENTS:
         return getArguments();
     }
@@ -175,7 +187,7 @@ public class TypeReferenceImpl extends MinimalEObjectImpl.Container implements T
     switch (featureID)
     {
       case HaxePackage.TYPE_REFERENCE__TYPE:
-        setType((String)newValue);
+        setType((Type)newValue);
         return;
       case HaxePackage.TYPE_REFERENCE__ARGUMENTS:
         getArguments().clear();
@@ -196,7 +208,7 @@ public class TypeReferenceImpl extends MinimalEObjectImpl.Container implements T
     switch (featureID)
     {
       case HaxePackage.TYPE_REFERENCE__TYPE:
-        setType(TYPE_EDEFAULT);
+        setType((Type)null);
         return;
       case HaxePackage.TYPE_REFERENCE__ARGUMENTS:
         getArguments().clear();
@@ -216,28 +228,11 @@ public class TypeReferenceImpl extends MinimalEObjectImpl.Container implements T
     switch (featureID)
     {
       case HaxePackage.TYPE_REFERENCE__TYPE:
-        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        return type != null;
       case HaxePackage.TYPE_REFERENCE__ARGUMENTS:
         return arguments != null && !arguments.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
-    result.append(type);
-    result.append(')');
-    return result.toString();
   }
 
 } //TypeReferenceImpl

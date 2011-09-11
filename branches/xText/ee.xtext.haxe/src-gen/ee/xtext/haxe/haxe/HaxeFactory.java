@@ -27,13 +27,40 @@ public interface HaxeFactory extends EFactory
   HaxeFactory eINSTANCE = ee.xtext.haxe.haxe.impl.HaxeFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>File</em>'.
+   * Returns a new object of class '<em>Package</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>File</em>'.
+   * @return a new object of class '<em>Package</em>'.
    * @generated
    */
-  File createFile();
+  Package createPackage();
+
+  /**
+   * Returns a new object of class '<em>Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type</em>'.
+   * @generated
+   */
+  Type createType();
+
+  /**
+   * Returns a new object of class '<em>Class</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Class</em>'.
+   * @generated
+   */
+  Class createClass();
+
+  /**
+   * Returns a new object of class '<em>Class Member</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Class Member</em>'.
+   * @generated
+   */
+  ClassMember createClassMember();
 
   /**
    * Returns a new object of class '<em>Type Reference</em>'.
@@ -43,6 +70,24 @@ public interface HaxeFactory extends EFactory
    * @generated
    */
   TypeReference createTypeReference();
+
+  /**
+   * Returns a new object of class '<em>Feature</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Feature</em>'.
+   * @generated
+   */
+  Feature createFeature();
+
+  /**
+   * Returns a new object of class '<em>Formal Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Formal Parameter</em>'.
+   * @generated
+   */
+  FormalParameter createFormalParameter();
 
   /**
    * Returns a new object of class '<em>Expression</em>'.
@@ -63,22 +108,49 @@ public interface HaxeFactory extends EFactory
   VariableDeclaration createVariableDeclaration();
 
   /**
-   * Returns a new object of class '<em>Feature</em>'.
+   * Returns a new object of class '<em>Variable Member Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Feature</em>'.
+   * @return a new object of class '<em>Variable Member Declaration</em>'.
    * @generated
    */
-  Feature createFeature();
+  VariableMemberDeclaration createVariableMemberDeclaration();
 
   /**
-   * Returns a new object of class '<em>XExpression</em>'.
+   * Returns a new object of class '<em>Function Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>XExpression</em>'.
+   * @return a new object of class '<em>Function Declaration</em>'.
    * @generated
    */
-  XExpression createXExpression();
+  FunctionDeclaration createFunctionDeclaration();
+
+  /**
+   * Returns a new object of class '<em>Catch Clause</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Catch Clause</em>'.
+   * @generated
+   */
+  CatchClause createCatchClause();
+
+  /**
+   * Returns a new object of class '<em>Case Part</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Case Part</em>'.
+   * @generated
+   */
+  CasePart createCasePart();
+
+  /**
+   * Returns a new object of class '<em>Object Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Object Element</em>'.
+   * @generated
+   */
+  ObjectElement createObjectElement();
 
   /**
    * Returns a new object of class '<em>Assignment</em>'.
@@ -126,6 +198,15 @@ public interface HaxeFactory extends EFactory
   PostIncrementOperation createPostIncrementOperation();
 
   /**
+   * Returns a new object of class '<em>Array Assignment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Array Assignment</em>'.
+   * @generated
+   */
+  ArrayAssignment createArrayAssignment();
+
+  /**
    * Returns a new object of class '<em>Member Feature Call</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -133,6 +214,15 @@ public interface HaxeFactory extends EFactory
    * @generated
    */
   MemberFeatureCall createMemberFeatureCall();
+
+  /**
+   * Returns a new object of class '<em>Array Access</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Array Access</em>'.
+   * @generated
+   */
+  ArrayAccess createArrayAccess();
 
   /**
    * Returns a new object of class '<em>Block Expression</em>'.
@@ -151,6 +241,114 @@ public interface HaxeFactory extends EFactory
    * @generated
    */
   VariableDeclarations createVariableDeclarations();
+
+  /**
+   * Returns a new object of class '<em>If Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>If Expression</em>'.
+   * @generated
+   */
+  IfExpression createIfExpression();
+
+  /**
+   * Returns a new object of class '<em>While Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>While Expression</em>'.
+   * @generated
+   */
+  WhileExpression createWhileExpression();
+
+  /**
+   * Returns a new object of class '<em>Do While Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Do While Expression</em>'.
+   * @generated
+   */
+  DoWhileExpression createDoWhileExpression();
+
+  /**
+   * Returns a new object of class '<em>For Loop Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>For Loop Expression</em>'.
+   * @generated
+   */
+  ForLoopExpression createForLoopExpression();
+
+  /**
+   * Returns a new object of class '<em>Return Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Return Expression</em>'.
+   * @generated
+   */
+  ReturnExpression createReturnExpression();
+
+  /**
+   * Returns a new object of class '<em>Break Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Break Expression</em>'.
+   * @generated
+   */
+  BreakExpression createBreakExpression();
+
+  /**
+   * Returns a new object of class '<em>Throw Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Throw Expression</em>'.
+   * @generated
+   */
+  ThrowExpression createThrowExpression();
+
+  /**
+   * Returns a new object of class '<em>Try Catch Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Try Catch Expression</em>'.
+   * @generated
+   */
+  TryCatchExpression createTryCatchExpression();
+
+  /**
+   * Returns a new object of class '<em>Switch Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Switch Expression</em>'.
+   * @generated
+   */
+  SwitchExpression createSwitchExpression();
+
+  /**
+   * Returns a new object of class '<em>Function Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Function Expression</em>'.
+   * @generated
+   */
+  FunctionExpression createFunctionExpression();
+
+  /**
+   * Returns a new object of class '<em>This Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>This Expression</em>'.
+   * @generated
+   */
+  ThisExpression createThisExpression();
+
+  /**
+   * Returns a new object of class '<em>Super Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Super Expression</em>'.
+   * @generated
+   */
+  SuperExpression createSuperExpression();
 
   /**
    * Returns a new object of class '<em>Feature Call</em>'.
@@ -232,6 +430,15 @@ public interface HaxeFactory extends EFactory
    * @generated
    */
   ArrayLiteral createArrayLiteral();
+
+  /**
+   * Returns a new object of class '<em>Object Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Object Literal</em>'.
+   * @generated
+   */
+  ObjectLiteral createObjectLiteral();
 
   /**
    * Returns the package supported by this factory.

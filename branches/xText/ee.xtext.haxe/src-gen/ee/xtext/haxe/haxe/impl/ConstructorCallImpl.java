@@ -9,6 +9,7 @@ package ee.xtext.haxe.haxe.impl;
 import ee.xtext.haxe.haxe.ConstructorCall;
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Type;
 
 import java.util.Collection;
 
@@ -39,27 +40,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class ConstructorCallImpl extends XExpressionImpl implements ConstructorCall
+public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCall
 {
   /**
-   * The default value of the '{@link #getConstructor() <em>Constructor</em>}' attribute.
+   * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getConstructor()
    * @generated
    * @ordered
    */
-  protected static final String CONSTRUCTOR_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getConstructor()
-   * @generated
-   * @ordered
-   */
-  protected String constructor = CONSTRUCTOR_EDEFAULT;
+  protected Type constructor;
 
   /**
    * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
@@ -97,7 +88,27 @@ public class ConstructorCallImpl extends XExpressionImpl implements ConstructorC
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getConstructor()
+  public Type getConstructor()
+  {
+    if (constructor != null && constructor.eIsProxy())
+    {
+      InternalEObject oldConstructor = (InternalEObject)constructor;
+      constructor = (Type)eResolveProxy(oldConstructor);
+      if (constructor != oldConstructor)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR, oldConstructor, constructor));
+      }
+    }
+    return constructor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Type basicGetConstructor()
   {
     return constructor;
   }
@@ -107,9 +118,9 @@ public class ConstructorCallImpl extends XExpressionImpl implements ConstructorC
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setConstructor(String newConstructor)
+  public void setConstructor(Type newConstructor)
   {
-    String oldConstructor = constructor;
+    Type oldConstructor = constructor;
     constructor = newConstructor;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR, oldConstructor, constructor));
@@ -156,7 +167,8 @@ public class ConstructorCallImpl extends XExpressionImpl implements ConstructorC
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        return getConstructor();
+        if (resolve) return getConstructor();
+        return basicGetConstructor();
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         return getArguments();
     }
@@ -175,7 +187,7 @@ public class ConstructorCallImpl extends XExpressionImpl implements ConstructorC
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        setConstructor((String)newValue);
+        setConstructor((Type)newValue);
         return;
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         getArguments().clear();
@@ -196,7 +208,7 @@ public class ConstructorCallImpl extends XExpressionImpl implements ConstructorC
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        setConstructor(CONSTRUCTOR_EDEFAULT);
+        setConstructor((Type)null);
         return;
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         getArguments().clear();
@@ -216,28 +228,11 @@ public class ConstructorCallImpl extends XExpressionImpl implements ConstructorC
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        return CONSTRUCTOR_EDEFAULT == null ? constructor != null : !CONSTRUCTOR_EDEFAULT.equals(constructor);
+        return constructor != null;
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         return arguments != null && !arguments.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (constructor: ");
-    result.append(constructor);
-    result.append(')');
-    return result.toString();
   }
 
 } //ConstructorCallImpl

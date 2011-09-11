@@ -4,12 +4,7 @@
 package ee.xtext.haxe.ui.contentassist;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.Assignment;
-import org.eclipse.xtext.CrossReference;
-import org.eclipse.xtext.GrammarUtil;
-import org.eclipse.xtext.ParserRule;
-import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -22,6 +17,7 @@ import com.google.inject.Inject;
 
 import ee.xtext.haxe.haxe.BlockExpression;
 import ee.xtext.haxe.haxe.Expression;
+import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.scoping.HaxeScopeProvider;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -34,19 +30,10 @@ public class HaxeProposalProvider extends AbstractHaxeProposalProvider {
 	@Inject
 	private HaxeScopeProvider scopeProvider;
 	
-	public void completeFeatureCall_Feature(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		CrossReference crossReference = (CrossReference) assignment.getTerminal();
-		ParserRule containingParserRule = GrammarUtil.containingParserRule(crossReference);
-		
-		if (!GrammarUtil.isDatatypeRule(containingParserRule)) {
-			
-			String ruleName = null;
-			if (crossReference.getTerminal() instanceof RuleCall) {
-				ruleName = ((RuleCall) crossReference.getTerminal()).getRule().getName();
-			}
-			
-			EReference reference = GrammarUtil.getReference(crossReference);
-			
+	private void completeFeature(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor)
+	{
+		if (model instanceof BlockExpression)
+		{
 			EObject previousModel = context.getPreviousModel();
 			
 			if (previousModel.equals(model))
@@ -71,9 +58,21 @@ public class HaxeProposalProvider extends AbstractHaxeProposalProvider {
 			}
 			int index = model.eContents().indexOf(previousModel);
 			
-			IScope scope = scopeProvider.getBlockExpressionScope(index + 1, (BlockExpression) model);
+			IScope scope = scopeProvider.getAvailableFeatures(index + 1, (BlockExpression) model);
 			
-			crossReferenceProposalCreator.lookupCrossReference(scope, model, reference, acceptor, Predicates.<IEObjectDescription> alwaysTrue(), getProposalFactory(ruleName, context));
+			//TODO we might need to change the literal to an abstract version of feature call (see Xbase)
+			crossReferenceProposalCreator.lookupCrossReference(scope, model, HaxePackage.Literals.FEATURE_CALL__FEATURE, acceptor, Predicates.<IEObjectDescription> alwaysTrue(), getProposalFactory("IdOrSuper", context));
 		}
+	}
+	
+	@Override
+	public void completeAssignment_Feature(EObject model,
+			Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		completeFeature(model, assignment, context, acceptor);
+	}
+
+	public void completeFeatureCall_Feature(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeFeature(model, assignment, context, acceptor);
 	}
 }

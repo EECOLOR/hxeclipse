@@ -8,6 +8,9 @@ import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
 import com.google.inject.Inject;
 
+import ee.xtext.haxe.haxe.FunctionMemberDeclaration;
+import ee.xtext.haxe.haxe.HaxePackage;
+
 /**
  * Provides labels for a EObjects.
  * 
@@ -25,6 +28,15 @@ public class HaxeLabelProvider extends DefaultEObjectLabelProvider {
 		return element.toString();
 	}
 
+	public Object text(ee.xtext.haxe.haxe.Class classRef)
+	{
+		return classRef.eGet(HaxePackage.Literals.TYPE__NAME);
+	}
+	
+	public Object text(FunctionMemberDeclaration functionMemberDeclaration)
+	{
+		return functionMemberDeclaration.eGet(HaxePackage.Literals.FEATURE__NAME);
+	}
 	
 /*
 	//Labels and icons can be computed like this:

@@ -3,12 +3,23 @@
 */
 package ee.xtext.haxe.ui.outline;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
+
+import ee.xtext.haxe.haxe.Package;
 
 /**
  * customization of the default outline structure
  * 
  */
 public class HaxeOutlineTreeProvider extends DefaultOutlineTreeProvider {
+
+	protected void _createChildren(DocumentRootNode parentNode, Package modelElement) {
+		for (EObject abstractElement : modelElement.eContents())
+		{
+			createNode(parentNode, abstractElement);
+		}
+	}
 	
 }

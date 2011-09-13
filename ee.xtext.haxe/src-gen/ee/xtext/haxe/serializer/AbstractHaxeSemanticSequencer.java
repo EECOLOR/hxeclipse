@@ -11,18 +11,23 @@ import ee.xtext.haxe.haxe.BooleanLiteral;
 import ee.xtext.haxe.haxe.BreakExpression;
 import ee.xtext.haxe.haxe.CasePart;
 import ee.xtext.haxe.haxe.CatchClause;
+import ee.xtext.haxe.haxe.Constructor;
 import ee.xtext.haxe.haxe.ConstructorCall;
 import ee.xtext.haxe.haxe.DoWhileExpression;
+import ee.xtext.haxe.haxe.EnumConstructor;
 import ee.xtext.haxe.haxe.FeatureCall;
 import ee.xtext.haxe.haxe.FloatLiteral;
 import ee.xtext.haxe.haxe.ForLoopExpression;
 import ee.xtext.haxe.haxe.FormalParameter;
-import ee.xtext.haxe.haxe.FunctionDeclaration;
 import ee.xtext.haxe.haxe.FunctionExpression;
+import ee.xtext.haxe.haxe.FunctionMemberDeclaration;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.IfExpression;
+import ee.xtext.haxe.haxe.Import;
 import ee.xtext.haxe.haxe.IntLiteral;
+import ee.xtext.haxe.haxe.Interface;
 import ee.xtext.haxe.haxe.MemberFeatureCall;
+import ee.xtext.haxe.haxe.Modifier;
 import ee.xtext.haxe.haxe.NullLiteral;
 import ee.xtext.haxe.haxe.ObjectElement;
 import ee.xtext.haxe.haxe.ObjectLiteral;
@@ -37,8 +42,12 @@ import ee.xtext.haxe.haxe.SwitchExpression;
 import ee.xtext.haxe.haxe.ThisExpression;
 import ee.xtext.haxe.haxe.ThrowExpression;
 import ee.xtext.haxe.haxe.TryCatchExpression;
+import ee.xtext.haxe.haxe.TypeParameter;
+import ee.xtext.haxe.haxe.TypeParameters;
 import ee.xtext.haxe.haxe.TypeReference;
+import ee.xtext.haxe.haxe.Typedef;
 import ee.xtext.haxe.haxe.UnaryOperation;
+import ee.xtext.haxe.haxe.Using;
 import ee.xtext.haxe.haxe.VariableDeclaration;
 import ee.xtext.haxe.haxe.VariableDeclarations;
 import ee.xtext.haxe.haxe.VariableMemberDeclaration;
@@ -392,8 +401,15 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case HaxePackage.CLASS:
 				if(context == grammarAccess.getTypeRule() ||
+				   context == grammarAccess.getClassOrInterfaceRule() ||
 				   context == grammarAccess.getClassRule()) {
 					sequence_Class_Class(context, (ee.xtext.haxe.haxe.Class) semanticObject); 
+					return; 
+				}
+				else break;
+			case HaxePackage.CONSTRUCTOR:
+				if(context == grammarAccess.getConstructorRule()) {
+					sequence_Constructor_Constructor(context, (Constructor) semanticObject); 
 					return; 
 				}
 				else break;
@@ -478,6 +494,19 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 				   context == grammarAccess.getParenthesizedExpressionRule() ||
 				   context == grammarAccess.getDoWhileExpressionRule()) {
 					sequence_DoWhileExpression_DoWhileExpression(context, (DoWhileExpression) semanticObject); 
+					return; 
+				}
+				else break;
+			case HaxePackage.ENUM:
+				if(context == grammarAccess.getTypeRule() ||
+				   context == grammarAccess.getEnumRule()) {
+					sequence_Enum_Enum(context, (ee.xtext.haxe.haxe.Enum) semanticObject); 
+					return; 
+				}
+				else break;
+			case HaxePackage.ENUM_CONSTRUCTOR:
+				if(context == grammarAccess.getEnumConstructorRule()) {
+					sequence_EnumConstructor_EnumConstructor(context, (EnumConstructor) semanticObject); 
 					return; 
 				}
 				else break;
@@ -615,14 +644,6 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else break;
-			case HaxePackage.FUNCTION_DECLARATION:
-				if(context == grammarAccess.getClassMemberRule() ||
-				   context == grammarAccess.getFeatureRule() ||
-				   context == grammarAccess.getFunctionMemberDeclarationRule()) {
-					sequence_FunctionMemberDeclaration_FunctionDeclaration(context, (FunctionDeclaration) semanticObject); 
-					return; 
-				}
-				else break;
 			case HaxePackage.FUNCTION_EXPRESSION:
 				if(context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getAssignmentRule() ||
@@ -665,6 +686,14 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else break;
+			case HaxePackage.FUNCTION_MEMBER_DECLARATION:
+				if(context == grammarAccess.getClassMemberRule() ||
+				   context == grammarAccess.getFunctionMemberDeclarationRule() ||
+				   context == grammarAccess.getFeatureRule()) {
+					sequence_FunctionMemberDeclaration_FunctionMemberDeclaration(context, (FunctionMemberDeclaration) semanticObject); 
+					return; 
+				}
+				else break;
 			case HaxePackage.IF_EXPRESSION:
 				if(context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getAssignmentRule() ||
@@ -704,6 +733,12 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 				   context == grammarAccess.getParenthesizedExpressionRule() ||
 				   context == grammarAccess.getIfExpressionRule()) {
 					sequence_IfExpression_IfExpression(context, (IfExpression) semanticObject); 
+					return; 
+				}
+				else break;
+			case HaxePackage.IMPORT:
+				if(context == grammarAccess.getImportRule()) {
+					sequence_Import_Import(context, (Import) semanticObject); 
 					return; 
 				}
 				else break;
@@ -750,6 +785,14 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else break;
+			case HaxePackage.INTERFACE:
+				if(context == grammarAccess.getTypeRule() ||
+				   context == grammarAccess.getClassOrInterfaceRule() ||
+				   context == grammarAccess.getInterfaceRule()) {
+					sequence_Interface_Interface(context, (Interface) semanticObject); 
+					return; 
+				}
+				else break;
 			case HaxePackage.MEMBER_FEATURE_CALL:
 				if(context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getAssignmentRule() ||
@@ -788,6 +831,12 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 				   context == grammarAccess.getExpressionInsideBlockRule() ||
 				   context == grammarAccess.getParenthesizedExpressionRule()) {
 					sequence_MemberFeatureCall_MemberFeatureCall(context, (MemberFeatureCall) semanticObject); 
+					return; 
+				}
+				else break;
+			case HaxePackage.MODIFIER:
+				if(context == grammarAccess.getModifierRule()) {
+					sequence_Modifier_Modifier(context, (Modifier) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1278,9 +1327,41 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else break;
+			case HaxePackage.TYPE_PARAMETER:
+				if(context == grammarAccess.getTypeRule() ||
+				   context == grammarAccess.getTypeParameterRule()) {
+					sequence_TypeParameter_TypeParameter(context, (TypeParameter) semanticObject); 
+					return; 
+				}
+				else break;
+			case HaxePackage.TYPE_PARAMETERS:
+				if(context == grammarAccess.getTypeParametersRule()) {
+					sequence_TypeParameters_TypeParameters(context, (TypeParameters) semanticObject); 
+					return; 
+				}
+				else break;
 			case HaxePackage.TYPE_REFERENCE:
-				if(context == grammarAccess.getTypeReferenceRule()) {
+				if(context == grammarAccess.getClassReferenceRule()) {
+					sequence_ClassReference_TypeReference(context, (TypeReference) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getInterfaceReferenceRule()) {
+					sequence_InterfaceReference_TypeReference(context, (TypeReference) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getTypeReferenceRule()) {
 					sequence_TypeReference_TypeReference(context, (TypeReference) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getClassOrInterfaceReferenceRule()) {
+					sequence_ClassOrInterfaceReference_TypeReference(context, (TypeReference) semanticObject); 
+					return; 
+				}
+				else break;
+			case HaxePackage.TYPEDEF:
+				if(context == grammarAccess.getTypeRule() ||
+				   context == grammarAccess.getTypedefRule()) {
+					sequence_Typedef_Typedef(context, (Typedef) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1325,9 +1406,15 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else break;
+			case HaxePackage.USING:
+				if(context == grammarAccess.getUsingRule()) {
+					sequence_Using_Using(context, (Using) semanticObject); 
+					return; 
+				}
+				else break;
 			case HaxePackage.VARIABLE_DECLARATION:
-				if(context == grammarAccess.getFeatureRule() ||
-				   context == grammarAccess.getVariableDeclarationRule()) {
+				if(context == grammarAccess.getVariableDeclarationRule() ||
+				   context == grammarAccess.getFeatureRule()) {
 					sequence_VariableDeclaration_VariableDeclaration(context, (VariableDeclaration) semanticObject); 
 					return; 
 				}
@@ -1341,8 +1428,8 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case HaxePackage.VARIABLE_MEMBER_DECLARATION:
 				if(context == grammarAccess.getClassMemberRule() ||
-				   context == grammarAccess.getFeatureRule() ||
-				   context == grammarAccess.getVariableMemberDeclarationRule()) {
+				   context == grammarAccess.getVariableMemberDeclarationRule() ||
+				   context == grammarAccess.getFeatureRule()) {
 					sequence_VariableMemberDeclaration_VariableMemberDeclaration(context, (VariableMemberDeclaration) semanticObject); 
 					return; 
 				}
@@ -1490,11 +1577,53 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName members+=ClassMember+)
+	 *     (
+	 *         (type=[Class|QualifiedName] (arguments+=TypeReference arguments+=TypeReference*)?) | 
+	 *         (type=[Interface|QualifiedName] (arguments+=TypeReference arguments+=TypeReference*)?)
+	 *     )
+	 *
+	 * Features:
+	 *    type[2, 2]
+	 *    arguments[0, *]
+	 */
+	protected void sequence_ClassOrInterfaceReference_TypeReference(EObject context, TypeReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (type=[Class|QualifiedName] (arguments+=TypeReference arguments+=TypeReference*)?)
+	 *
+	 * Features:
+	 *    type[1, 1]
+	 *    arguments[0, *]
+	 */
+	protected void sequence_ClassReference_TypeReference(EObject context, TypeReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         private?='private'? 
+	 *         name=ValidID 
+	 *         typeParameters=TypeParameters? 
+	 *         extends=ClassReference? 
+	 *         implements+=ClassOrInterfaceReference* 
+	 *         constructor=Constructor? 
+	 *         members+=ClassMember*
+	 *     )
 	 *
 	 * Features:
 	 *    name[1, 1]
-	 *    members[1, *]
+	 *    private[0, 1]
+	 *    members[0, *]
+	 *    typeParameters[0, 1]
+	 *    extends[0, 1]
+	 *    implements[0, *]
+	 *    constructor[0, 1]
 	 */
 	protected void sequence_Class_Class(EObject context, ee.xtext.haxe.haxe.Class semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1503,13 +1632,27 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (constructor=[Type|QualifiedName] arguments+=Expression? arguments+=Expression*)
+	 *     (constructor=TypeReference arguments+=Expression? arguments+=Expression*)
 	 *
 	 * Features:
 	 *    constructor[1, 1]
 	 *    arguments[0, *]
 	 */
 	protected void sequence_ConstructorCall_ConstructorCall(EObject context, ConstructorCall semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (modified=Modifier? (parameters+=FormalParameter parameters+=FormalParameter*)? body=BlockExpression)
+	 *
+	 * Features:
+	 *    modified[0, 1]
+	 *    parameters[0, *]
+	 *    body[1, 1]
+	 */
+	protected void sequence_Constructor_Constructor(EObject context, Constructor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1561,6 +1704,34 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 		feeder.accept(grammarAccess.getDoWhileExpressionAccess().getBodyExpressionParserRuleCall_2_0(), semanticObject.getBody());
 		feeder.accept(grammarAccess.getDoWhileExpressionAccess().getPredicateExpressionParserRuleCall_5_0(), semanticObject.getPredicate());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ValidID (parameters+=FormalParameter parameters+=FormalParameter*)?)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    parameters[0, *]
+	 */
+	protected void sequence_EnumConstructor_EnumConstructor(EObject context, EnumConstructor semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (private?='private'? name=ValidID typeParameters=TypeParameters? members+=EnumConstructor*)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    private[0, 1]
+	 *    typeParameters[0, 1]
+	 *    members[0, *]
+	 */
+	protected void sequence_Enum_Enum(EObject context, ee.xtext.haxe.haxe.Enum semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1651,11 +1822,13 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ValidID type=TypeReference?)
+	 *     (optional?='?'? name=ValidID type=TypeReference? defaultValue=Literal?)
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    optional[0, 1]
 	 *    type[0, 1]
+	 *    defaultValue[0, 1]
 	 */
 	protected void sequence_FormalParameter_FormalParameter(EObject context, FormalParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1664,7 +1837,7 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     ((parameters+=FormalParameter parameters+=FormalParameter*)? returnType=[Type|QualifiedName]? body=BlockExpression)
+	 *     ((parameters+=FormalParameter parameters+=FormalParameter*)? returnType=TypeReference? body=BlockExpression)
 	 *
 	 * Features:
 	 *    parameters[0, *]
@@ -1678,15 +1851,16 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ValidID (parameters+=FormalParameter parameters+=FormalParameter*)? returnType=[Type|QualifiedName]? body=BlockExpression)
+	 *     (modified=Modifier? name=ValidID (parameters+=FormalParameter parameters+=FormalParameter*)? returnType=TypeReference? body=BlockExpression)
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    modified[0, 1]
 	 *    parameters[0, *]
 	 *    returnType[0, 1]
 	 *    body[1, 1]
 	 */
-	protected void sequence_FunctionMemberDeclaration_FunctionDeclaration(EObject context, FunctionDeclaration semanticObject) {
+	protected void sequence_FunctionMemberDeclaration_FunctionMemberDeclaration(EObject context, FunctionMemberDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1707,12 +1881,59 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     importedNamespace=QualifiedNameWithWildcard
+	 *
+	 * Features:
+	 *    importedNamespace[1, 1]
+	 */
+	protected void sequence_Import_Import(EObject context, Import semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, HaxePackage.Literals.IMPORT__IMPORTED_NAMESPACE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HaxePackage.Literals.IMPORT__IMPORTED_NAMESPACE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0(), semanticObject.getImportedNamespace());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (value=INT?)
 	 *
 	 * Features:
 	 *    value[0, 1]
 	 */
 	protected void sequence_IntLiteral_IntLiteral(EObject context, IntLiteral semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (type=[Interface|QualifiedName] (arguments+=TypeReference arguments+=TypeReference*)?)
+	 *
+	 * Features:
+	 *    type[1, 1]
+	 *    arguments[0, *]
+	 */
+	protected void sequence_InterfaceReference_TypeReference(EObject context, TypeReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (private?='private'? name=ValidID implements+=InterfaceReference* members+=ClassMember*)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    private[0, 1]
+	 *    members[0, *]
+	 *    implements[0, *]
+	 */
+	protected void sequence_Interface_Interface(EObject context, Interface semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1786,6 +2007,30 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (
+	 *         static?='static'? 
+	 *         final?='final'? 
+	 *         dynamic?='dynamic'? 
+	 *         override?='override'? 
+	 *         inline?='inline'? 
+	 *         visibility=Visibility?
+	 *     )
+	 *
+	 * Features:
+	 *    static[0, 1]
+	 *    final[0, 1]
+	 *    dynamic[0, 1]
+	 *    override[0, 1]
+	 *    inline[0, 1]
+	 *    visibility[0, 1]
+	 */
+	protected void sequence_Modifier_Modifier(EObject context, Modifier semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (key=ValidID value=Expression)
 	 *
 	 * Features:
@@ -1821,11 +2066,24 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName? classes+=Class*)
+	 *     (
+	 *         name=QualifiedName? 
+	 *         imports+=Import* 
+	 *         using+=Using* 
+	 *         classes+=Class* 
+	 *         interfaces+=Interface* 
+	 *         enums+=Enum* 
+	 *         typedefs+=Typedef*
+	 *     )
 	 *
 	 * Features:
 	 *    name[0, 1]
+	 *    imports[0, *]
+	 *    using[0, *]
 	 *    classes[0, *]
+	 *    interfaces[0, *]
+	 *    enums[0, *]
+	 *    typedefs[0, *]
 	 */
 	protected void sequence_Package_Package(EObject context, ee.xtext.haxe.haxe.Package semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1998,6 +2256,31 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (name=ValidID (constraints+=TypeReference constraints+=TypeReference*)?)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    constraints[0, *]
+	 */
+	protected void sequence_TypeParameter_TypeParameter(EObject context, TypeParameter semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (parameters+=TypeParameter parameters+=TypeParameter*)
+	 *
+	 * Features:
+	 *    parameters[1, *]
+	 */
+	protected void sequence_TypeParameters_TypeParameters(EObject context, TypeParameters semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (type=[Type|QualifiedName] (arguments+=TypeReference arguments+=TypeReference*)?)
 	 *
 	 * Features:
@@ -2005,6 +2288,21 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	 *    arguments[0, *]
 	 */
 	protected void sequence_TypeReference_TypeReference(EObject context, TypeReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (private?='private'? name=ValidID extends=TypeReference? members+=ClassMember*)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    private[0, 1]
+	 *    extends[0, 1]
+	 *    members[0, *]
+	 */
+	protected void sequence_Typedef_Typedef(EObject context, Typedef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -2028,6 +2326,25 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getUnaryOperationAccess().getFeatureOpUnaryParserRuleCall_0_1_0(), semanticObject.getFeature());
 		feeder.accept(grammarAccess.getUnaryOperationAccess().getOperandPreIncrementOperationParserRuleCall_0_2_0(), semanticObject.getOperand());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     importedClass=QualifiedName
+	 *
+	 * Features:
+	 *    importedClass[1, 1]
+	 */
+	protected void sequence_Using_Using(EObject context, Using semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, HaxePackage.Literals.USING__IMPORTED_CLASS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HaxePackage.Literals.USING__IMPORTED_CLASS));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getUsingAccess().getImportedClassQualifiedNameParserRuleCall_1_0(), semanticObject.getImportedClass());
 		feeder.finish();
 	}
 	
@@ -2060,24 +2377,28 @@ public class AbstractHaxeSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ValidID type=TypeReference)
+	 *     (
+	 *         modified=Modifier? 
+	 *         name=ValidID 
+	 *         (getter=[FunctionMemberDeclaration|GetterSetterID] setter=[FunctionMemberDeclaration|GetterSetterID])? 
+	 *         type=TypeReference 
+	 *         expression=Expression?
+	 *     )
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    modified[0, 1]
+	 *    getter[0, 1]
+	 *         EXCLUDE_IF_UNSET setter
+	 *         MANDATORY_IF_SET setter
+	 *    setter[0, 1]
+	 *         EXCLUDE_IF_UNSET getter
+	 *         MANDATORY_IF_SET getter
 	 *    type[1, 1]
+	 *    expression[0, 1]
 	 */
 	protected void sequence_VariableMemberDeclaration_VariableMemberDeclaration(EObject context, VariableMemberDeclaration semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, HaxePackage.Literals.FEATURE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HaxePackage.Literals.FEATURE__NAME));
-			if(transientValues.isValueTransient(semanticObject, HaxePackage.Literals.VARIABLE_MEMBER_DECLARATION__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HaxePackage.Literals.VARIABLE_MEMBER_DECLARATION__TYPE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getVariableMemberDeclarationAccess().getNameValidIDParserRuleCall_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getVariableMemberDeclarationAccess().getTypeTypeReferenceParserRuleCall_4_0(), semanticObject.getType());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

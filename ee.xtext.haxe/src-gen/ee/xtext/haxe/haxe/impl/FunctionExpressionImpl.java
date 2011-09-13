@@ -10,7 +10,7 @@ import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.FunctionExpression;
 import ee.xtext.haxe.haxe.HaxePackage;
-import ee.xtext.haxe.haxe.Type;
+import ee.xtext.haxe.haxe.TypeReference;
 
 import java.util.Collection;
 
@@ -55,14 +55,14 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
   protected EList<FormalParameter> parameters;
 
   /**
-   * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' reference.
+   * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getReturnType()
    * @generated
    * @ordered
    */
-  protected Type returnType;
+  protected TypeReference returnType;
 
   /**
    * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
@@ -114,27 +114,7 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
    * <!-- end-user-doc -->
    * @generated
    */
-  public Type getReturnType()
-  {
-    if (returnType != null && returnType.eIsProxy())
-    {
-      InternalEObject oldReturnType = (InternalEObject)returnType;
-      returnType = (Type)eResolveProxy(oldReturnType);
-      if (returnType != oldReturnType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE, oldReturnType, returnType));
-      }
-    }
-    return returnType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Type basicGetReturnType()
+  public TypeReference getReturnType()
   {
     return returnType;
   }
@@ -144,12 +124,37 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setReturnType(Type newReturnType)
+  public NotificationChain basicSetReturnType(TypeReference newReturnType, NotificationChain msgs)
   {
-    Type oldReturnType = returnType;
+    TypeReference oldReturnType = returnType;
     returnType = newReturnType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE, oldReturnType, returnType));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE, oldReturnType, newReturnType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setReturnType(TypeReference newReturnType)
+  {
+    if (newReturnType != returnType)
+    {
+      NotificationChain msgs = null;
+      if (returnType != null)
+        msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE, null, msgs);
+      if (newReturnType != null)
+        msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE, null, msgs);
+      msgs = basicSetReturnType(newReturnType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE, newReturnType, newReturnType));
   }
 
   /**
@@ -212,6 +217,8 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
     {
       case HaxePackage.FUNCTION_EXPRESSION__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+      case HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE:
+        return basicSetReturnType(null, msgs);
       case HaxePackage.FUNCTION_EXPRESSION__BODY:
         return basicSetBody(null, msgs);
     }
@@ -231,8 +238,7 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
       case HaxePackage.FUNCTION_EXPRESSION__PARAMETERS:
         return getParameters();
       case HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE:
-        if (resolve) return getReturnType();
-        return basicGetReturnType();
+        return getReturnType();
       case HaxePackage.FUNCTION_EXPRESSION__BODY:
         return getBody();
     }
@@ -255,7 +261,7 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
         getParameters().addAll((Collection<? extends FormalParameter>)newValue);
         return;
       case HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE:
-        setReturnType((Type)newValue);
+        setReturnType((TypeReference)newValue);
         return;
       case HaxePackage.FUNCTION_EXPRESSION__BODY:
         setBody((Expression)newValue);
@@ -278,7 +284,7 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
         getParameters().clear();
         return;
       case HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE:
-        setReturnType((Type)null);
+        setReturnType((TypeReference)null);
         return;
       case HaxePackage.FUNCTION_EXPRESSION__BODY:
         setBody((Expression)null);

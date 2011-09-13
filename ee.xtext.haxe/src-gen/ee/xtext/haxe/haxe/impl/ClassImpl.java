@@ -6,8 +6,11 @@
  */
 package ee.xtext.haxe.haxe.impl;
 
-import ee.xtext.haxe.haxe.ClassMember;
+import ee.xtext.haxe.haxe.ClassOrInterfaceReference;
+import ee.xtext.haxe.haxe.Constructor;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.TypeParameters;
+import ee.xtext.haxe.haxe.TypeReference;
 
 import java.util.Collection;
 
@@ -31,44 +34,56 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getName <em>Name</em>}</li>
- *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getMembers <em>Members</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getImplements <em>Implements</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getConstructor <em>Constructor</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
+public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.haxe.Class
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getTypeParameters() <em>Type Parameters</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getTypeParameters()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected TypeParameters typeParameters;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getExtends() <em>Extends</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getExtends()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
+  protected TypeReference extends_;
 
   /**
-   * The cached value of the '{@link #getMembers() <em>Members</em>}' containment reference list.
+   * The cached value of the '{@link #getImplements() <em>Implements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMembers()
+   * @see #getImplements()
    * @generated
    * @ordered
    */
-  protected EList<ClassMember> members;
+  protected EList<ClassOrInterfaceReference> implements_;
+
+  /**
+   * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConstructor()
+   * @generated
+   * @ordered
+   */
+  protected Constructor constructor;
 
   /**
    * <!-- begin-user-doc -->
@@ -96,9 +111,9 @@ public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public TypeParameters getTypeParameters()
   {
-    return name;
+    return typeParameters;
   }
 
   /**
@@ -106,12 +121,16 @@ public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public NotificationChain basicSetTypeParameters(TypeParameters newTypeParameters, NotificationChain msgs)
   {
-    String oldName = name;
-    name = newName;
+    TypeParameters oldTypeParameters = typeParameters;
+    typeParameters = newTypeParameters;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__NAME, oldName, name));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__TYPE_PARAMETERS, oldTypeParameters, newTypeParameters);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -119,13 +138,130 @@ public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ClassMember> getMembers()
+  public void setTypeParameters(TypeParameters newTypeParameters)
   {
-    if (members == null)
+    if (newTypeParameters != typeParameters)
     {
-      members = new EObjectContainmentEList<ClassMember>(ClassMember.class, this, HaxePackage.CLASS__MEMBERS);
+      NotificationChain msgs = null;
+      if (typeParameters != null)
+        msgs = ((InternalEObject)typeParameters).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CLASS__TYPE_PARAMETERS, null, msgs);
+      if (newTypeParameters != null)
+        msgs = ((InternalEObject)newTypeParameters).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CLASS__TYPE_PARAMETERS, null, msgs);
+      msgs = basicSetTypeParameters(newTypeParameters, msgs);
+      if (msgs != null) msgs.dispatch();
     }
-    return members;
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__TYPE_PARAMETERS, newTypeParameters, newTypeParameters));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeReference getExtends()
+  {
+    return extends_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetExtends(TypeReference newExtends, NotificationChain msgs)
+  {
+    TypeReference oldExtends = extends_;
+    extends_ = newExtends;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__EXTENDS, oldExtends, newExtends);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExtends(TypeReference newExtends)
+  {
+    if (newExtends != extends_)
+    {
+      NotificationChain msgs = null;
+      if (extends_ != null)
+        msgs = ((InternalEObject)extends_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CLASS__EXTENDS, null, msgs);
+      if (newExtends != null)
+        msgs = ((InternalEObject)newExtends).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CLASS__EXTENDS, null, msgs);
+      msgs = basicSetExtends(newExtends, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__EXTENDS, newExtends, newExtends));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ClassOrInterfaceReference> getImplements()
+  {
+    if (implements_ == null)
+    {
+      implements_ = new EObjectContainmentEList<ClassOrInterfaceReference>(ClassOrInterfaceReference.class, this, HaxePackage.CLASS__IMPLEMENTS);
+    }
+    return implements_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Constructor getConstructor()
+  {
+    return constructor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetConstructor(Constructor newConstructor, NotificationChain msgs)
+  {
+    Constructor oldConstructor = constructor;
+    constructor = newConstructor;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__CONSTRUCTOR, oldConstructor, newConstructor);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setConstructor(Constructor newConstructor)
+  {
+    if (newConstructor != constructor)
+    {
+      NotificationChain msgs = null;
+      if (constructor != null)
+        msgs = ((InternalEObject)constructor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CLASS__CONSTRUCTOR, null, msgs);
+      if (newConstructor != null)
+        msgs = ((InternalEObject)newConstructor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CLASS__CONSTRUCTOR, null, msgs);
+      msgs = basicSetConstructor(newConstructor, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__CONSTRUCTOR, newConstructor, newConstructor));
   }
 
   /**
@@ -138,8 +274,14 @@ public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
   {
     switch (featureID)
     {
-      case HaxePackage.CLASS__MEMBERS:
-        return ((InternalEList<?>)getMembers()).basicRemove(otherEnd, msgs);
+      case HaxePackage.CLASS__TYPE_PARAMETERS:
+        return basicSetTypeParameters(null, msgs);
+      case HaxePackage.CLASS__EXTENDS:
+        return basicSetExtends(null, msgs);
+      case HaxePackage.CLASS__IMPLEMENTS:
+        return ((InternalEList<?>)getImplements()).basicRemove(otherEnd, msgs);
+      case HaxePackage.CLASS__CONSTRUCTOR:
+        return basicSetConstructor(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -154,10 +296,14 @@ public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
   {
     switch (featureID)
     {
-      case HaxePackage.CLASS__NAME:
-        return getName();
-      case HaxePackage.CLASS__MEMBERS:
-        return getMembers();
+      case HaxePackage.CLASS__TYPE_PARAMETERS:
+        return getTypeParameters();
+      case HaxePackage.CLASS__EXTENDS:
+        return getExtends();
+      case HaxePackage.CLASS__IMPLEMENTS:
+        return getImplements();
+      case HaxePackage.CLASS__CONSTRUCTOR:
+        return getConstructor();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -173,12 +319,18 @@ public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
   {
     switch (featureID)
     {
-      case HaxePackage.CLASS__NAME:
-        setName((String)newValue);
+      case HaxePackage.CLASS__TYPE_PARAMETERS:
+        setTypeParameters((TypeParameters)newValue);
         return;
-      case HaxePackage.CLASS__MEMBERS:
-        getMembers().clear();
-        getMembers().addAll((Collection<? extends ClassMember>)newValue);
+      case HaxePackage.CLASS__EXTENDS:
+        setExtends((TypeReference)newValue);
+        return;
+      case HaxePackage.CLASS__IMPLEMENTS:
+        getImplements().clear();
+        getImplements().addAll((Collection<? extends ClassOrInterfaceReference>)newValue);
+        return;
+      case HaxePackage.CLASS__CONSTRUCTOR:
+        setConstructor((Constructor)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -194,11 +346,17 @@ public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
   {
     switch (featureID)
     {
-      case HaxePackage.CLASS__NAME:
-        setName(NAME_EDEFAULT);
+      case HaxePackage.CLASS__TYPE_PARAMETERS:
+        setTypeParameters((TypeParameters)null);
         return;
-      case HaxePackage.CLASS__MEMBERS:
-        getMembers().clear();
+      case HaxePackage.CLASS__EXTENDS:
+        setExtends((TypeReference)null);
+        return;
+      case HaxePackage.CLASS__IMPLEMENTS:
+        getImplements().clear();
+        return;
+      case HaxePackage.CLASS__CONSTRUCTOR:
+        setConstructor((Constructor)null);
         return;
     }
     super.eUnset(featureID);
@@ -214,29 +372,16 @@ public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
   {
     switch (featureID)
     {
-      case HaxePackage.CLASS__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case HaxePackage.CLASS__MEMBERS:
-        return members != null && !members.isEmpty();
+      case HaxePackage.CLASS__TYPE_PARAMETERS:
+        return typeParameters != null;
+      case HaxePackage.CLASS__EXTENDS:
+        return extends_ != null;
+      case HaxePackage.CLASS__IMPLEMENTS:
+        return implements_ != null && !implements_.isEmpty();
+      case HaxePackage.CLASS__CONSTRUCTOR:
+        return constructor != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //ClassImpl

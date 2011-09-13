@@ -5,9 +5,12 @@ package ee.xtext.haxe.scoping;
 
 import java.util.List;
 
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
@@ -20,8 +23,12 @@ import ee.xtext.haxe.haxe.CatchClause;
 import ee.xtext.haxe.haxe.Feature;
 import ee.xtext.haxe.haxe.FeatureCall;
 import ee.xtext.haxe.haxe.ForLoopExpression;
-import ee.xtext.haxe.haxe.FunctionDeclaration;
+import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.FunctionExpression;
+import ee.xtext.haxe.haxe.FunctionMemberDeclaration;
+import ee.xtext.haxe.haxe.HaxeFactory;
+import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.TypeReference;
 import ee.xtext.haxe.haxe.VariableDeclaration;
 import ee.xtext.haxe.haxe.VariableDeclarations;
 
@@ -37,7 +44,12 @@ public class HaxeScopeProvider extends AbstractDeclarativeScopeProvider {
 	public IScope getAvailableFeatures(int index, EObject context)
 	{
 		IScope parentScope = getAvailableFeaturesFromParents(context);
-				
+		
+		if (context instanceof ee.xtext.haxe.haxe.Class)
+		{
+			//TODO add a this scope
+		}
+		
 		if (context instanceof BlockExpression)
 		{
 			List<Feature> elements = getFeatures(index, ((BlockExpression) context).getExpressions());
@@ -50,9 +62,9 @@ public class HaxeScopeProvider extends AbstractDeclarativeScopeProvider {
 			return Scopes.scopeFor(elements, parentScope);
 		}
 		
-		if (context instanceof FunctionDeclaration)
+		if (context instanceof FunctionMemberDeclaration)
 		{
-			List<? extends Feature> elements = ((FunctionDeclaration) context).getParameters();
+			List<? extends Feature> elements = ((FunctionMemberDeclaration) context).getParameters();
 			return Scopes.scopeFor(elements, parentScope);
 		}
 		

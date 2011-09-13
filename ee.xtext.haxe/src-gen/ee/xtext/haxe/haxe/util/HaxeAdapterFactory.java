@@ -16,20 +16,27 @@ import ee.xtext.haxe.haxe.BreakExpression;
 import ee.xtext.haxe.haxe.CasePart;
 import ee.xtext.haxe.haxe.CatchClause;
 import ee.xtext.haxe.haxe.ClassMember;
+import ee.xtext.haxe.haxe.ClassOrInterface;
+import ee.xtext.haxe.haxe.ClassOrInterfaceReference;
+import ee.xtext.haxe.haxe.Constructor;
 import ee.xtext.haxe.haxe.ConstructorCall;
 import ee.xtext.haxe.haxe.DoWhileExpression;
+import ee.xtext.haxe.haxe.EnumConstructor;
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.Feature;
 import ee.xtext.haxe.haxe.FeatureCall;
 import ee.xtext.haxe.haxe.FloatLiteral;
 import ee.xtext.haxe.haxe.ForLoopExpression;
 import ee.xtext.haxe.haxe.FormalParameter;
-import ee.xtext.haxe.haxe.FunctionDeclaration;
 import ee.xtext.haxe.haxe.FunctionExpression;
+import ee.xtext.haxe.haxe.FunctionMemberDeclaration;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.IfExpression;
+import ee.xtext.haxe.haxe.Import;
 import ee.xtext.haxe.haxe.IntLiteral;
+import ee.xtext.haxe.haxe.Interface;
 import ee.xtext.haxe.haxe.MemberFeatureCall;
+import ee.xtext.haxe.haxe.Modifier;
 import ee.xtext.haxe.haxe.NullLiteral;
 import ee.xtext.haxe.haxe.ObjectElement;
 import ee.xtext.haxe.haxe.ObjectLiteral;
@@ -45,8 +52,12 @@ import ee.xtext.haxe.haxe.ThisExpression;
 import ee.xtext.haxe.haxe.ThrowExpression;
 import ee.xtext.haxe.haxe.TryCatchExpression;
 import ee.xtext.haxe.haxe.Type;
+import ee.xtext.haxe.haxe.TypeParameter;
+import ee.xtext.haxe.haxe.TypeParameters;
 import ee.xtext.haxe.haxe.TypeReference;
+import ee.xtext.haxe.haxe.Typedef;
 import ee.xtext.haxe.haxe.UnaryOperation;
+import ee.xtext.haxe.haxe.Using;
 import ee.xtext.haxe.haxe.VariableDeclaration;
 import ee.xtext.haxe.haxe.VariableDeclarations;
 import ee.xtext.haxe.haxe.VariableMemberDeclaration;
@@ -128,9 +139,24 @@ public class HaxeAdapterFactory extends AdapterFactoryImpl
         return createPackageAdapter();
       }
       @Override
+      public Adapter caseImport(Import object)
+      {
+        return createImportAdapter();
+      }
+      @Override
+      public Adapter caseUsing(Using object)
+      {
+        return createUsingAdapter();
+      }
+      @Override
       public Adapter caseType(Type object)
       {
         return createTypeAdapter();
+      }
+      @Override
+      public Adapter caseClassOrInterface(ClassOrInterface object)
+      {
+        return createClassOrInterfaceAdapter();
       }
       @Override
       public Adapter caseClass(ee.xtext.haxe.haxe.Class object)
@@ -143,24 +169,34 @@ public class HaxeAdapterFactory extends AdapterFactoryImpl
         return createClassMemberAdapter();
       }
       @Override
+      public Adapter caseInterface(Interface object)
+      {
+        return createInterfaceAdapter();
+      }
+      @Override
+      public Adapter caseEnum(ee.xtext.haxe.haxe.Enum object)
+      {
+        return createEnumAdapter();
+      }
+      @Override
+      public Adapter caseEnumConstructor(EnumConstructor object)
+      {
+        return createEnumConstructorAdapter();
+      }
+      @Override
+      public Adapter caseTypedef(Typedef object)
+      {
+        return createTypedefAdapter();
+      }
+      @Override
       public Adapter caseTypeReference(TypeReference object)
       {
         return createTypeReferenceAdapter();
       }
       @Override
-      public Adapter caseFeature(Feature object)
+      public Adapter caseClassOrInterfaceReference(ClassOrInterfaceReference object)
       {
-        return createFeatureAdapter();
-      }
-      @Override
-      public Adapter caseFormalParameter(FormalParameter object)
-      {
-        return createFormalParameterAdapter();
-      }
-      @Override
-      public Adapter caseExpression(Expression object)
-      {
-        return createExpressionAdapter();
+        return createClassOrInterfaceReferenceAdapter();
       }
       @Override
       public Adapter caseVariableDeclaration(VariableDeclaration object)
@@ -173,9 +209,44 @@ public class HaxeAdapterFactory extends AdapterFactoryImpl
         return createVariableMemberDeclarationAdapter();
       }
       @Override
-      public Adapter caseFunctionDeclaration(FunctionDeclaration object)
+      public Adapter caseFunctionMemberDeclaration(FunctionMemberDeclaration object)
       {
-        return createFunctionDeclarationAdapter();
+        return createFunctionMemberDeclarationAdapter();
+      }
+      @Override
+      public Adapter caseConstructor(Constructor object)
+      {
+        return createConstructorAdapter();
+      }
+      @Override
+      public Adapter caseFeature(Feature object)
+      {
+        return createFeatureAdapter();
+      }
+      @Override
+      public Adapter caseFormalParameter(FormalParameter object)
+      {
+        return createFormalParameterAdapter();
+      }
+      @Override
+      public Adapter caseModifier(Modifier object)
+      {
+        return createModifierAdapter();
+      }
+      @Override
+      public Adapter caseTypeParameters(TypeParameters object)
+      {
+        return createTypeParametersAdapter();
+      }
+      @Override
+      public Adapter caseTypeParameter(TypeParameter object)
+      {
+        return createTypeParameterAdapter();
+      }
+      @Override
+      public Adapter caseExpression(Expression object)
+      {
+        return createExpressionAdapter();
       }
       @Override
       public Adapter caseCatchClause(CatchClause object)
@@ -390,6 +461,36 @@ public class HaxeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Import <em>Import</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Import
+   * @generated
+   */
+  public Adapter createImportAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Using <em>Using</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Using
+   * @generated
+   */
+  public Adapter createUsingAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Type <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -400,6 +501,21 @@ public class HaxeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.ClassOrInterface <em>Class Or Interface</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.ClassOrInterface
+   * @generated
+   */
+  public Adapter createClassOrInterfaceAdapter()
   {
     return null;
   }
@@ -435,6 +551,66 @@ public class HaxeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Interface <em>Interface</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Interface
+   * @generated
+   */
+  public Adapter createInterfaceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Enum <em>Enum</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Enum
+   * @generated
+   */
+  public Adapter createEnumAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.EnumConstructor <em>Enum Constructor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.EnumConstructor
+   * @generated
+   */
+  public Adapter createEnumConstructorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Typedef <em>Typedef</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Typedef
+   * @generated
+   */
+  public Adapter createTypedefAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.TypeReference <em>Type Reference</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -450,46 +626,16 @@ public class HaxeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Feature <em>Feature</em>}'.
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.ClassOrInterfaceReference <em>Class Or Interface Reference</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see ee.xtext.haxe.haxe.Feature
+   * @see ee.xtext.haxe.haxe.ClassOrInterfaceReference
    * @generated
    */
-  public Adapter createFeatureAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.FormalParameter <em>Formal Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see ee.xtext.haxe.haxe.FormalParameter
-   * @generated
-   */
-  public Adapter createFormalParameterAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Expression <em>Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see ee.xtext.haxe.haxe.Expression
-   * @generated
-   */
-  public Adapter createExpressionAdapter()
+  public Adapter createClassOrInterfaceReferenceAdapter()
   {
     return null;
   }
@@ -525,16 +671,121 @@ public class HaxeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.FunctionDeclaration <em>Function Declaration</em>}'.
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.FunctionMemberDeclaration <em>Function Member Declaration</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see ee.xtext.haxe.haxe.FunctionDeclaration
+   * @see ee.xtext.haxe.haxe.FunctionMemberDeclaration
    * @generated
    */
-  public Adapter createFunctionDeclarationAdapter()
+  public Adapter createFunctionMemberDeclarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Constructor <em>Constructor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Constructor
+   * @generated
+   */
+  public Adapter createConstructorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Feature <em>Feature</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Feature
+   * @generated
+   */
+  public Adapter createFeatureAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.FormalParameter <em>Formal Parameter</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.FormalParameter
+   * @generated
+   */
+  public Adapter createFormalParameterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Modifier <em>Modifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Modifier
+   * @generated
+   */
+  public Adapter createModifierAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.TypeParameters <em>Type Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.TypeParameters
+   * @generated
+   */
+  public Adapter createTypeParametersAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.TypeParameter <em>Type Parameter</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.TypeParameter
+   * @generated
+   */
+  public Adapter createTypeParameterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ee.xtext.haxe.haxe.Expression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ee.xtext.haxe.haxe.Expression
+   * @generated
+   */
+  public Adapter createExpressionAdapter()
   {
     return null;
   }

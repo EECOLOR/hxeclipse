@@ -9,7 +9,7 @@ package ee.xtext.haxe.haxe.impl;
 import ee.xtext.haxe.haxe.ConstructorCall;
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.HaxePackage;
-import ee.xtext.haxe.haxe.Type;
+import ee.xtext.haxe.haxe.TypeReference;
 
 import java.util.Collection;
 
@@ -43,14 +43,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCall
 {
   /**
-   * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' reference.
+   * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getConstructor()
    * @generated
    * @ordered
    */
-  protected Type constructor;
+  protected TypeReference constructor;
 
   /**
    * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
@@ -88,27 +88,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
    * <!-- end-user-doc -->
    * @generated
    */
-  public Type getConstructor()
-  {
-    if (constructor != null && constructor.eIsProxy())
-    {
-      InternalEObject oldConstructor = (InternalEObject)constructor;
-      constructor = (Type)eResolveProxy(oldConstructor);
-      if (constructor != oldConstructor)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR, oldConstructor, constructor));
-      }
-    }
-    return constructor;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Type basicGetConstructor()
+  public TypeReference getConstructor()
   {
     return constructor;
   }
@@ -118,12 +98,37 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setConstructor(Type newConstructor)
+  public NotificationChain basicSetConstructor(TypeReference newConstructor, NotificationChain msgs)
   {
-    Type oldConstructor = constructor;
+    TypeReference oldConstructor = constructor;
     constructor = newConstructor;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR, oldConstructor, constructor));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR, oldConstructor, newConstructor);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setConstructor(TypeReference newConstructor)
+  {
+    if (newConstructor != constructor)
+    {
+      NotificationChain msgs = null;
+      if (constructor != null)
+        msgs = ((InternalEObject)constructor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR, null, msgs);
+      if (newConstructor != null)
+        msgs = ((InternalEObject)newConstructor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR, null, msgs);
+      msgs = basicSetConstructor(newConstructor, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR, newConstructor, newConstructor));
   }
 
   /**
@@ -150,6 +155,8 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
   {
     switch (featureID)
     {
+      case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
+        return basicSetConstructor(null, msgs);
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         return ((InternalEList<?>)getArguments()).basicRemove(otherEnd, msgs);
     }
@@ -167,8 +174,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        if (resolve) return getConstructor();
-        return basicGetConstructor();
+        return getConstructor();
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         return getArguments();
     }
@@ -187,7 +193,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        setConstructor((Type)newValue);
+        setConstructor((TypeReference)newValue);
         return;
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         getArguments().clear();
@@ -208,7 +214,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        setConstructor((Type)null);
+        setConstructor((TypeReference)null);
         return;
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         getArguments().clear();

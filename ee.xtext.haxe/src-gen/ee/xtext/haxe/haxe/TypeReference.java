@@ -8,8 +8,6 @@ package ee.xtext.haxe.haxe;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Type Reference</b></em>'.
@@ -27,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface TypeReference extends EObject
+public interface TypeReference extends ClassOrInterfaceReference
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' reference.

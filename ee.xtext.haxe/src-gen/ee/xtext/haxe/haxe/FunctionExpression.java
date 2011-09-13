@@ -45,30 +45,30 @@ public interface FunctionExpression extends Expression
   EList<FormalParameter> getParameters();
 
   /**
-   * Returns the value of the '<em><b>Return Type</b></em>' reference.
+   * Returns the value of the '<em><b>Return Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Return Type</em>' reference isn't clear,
+   * If the meaning of the '<em>Return Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Return Type</em>' reference.
-   * @see #setReturnType(Type)
+   * @return the value of the '<em>Return Type</em>' containment reference.
+   * @see #setReturnType(TypeReference)
    * @see ee.xtext.haxe.haxe.HaxePackage#getFunctionExpression_ReturnType()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  Type getReturnType();
+  TypeReference getReturnType();
 
   /**
-   * Sets the value of the '{@link ee.xtext.haxe.haxe.FunctionExpression#getReturnType <em>Return Type</em>}' reference.
+   * Sets the value of the '{@link ee.xtext.haxe.haxe.FunctionExpression#getReturnType <em>Return Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Return Type</em>' reference.
+   * @param value the new value of the '<em>Return Type</em>' containment reference.
    * @see #getReturnType()
    * @generated
    */
-  void setReturnType(Type value);
+  void setReturnType(TypeReference value);
 
   /**
    * Returns the value of the '<em><b>Body</b></em>' containment reference.

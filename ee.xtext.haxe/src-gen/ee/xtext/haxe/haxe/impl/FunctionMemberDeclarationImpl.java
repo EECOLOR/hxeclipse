@@ -9,9 +9,10 @@ package ee.xtext.haxe.haxe.impl;
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.Feature;
 import ee.xtext.haxe.haxe.FormalParameter;
-import ee.xtext.haxe.haxe.FunctionDeclaration;
+import ee.xtext.haxe.haxe.FunctionMemberDeclaration;
 import ee.xtext.haxe.haxe.HaxePackage;
-import ee.xtext.haxe.haxe.Type;
+import ee.xtext.haxe.haxe.Modifier;
+import ee.xtext.haxe.haxe.TypeReference;
 
 import java.util.Collection;
 
@@ -30,21 +31,22 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Function Declaration</b></em>'.
+ * An implementation of the model object '<em><b>Function Member Declaration</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionDeclarationImpl#getName <em>Name</em>}</li>
- *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionDeclarationImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionDeclarationImpl#getReturnType <em>Return Type</em>}</li>
- *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionDeclarationImpl#getBody <em>Body</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl#getModified <em>Modified</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl#getReturnType <em>Return Type</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FunctionDeclarationImpl extends ClassMemberImpl implements FunctionDeclaration
+public class FunctionMemberDeclarationImpl extends ClassMemberImpl implements FunctionMemberDeclaration
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -67,6 +69,16 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   protected String name = NAME_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getModified() <em>Modified</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getModified()
+   * @generated
+   * @ordered
+   */
+  protected Modifier modified;
+
+  /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -77,14 +89,14 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   protected EList<FormalParameter> parameters;
 
   /**
-   * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' reference.
+   * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getReturnType()
    * @generated
    * @ordered
    */
-  protected Type returnType;
+  protected TypeReference returnType;
 
   /**
    * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
@@ -101,7 +113,7 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
    * <!-- end-user-doc -->
    * @generated
    */
-  protected FunctionDeclarationImpl()
+  protected FunctionMemberDeclarationImpl()
   {
     super();
   }
@@ -114,7 +126,7 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   @Override
   protected EClass eStaticClass()
   {
-    return HaxePackage.Literals.FUNCTION_DECLARATION;
+    return HaxePackage.Literals.FUNCTION_MEMBER_DECLARATION;
   }
 
   /**
@@ -137,7 +149,55 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_DECLARATION__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_MEMBER_DECLARATION__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Modifier getModified()
+  {
+    return modified;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetModified(Modifier newModified, NotificationChain msgs)
+  {
+    Modifier oldModified = modified;
+    modified = newModified;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED, oldModified, newModified);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setModified(Modifier newModified)
+  {
+    if (newModified != modified)
+    {
+      NotificationChain msgs = null;
+      if (modified != null)
+        msgs = ((InternalEObject)modified).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED, null, msgs);
+      if (newModified != null)
+        msgs = ((InternalEObject)newModified).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED, null, msgs);
+      msgs = basicSetModified(newModified, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED, newModified, newModified));
   }
 
   /**
@@ -149,7 +209,7 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   {
     if (parameters == null)
     {
-      parameters = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, HaxePackage.FUNCTION_DECLARATION__PARAMETERS);
+      parameters = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, HaxePackage.FUNCTION_MEMBER_DECLARATION__PARAMETERS);
     }
     return parameters;
   }
@@ -159,27 +219,7 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
    * <!-- end-user-doc -->
    * @generated
    */
-  public Type getReturnType()
-  {
-    if (returnType != null && returnType.eIsProxy())
-    {
-      InternalEObject oldReturnType = (InternalEObject)returnType;
-      returnType = (Type)eResolveProxy(oldReturnType);
-      if (returnType != oldReturnType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, HaxePackage.FUNCTION_DECLARATION__RETURN_TYPE, oldReturnType, returnType));
-      }
-    }
-    return returnType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Type basicGetReturnType()
+  public TypeReference getReturnType()
   {
     return returnType;
   }
@@ -189,12 +229,37 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setReturnType(Type newReturnType)
+  public NotificationChain basicSetReturnType(TypeReference newReturnType, NotificationChain msgs)
   {
-    Type oldReturnType = returnType;
+    TypeReference oldReturnType = returnType;
     returnType = newReturnType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_DECLARATION__RETURN_TYPE, oldReturnType, returnType));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE, oldReturnType, newReturnType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setReturnType(TypeReference newReturnType)
+  {
+    if (newReturnType != returnType)
+    {
+      NotificationChain msgs = null;
+      if (returnType != null)
+        msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE, null, msgs);
+      if (newReturnType != null)
+        msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE, null, msgs);
+      msgs = basicSetReturnType(newReturnType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE, newReturnType, newReturnType));
   }
 
   /**
@@ -218,7 +283,7 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
     body = newBody;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_DECLARATION__BODY, oldBody, newBody);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY, oldBody, newBody);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -235,14 +300,14 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
     {
       NotificationChain msgs = null;
       if (body != null)
-        msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_DECLARATION__BODY, null, msgs);
+        msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY, null, msgs);
       if (newBody != null)
-        msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_DECLARATION__BODY, null, msgs);
+        msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY, null, msgs);
       msgs = basicSetBody(newBody, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_DECLARATION__BODY, newBody, newBody));
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY, newBody, newBody));
   }
 
   /**
@@ -255,9 +320,13 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   {
     switch (featureID)
     {
-      case HaxePackage.FUNCTION_DECLARATION__PARAMETERS:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED:
+        return basicSetModified(null, msgs);
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-      case HaxePackage.FUNCTION_DECLARATION__BODY:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE:
+        return basicSetReturnType(null, msgs);
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY:
         return basicSetBody(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -273,14 +342,15 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   {
     switch (featureID)
     {
-      case HaxePackage.FUNCTION_DECLARATION__NAME:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__NAME:
         return getName();
-      case HaxePackage.FUNCTION_DECLARATION__PARAMETERS:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED:
+        return getModified();
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__PARAMETERS:
         return getParameters();
-      case HaxePackage.FUNCTION_DECLARATION__RETURN_TYPE:
-        if (resolve) return getReturnType();
-        return basicGetReturnType();
-      case HaxePackage.FUNCTION_DECLARATION__BODY:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE:
+        return getReturnType();
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY:
         return getBody();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -297,17 +367,20 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   {
     switch (featureID)
     {
-      case HaxePackage.FUNCTION_DECLARATION__NAME:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__NAME:
         setName((String)newValue);
         return;
-      case HaxePackage.FUNCTION_DECLARATION__PARAMETERS:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED:
+        setModified((Modifier)newValue);
+        return;
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends FormalParameter>)newValue);
         return;
-      case HaxePackage.FUNCTION_DECLARATION__RETURN_TYPE:
-        setReturnType((Type)newValue);
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE:
+        setReturnType((TypeReference)newValue);
         return;
-      case HaxePackage.FUNCTION_DECLARATION__BODY:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY:
         setBody((Expression)newValue);
         return;
     }
@@ -324,16 +397,19 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   {
     switch (featureID)
     {
-      case HaxePackage.FUNCTION_DECLARATION__NAME:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case HaxePackage.FUNCTION_DECLARATION__PARAMETERS:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED:
+        setModified((Modifier)null);
+        return;
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__PARAMETERS:
         getParameters().clear();
         return;
-      case HaxePackage.FUNCTION_DECLARATION__RETURN_TYPE:
-        setReturnType((Type)null);
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE:
+        setReturnType((TypeReference)null);
         return;
-      case HaxePackage.FUNCTION_DECLARATION__BODY:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY:
         setBody((Expression)null);
         return;
     }
@@ -350,13 +426,15 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
   {
     switch (featureID)
     {
-      case HaxePackage.FUNCTION_DECLARATION__NAME:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case HaxePackage.FUNCTION_DECLARATION__PARAMETERS:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__MODIFIED:
+        return modified != null;
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
-      case HaxePackage.FUNCTION_DECLARATION__RETURN_TYPE:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__RETURN_TYPE:
         return returnType != null;
-      case HaxePackage.FUNCTION_DECLARATION__BODY:
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION__BODY:
         return body != null;
     }
     return super.eIsSet(featureID);
@@ -374,7 +452,7 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
     {
       switch (derivedFeatureID)
       {
-        case HaxePackage.FUNCTION_DECLARATION__NAME: return HaxePackage.FEATURE__NAME;
+        case HaxePackage.FUNCTION_MEMBER_DECLARATION__NAME: return HaxePackage.FEATURE__NAME;
         default: return -1;
       }
     }
@@ -393,7 +471,7 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
     {
       switch (baseFeatureID)
       {
-        case HaxePackage.FEATURE__NAME: return HaxePackage.FUNCTION_DECLARATION__NAME;
+        case HaxePackage.FEATURE__NAME: return HaxePackage.FUNCTION_MEMBER_DECLARATION__NAME;
         default: return -1;
       }
     }
@@ -417,4 +495,4 @@ public class FunctionDeclarationImpl extends ClassMemberImpl implements Function
     return result.toString();
   }
 
-} //FunctionDeclarationImpl
+} //FunctionMemberDeclarationImpl

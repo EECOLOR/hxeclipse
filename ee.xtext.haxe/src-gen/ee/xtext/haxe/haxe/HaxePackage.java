@@ -8,6 +8,7 @@ package ee.xtext.haxe.haxe;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -80,13 +81,58 @@ public interface HaxePackage extends EPackage
   int PACKAGE__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PACKAGE__IMPORTS = 1;
+
+  /**
+   * The feature id for the '<em><b>Using</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PACKAGE__USING = 2;
+
+  /**
    * The feature id for the '<em><b>Classes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PACKAGE__CLASSES = 1;
+  int PACKAGE__CLASSES = 3;
+
+  /**
+   * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PACKAGE__INTERFACES = 4;
+
+  /**
+   * The feature id for the '<em><b>Enums</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PACKAGE__ENUMS = 5;
+
+  /**
+   * The feature id for the '<em><b>Typedefs</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PACKAGE__TYPEDEFS = 6;
 
   /**
    * The number of structural features of the '<em>Package</em>' class.
@@ -95,7 +141,63 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PACKAGE_FEATURE_COUNT = 2;
+  int PACKAGE_FEATURE_COUNT = 7;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ImportImpl <em>Import</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.ImportImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getImport()
+   * @generated
+   */
+  int IMPORT = 1;
+
+  /**
+   * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT__IMPORTED_NAMESPACE = 0;
+
+  /**
+   * The number of structural features of the '<em>Import</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.UsingImpl <em>Using</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.UsingImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getUsing()
+   * @generated
+   */
+  int USING = 2;
+
+  /**
+   * The feature id for the '<em><b>Imported Class</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int USING__IMPORTED_CLASS = 0;
+
+  /**
+   * The number of structural features of the '<em>Using</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int USING_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.TypeImpl <em>Type</em>}' class.
@@ -105,7 +207,16 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getType()
    * @generated
    */
-  int TYPE = 1;
+  int TYPE = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE__NAME = 0;
 
   /**
    * The number of structural features of the '<em>Type</em>' class.
@@ -114,7 +225,53 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_FEATURE_COUNT = 0;
+  int TYPE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ClassOrInterfaceImpl <em>Class Or Interface</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.ClassOrInterfaceImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getClassOrInterface()
+   * @generated
+   */
+  int CLASS_OR_INTERFACE = 4;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS_OR_INTERFACE__NAME = TYPE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS_OR_INTERFACE__PRIVATE = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Members</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS_OR_INTERFACE__MEMBERS = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Class Or Interface</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS_OR_INTERFACE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ClassImpl <em>Class</em>}' class.
@@ -124,7 +281,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getClass_()
    * @generated
    */
-  int CLASS = 2;
+  int CLASS = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -133,7 +290,16 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLASS__NAME = TYPE_FEATURE_COUNT + 0;
+  int CLASS__NAME = CLASS_OR_INTERFACE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS__PRIVATE = CLASS_OR_INTERFACE__PRIVATE;
 
   /**
    * The feature id for the '<em><b>Members</b></em>' containment reference list.
@@ -142,7 +308,43 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLASS__MEMBERS = TYPE_FEATURE_COUNT + 1;
+  int CLASS__MEMBERS = CLASS_OR_INTERFACE__MEMBERS;
+
+  /**
+   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS__TYPE_PARAMETERS = CLASS_OR_INTERFACE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Extends</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS__EXTENDS = CLASS_OR_INTERFACE_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Implements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS__IMPLEMENTS = CLASS_OR_INTERFACE_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Constructor</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS__CONSTRUCTOR = CLASS_OR_INTERFACE_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Class</em>' class.
@@ -151,7 +353,7 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLASS_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+  int CLASS_FEATURE_COUNT = CLASS_OR_INTERFACE_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ClassMemberImpl <em>Class Member</em>}' class.
@@ -161,7 +363,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getClassMember()
    * @generated
    */
-  int CLASS_MEMBER = 3;
+  int CLASS_MEMBER = 6;
 
   /**
    * The number of structural features of the '<em>Class Member</em>' class.
@@ -173,6 +375,227 @@ public interface HaxePackage extends EPackage
   int CLASS_MEMBER_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.InterfaceImpl <em>Interface</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.InterfaceImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getInterface()
+   * @generated
+   */
+  int INTERFACE = 7;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE__NAME = CLASS_OR_INTERFACE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE__PRIVATE = CLASS_OR_INTERFACE__PRIVATE;
+
+  /**
+   * The feature id for the '<em><b>Members</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE__MEMBERS = CLASS_OR_INTERFACE__MEMBERS;
+
+  /**
+   * The feature id for the '<em><b>Implements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE__IMPLEMENTS = CLASS_OR_INTERFACE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Interface</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_FEATURE_COUNT = CLASS_OR_INTERFACE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.EnumImpl <em>Enum</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.EnumImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getEnum()
+   * @generated
+   */
+  int ENUM = 8;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM__NAME = TYPE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM__PRIVATE = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM__TYPE_PARAMETERS = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Members</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM__MEMBERS = TYPE_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Enum</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_FEATURE_COUNT = TYPE_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.EnumConstructorImpl <em>Enum Constructor</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.EnumConstructorImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getEnumConstructor()
+   * @generated
+   */
+  int ENUM_CONSTRUCTOR = 9;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_CONSTRUCTOR__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_CONSTRUCTOR__PARAMETERS = 1;
+
+  /**
+   * The number of structural features of the '<em>Enum Constructor</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_CONSTRUCTOR_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.TypedefImpl <em>Typedef</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.TypedefImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getTypedef()
+   * @generated
+   */
+  int TYPEDEF = 10;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPEDEF__NAME = TYPE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPEDEF__PRIVATE = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Extends</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPEDEF__EXTENDS = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Members</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPEDEF__MEMBERS = TYPE_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Typedef</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPEDEF_FEATURE_COUNT = TYPE_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ClassOrInterfaceReferenceImpl <em>Class Or Interface Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.ClassOrInterfaceReferenceImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getClassOrInterfaceReference()
+   * @generated
+   */
+  int CLASS_OR_INTERFACE_REFERENCE = 12;
+
+  /**
+   * The number of structural features of the '<em>Class Or Interface Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASS_OR_INTERFACE_REFERENCE_FEATURE_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.TypeReferenceImpl <em>Type Reference</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -180,7 +603,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getTypeReference()
    * @generated
    */
-  int TYPE_REFERENCE = 4;
+  int TYPE_REFERENCE = 11;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -189,7 +612,7 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_REFERENCE__TYPE = 0;
+  int TYPE_REFERENCE__TYPE = CLASS_OR_INTERFACE_REFERENCE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -198,7 +621,7 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_REFERENCE__ARGUMENTS = 1;
+  int TYPE_REFERENCE__ARGUMENTS = CLASS_OR_INTERFACE_REFERENCE_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Type Reference</em>' class.
@@ -207,7 +630,7 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_REFERENCE_FEATURE_COUNT = 2;
+  int TYPE_REFERENCE_FEATURE_COUNT = CLASS_OR_INTERFACE_REFERENCE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.FeatureImpl <em>Feature</em>}' class.
@@ -217,7 +640,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFeature()
    * @generated
    */
-  int FEATURE = 5;
+  int FEATURE = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -238,62 +661,6 @@ public interface HaxePackage extends EPackage
   int FEATURE_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.FormalParameterImpl <em>Formal Parameter</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see ee.xtext.haxe.haxe.impl.FormalParameterImpl
-   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFormalParameter()
-   * @generated
-   */
-  int FORMAL_PARAMETER = 6;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FORMAL_PARAMETER__NAME = FEATURE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FORMAL_PARAMETER__TYPE = FEATURE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Formal Parameter</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FORMAL_PARAMETER_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ExpressionImpl <em>Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see ee.xtext.haxe.haxe.impl.ExpressionImpl
-   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getExpression()
-   * @generated
-   */
-  int EXPRESSION = 7;
-
-  /**
-   * The number of structural features of the '<em>Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_FEATURE_COUNT = 0;
-
-  /**
    * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.VariableDeclarationImpl <em>Variable Declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -301,7 +668,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getVariableDeclaration()
    * @generated
    */
-  int VARIABLE_DECLARATION = 8;
+  int VARIABLE_DECLARATION = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -347,7 +714,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getVariableMemberDeclaration()
    * @generated
    */
-  int VARIABLE_MEMBER_DECLARATION = 9;
+  int VARIABLE_MEMBER_DECLARATION = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -359,13 +726,49 @@ public interface HaxePackage extends EPackage
   int VARIABLE_MEMBER_DECLARATION__NAME = CLASS_MEMBER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Modified</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_MEMBER_DECLARATION__MODIFIED = CLASS_MEMBER_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Getter</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_MEMBER_DECLARATION__GETTER = CLASS_MEMBER_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Setter</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_MEMBER_DECLARATION__SETTER = CLASS_MEMBER_FEATURE_COUNT + 3;
+
+  /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_MEMBER_DECLARATION__TYPE = CLASS_MEMBER_FEATURE_COUNT + 1;
+  int VARIABLE_MEMBER_DECLARATION__TYPE = CLASS_MEMBER_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_MEMBER_DECLARATION__EXPRESSION = CLASS_MEMBER_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Variable Member Declaration</em>' class.
@@ -374,17 +777,17 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_MEMBER_DECLARATION_FEATURE_COUNT = CLASS_MEMBER_FEATURE_COUNT + 2;
+  int VARIABLE_MEMBER_DECLARATION_FEATURE_COUNT = CLASS_MEMBER_FEATURE_COUNT + 6;
 
   /**
-   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.FunctionDeclarationImpl <em>Function Declaration</em>}' class.
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl <em>Function Member Declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see ee.xtext.haxe.haxe.impl.FunctionDeclarationImpl
-   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFunctionDeclaration()
+   * @see ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFunctionMemberDeclaration()
    * @generated
    */
-  int FUNCTION_DECLARATION = 10;
+  int FUNCTION_MEMBER_DECLARATION = 15;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -393,7 +796,16 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int FUNCTION_DECLARATION__NAME = CLASS_MEMBER_FEATURE_COUNT + 0;
+  int FUNCTION_MEMBER_DECLARATION__NAME = CLASS_MEMBER_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Modified</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_MEMBER_DECLARATION__MODIFIED = CLASS_MEMBER_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -402,16 +814,16 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int FUNCTION_DECLARATION__PARAMETERS = CLASS_MEMBER_FEATURE_COUNT + 1;
+  int FUNCTION_MEMBER_DECLARATION__PARAMETERS = CLASS_MEMBER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Return Type</b></em>' reference.
+   * The feature id for the '<em><b>Return Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCTION_DECLARATION__RETURN_TYPE = CLASS_MEMBER_FEATURE_COUNT + 2;
+  int FUNCTION_MEMBER_DECLARATION__RETURN_TYPE = CLASS_MEMBER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -420,16 +832,274 @@ public interface HaxePackage extends EPackage
    * @generated
    * @ordered
    */
-  int FUNCTION_DECLARATION__BODY = CLASS_MEMBER_FEATURE_COUNT + 3;
+  int FUNCTION_MEMBER_DECLARATION__BODY = CLASS_MEMBER_FEATURE_COUNT + 4;
 
   /**
-   * The number of structural features of the '<em>Function Declaration</em>' class.
+   * The number of structural features of the '<em>Function Member Declaration</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCTION_DECLARATION_FEATURE_COUNT = CLASS_MEMBER_FEATURE_COUNT + 4;
+  int FUNCTION_MEMBER_DECLARATION_FEATURE_COUNT = CLASS_MEMBER_FEATURE_COUNT + 5;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ConstructorImpl <em>Constructor</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.ConstructorImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getConstructor()
+   * @generated
+   */
+  int CONSTRUCTOR = 16;
+
+  /**
+   * The feature id for the '<em><b>Modified</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTRUCTOR__MODIFIED = 0;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTRUCTOR__PARAMETERS = 1;
+
+  /**
+   * The feature id for the '<em><b>Body</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTRUCTOR__BODY = 2;
+
+  /**
+   * The number of structural features of the '<em>Constructor</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTRUCTOR_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.FormalParameterImpl <em>Formal Parameter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.FormalParameterImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFormalParameter()
+   * @generated
+   */
+  int FORMAL_PARAMETER = 18;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER__NAME = FEATURE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Optional</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER__OPTIONAL = FEATURE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER__TYPE = FEATURE_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Default Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER__DEFAULT_VALUE = FEATURE_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Formal Parameter</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ModifierImpl <em>Modifier</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.ModifierImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getModifier()
+   * @generated
+   */
+  int MODIFIER = 19;
+
+  /**
+   * The feature id for the '<em><b>Static</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER__STATIC = 0;
+
+  /**
+   * The feature id for the '<em><b>Final</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER__FINAL = 1;
+
+  /**
+   * The feature id for the '<em><b>Dynamic</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER__DYNAMIC = 2;
+
+  /**
+   * The feature id for the '<em><b>Override</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER__OVERRIDE = 3;
+
+  /**
+   * The feature id for the '<em><b>Inline</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER__INLINE = 4;
+
+  /**
+   * The feature id for the '<em><b>Visibility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER__VISIBILITY = 5;
+
+  /**
+   * The number of structural features of the '<em>Modifier</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_FEATURE_COUNT = 6;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.TypeParametersImpl <em>Type Parameters</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.TypeParametersImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getTypeParameters()
+   * @generated
+   */
+  int TYPE_PARAMETERS = 20;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_PARAMETERS__PARAMETERS = 0;
+
+  /**
+   * The number of structural features of the '<em>Type Parameters</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_PARAMETERS_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.TypeParameterImpl <em>Type Parameter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.TypeParameterImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getTypeParameter()
+   * @generated
+   */
+  int TYPE_PARAMETER = 21;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_PARAMETER__NAME = TYPE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Constraints</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_PARAMETER__CONSTRAINTS = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Type Parameter</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_PARAMETER_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.ExpressionImpl <em>Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.impl.ExpressionImpl
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getExpression()
+   * @generated
+   */
+  int EXPRESSION = 22;
+
+  /**
+   * The number of structural features of the '<em>Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSION_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link ee.xtext.haxe.haxe.impl.CatchClauseImpl <em>Catch Clause</em>}' class.
@@ -439,7 +1109,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getCatchClause()
    * @generated
    */
-  int CATCH_CLAUSE = 11;
+  int CATCH_CLAUSE = 23;
 
   /**
    * The feature id for the '<em><b>Declared Param</b></em>' containment reference.
@@ -476,7 +1146,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getCasePart()
    * @generated
    */
-  int CASE_PART = 12;
+  int CASE_PART = 24;
 
   /**
    * The feature id for the '<em><b>Cases</b></em>' containment reference list.
@@ -513,7 +1183,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getObjectElement()
    * @generated
    */
-  int OBJECT_ELEMENT = 13;
+  int OBJECT_ELEMENT = 25;
 
   /**
    * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -550,7 +1220,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getAssignment()
    * @generated
    */
-  int ASSIGNMENT = 14;
+  int ASSIGNMENT = 26;
 
   /**
    * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -596,7 +1266,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getOperation()
    * @generated
    */
-  int OPERATION = 15;
+  int OPERATION = 27;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -642,7 +1312,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getUnaryOperation()
    * @generated
    */
-  int UNARY_OPERATION = 16;
+  int UNARY_OPERATION = 28;
 
   /**
    * The feature id for the '<em><b>Feature</b></em>' attribute.
@@ -679,7 +1349,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getPreIncrementOperation()
    * @generated
    */
-  int PRE_INCREMENT_OPERATION = 17;
+  int PRE_INCREMENT_OPERATION = 29;
 
   /**
    * The feature id for the '<em><b>Feature</b></em>' attribute.
@@ -716,7 +1386,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getPostIncrementOperation()
    * @generated
    */
-  int POST_INCREMENT_OPERATION = 18;
+  int POST_INCREMENT_OPERATION = 30;
 
   /**
    * The feature id for the '<em><b>Operand</b></em>' containment reference.
@@ -753,7 +1423,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getArrayAssignment()
    * @generated
    */
-  int ARRAY_ASSIGNMENT = 19;
+  int ARRAY_ASSIGNMENT = 31;
 
   /**
    * The feature id for the '<em><b>Assigname</b></em>' containment reference.
@@ -799,7 +1469,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getMemberFeatureCall()
    * @generated
    */
-  int MEMBER_FEATURE_CALL = 20;
+  int MEMBER_FEATURE_CALL = 32;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -854,7 +1524,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getArrayAccess()
    * @generated
    */
-  int ARRAY_ACCESS = 21;
+  int ARRAY_ACCESS = 33;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -909,7 +1579,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getBlockExpression()
    * @generated
    */
-  int BLOCK_EXPRESSION = 22;
+  int BLOCK_EXPRESSION = 34;
 
   /**
    * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
@@ -937,7 +1607,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getVariableDeclarations()
    * @generated
    */
-  int VARIABLE_DECLARATIONS = 23;
+  int VARIABLE_DECLARATIONS = 35;
 
   /**
    * The feature id for the '<em><b>Declarations</b></em>' containment reference list.
@@ -965,7 +1635,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getIfExpression()
    * @generated
    */
-  int IF_EXPRESSION = 24;
+  int IF_EXPRESSION = 36;
 
   /**
    * The feature id for the '<em><b>If</b></em>' containment reference.
@@ -1011,7 +1681,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getWhileExpression()
    * @generated
    */
-  int WHILE_EXPRESSION = 25;
+  int WHILE_EXPRESSION = 37;
 
   /**
    * The feature id for the '<em><b>Predicate</b></em>' containment reference.
@@ -1048,7 +1718,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getDoWhileExpression()
    * @generated
    */
-  int DO_WHILE_EXPRESSION = 26;
+  int DO_WHILE_EXPRESSION = 38;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1085,7 +1755,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getForLoopExpression()
    * @generated
    */
-  int FOR_LOOP_EXPRESSION = 27;
+  int FOR_LOOP_EXPRESSION = 39;
 
   /**
    * The feature id for the '<em><b>Declared Param</b></em>' containment reference.
@@ -1131,7 +1801,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getReturnExpression()
    * @generated
    */
-  int RETURN_EXPRESSION = 28;
+  int RETURN_EXPRESSION = 40;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1159,7 +1829,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getBreakExpression()
    * @generated
    */
-  int BREAK_EXPRESSION = 29;
+  int BREAK_EXPRESSION = 41;
 
   /**
    * The number of structural features of the '<em>Break Expression</em>' class.
@@ -1178,7 +1848,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getThrowExpression()
    * @generated
    */
-  int THROW_EXPRESSION = 30;
+  int THROW_EXPRESSION = 42;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1206,7 +1876,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getTryCatchExpression()
    * @generated
    */
-  int TRY_CATCH_EXPRESSION = 31;
+  int TRY_CATCH_EXPRESSION = 43;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1243,7 +1913,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getSwitchExpression()
    * @generated
    */
-  int SWITCH_EXPRESSION = 32;
+  int SWITCH_EXPRESSION = 44;
 
   /**
    * The feature id for the '<em><b>Switch</b></em>' containment reference.
@@ -1289,7 +1959,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFunctionExpression()
    * @generated
    */
-  int FUNCTION_EXPRESSION = 33;
+  int FUNCTION_EXPRESSION = 45;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -1301,7 +1971,7 @@ public interface HaxePackage extends EPackage
   int FUNCTION_EXPRESSION__PARAMETERS = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Return Type</b></em>' reference.
+   * The feature id for the '<em><b>Return Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1335,7 +2005,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getThisExpression()
    * @generated
    */
-  int THIS_EXPRESSION = 34;
+  int THIS_EXPRESSION = 46;
 
   /**
    * The number of structural features of the '<em>This Expression</em>' class.
@@ -1354,7 +2024,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getSuperExpression()
    * @generated
    */
-  int SUPER_EXPRESSION = 35;
+  int SUPER_EXPRESSION = 47;
 
   /**
    * The number of structural features of the '<em>Super Expression</em>' class.
@@ -1373,7 +2043,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFeatureCall()
    * @generated
    */
-  int FEATURE_CALL = 36;
+  int FEATURE_CALL = 48;
 
   /**
    * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1419,10 +2089,10 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getConstructorCall()
    * @generated
    */
-  int CONSTRUCTOR_CALL = 37;
+  int CONSTRUCTOR_CALL = 49;
 
   /**
-   * The feature id for the '<em><b>Constructor</b></em>' reference.
+   * The feature id for the '<em><b>Constructor</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1456,7 +2126,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getBooleanLiteral()
    * @generated
    */
-  int BOOLEAN_LITERAL = 38;
+  int BOOLEAN_LITERAL = 50;
 
   /**
    * The feature id for the '<em><b>Is True</b></em>' attribute.
@@ -1484,7 +2154,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getNullLiteral()
    * @generated
    */
-  int NULL_LITERAL = 39;
+  int NULL_LITERAL = 51;
 
   /**
    * The number of structural features of the '<em>Null Literal</em>' class.
@@ -1503,7 +2173,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getIntLiteral()
    * @generated
    */
-  int INT_LITERAL = 40;
+  int INT_LITERAL = 52;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1531,7 +2201,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFloatLiteral()
    * @generated
    */
-  int FLOAT_LITERAL = 41;
+  int FLOAT_LITERAL = 53;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1559,7 +2229,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getStringLiteral()
    * @generated
    */
-  int STRING_LITERAL = 42;
+  int STRING_LITERAL = 54;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1587,7 +2257,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getRegularExpressionLiteral()
    * @generated
    */
-  int REGULAR_EXPRESSION_LITERAL = 43;
+  int REGULAR_EXPRESSION_LITERAL = 55;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1615,7 +2285,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getArrayLiteral()
    * @generated
    */
-  int ARRAY_LITERAL = 44;
+  int ARRAY_LITERAL = 56;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -1643,7 +2313,7 @@ public interface HaxePackage extends EPackage
    * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getObjectLiteral()
    * @generated
    */
-  int OBJECT_LITERAL = 45;
+  int OBJECT_LITERAL = 57;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -1662,6 +2332,16 @@ public interface HaxePackage extends EPackage
    * @ordered
    */
   int OBJECT_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link ee.xtext.haxe.haxe.Visibility <em>Visibility</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ee.xtext.haxe.haxe.Visibility
+   * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getVisibility()
+   * @generated
+   */
+  int VISIBILITY = 58;
 
 
   /**
@@ -1686,6 +2366,28 @@ public interface HaxePackage extends EPackage
   EAttribute getPackage_Name();
 
   /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Package#getImports <em>Imports</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Imports</em>'.
+   * @see ee.xtext.haxe.haxe.Package#getImports()
+   * @see #getPackage()
+   * @generated
+   */
+  EReference getPackage_Imports();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Package#getUsing <em>Using</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Using</em>'.
+   * @see ee.xtext.haxe.haxe.Package#getUsing()
+   * @see #getPackage()
+   * @generated
+   */
+  EReference getPackage_Using();
+
+  /**
    * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Package#getClasses <em>Classes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1695,6 +2397,81 @@ public interface HaxePackage extends EPackage
    * @generated
    */
   EReference getPackage_Classes();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Package#getInterfaces <em>Interfaces</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Interfaces</em>'.
+   * @see ee.xtext.haxe.haxe.Package#getInterfaces()
+   * @see #getPackage()
+   * @generated
+   */
+  EReference getPackage_Interfaces();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Package#getEnums <em>Enums</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Enums</em>'.
+   * @see ee.xtext.haxe.haxe.Package#getEnums()
+   * @see #getPackage()
+   * @generated
+   */
+  EReference getPackage_Enums();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Package#getTypedefs <em>Typedefs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Typedefs</em>'.
+   * @see ee.xtext.haxe.haxe.Package#getTypedefs()
+   * @see #getPackage()
+   * @generated
+   */
+  EReference getPackage_Typedefs();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Import <em>Import</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Import</em>'.
+   * @see ee.xtext.haxe.haxe.Import
+   * @generated
+   */
+  EClass getImport();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Import#getImportedNamespace <em>Imported Namespace</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Imported Namespace</em>'.
+   * @see ee.xtext.haxe.haxe.Import#getImportedNamespace()
+   * @see #getImport()
+   * @generated
+   */
+  EAttribute getImport_ImportedNamespace();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Using <em>Using</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Using</em>'.
+   * @see ee.xtext.haxe.haxe.Using
+   * @generated
+   */
+  EClass getUsing();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Using#getImportedClass <em>Imported Class</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Imported Class</em>'.
+   * @see ee.xtext.haxe.haxe.Using#getImportedClass()
+   * @see #getUsing()
+   * @generated
+   */
+  EAttribute getUsing_ImportedClass();
 
   /**
    * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Type <em>Type</em>}'.
@@ -1707,6 +2484,49 @@ public interface HaxePackage extends EPackage
   EClass getType();
 
   /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Type#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see ee.xtext.haxe.haxe.Type#getName()
+   * @see #getType()
+   * @generated
+   */
+  EAttribute getType_Name();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.ClassOrInterface <em>Class Or Interface</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Class Or Interface</em>'.
+   * @see ee.xtext.haxe.haxe.ClassOrInterface
+   * @generated
+   */
+  EClass getClassOrInterface();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.ClassOrInterface#isPrivate <em>Private</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Private</em>'.
+   * @see ee.xtext.haxe.haxe.ClassOrInterface#isPrivate()
+   * @see #getClassOrInterface()
+   * @generated
+   */
+  EAttribute getClassOrInterface_Private();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.ClassOrInterface#getMembers <em>Members</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Members</em>'.
+   * @see ee.xtext.haxe.haxe.ClassOrInterface#getMembers()
+   * @see #getClassOrInterface()
+   * @generated
+   */
+  EReference getClassOrInterface_Members();
+
+  /**
    * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Class <em>Class</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1717,26 +2537,48 @@ public interface HaxePackage extends EPackage
   EClass getClass_();
 
   /**
-   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Class#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.Class#getTypeParameters <em>Type Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see ee.xtext.haxe.haxe.Class#getName()
+   * @return the meta object for the containment reference '<em>Type Parameters</em>'.
+   * @see ee.xtext.haxe.haxe.Class#getTypeParameters()
    * @see #getClass_()
    * @generated
    */
-  EAttribute getClass_Name();
+  EReference getClass_TypeParameters();
 
   /**
-   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Class#getMembers <em>Members</em>}'.
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.Class#getExtends <em>Extends</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Members</em>'.
-   * @see ee.xtext.haxe.haxe.Class#getMembers()
+   * @return the meta object for the containment reference '<em>Extends</em>'.
+   * @see ee.xtext.haxe.haxe.Class#getExtends()
    * @see #getClass_()
    * @generated
    */
-  EReference getClass_Members();
+  EReference getClass_Extends();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Class#getImplements <em>Implements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Implements</em>'.
+   * @see ee.xtext.haxe.haxe.Class#getImplements()
+   * @see #getClass_()
+   * @generated
+   */
+  EReference getClass_Implements();
+
+  /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.Class#getConstructor <em>Constructor</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Constructor</em>'.
+   * @see ee.xtext.haxe.haxe.Class#getConstructor()
+   * @see #getClass_()
+   * @generated
+   */
+  EReference getClass_Constructor();
 
   /**
    * Returns the meta object for class '{@link ee.xtext.haxe.haxe.ClassMember <em>Class Member</em>}'.
@@ -1747,6 +2589,145 @@ public interface HaxePackage extends EPackage
    * @generated
    */
   EClass getClassMember();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Interface <em>Interface</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Interface</em>'.
+   * @see ee.xtext.haxe.haxe.Interface
+   * @generated
+   */
+  EClass getInterface();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Interface#getImplements <em>Implements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Implements</em>'.
+   * @see ee.xtext.haxe.haxe.Interface#getImplements()
+   * @see #getInterface()
+   * @generated
+   */
+  EReference getInterface_Implements();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Enum <em>Enum</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Enum</em>'.
+   * @see ee.xtext.haxe.haxe.Enum
+   * @generated
+   */
+  EClass getEnum();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Enum#isPrivate <em>Private</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Private</em>'.
+   * @see ee.xtext.haxe.haxe.Enum#isPrivate()
+   * @see #getEnum()
+   * @generated
+   */
+  EAttribute getEnum_Private();
+
+  /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.Enum#getTypeParameters <em>Type Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type Parameters</em>'.
+   * @see ee.xtext.haxe.haxe.Enum#getTypeParameters()
+   * @see #getEnum()
+   * @generated
+   */
+  EReference getEnum_TypeParameters();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Enum#getMembers <em>Members</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Members</em>'.
+   * @see ee.xtext.haxe.haxe.Enum#getMembers()
+   * @see #getEnum()
+   * @generated
+   */
+  EReference getEnum_Members();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.EnumConstructor <em>Enum Constructor</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Enum Constructor</em>'.
+   * @see ee.xtext.haxe.haxe.EnumConstructor
+   * @generated
+   */
+  EClass getEnumConstructor();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.EnumConstructor#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see ee.xtext.haxe.haxe.EnumConstructor#getName()
+   * @see #getEnumConstructor()
+   * @generated
+   */
+  EAttribute getEnumConstructor_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.EnumConstructor#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see ee.xtext.haxe.haxe.EnumConstructor#getParameters()
+   * @see #getEnumConstructor()
+   * @generated
+   */
+  EReference getEnumConstructor_Parameters();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Typedef <em>Typedef</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Typedef</em>'.
+   * @see ee.xtext.haxe.haxe.Typedef
+   * @generated
+   */
+  EClass getTypedef();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Typedef#isPrivate <em>Private</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Private</em>'.
+   * @see ee.xtext.haxe.haxe.Typedef#isPrivate()
+   * @see #getTypedef()
+   * @generated
+   */
+  EAttribute getTypedef_Private();
+
+  /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.Typedef#getExtends <em>Extends</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Extends</em>'.
+   * @see ee.xtext.haxe.haxe.Typedef#getExtends()
+   * @see #getTypedef()
+   * @generated
+   */
+  EReference getTypedef_Extends();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Typedef#getMembers <em>Members</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Members</em>'.
+   * @see ee.xtext.haxe.haxe.Typedef#getMembers()
+   * @see #getTypedef()
+   * @generated
+   */
+  EReference getTypedef_Members();
 
   /**
    * Returns the meta object for class '{@link ee.xtext.haxe.haxe.TypeReference <em>Type Reference</em>}'.
@@ -1781,56 +2762,14 @@ public interface HaxePackage extends EPackage
   EReference getTypeReference_Arguments();
 
   /**
-   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Feature <em>Feature</em>}'.
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.ClassOrInterfaceReference <em>Class Or Interface Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Feature</em>'.
-   * @see ee.xtext.haxe.haxe.Feature
+   * @return the meta object for class '<em>Class Or Interface Reference</em>'.
+   * @see ee.xtext.haxe.haxe.ClassOrInterfaceReference
    * @generated
    */
-  EClass getFeature();
-
-  /**
-   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Feature#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see ee.xtext.haxe.haxe.Feature#getName()
-   * @see #getFeature()
-   * @generated
-   */
-  EAttribute getFeature_Name();
-
-  /**
-   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.FormalParameter <em>Formal Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Formal Parameter</em>'.
-   * @see ee.xtext.haxe.haxe.FormalParameter
-   * @generated
-   */
-  EClass getFormalParameter();
-
-  /**
-   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.FormalParameter#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see ee.xtext.haxe.haxe.FormalParameter#getType()
-   * @see #getFormalParameter()
-   * @generated
-   */
-  EReference getFormalParameter_Type();
-
-  /**
-   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Expression <em>Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Expression</em>'.
-   * @see ee.xtext.haxe.haxe.Expression
-   * @generated
-   */
-  EClass getExpression();
+  EClass getClassOrInterfaceReference();
 
   /**
    * Returns the meta object for class '{@link ee.xtext.haxe.haxe.VariableDeclaration <em>Variable Declaration</em>}'.
@@ -1875,6 +2814,39 @@ public interface HaxePackage extends EPackage
   EClass getVariableMemberDeclaration();
 
   /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.VariableMemberDeclaration#getModified <em>Modified</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Modified</em>'.
+   * @see ee.xtext.haxe.haxe.VariableMemberDeclaration#getModified()
+   * @see #getVariableMemberDeclaration()
+   * @generated
+   */
+  EReference getVariableMemberDeclaration_Modified();
+
+  /**
+   * Returns the meta object for the reference '{@link ee.xtext.haxe.haxe.VariableMemberDeclaration#getGetter <em>Getter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Getter</em>'.
+   * @see ee.xtext.haxe.haxe.VariableMemberDeclaration#getGetter()
+   * @see #getVariableMemberDeclaration()
+   * @generated
+   */
+  EReference getVariableMemberDeclaration_Getter();
+
+  /**
+   * Returns the meta object for the reference '{@link ee.xtext.haxe.haxe.VariableMemberDeclaration#getSetter <em>Setter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Setter</em>'.
+   * @see ee.xtext.haxe.haxe.VariableMemberDeclaration#getSetter()
+   * @see #getVariableMemberDeclaration()
+   * @generated
+   */
+  EReference getVariableMemberDeclaration_Setter();
+
+  /**
    * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.VariableMemberDeclaration#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1886,47 +2858,304 @@ public interface HaxePackage extends EPackage
   EReference getVariableMemberDeclaration_Type();
 
   /**
-   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.FunctionDeclaration <em>Function Declaration</em>}'.
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.VariableMemberDeclaration#getExpression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Function Declaration</em>'.
-   * @see ee.xtext.haxe.haxe.FunctionDeclaration
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see ee.xtext.haxe.haxe.VariableMemberDeclaration#getExpression()
+   * @see #getVariableMemberDeclaration()
    * @generated
    */
-  EClass getFunctionDeclaration();
+  EReference getVariableMemberDeclaration_Expression();
 
   /**
-   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.FunctionDeclaration#getParameters <em>Parameters</em>}'.
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.FunctionMemberDeclaration <em>Function Member Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Function Member Declaration</em>'.
+   * @see ee.xtext.haxe.haxe.FunctionMemberDeclaration
+   * @generated
+   */
+  EClass getFunctionMemberDeclaration();
+
+  /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.FunctionMemberDeclaration#getModified <em>Modified</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Modified</em>'.
+   * @see ee.xtext.haxe.haxe.FunctionMemberDeclaration#getModified()
+   * @see #getFunctionMemberDeclaration()
+   * @generated
+   */
+  EReference getFunctionMemberDeclaration_Modified();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.FunctionMemberDeclaration#getParameters <em>Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see ee.xtext.haxe.haxe.FunctionDeclaration#getParameters()
-   * @see #getFunctionDeclaration()
+   * @see ee.xtext.haxe.haxe.FunctionMemberDeclaration#getParameters()
+   * @see #getFunctionMemberDeclaration()
    * @generated
    */
-  EReference getFunctionDeclaration_Parameters();
+  EReference getFunctionMemberDeclaration_Parameters();
 
   /**
-   * Returns the meta object for the reference '{@link ee.xtext.haxe.haxe.FunctionDeclaration#getReturnType <em>Return Type</em>}'.
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.FunctionMemberDeclaration#getReturnType <em>Return Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Return Type</em>'.
-   * @see ee.xtext.haxe.haxe.FunctionDeclaration#getReturnType()
-   * @see #getFunctionDeclaration()
+   * @return the meta object for the containment reference '<em>Return Type</em>'.
+   * @see ee.xtext.haxe.haxe.FunctionMemberDeclaration#getReturnType()
+   * @see #getFunctionMemberDeclaration()
    * @generated
    */
-  EReference getFunctionDeclaration_ReturnType();
+  EReference getFunctionMemberDeclaration_ReturnType();
 
   /**
-   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.FunctionDeclaration#getBody <em>Body</em>}'.
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.FunctionMemberDeclaration#getBody <em>Body</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Body</em>'.
-   * @see ee.xtext.haxe.haxe.FunctionDeclaration#getBody()
-   * @see #getFunctionDeclaration()
+   * @see ee.xtext.haxe.haxe.FunctionMemberDeclaration#getBody()
+   * @see #getFunctionMemberDeclaration()
    * @generated
    */
-  EReference getFunctionDeclaration_Body();
+  EReference getFunctionMemberDeclaration_Body();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Constructor <em>Constructor</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Constructor</em>'.
+   * @see ee.xtext.haxe.haxe.Constructor
+   * @generated
+   */
+  EClass getConstructor();
+
+  /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.Constructor#getModified <em>Modified</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Modified</em>'.
+   * @see ee.xtext.haxe.haxe.Constructor#getModified()
+   * @see #getConstructor()
+   * @generated
+   */
+  EReference getConstructor_Modified();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.Constructor#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see ee.xtext.haxe.haxe.Constructor#getParameters()
+   * @see #getConstructor()
+   * @generated
+   */
+  EReference getConstructor_Parameters();
+
+  /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.Constructor#getBody <em>Body</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Body</em>'.
+   * @see ee.xtext.haxe.haxe.Constructor#getBody()
+   * @see #getConstructor()
+   * @generated
+   */
+  EReference getConstructor_Body();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Feature <em>Feature</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Feature</em>'.
+   * @see ee.xtext.haxe.haxe.Feature
+   * @generated
+   */
+  EClass getFeature();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Feature#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see ee.xtext.haxe.haxe.Feature#getName()
+   * @see #getFeature()
+   * @generated
+   */
+  EAttribute getFeature_Name();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.FormalParameter <em>Formal Parameter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Formal Parameter</em>'.
+   * @see ee.xtext.haxe.haxe.FormalParameter
+   * @generated
+   */
+  EClass getFormalParameter();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.FormalParameter#isOptional <em>Optional</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Optional</em>'.
+   * @see ee.xtext.haxe.haxe.FormalParameter#isOptional()
+   * @see #getFormalParameter()
+   * @generated
+   */
+  EAttribute getFormalParameter_Optional();
+
+  /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.FormalParameter#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see ee.xtext.haxe.haxe.FormalParameter#getType()
+   * @see #getFormalParameter()
+   * @generated
+   */
+  EReference getFormalParameter_Type();
+
+  /**
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.FormalParameter#getDefaultValue <em>Default Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Default Value</em>'.
+   * @see ee.xtext.haxe.haxe.FormalParameter#getDefaultValue()
+   * @see #getFormalParameter()
+   * @generated
+   */
+  EReference getFormalParameter_DefaultValue();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Modifier <em>Modifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Modifier</em>'.
+   * @see ee.xtext.haxe.haxe.Modifier
+   * @generated
+   */
+  EClass getModifier();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Modifier#isStatic <em>Static</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Static</em>'.
+   * @see ee.xtext.haxe.haxe.Modifier#isStatic()
+   * @see #getModifier()
+   * @generated
+   */
+  EAttribute getModifier_Static();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Modifier#isFinal <em>Final</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Final</em>'.
+   * @see ee.xtext.haxe.haxe.Modifier#isFinal()
+   * @see #getModifier()
+   * @generated
+   */
+  EAttribute getModifier_Final();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Modifier#isDynamic <em>Dynamic</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Dynamic</em>'.
+   * @see ee.xtext.haxe.haxe.Modifier#isDynamic()
+   * @see #getModifier()
+   * @generated
+   */
+  EAttribute getModifier_Dynamic();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Modifier#isOverride <em>Override</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Override</em>'.
+   * @see ee.xtext.haxe.haxe.Modifier#isOverride()
+   * @see #getModifier()
+   * @generated
+   */
+  EAttribute getModifier_Override();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Modifier#isInline <em>Inline</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Inline</em>'.
+   * @see ee.xtext.haxe.haxe.Modifier#isInline()
+   * @see #getModifier()
+   * @generated
+   */
+  EAttribute getModifier_Inline();
+
+  /**
+   * Returns the meta object for the attribute '{@link ee.xtext.haxe.haxe.Modifier#getVisibility <em>Visibility</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Visibility</em>'.
+   * @see ee.xtext.haxe.haxe.Modifier#getVisibility()
+   * @see #getModifier()
+   * @generated
+   */
+  EAttribute getModifier_Visibility();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.TypeParameters <em>Type Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Parameters</em>'.
+   * @see ee.xtext.haxe.haxe.TypeParameters
+   * @generated
+   */
+  EClass getTypeParameters();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.TypeParameters#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see ee.xtext.haxe.haxe.TypeParameters#getParameters()
+   * @see #getTypeParameters()
+   * @generated
+   */
+  EReference getTypeParameters_Parameters();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.TypeParameter <em>Type Parameter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Parameter</em>'.
+   * @see ee.xtext.haxe.haxe.TypeParameter
+   * @generated
+   */
+  EClass getTypeParameter();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ee.xtext.haxe.haxe.TypeParameter#getConstraints <em>Constraints</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Constraints</em>'.
+   * @see ee.xtext.haxe.haxe.TypeParameter#getConstraints()
+   * @see #getTypeParameter()
+   * @generated
+   */
+  EReference getTypeParameter_Constraints();
+
+  /**
+   * Returns the meta object for class '{@link ee.xtext.haxe.haxe.Expression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Expression</em>'.
+   * @see ee.xtext.haxe.haxe.Expression
+   * @generated
+   */
+  EClass getExpression();
 
   /**
    * Returns the meta object for class '{@link ee.xtext.haxe.haxe.CatchClause <em>Catch Clause</em>}'.
@@ -2698,10 +3927,10 @@ public interface HaxePackage extends EPackage
   EReference getFunctionExpression_Parameters();
 
   /**
-   * Returns the meta object for the reference '{@link ee.xtext.haxe.haxe.FunctionExpression#getReturnType <em>Return Type</em>}'.
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.FunctionExpression#getReturnType <em>Return Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Return Type</em>'.
+   * @return the meta object for the containment reference '<em>Return Type</em>'.
    * @see ee.xtext.haxe.haxe.FunctionExpression#getReturnType()
    * @see #getFunctionExpression()
    * @generated
@@ -2793,10 +4022,10 @@ public interface HaxePackage extends EPackage
   EClass getConstructorCall();
 
   /**
-   * Returns the meta object for the reference '{@link ee.xtext.haxe.haxe.ConstructorCall#getConstructor <em>Constructor</em>}'.
+   * Returns the meta object for the containment reference '{@link ee.xtext.haxe.haxe.ConstructorCall#getConstructor <em>Constructor</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Constructor</em>'.
+   * @return the meta object for the containment reference '<em>Constructor</em>'.
    * @see ee.xtext.haxe.haxe.ConstructorCall#getConstructor()
    * @see #getConstructorCall()
    * @generated
@@ -2972,6 +4201,16 @@ public interface HaxePackage extends EPackage
   EReference getObjectLiteral_Elements();
 
   /**
+   * Returns the meta object for enum '{@link ee.xtext.haxe.haxe.Visibility <em>Visibility</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Visibility</em>'.
+   * @see ee.xtext.haxe.haxe.Visibility
+   * @generated
+   */
+  EEnum getVisibility();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3013,12 +4252,88 @@ public interface HaxePackage extends EPackage
     EAttribute PACKAGE__NAME = eINSTANCE.getPackage_Name();
 
     /**
+     * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PACKAGE__IMPORTS = eINSTANCE.getPackage_Imports();
+
+    /**
+     * The meta object literal for the '<em><b>Using</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PACKAGE__USING = eINSTANCE.getPackage_Using();
+
+    /**
      * The meta object literal for the '<em><b>Classes</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference PACKAGE__CLASSES = eINSTANCE.getPackage_Classes();
+
+    /**
+     * The meta object literal for the '<em><b>Interfaces</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PACKAGE__INTERFACES = eINSTANCE.getPackage_Interfaces();
+
+    /**
+     * The meta object literal for the '<em><b>Enums</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PACKAGE__ENUMS = eINSTANCE.getPackage_Enums();
+
+    /**
+     * The meta object literal for the '<em><b>Typedefs</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PACKAGE__TYPEDEFS = eINSTANCE.getPackage_Typedefs();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ImportImpl <em>Import</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.ImportImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getImport()
+     * @generated
+     */
+    EClass IMPORT = eINSTANCE.getImport();
+
+    /**
+     * The meta object literal for the '<em><b>Imported Namespace</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IMPORT__IMPORTED_NAMESPACE = eINSTANCE.getImport_ImportedNamespace();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.UsingImpl <em>Using</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.UsingImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getUsing()
+     * @generated
+     */
+    EClass USING = eINSTANCE.getUsing();
+
+    /**
+     * The meta object literal for the '<em><b>Imported Class</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute USING__IMPORTED_CLASS = eINSTANCE.getUsing_ImportedClass();
 
     /**
      * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.TypeImpl <em>Type</em>}' class.
@@ -3031,6 +4346,40 @@ public interface HaxePackage extends EPackage
     EClass TYPE = eINSTANCE.getType();
 
     /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE__NAME = eINSTANCE.getType_Name();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ClassOrInterfaceImpl <em>Class Or Interface</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.ClassOrInterfaceImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getClassOrInterface()
+     * @generated
+     */
+    EClass CLASS_OR_INTERFACE = eINSTANCE.getClassOrInterface();
+
+    /**
+     * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLASS_OR_INTERFACE__PRIVATE = eINSTANCE.getClassOrInterface_Private();
+
+    /**
+     * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLASS_OR_INTERFACE__MEMBERS = eINSTANCE.getClassOrInterface_Members();
+
+    /**
      * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ClassImpl <em>Class</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3041,20 +4390,36 @@ public interface HaxePackage extends EPackage
     EClass CLASS = eINSTANCE.getClass_();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Type Parameters</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CLASS__NAME = eINSTANCE.getClass_Name();
+    EReference CLASS__TYPE_PARAMETERS = eINSTANCE.getClass_TypeParameters();
 
     /**
-     * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Extends</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CLASS__MEMBERS = eINSTANCE.getClass_Members();
+    EReference CLASS__EXTENDS = eINSTANCE.getClass_Extends();
+
+    /**
+     * The meta object literal for the '<em><b>Implements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLASS__IMPLEMENTS = eINSTANCE.getClass_Implements();
+
+    /**
+     * The meta object literal for the '<em><b>Constructor</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLASS__CONSTRUCTOR = eINSTANCE.getClass_Constructor();
 
     /**
      * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ClassMemberImpl <em>Class Member</em>}' class.
@@ -3065,6 +4430,118 @@ public interface HaxePackage extends EPackage
      * @generated
      */
     EClass CLASS_MEMBER = eINSTANCE.getClassMember();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.InterfaceImpl <em>Interface</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.InterfaceImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getInterface()
+     * @generated
+     */
+    EClass INTERFACE = eINSTANCE.getInterface();
+
+    /**
+     * The meta object literal for the '<em><b>Implements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INTERFACE__IMPLEMENTS = eINSTANCE.getInterface_Implements();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.EnumImpl <em>Enum</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.EnumImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getEnum()
+     * @generated
+     */
+    EClass ENUM = eINSTANCE.getEnum();
+
+    /**
+     * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENUM__PRIVATE = eINSTANCE.getEnum_Private();
+
+    /**
+     * The meta object literal for the '<em><b>Type Parameters</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENUM__TYPE_PARAMETERS = eINSTANCE.getEnum_TypeParameters();
+
+    /**
+     * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENUM__MEMBERS = eINSTANCE.getEnum_Members();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.EnumConstructorImpl <em>Enum Constructor</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.EnumConstructorImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getEnumConstructor()
+     * @generated
+     */
+    EClass ENUM_CONSTRUCTOR = eINSTANCE.getEnumConstructor();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENUM_CONSTRUCTOR__NAME = eINSTANCE.getEnumConstructor_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENUM_CONSTRUCTOR__PARAMETERS = eINSTANCE.getEnumConstructor_Parameters();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.TypedefImpl <em>Typedef</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.TypedefImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getTypedef()
+     * @generated
+     */
+    EClass TYPEDEF = eINSTANCE.getTypedef();
+
+    /**
+     * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPEDEF__PRIVATE = eINSTANCE.getTypedef_Private();
+
+    /**
+     * The meta object literal for the '<em><b>Extends</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPEDEF__EXTENDS = eINSTANCE.getTypedef_Extends();
+
+    /**
+     * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPEDEF__MEMBERS = eINSTANCE.getTypedef_Members();
 
     /**
      * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.TypeReferenceImpl <em>Type Reference</em>}' class.
@@ -3093,50 +4570,14 @@ public interface HaxePackage extends EPackage
     EReference TYPE_REFERENCE__ARGUMENTS = eINSTANCE.getTypeReference_Arguments();
 
     /**
-     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.FeatureImpl <em>Feature</em>}' class.
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ClassOrInterfaceReferenceImpl <em>Class Or Interface Reference</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see ee.xtext.haxe.haxe.impl.FeatureImpl
-     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFeature()
+     * @see ee.xtext.haxe.haxe.impl.ClassOrInterfaceReferenceImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getClassOrInterfaceReference()
      * @generated
      */
-    EClass FEATURE = eINSTANCE.getFeature();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FEATURE__NAME = eINSTANCE.getFeature_Name();
-
-    /**
-     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.FormalParameterImpl <em>Formal Parameter</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see ee.xtext.haxe.haxe.impl.FormalParameterImpl
-     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFormalParameter()
-     * @generated
-     */
-    EClass FORMAL_PARAMETER = eINSTANCE.getFormalParameter();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FORMAL_PARAMETER__TYPE = eINSTANCE.getFormalParameter_Type();
-
-    /**
-     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ExpressionImpl <em>Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see ee.xtext.haxe.haxe.impl.ExpressionImpl
-     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getExpression()
-     * @generated
-     */
-    EClass EXPRESSION = eINSTANCE.getExpression();
+    EClass CLASS_OR_INTERFACE_REFERENCE = eINSTANCE.getClassOrInterfaceReference();
 
     /**
      * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.VariableDeclarationImpl <em>Variable Declaration</em>}' class.
@@ -3175,6 +4616,30 @@ public interface HaxePackage extends EPackage
     EClass VARIABLE_MEMBER_DECLARATION = eINSTANCE.getVariableMemberDeclaration();
 
     /**
+     * The meta object literal for the '<em><b>Modified</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_MEMBER_DECLARATION__MODIFIED = eINSTANCE.getVariableMemberDeclaration_Modified();
+
+    /**
+     * The meta object literal for the '<em><b>Getter</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_MEMBER_DECLARATION__GETTER = eINSTANCE.getVariableMemberDeclaration_Getter();
+
+    /**
+     * The meta object literal for the '<em><b>Setter</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_MEMBER_DECLARATION__SETTER = eINSTANCE.getVariableMemberDeclaration_Setter();
+
+    /**
      * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3183,14 +4648,30 @@ public interface HaxePackage extends EPackage
     EReference VARIABLE_MEMBER_DECLARATION__TYPE = eINSTANCE.getVariableMemberDeclaration_Type();
 
     /**
-     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.FunctionDeclarationImpl <em>Function Declaration</em>}' class.
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see ee.xtext.haxe.haxe.impl.FunctionDeclarationImpl
-     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFunctionDeclaration()
      * @generated
      */
-    EClass FUNCTION_DECLARATION = eINSTANCE.getFunctionDeclaration();
+    EReference VARIABLE_MEMBER_DECLARATION__EXPRESSION = eINSTANCE.getVariableMemberDeclaration_Expression();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl <em>Function Member Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.FunctionMemberDeclarationImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFunctionMemberDeclaration()
+     * @generated
+     */
+    EClass FUNCTION_MEMBER_DECLARATION = eINSTANCE.getFunctionMemberDeclaration();
+
+    /**
+     * The meta object literal for the '<em><b>Modified</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FUNCTION_MEMBER_DECLARATION__MODIFIED = eINSTANCE.getFunctionMemberDeclaration_Modified();
 
     /**
      * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
@@ -3198,15 +4679,15 @@ public interface HaxePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference FUNCTION_DECLARATION__PARAMETERS = eINSTANCE.getFunctionDeclaration_Parameters();
+    EReference FUNCTION_MEMBER_DECLARATION__PARAMETERS = eINSTANCE.getFunctionMemberDeclaration_Parameters();
 
     /**
-     * The meta object literal for the '<em><b>Return Type</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Return Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference FUNCTION_DECLARATION__RETURN_TYPE = eINSTANCE.getFunctionDeclaration_ReturnType();
+    EReference FUNCTION_MEMBER_DECLARATION__RETURN_TYPE = eINSTANCE.getFunctionMemberDeclaration_ReturnType();
 
     /**
      * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
@@ -3214,7 +4695,197 @@ public interface HaxePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference FUNCTION_DECLARATION__BODY = eINSTANCE.getFunctionDeclaration_Body();
+    EReference FUNCTION_MEMBER_DECLARATION__BODY = eINSTANCE.getFunctionMemberDeclaration_Body();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ConstructorImpl <em>Constructor</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.ConstructorImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getConstructor()
+     * @generated
+     */
+    EClass CONSTRUCTOR = eINSTANCE.getConstructor();
+
+    /**
+     * The meta object literal for the '<em><b>Modified</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONSTRUCTOR__MODIFIED = eINSTANCE.getConstructor_Modified();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONSTRUCTOR__PARAMETERS = eINSTANCE.getConstructor_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONSTRUCTOR__BODY = eINSTANCE.getConstructor_Body();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.FeatureImpl <em>Feature</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.FeatureImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFeature()
+     * @generated
+     */
+    EClass FEATURE = eINSTANCE.getFeature();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FEATURE__NAME = eINSTANCE.getFeature_Name();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.FormalParameterImpl <em>Formal Parameter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.FormalParameterImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getFormalParameter()
+     * @generated
+     */
+    EClass FORMAL_PARAMETER = eINSTANCE.getFormalParameter();
+
+    /**
+     * The meta object literal for the '<em><b>Optional</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FORMAL_PARAMETER__OPTIONAL = eINSTANCE.getFormalParameter_Optional();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FORMAL_PARAMETER__TYPE = eINSTANCE.getFormalParameter_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Default Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FORMAL_PARAMETER__DEFAULT_VALUE = eINSTANCE.getFormalParameter_DefaultValue();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ModifierImpl <em>Modifier</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.ModifierImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getModifier()
+     * @generated
+     */
+    EClass MODIFIER = eINSTANCE.getModifier();
+
+    /**
+     * The meta object literal for the '<em><b>Static</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODIFIER__STATIC = eINSTANCE.getModifier_Static();
+
+    /**
+     * The meta object literal for the '<em><b>Final</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODIFIER__FINAL = eINSTANCE.getModifier_Final();
+
+    /**
+     * The meta object literal for the '<em><b>Dynamic</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODIFIER__DYNAMIC = eINSTANCE.getModifier_Dynamic();
+
+    /**
+     * The meta object literal for the '<em><b>Override</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODIFIER__OVERRIDE = eINSTANCE.getModifier_Override();
+
+    /**
+     * The meta object literal for the '<em><b>Inline</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODIFIER__INLINE = eINSTANCE.getModifier_Inline();
+
+    /**
+     * The meta object literal for the '<em><b>Visibility</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODIFIER__VISIBILITY = eINSTANCE.getModifier_Visibility();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.TypeParametersImpl <em>Type Parameters</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.TypeParametersImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getTypeParameters()
+     * @generated
+     */
+    EClass TYPE_PARAMETERS = eINSTANCE.getTypeParameters();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE_PARAMETERS__PARAMETERS = eINSTANCE.getTypeParameters_Parameters();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.TypeParameterImpl <em>Type Parameter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.TypeParameterImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getTypeParameter()
+     * @generated
+     */
+    EClass TYPE_PARAMETER = eINSTANCE.getTypeParameter();
+
+    /**
+     * The meta object literal for the '<em><b>Constraints</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE_PARAMETER__CONSTRAINTS = eINSTANCE.getTypeParameter_Constraints();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.ExpressionImpl <em>Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.impl.ExpressionImpl
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getExpression()
+     * @generated
+     */
+    EClass EXPRESSION = eINSTANCE.getExpression();
 
     /**
      * The meta object literal for the '{@link ee.xtext.haxe.haxe.impl.CatchClauseImpl <em>Catch Clause</em>}' class.
@@ -3839,7 +5510,7 @@ public interface HaxePackage extends EPackage
     EReference FUNCTION_EXPRESSION__PARAMETERS = eINSTANCE.getFunctionExpression_Parameters();
 
     /**
-     * The meta object literal for the '<em><b>Return Type</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Return Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -3919,7 +5590,7 @@ public interface HaxePackage extends EPackage
     EClass CONSTRUCTOR_CALL = eINSTANCE.getConstructorCall();
 
     /**
-     * The meta object literal for the '<em><b>Constructor</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Constructor</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -4069,6 +5740,16 @@ public interface HaxePackage extends EPackage
      * @generated
      */
     EReference OBJECT_LITERAL__ELEMENTS = eINSTANCE.getObjectLiteral_Elements();
+
+    /**
+     * The meta object literal for the '{@link ee.xtext.haxe.haxe.Visibility <em>Visibility</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ee.xtext.haxe.haxe.Visibility
+     * @see ee.xtext.haxe.haxe.impl.HaxePackageImpl#getVisibility()
+     * @generated
+     */
+    EEnum VISIBILITY = eINSTANCE.getVisibility();
 
   }
 

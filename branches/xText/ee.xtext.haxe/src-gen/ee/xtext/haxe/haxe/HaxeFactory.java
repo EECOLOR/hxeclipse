@@ -36,6 +36,24 @@ public interface HaxeFactory extends EFactory
   Package createPackage();
 
   /**
+   * Returns a new object of class '<em>Import</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Import</em>'.
+   * @generated
+   */
+  Import createImport();
+
+  /**
+   * Returns a new object of class '<em>Using</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Using</em>'.
+   * @generated
+   */
+  Using createUsing();
+
+  /**
    * Returns a new object of class '<em>Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -43,6 +61,15 @@ public interface HaxeFactory extends EFactory
    * @generated
    */
   Type createType();
+
+  /**
+   * Returns a new object of class '<em>Class Or Interface</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Class Or Interface</em>'.
+   * @generated
+   */
+  ClassOrInterface createClassOrInterface();
 
   /**
    * Returns a new object of class '<em>Class</em>'.
@@ -63,6 +90,42 @@ public interface HaxeFactory extends EFactory
   ClassMember createClassMember();
 
   /**
+   * Returns a new object of class '<em>Interface</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Interface</em>'.
+   * @generated
+   */
+  Interface createInterface();
+
+  /**
+   * Returns a new object of class '<em>Enum</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum</em>'.
+   * @generated
+   */
+  Enum createEnum();
+
+  /**
+   * Returns a new object of class '<em>Enum Constructor</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum Constructor</em>'.
+   * @generated
+   */
+  EnumConstructor createEnumConstructor();
+
+  /**
+   * Returns a new object of class '<em>Typedef</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Typedef</em>'.
+   * @generated
+   */
+  Typedef createTypedef();
+
+  /**
    * Returns a new object of class '<em>Type Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -72,31 +135,13 @@ public interface HaxeFactory extends EFactory
   TypeReference createTypeReference();
 
   /**
-   * Returns a new object of class '<em>Feature</em>'.
+   * Returns a new object of class '<em>Class Or Interface Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Feature</em>'.
+   * @return a new object of class '<em>Class Or Interface Reference</em>'.
    * @generated
    */
-  Feature createFeature();
-
-  /**
-   * Returns a new object of class '<em>Formal Parameter</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Formal Parameter</em>'.
-   * @generated
-   */
-  FormalParameter createFormalParameter();
-
-  /**
-   * Returns a new object of class '<em>Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Expression</em>'.
-   * @generated
-   */
-  Expression createExpression();
+  ClassOrInterfaceReference createClassOrInterfaceReference();
 
   /**
    * Returns a new object of class '<em>Variable Declaration</em>'.
@@ -117,13 +162,76 @@ public interface HaxeFactory extends EFactory
   VariableMemberDeclaration createVariableMemberDeclaration();
 
   /**
-   * Returns a new object of class '<em>Function Declaration</em>'.
+   * Returns a new object of class '<em>Function Member Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Function Declaration</em>'.
+   * @return a new object of class '<em>Function Member Declaration</em>'.
    * @generated
    */
-  FunctionDeclaration createFunctionDeclaration();
+  FunctionMemberDeclaration createFunctionMemberDeclaration();
+
+  /**
+   * Returns a new object of class '<em>Constructor</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constructor</em>'.
+   * @generated
+   */
+  Constructor createConstructor();
+
+  /**
+   * Returns a new object of class '<em>Feature</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Feature</em>'.
+   * @generated
+   */
+  Feature createFeature();
+
+  /**
+   * Returns a new object of class '<em>Formal Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Formal Parameter</em>'.
+   * @generated
+   */
+  FormalParameter createFormalParameter();
+
+  /**
+   * Returns a new object of class '<em>Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Modifier</em>'.
+   * @generated
+   */
+  Modifier createModifier();
+
+  /**
+   * Returns a new object of class '<em>Type Parameters</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Parameters</em>'.
+   * @generated
+   */
+  TypeParameters createTypeParameters();
+
+  /**
+   * Returns a new object of class '<em>Type Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Parameter</em>'.
+   * @generated
+   */
+  TypeParameter createTypeParameter();
+
+  /**
+   * Returns a new object of class '<em>Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Expression</em>'.
+   * @generated
+   */
+  Expression createExpression();
 
   /**
    * Returns a new object of class '<em>Catch Clause</em>'.

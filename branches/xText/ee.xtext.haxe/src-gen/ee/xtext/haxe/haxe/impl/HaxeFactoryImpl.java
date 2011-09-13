@@ -16,21 +16,28 @@ import ee.xtext.haxe.haxe.BreakExpression;
 import ee.xtext.haxe.haxe.CasePart;
 import ee.xtext.haxe.haxe.CatchClause;
 import ee.xtext.haxe.haxe.ClassMember;
+import ee.xtext.haxe.haxe.ClassOrInterface;
+import ee.xtext.haxe.haxe.ClassOrInterfaceReference;
+import ee.xtext.haxe.haxe.Constructor;
 import ee.xtext.haxe.haxe.ConstructorCall;
 import ee.xtext.haxe.haxe.DoWhileExpression;
+import ee.xtext.haxe.haxe.EnumConstructor;
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.Feature;
 import ee.xtext.haxe.haxe.FeatureCall;
 import ee.xtext.haxe.haxe.FloatLiteral;
 import ee.xtext.haxe.haxe.ForLoopExpression;
 import ee.xtext.haxe.haxe.FormalParameter;
-import ee.xtext.haxe.haxe.FunctionDeclaration;
 import ee.xtext.haxe.haxe.FunctionExpression;
+import ee.xtext.haxe.haxe.FunctionMemberDeclaration;
 import ee.xtext.haxe.haxe.HaxeFactory;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.IfExpression;
+import ee.xtext.haxe.haxe.Import;
 import ee.xtext.haxe.haxe.IntLiteral;
+import ee.xtext.haxe.haxe.Interface;
 import ee.xtext.haxe.haxe.MemberFeatureCall;
+import ee.xtext.haxe.haxe.Modifier;
 import ee.xtext.haxe.haxe.NullLiteral;
 import ee.xtext.haxe.haxe.ObjectElement;
 import ee.xtext.haxe.haxe.ObjectLiteral;
@@ -46,14 +53,20 @@ import ee.xtext.haxe.haxe.ThisExpression;
 import ee.xtext.haxe.haxe.ThrowExpression;
 import ee.xtext.haxe.haxe.TryCatchExpression;
 import ee.xtext.haxe.haxe.Type;
+import ee.xtext.haxe.haxe.TypeParameter;
+import ee.xtext.haxe.haxe.TypeParameters;
 import ee.xtext.haxe.haxe.TypeReference;
+import ee.xtext.haxe.haxe.Typedef;
 import ee.xtext.haxe.haxe.UnaryOperation;
+import ee.xtext.haxe.haxe.Using;
 import ee.xtext.haxe.haxe.VariableDeclaration;
 import ee.xtext.haxe.haxe.VariableDeclarations;
 import ee.xtext.haxe.haxe.VariableMemberDeclaration;
+import ee.xtext.haxe.haxe.Visibility;
 import ee.xtext.haxe.haxe.WhileExpression;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -114,16 +127,28 @@ public class HaxeFactoryImpl extends EFactoryImpl implements HaxeFactory
     switch (eClass.getClassifierID())
     {
       case HaxePackage.PACKAGE: return createPackage();
+      case HaxePackage.IMPORT: return createImport();
+      case HaxePackage.USING: return createUsing();
       case HaxePackage.TYPE: return createType();
+      case HaxePackage.CLASS_OR_INTERFACE: return createClassOrInterface();
       case HaxePackage.CLASS: return createClass();
       case HaxePackage.CLASS_MEMBER: return createClassMember();
+      case HaxePackage.INTERFACE: return createInterface();
+      case HaxePackage.ENUM: return createEnum();
+      case HaxePackage.ENUM_CONSTRUCTOR: return createEnumConstructor();
+      case HaxePackage.TYPEDEF: return createTypedef();
       case HaxePackage.TYPE_REFERENCE: return createTypeReference();
-      case HaxePackage.FEATURE: return createFeature();
-      case HaxePackage.FORMAL_PARAMETER: return createFormalParameter();
-      case HaxePackage.EXPRESSION: return createExpression();
+      case HaxePackage.CLASS_OR_INTERFACE_REFERENCE: return createClassOrInterfaceReference();
       case HaxePackage.VARIABLE_DECLARATION: return createVariableDeclaration();
       case HaxePackage.VARIABLE_MEMBER_DECLARATION: return createVariableMemberDeclaration();
-      case HaxePackage.FUNCTION_DECLARATION: return createFunctionDeclaration();
+      case HaxePackage.FUNCTION_MEMBER_DECLARATION: return createFunctionMemberDeclaration();
+      case HaxePackage.CONSTRUCTOR: return createConstructor();
+      case HaxePackage.FEATURE: return createFeature();
+      case HaxePackage.FORMAL_PARAMETER: return createFormalParameter();
+      case HaxePackage.MODIFIER: return createModifier();
+      case HaxePackage.TYPE_PARAMETERS: return createTypeParameters();
+      case HaxePackage.TYPE_PARAMETER: return createTypeParameter();
+      case HaxePackage.EXPRESSION: return createExpression();
       case HaxePackage.CATCH_CLAUSE: return createCatchClause();
       case HaxePackage.CASE_PART: return createCasePart();
       case HaxePackage.OBJECT_ELEMENT: return createObjectElement();
@@ -169,6 +194,40 @@ public class HaxeFactoryImpl extends EFactoryImpl implements HaxeFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public Object createFromString(EDataType eDataType, String initialValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case HaxePackage.VISIBILITY:
+        return createVisibilityFromString(eDataType, initialValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String convertToString(EDataType eDataType, Object instanceValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case HaxePackage.VISIBILITY:
+        return convertVisibilityToString(eDataType, instanceValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ee.xtext.haxe.haxe.Package createPackage()
   {
     PackageImpl package_ = new PackageImpl();
@@ -180,10 +239,43 @@ public class HaxeFactoryImpl extends EFactoryImpl implements HaxeFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Import createImport()
+  {
+    ImportImpl import_ = new ImportImpl();
+    return import_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Using createUsing()
+  {
+    UsingImpl using = new UsingImpl();
+    return using;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Type createType()
   {
     TypeImpl type = new TypeImpl();
     return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassOrInterface createClassOrInterface()
+  {
+    ClassOrInterfaceImpl classOrInterface = new ClassOrInterfaceImpl();
+    return classOrInterface;
   }
 
   /**
@@ -213,6 +305,50 @@ public class HaxeFactoryImpl extends EFactoryImpl implements HaxeFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Interface createInterface()
+  {
+    InterfaceImpl interface_ = new InterfaceImpl();
+    return interface_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ee.xtext.haxe.haxe.Enum createEnum()
+  {
+    EnumImpl enum_ = new EnumImpl();
+    return enum_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EnumConstructor createEnumConstructor()
+  {
+    EnumConstructorImpl enumConstructor = new EnumConstructorImpl();
+    return enumConstructor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Typedef createTypedef()
+  {
+    TypedefImpl typedef = new TypedefImpl();
+    return typedef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public TypeReference createTypeReference()
   {
     TypeReferenceImpl typeReference = new TypeReferenceImpl();
@@ -224,32 +360,10 @@ public class HaxeFactoryImpl extends EFactoryImpl implements HaxeFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Feature createFeature()
+  public ClassOrInterfaceReference createClassOrInterfaceReference()
   {
-    FeatureImpl feature = new FeatureImpl();
-    return feature;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public FormalParameter createFormalParameter()
-  {
-    FormalParameterImpl formalParameter = new FormalParameterImpl();
-    return formalParameter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Expression createExpression()
-  {
-    ExpressionImpl expression = new ExpressionImpl();
-    return expression;
+    ClassOrInterfaceReferenceImpl classOrInterfaceReference = new ClassOrInterfaceReferenceImpl();
+    return classOrInterfaceReference;
   }
 
   /**
@@ -279,10 +393,87 @@ public class HaxeFactoryImpl extends EFactoryImpl implements HaxeFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public FunctionDeclaration createFunctionDeclaration()
+  public FunctionMemberDeclaration createFunctionMemberDeclaration()
   {
-    FunctionDeclarationImpl functionDeclaration = new FunctionDeclarationImpl();
-    return functionDeclaration;
+    FunctionMemberDeclarationImpl functionMemberDeclaration = new FunctionMemberDeclarationImpl();
+    return functionMemberDeclaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Constructor createConstructor()
+  {
+    ConstructorImpl constructor = new ConstructorImpl();
+    return constructor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Feature createFeature()
+  {
+    FeatureImpl feature = new FeatureImpl();
+    return feature;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FormalParameter createFormalParameter()
+  {
+    FormalParameterImpl formalParameter = new FormalParameterImpl();
+    return formalParameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Modifier createModifier()
+  {
+    ModifierImpl modifier = new ModifierImpl();
+    return modifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeParameters createTypeParameters()
+  {
+    TypeParametersImpl typeParameters = new TypeParametersImpl();
+    return typeParameters;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeParameter createTypeParameter()
+  {
+    TypeParameterImpl typeParameter = new TypeParameterImpl();
+    return typeParameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Expression createExpression()
+  {
+    ExpressionImpl expression = new ExpressionImpl();
+    return expression;
   }
 
   /**
@@ -668,6 +859,28 @@ public class HaxeFactoryImpl extends EFactoryImpl implements HaxeFactory
   {
     ObjectLiteralImpl objectLiteral = new ObjectLiteralImpl();
     return objectLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Visibility createVisibilityFromString(EDataType eDataType, String initialValue)
+  {
+    Visibility result = Visibility.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertVisibilityToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

@@ -28,30 +28,30 @@ import org.eclipse.emf.common.util.EList;
 public interface ConstructorCall extends Expression
 {
   /**
-   * Returns the value of the '<em><b>Constructor</b></em>' reference.
+   * Returns the value of the '<em><b>Constructor</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Constructor</em>' reference isn't clear,
+   * If the meaning of the '<em>Constructor</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Constructor</em>' reference.
-   * @see #setConstructor(Type)
+   * @return the value of the '<em>Constructor</em>' containment reference.
+   * @see #setConstructor(TypeReference)
    * @see ee.xtext.haxe.haxe.HaxePackage#getConstructorCall_Constructor()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  Type getConstructor();
+  TypeReference getConstructor();
 
   /**
-   * Sets the value of the '{@link ee.xtext.haxe.haxe.ConstructorCall#getConstructor <em>Constructor</em>}' reference.
+   * Sets the value of the '{@link ee.xtext.haxe.haxe.ConstructorCall#getConstructor <em>Constructor</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Constructor</em>' reference.
+   * @param value the new value of the '<em>Constructor</em>' containment reference.
    * @see #getConstructor()
    * @generated
    */
-  void setConstructor(Type value);
+  void setConstructor(TypeReference value);
 
   /**
    * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.

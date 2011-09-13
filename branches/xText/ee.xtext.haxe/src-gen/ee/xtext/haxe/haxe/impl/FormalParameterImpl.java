@@ -6,6 +6,7 @@
  */
 package ee.xtext.haxe.haxe.impl;
 
+import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.TypeReference;
@@ -25,7 +26,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.FormalParameterImpl#isOptional <em>Optional</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.FormalParameterImpl#getType <em>Type</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.FormalParameterImpl#getDefaultValue <em>Default Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,6 +36,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class FormalParameterImpl extends FeatureImpl implements FormalParameter
 {
+  /**
+   * The default value of the '{@link #isOptional() <em>Optional</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isOptional()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean OPTIONAL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isOptional() <em>Optional</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isOptional()
+   * @generated
+   * @ordered
+   */
+  protected boolean optional = OPTIONAL_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -42,6 +65,16 @@ public class FormalParameterImpl extends FeatureImpl implements FormalParameter
    * @ordered
    */
   protected TypeReference type;
+
+  /**
+   * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDefaultValue()
+   * @generated
+   * @ordered
+   */
+  protected Expression defaultValue;
 
   /**
    * <!-- begin-user-doc -->
@@ -62,6 +95,29 @@ public class FormalParameterImpl extends FeatureImpl implements FormalParameter
   protected EClass eStaticClass()
   {
     return HaxePackage.Literals.FORMAL_PARAMETER;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isOptional()
+  {
+    return optional;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOptional(boolean newOptional)
+  {
+    boolean oldOptional = optional;
+    optional = newOptional;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FORMAL_PARAMETER__OPTIONAL, oldOptional, optional));
   }
 
   /**
@@ -117,6 +173,54 @@ public class FormalParameterImpl extends FeatureImpl implements FormalParameter
    * <!-- end-user-doc -->
    * @generated
    */
+  public Expression getDefaultValue()
+  {
+    return defaultValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDefaultValue(Expression newDefaultValue, NotificationChain msgs)
+  {
+    Expression oldDefaultValue = defaultValue;
+    defaultValue = newDefaultValue;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE, oldDefaultValue, newDefaultValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDefaultValue(Expression newDefaultValue)
+  {
+    if (newDefaultValue != defaultValue)
+    {
+      NotificationChain msgs = null;
+      if (defaultValue != null)
+        msgs = ((InternalEObject)defaultValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE, null, msgs);
+      if (newDefaultValue != null)
+        msgs = ((InternalEObject)newDefaultValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE, null, msgs);
+      msgs = basicSetDefaultValue(newDefaultValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE, newDefaultValue, newDefaultValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -124,6 +228,8 @@ public class FormalParameterImpl extends FeatureImpl implements FormalParameter
     {
       case HaxePackage.FORMAL_PARAMETER__TYPE:
         return basicSetType(null, msgs);
+      case HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE:
+        return basicSetDefaultValue(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -138,8 +244,12 @@ public class FormalParameterImpl extends FeatureImpl implements FormalParameter
   {
     switch (featureID)
     {
+      case HaxePackage.FORMAL_PARAMETER__OPTIONAL:
+        return isOptional();
       case HaxePackage.FORMAL_PARAMETER__TYPE:
         return getType();
+      case HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE:
+        return getDefaultValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -154,8 +264,14 @@ public class FormalParameterImpl extends FeatureImpl implements FormalParameter
   {
     switch (featureID)
     {
+      case HaxePackage.FORMAL_PARAMETER__OPTIONAL:
+        setOptional((Boolean)newValue);
+        return;
       case HaxePackage.FORMAL_PARAMETER__TYPE:
         setType((TypeReference)newValue);
+        return;
+      case HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE:
+        setDefaultValue((Expression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -171,8 +287,14 @@ public class FormalParameterImpl extends FeatureImpl implements FormalParameter
   {
     switch (featureID)
     {
+      case HaxePackage.FORMAL_PARAMETER__OPTIONAL:
+        setOptional(OPTIONAL_EDEFAULT);
+        return;
       case HaxePackage.FORMAL_PARAMETER__TYPE:
         setType((TypeReference)null);
+        return;
+      case HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE:
+        setDefaultValue((Expression)null);
         return;
     }
     super.eUnset(featureID);
@@ -188,10 +310,31 @@ public class FormalParameterImpl extends FeatureImpl implements FormalParameter
   {
     switch (featureID)
     {
+      case HaxePackage.FORMAL_PARAMETER__OPTIONAL:
+        return optional != OPTIONAL_EDEFAULT;
       case HaxePackage.FORMAL_PARAMETER__TYPE:
         return type != null;
+      case HaxePackage.FORMAL_PARAMETER__DEFAULT_VALUE:
+        return defaultValue != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (optional: ");
+    result.append(optional);
+    result.append(')');
+    return result.toString();
   }
 
 } //FormalParameterImpl

@@ -6,14 +6,12 @@ generate haxe "http://www.xtext.ee/haxe/Haxe"
 
 //TODO, we might need to implement AbstractFeatureCall (see xbase.ecore)
 //TODO, implement Extensions: var p : {> Point, z : Int } or typedef Point3D = {> Point, var z : Int; }
+//TODO, add the correct validation (see ref)
+
 Package:
 	('package' name=QualifiedName ';')?
-	(imports+=Import)*
-	(using+=Using)*
-	(classes+=Class)*
-	(interfaces+=Interface)*
-	(enums+=Enum)*
-	(typedefs+=Typedef)*;
+	(imports+=Import | using+=Using)*
+	(classes+=Class | interfaces+=Interface | enums+=Enum | typedefs+=Typedef)*;
 
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard ';';
@@ -22,26 +20,28 @@ Using:
 	'using' importedClass=QualifiedName ';';
 
 Type returns Type:
-	ClassOrInterface | TypeParameter | Enum | Typedef;
-
-ClassOrInterface:
-	Class | Interface;
+	Class | Interface | TypeParameter | Enum | Typedef;
 
 Class returns Class:
-	private?='private'? 'class' name=ValidID typeParameters=TypeParameters? ('extends' extends=ClassReference)? (',' 'implements' implements+=ClassOrInterfaceReference)*
+	private?='private'? 'class' name=ValidID typeParameters=TypeParameters? ('extends' extends=ClassReference)? ('implements' implements+=TypeReference (',' 'implements' implements+=TypeReference)*)?
 	'{'
-		(constructor=Constructor)?
-		(members+=ClassMember)*
+		(
+			(constructor=Constructor)? |
+			(functions+=FunctionMemberDeclaration)* |	
+			(variables+=VariableMemberDeclaration)*	
+		)
+		
 	'}';
-
-ClassMember:
-	FunctionMemberDeclaration | VariableMemberDeclaration;
 
 Interface returns Interface:
-	private?='private'? 'interface' name=ValidID (',' 'implements' implements+=InterfaceReference)*
-	'{'
-		(members+=ClassMember)*
-	'}';
+	{Interface}
+	(
+		private?='private'? 'interface' name=ValidID typeParameters=TypeParameters? ('implements' implements+=InterfaceReference (',' 'implements' implements+=InterfaceReference)*)?
+		'{'
+			(functions+=FunctionMemberDeclaration)* |	
+			(variables+=VariableMemberDeclaration)*	
+		'}'
+	);
 
 Enum returns Enum:
 	private?='private'? 'enum' name=ValidID typeParameters=TypeParameters?
@@ -53,10 +53,14 @@ EnumConstructor:
 	name=ValidID ('(' parameters+=FormalParameter (',' parameters+=FormalParameter)* ')')?;
 
 Typedef:
-	private?='private'? 'typedef' name=ValidID '='
-	'{' ('>' extends=TypeReference ',')?
-		(members+=ClassMember)*
-	'}';
+	{Typedef}
+	(
+		private?='private'? 'typedef' name=ValidID '='
+		'{' ('>' extends=TypeReference ',')?
+			(functions+=FunctionMemberDeclaration)* |	
+			(variables+=VariableMemberDeclaration)*
+		'}'
+	);
 
 TypeReference returns TypeReference:
 	type=[Type|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
@@ -67,24 +71,18 @@ ClassReference returns TypeReference:
 InterfaceReference returns TypeReference:
 	type=[Interface|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
 
-ClassOrInterfaceReference:
-	ClassReference | InterfaceReference;
-
 VariableDeclaration returns VariableDeclaration:
 	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
 
 VariableMemberDeclaration returns VariableMemberDeclaration:
-	{VariableMemberDeclaration} modified=Modifier? 'var' name=ValidID ('(' getter=[FunctionMemberDeclaration|GetterSetterID] ',' setter=[FunctionMemberDeclaration|GetterSetterID] ')')? ':' type=TypeReference ('=' expression=Expression)? ';'?;
-
-GetterSetterID:
-	ValidID | 'default' | 'null' | 'dynamic' | 'never';
+	{VariableMemberDeclaration} modifier=Modifier 'var' name=ValidID ('(' getter=[FunctionMemberDeclaration|GetterSetterID] ',' setter=[FunctionMemberDeclaration|GetterSetterID] ')')? ':' type=TypeReference ('=' expression=Expression)?;
 
 FunctionMemberDeclaration returns FunctionMemberDeclaration:
-	{FunctionMemberDeclaration} modified=Modifier? 'function' name=ValidID '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')' (':' returnType=TypeReference)?
+	{FunctionMemberDeclaration} modifier=Modifier 'function' name=ValidID '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')' (':' returnType=TypeReference)?
 		body=BlockExpression;
 
 Constructor returns Constructor:
-	{Constructor} modified=Modifier? 'function' 'new' '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')'
+	{Constructor} modifier=Modifier 'function' 'new' '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')'
 		body=BlockExpression;
 
 QualifiedNameWithWildcard:
@@ -99,6 +97,9 @@ ValidID:
 FeatureID:
 	ValidID | 'super' | 'this';
 
+GetterSetterID:
+	ValidID | 'default' | 'null' | 'dynamic' | 'never';
+
 Feature returns Feature:
 	VariableDeclaration | FormalParameter | FunctionMemberDeclaration | VariableMemberDeclaration;
 
@@ -106,7 +107,7 @@ FormalParameter returns FormalParameter:
 	optional?='?'? name=ValidID (':' type=TypeReference)? ('=' defaultValue=Literal)?;
 
 Modifier returns Modifier:
-	{Modifier} 
+	{Modifier}
 	(
 		static?='static'? & 
 		final?='final'? & 
@@ -126,7 +127,7 @@ TypeParameter:
 	name=ValidID (':' '(' constraints+=TypeReference (',' constraints+=TypeReference)* ')')?;
 
 Expression returns Expression :
-	Assignment ';'?;
+	Assignment;
 
 Assignment returns Expression :
 	{Assignment} feature=[Feature|FeatureID] OpSingleAssign value=Assignment |	
@@ -271,12 +272,12 @@ PrimaryExpression returns Expression:
 BlockExpression returns Expression: 
 	{BlockExpression}
 	'{'// '[' temp=STRING ']' 
-		(expressions+=ExpressionInsideBlock ';'?)*
+		(expressions+=ExpressionInsideBlock)*
 	'}';
 
 ExpressionInsideBlock returns Expression:
-	VariableDeclarations |
-	Expression;
+	VariableDeclarations ';'? |
+	Expression ';'?;
 
 VariableDeclarations returns Expression:
 	{VariableDeclarations} 'var' declarations+=VariableDeclaration (',' declarations+=VariableDeclaration)*;
@@ -361,8 +362,8 @@ Literal returns Expression:
 	BooleanLiteral |
 	NullLiteral |
 	StringLiteral |
-	FloatLiteral |
 	IntLiteral |
+	FloatLiteral |
 	RegularExpressionLiteral |
 	ArrayLiteral |
 	ObjectLiteral
@@ -374,11 +375,11 @@ BooleanLiteral returns Expression:
 NullLiteral returns Expression:
 	{NullLiteral} 'null';
 
-IntLiteral returns Expression:
-	{IntLiteral} (value= INT | HEX);
-
 FloatLiteral returns Expression:
-	{FloatLiteral} value=Float;
+	{FloatLiteral} value=FLOAT;
+
+IntLiteral returns Expression:
+	{IntLiteral} value=(INT|HEX);
 
 StringLiteral returns Expression:
 	{StringLiteral} value=STRING;
@@ -396,22 +397,25 @@ ObjectElement:
 	key=ValidID ':' value=Expression;
 
 
-Float returns ecore::EDouble hidden():
-	EFLOAT | INT '.' INT | '.' INT
-;
-
-
-terminal EFLOAT:
-	INT 'e' '-'? INT;
-
 terminal ID:
-	('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')*;
+	('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')* ;
 
-terminal HEX:
-	'0x' ('0'..'9'|'A'..'F')+;
+terminal HEX returns ecore::EInt : 
+	'0' ('x'|'X') HEX_DIGIT+ ;
 
-terminal INT returns ecore::EInt: 
-	('0'..'9')+;
+terminal fragment HEX_DIGIT : 
+	('0'..'9'|'a'..'f'|'A'..'F') ;
+
+terminal INT returns ecore::EInt : 
+	('0' | '1'..'9' '0'..'9'*) ;
+
+terminal FLOAT returns ecore::EDouble :
+	('0'..'9')+ '.' ('0'..'9')* EXPONENT? |
+    '.' ('0'..'9')+ EXPONENT? |
+    ('0'..'9')+ EXPONENT ;
+
+terminal fragment EXPONENT : 
+	('e'|'E') ('+'|'-')? ('0'..'9')+ ;
 
 terminal REGULAR_EXPRESSION:
 	'~/' ('\\/' | !'/')+ '/' ('i' | 'g' | 'm' | 's' | 'u')*;

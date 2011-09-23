@@ -11,7 +11,7 @@ generate haxe "http://www.xtext.ee/haxe/Haxe"
 Package:
 	('package' name=QualifiedName ';')?
 	(imports+=Import | using+=Using)*
-	(classes+=Class | interfaces+=Interface | enums+=Enum | typedefs+=Typedef)*;
+	(classes+=Class* & interfaces+=Interface* & enums+=Enum* & typedefs+=Typedef*);
 
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard ';';
@@ -26,8 +26,8 @@ Class returns Class:
 	private?='private'? 'class' name=ValidID typeParameters=TypeParameters? ('extends' extends=ClassReference)? ('implements' implements+=TypeReference (',' 'implements' implements+=TypeReference)*)?
 	'{'
 		(
-			(constructor=Constructor)? |
-			(functions+=FunctionMemberDeclaration)* |	
+			(constructor=Constructor)? &
+			(functions+=FunctionMemberDeclaration)* &	
 			(variables+=VariableMemberDeclaration)*	
 		)
 		
@@ -229,7 +229,7 @@ MemberFeatureCall returns Expression:
 	PrimaryExpression 
 	(=>({Assignment.assignable=current} '.' feature=[Feature|FeatureID] OpSingleAssign) value=Assignment
 	|=>({ArrayAssignment.assigname=current} '[' feature=Expression ']' OpSingleAssign) value=Assignment
-	|=>({MemberFeatureCall.target=current} ".") 
+	|=>({MemberFeatureCall.target=current} '.') 
 		feature=[Feature|FeatureID] (
 			=>explicitOperationCall?='(' 
 				(
@@ -271,13 +271,12 @@ PrimaryExpression returns Expression:
 
 BlockExpression returns Expression: 
 	{BlockExpression}
-	'{'// '[' temp=STRING ']' 
-		(expressions+=ExpressionInsideBlock)*
+	'{'
+		(expressions+=ExpressionInsideBlock ';'?)*
 	'}';
 
 ExpressionInsideBlock returns Expression:
-	VariableDeclarations ';'? |
-	Expression ';'?;
+	VariableDeclarations | Expression;
 
 VariableDeclarations returns Expression:
 	{VariableDeclarations} 'var' declarations+=VariableDeclaration (',' declarations+=VariableDeclaration)*;
@@ -362,8 +361,7 @@ Literal returns Expression:
 	BooleanLiteral |
 	NullLiteral |
 	StringLiteral |
-	IntLiteral |
-	FloatLiteral |
+	NumberLiteral |
 	RegularExpressionLiteral |
 	ArrayLiteral |
 	ObjectLiteral
@@ -375,11 +373,21 @@ BooleanLiteral returns Expression:
 NullLiteral returns Expression:
 	{NullLiteral} 'null';
 
-FloatLiteral returns Expression:
-	{FloatLiteral} value=FLOAT;
+NumberLiteral returns Expression:
+	{NumberLiteral} value=Number;
 
-IntLiteral returns Expression:
-	{IntLiteral} value=(INT|HEX);
+Number hidden():
+    =>(INT? '.' (INT|EXPONENT_FLOAT)) |
+    HEX	|
+    EXPONENT_FLOAT |
+    INT 
+	;
+
+terminal EXPONENT_FLOAT:
+	INT EXPONENT;
+
+terminal fragment EXPONENT: 
+	('e'|'E') ('+'|'-')? INT ;
 
 StringLiteral returns Expression:
 	{StringLiteral} value=STRING;
@@ -400,22 +408,15 @@ ObjectElement:
 terminal ID:
 	('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')* ;
 
+
 terminal HEX returns ecore::EInt : 
 	'0' ('x'|'X') HEX_DIGIT+ ;
 
 terminal fragment HEX_DIGIT : 
 	('0'..'9'|'a'..'f'|'A'..'F') ;
-
+	
 terminal INT returns ecore::EInt : 
-	('0' | '1'..'9' '0'..'9'*) ;
-
-terminal FLOAT returns ecore::EDouble :
-	('0'..'9')+ '.' ('0'..'9')* EXPONENT? |
-    '.' ('0'..'9')+ EXPONENT? |
-    ('0'..'9')+ EXPONENT ;
-
-terminal fragment EXPONENT : 
-	('e'|'E') ('+'|'-')? ('0'..'9')+ ;
+	('0'..'9')+;
 
 terminal REGULAR_EXPRESSION:
 	'~/' ('\\/' | !'/')+ '/' ('i' | 'g' | 'm' | 's' | 'u')*;

@@ -4,14 +4,19 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 generate haxe "http://www.xtext.ee/haxe/Haxe"
 
-//TODO, we might need to implement AbstractFeatureCall (see xbase.ecore)
-//TODO, implement Extensions: var p : {> Point, z : Int } or typedef Point3D = {> Point, var z : Int; }
-//TODO, add the correct validation (see ref)
+/*
+ * TODO list:
+ * 
+ * - Check the ref for validation
+ * - Add validation for types. Think of the types that can be extended and implemented
+ * - Add validation for variables. non-static variables may not have an initial value
+ * - Add default visibility. This depends on the context: example: default for Typedef is public where default for Class is private
+ */
 
 Package:
 	('package' name=QualifiedName ';')?
 	(imports+=Import | using+=Using)*
-	(classes+=Class* & interfaces+=Interface* & enums+=Enum* & typedefs+=Typedef*);
+	(classes+=Class | interfaces+=Interface | typedefs+=Typedef | enums+=Enum | externClasses+=ExternClass)*;
 
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard ';';
@@ -19,94 +24,67 @@ Import:
 Using:
 	'using' importedClass=QualifiedName ';';
 
+/**********************
+ * CLASSES AND TYPES
+ */
+
 Type returns Type:
-	Class | Interface | TypeParameter | Enum | Typedef;
+	Class | Interface | Typedef | Enum | TypeParameter;
 
-Class returns Class:
-	private?='private'? 'class' name=ValidID typeParameters=TypeParameters? ('extends' extends=ClassReference)? ('implements' implements+=TypeReference (',' 'implements' implements+=TypeReference)*)?
+Class:
+	visibility=Visibility? 'class' name=ValidID typeParameters=TypeParameters? (('extends' extends=TypeReference | 'implements' implements+=TypeReference) (',' 'implements' implements+=TypeReference)*)?
 	'{'
-		(
-			(constructor=Constructor)? &
-			(functions+=FunctionMemberDeclaration)* &	
-			(variables+=VariableMemberDeclaration)*	
-		)
-		
+		(constructor=ClassConstructor? & (properties+=ClassProperty | methods+=ClassMethod)*)
 	'}';
 
-Interface returns Interface:
-	{Interface}
-	(
-		private?='private'? 'interface' name=ValidID typeParameters=TypeParameters? ('implements' implements+=InterfaceReference (',' 'implements' implements+=InterfaceReference)*)?
-		'{'
-			(functions+=FunctionMemberDeclaration)* |	
-			(variables+=VariableMemberDeclaration)*	
-		'}'
-	);
-
-Enum returns Enum:
-	private?='private'? 'enum' name=ValidID typeParameters=TypeParameters?
+Interface:
+	visibility=Visibility? 'interface' name=ValidID typeParameters=TypeParameters? ('implements' implements+=TypeReference (',' 'implements' implements+=TypeReference)*)?
 	'{'
-		(members+=EnumConstructor)*
+		(properties+=InterfaceProperty | methods+=InterfaceMethod)*
 	'}';
-
-EnumConstructor:
-	name=ValidID ('(' parameters+=FormalParameter (',' parameters+=FormalParameter)* ')')?;
 
 Typedef:
-	{Typedef}
+	visibility=Visibility? 'typedef' name=ValidID '='
 	(
-		private?='private'? 'typedef' name=ValidID '='
-		'{' ('>' extends=TypeReference ',')?
-			(functions+=FunctionMemberDeclaration)* |	
-			(variables+=VariableMemberDeclaration)*
-		'}'
+		('{' ('>' extends=TypeReference ',')?
+			(properties+=TypedefProperty | methods+=TypedefMethod)*
+		'}')
+		|
+		type=TypeReference
 	);
 
-TypeReference returns TypeReference:
+Enum:
+	visibility=Visibility? 'enum' name=ValidID typeParameters=TypeParameters?
+	'{'
+		(constructors+=EnumConstructor)*
+	'}';
+
+ExternClass:
+	'extern' 'class' name=ValidID typeParameters=TypeParameters? ('extends' extends=TypeReference)? (',' 'implements' implements+=TypeReference)*
+	'{'
+	'}';
+
+TypeParameters:
+	'<' parameters+=TypeParameter (',' parameters+=TypeParameter)* '>';
+
+TypeParameter:
+	name=ValidID (':' '(' constraints+=TypeReference (',' constraints+=TypeReference)* ')')?;
+
+TypeReference:
 	type=[Type|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
-	
-ClassReference returns TypeReference:
-	type=[Class|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
 
-InterfaceReference returns TypeReference:
-	type=[Interface|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
+FunctionSignatureOrTypeReference returns TypeReference:
+	TypeReference (=>({FunctionSignature.argumentTypes+=current} '->') =>((argumentTypes+=TypeReference '->')* returnType=TypeReference))?;
 
-VariableDeclaration returns VariableDeclaration:
-	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
 
-VariableMemberDeclaration returns VariableMemberDeclaration:
-	{VariableMemberDeclaration} modifier=Modifier 'var' name=ValidID ('(' getter=[FunctionMemberDeclaration|GetterSetterID] ',' setter=[FunctionMemberDeclaration|GetterSetterID] ')')? ':' type=TypeReference ('=' expression=Expression)?;
+/**********************
+ * MEMBERS
+ */
 
-FunctionMemberDeclaration returns FunctionMemberDeclaration:
-	{FunctionMemberDeclaration} modifier=Modifier 'function' name=ValidID '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')' (':' returnType=TypeReference)?
-		body=BlockExpression;
+enum Visibility:
+	PRIVATE='private' | PUBLIC='public';
 
-Constructor returns Constructor:
-	{Constructor} modifier=Modifier 'function' 'new' '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')'
-		body=BlockExpression;
-
-QualifiedNameWithWildcard:
-	QualifiedName '.*'?;
-
-QualifiedName:
-  ValidID ('.' ValidID)*;
-  
-ValidID:
-	ID;
-
-FeatureID:
-	ValidID | 'super' | 'this';
-
-GetterSetterID:
-	ValidID | 'default' | 'null' | 'dynamic' | 'never';
-
-Feature returns Feature:
-	VariableDeclaration | FormalParameter | FunctionMemberDeclaration | VariableMemberDeclaration;
-
-FormalParameter returns FormalParameter:
-	optional?='?'? name=ValidID (':' type=TypeReference)? ('=' defaultValue=Literal)?;
-
-Modifier returns Modifier:
+MethodModifier:
 	{Modifier}
 	(
 		static?='static'? & 
@@ -116,15 +94,55 @@ Modifier returns Modifier:
 		inline?='inline'? & 
 		visibility=Visibility?
 	);
+	
+PropertyModifier:
+	{Modifier}
+	(
+		static?='static'? & 
+		visibility=Visibility?
+	);
 
-enum Visibility:
-	PUBLIC='public' | PRIVATE='private';
+OptionalParameter:
+	Parameter optional?='?'?;
 
-TypeParameters:
-	'<' parameters+=TypeParameter (',' parameters+=TypeParameter)* '>';
+Parameter:
+	name=ValidID (':' type=TypeReference)? ('=' defaultValue=Literal)?;
 
-TypeParameter:
-	name=ValidID (':' '(' constraints+=TypeReference (',' constraints+=TypeReference)* ')')?;
+ClassConstructor:
+	{ClassConstructor} visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')';
+
+ClassProperty:
+	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)? ('=' expression=Expression)?;
+
+ClassMethod:
+	modifier=MethodModifier 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?
+		body=BlockExpression;
+
+InterfaceProperty:
+	'var' name=ValidID ':' ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? type=TypeReference;
+
+InterfaceMethod:
+	'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?;
+
+TypedefProperty:
+	visibility=Visibility? 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)?;
+
+TypedefMethod:
+	visibility=Visibility? 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?;
+
+EnumConstructor:
+	name=ValidID ('(' parameters+=OptionalParameter (',' parameters+=OptionalParameter)* ')')?;
+
+Feature returns Feature:
+	Type | Parameter | VariableDeclaration |
+	ClassMethod | ClassProperty |
+	InterfaceMethod | InterfaceProperty |
+	TypedefMethod | TypedefProperty |
+	EnumConstructor;
+
+/**********************
+ * EXPRESSIONS - OPERATORS
+ */
 
 Expression returns Expression :
 	Assignment;
@@ -224,6 +242,9 @@ PostIncrementOperation returns Expression:
 OpIncrement:
 	"++" | "--";
 
+/**********************
+ * EXPRESSIONS - OTHER
+ */
 
 MemberFeatureCall returns Expression:
 	PrimaryExpression 
@@ -233,7 +254,6 @@ MemberFeatureCall returns Expression:
 		feature=[Feature|FeatureID] (
 			=>explicitOperationCall?='(' 
 				(
-				    //memberCallArguments+=XShortClosure |
 					arguments+=Expression (',' arguments+=Expression)*
 				)? 
 			')'
@@ -242,7 +262,6 @@ MemberFeatureCall returns Expression:
 		'[' feature=Expression ']' (
 			=>explicitOperationCall?='(' 
 				(
-				    //memberCallArguments+=XShortClosure |
 					arguments+=Expression (',' arguments+=Expression)*
 				)? 
 			')'
@@ -281,8 +300,33 @@ ExpressionInsideBlock returns Expression:
 VariableDeclarations returns Expression:
 	{VariableDeclarations} 'var' declarations+=VariableDeclaration (',' declarations+=VariableDeclaration)*;
 
+VariableDeclaration returns VariableDeclaration:
+	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
+
 ParenthesizedExpression returns Expression:
 	'(' Expression ')';
+
+FunctionExpression returns Expression:
+	{FunctionExpression} 'function' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?
+		body=BlockExpression;
+
+FeatureCall returns Expression:
+	{FeatureCall}
+	feature=[Feature|FeatureID]
+	(=>explicitOperationCall?='(' 
+		(arguments+=Expression)? (',' arguments+=Expression)*
+	')')?; 
+
+ConstructorCall returns Expression:
+	{ConstructorCall}
+	'new' constructor=TypeReference 
+	'(' 
+		(arguments+=Expression)? (',' arguments+=Expression)*
+	')';
+
+/**********************
+ * EXPRESSIONS - CONTROL FLOW
+ */
 
 IfExpression returns Expression:
 	{IfExpression}
@@ -303,8 +347,32 @@ DoWhileExpression returns Expression:
 
 ForLoopExpression returns Expression:
 	{ForLoopExpression}
-	=>('for' '(' declaredParam=FormalParameter 'in' forExpression=Expression ')')
+	=>('for' '(' declaredParam=Parameter 'in' forExpression=Expression ')')
 		body=Expression;
+
+TryCatchExpression returns Expression:
+	{TryCatchExpression}
+	'try' 
+		expression=Expression
+	(
+		(catchClauses+=CatchClause)+
+	);
+	
+CatchClause:
+	=>'catch' '(' declaredParam=Parameter ')' expression=Expression;
+
+SwitchExpression returns Expression:
+	{SwitchExpression}
+	'switch' switch=Expression '{'
+		(cases+=CasePart)+
+		('default' ':' default=CasePartExpressions)?
+	'}';
+
+CasePart:
+	=>'case' cases+=Expression ((',' cases+=Expression)+)? ':' then=CasePartExpressions;
+
+CasePartExpressions:
+	{CasePartExpressions} (expressions+=ExpressionInsideBlock ';'?)*;
 
 ReturnExpression returns Expression :
 	{ReturnExpression} 'return' (=>expression=Expression)?;
@@ -318,44 +386,9 @@ ContinueExpression returns Expression:
 ThrowExpression returns Expression :
 	{ThrowExpression} 'throw' expression=Expression;
 	
-TryCatchExpression returns Expression:
-	{TryCatchExpression}
-	'try' 
-		expression=Expression
-	(
-		(catchClauses+=CatchClause)+
-	);
-	
-CatchClause:
-	=>'catch' '(' declaredParam=FormalParameter ')' expression=Expression;
-
-SwitchExpression returns Expression:
-	{SwitchExpression}
-	'switch' switch=Expression '{'
-		(cases+=CasePart)+
-		('default' ':' default=Expression )?
-	'}';
-
-CasePart:
-	=>'case' cases+=Expression ((',' cases+=Expression)+)? ':' then=Expression;
-
-FunctionExpression returns Expression:
-	{FunctionExpression} 'function' '(' (parameters+=FormalParameter (',' parameters+=FormalParameter)*)? ')' (':' returnType=TypeReference)?
-		body=BlockExpression;
-
-FeatureCall returns Expression:
-	{FeatureCall}
-	feature=[Feature|FeatureID]
-	(=>explicitOperationCall?='(' 
-		(arguments+=Expression)? (',' arguments+=Expression)*
-	')')?; 
-
-ConstructorCall returns Expression:
-	{ConstructorCall}
-	'new' constructor=TypeReference 
-	'(' 
-		(arguments+=Expression)? (',' arguments+=Expression)*
-	')';
+/**********************
+ * EXPRESSIONS - LITERALS
+ */
 
 Literal returns Expression:
 	BooleanLiteral |
@@ -380,14 +413,7 @@ Number hidden():
     =>(INT? '.' (INT|EXPONENT_FLOAT)) |
     HEX	|
     EXPONENT_FLOAT |
-    INT 
-	;
-
-terminal EXPONENT_FLOAT:
-	INT EXPONENT;
-
-terminal fragment EXPONENT: 
-	('e'|'E') ('+'|'-')? INT ;
+    INT;
 
 StringLiteral returns Expression:
 	{StringLiteral} value=STRING;
@@ -404,10 +430,39 @@ ObjectLiteral returns Expression:
 ObjectElement:
 	key=ValidID ':' value=Expression;
 
+/**********************
+ * NAMES AND IDS
+ */
+
+QualifiedNameWithWildcard:
+	QualifiedName '.*'?;
+
+QualifiedName:
+  ValidID ('.' ValidID)*;
+  
+ValidID:
+	ID;
+
+FeatureID:
+	ValidID | 'super' | 'this';
+
+GetterSetterID:
+	ValidID | 'default' | 'null' | 'dynamic' | 'never';
+
+
+/**********************
+ * TERMINALS
+ */
 
 terminal ID:
 	('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')* ;
 
+// The hex and exponent float terminals are needed because we would otherwise get INT and ID
+terminal EXPONENT_FLOAT:
+	INT EXPONENT;
+
+terminal fragment EXPONENT: 
+	('e'|'E') ('+'|'-')? INT ;
 
 terminal HEX returns ecore::EInt : 
 	'0' ('x'|'X') HEX_DIGIT+ ;

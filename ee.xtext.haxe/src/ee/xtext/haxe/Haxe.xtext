@@ -70,12 +70,13 @@ TypeParameters:
 TypeParameter:
 	name=ValidID (':' '(' constraints+=TypeReference (',' constraints+=TypeReference)* ')')?;
 
-TypeReference:
+TypeReferenceOrMethodSignature returns Reference:
+	TypeReference 
+	(=>({MethodSignature.argumentTypes+=current} '->') (=>(argumentTypes+=TypeReference '->'))* returnType=TypeReference /* ) */)?;
+
+TypeReference returns Reference:
+	{TypeReference}
 	type=[Type|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
-
-FunctionSignatureOrTypeReference returns TypeReference:
-	TypeReference (=>({FunctionSignature.argumentTypes+=current} '->') =>((argumentTypes+=TypeReference '->')* returnType=TypeReference))?;
-
 
 /**********************
  * MEMBERS
@@ -106,29 +107,29 @@ OptionalParameter:
 	Parameter optional?='?'?;
 
 Parameter:
-	name=ValidID (':' type=TypeReference)? ('=' defaultValue=Literal)?;
+	name=ValidID (':' type=TypeReferenceOrMethodSignature)? ('=' defaultValue=Literal)?;
 
 ClassConstructor:
 	{ClassConstructor} visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')';
 
 ClassProperty:
-	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)? ('=' expression=Expression)?;
+	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)? ('=' expression=Expression)?;
 
 ClassMethod:
-	modifier=MethodModifier 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?
+	modifier=MethodModifier 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?
 		body=BlockExpression;
 
 InterfaceProperty:
-	'var' name=ValidID ':' ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? type=TypeReference;
+	'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? ':' type=TypeReferenceOrMethodSignature;
 
 InterfaceMethod:
-	'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?;
+	'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?;
 
 TypedefProperty:
-	visibility=Visibility? 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)?;
+	visibility=Visibility? 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)?;
 
 TypedefMethod:
-	visibility=Visibility? 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?;
+	visibility=Visibility? 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?;
 
 EnumConstructor:
 	name=ValidID ('(' parameters+=OptionalParameter (',' parameters+=OptionalParameter)* ')')?;
@@ -301,13 +302,13 @@ VariableDeclarations returns Expression:
 	{VariableDeclarations} 'var' declarations+=VariableDeclaration (',' declarations+=VariableDeclaration)*;
 
 VariableDeclaration returns VariableDeclaration:
-	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
+	{VariableDeclaration} name=ValidID (':' type=TypeReferenceOrMethodSignature)? ('=' expression=Expression)?;
 
 ParenthesizedExpression returns Expression:
 	'(' Expression ')';
 
 FunctionExpression returns Expression:
-	{FunctionExpression} 'function' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?
+	{FunctionExpression} 'function' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?
 		body=BlockExpression;
 
 FeatureCall returns Expression:
@@ -319,7 +320,7 @@ FeatureCall returns Expression:
 
 ConstructorCall returns Expression:
 	{ConstructorCall}
-	'new' constructor=TypeReference 
+	'new' constructor=TypeReference
 	'(' 
 		(arguments+=Expression)? (',' arguments+=Expression)*
 	')';

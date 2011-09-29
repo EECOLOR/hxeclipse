@@ -29,7 +29,7 @@ Using:
  */
 
 Type returns Type:
-	Class | Interface | Typedef | Enum | TypeParameter;
+	Class | Interface | Typedef | Enum | ExternClass | TypeParameter;
 
 Class:
 	visibility=Visibility? 'class' name=ValidID typeParameters=TypeParameters? (('extends' extends=TypeReference | 'implements' implements+=TypeReference) (',' 'implements' implements+=TypeReference)*)?
@@ -62,6 +62,7 @@ Enum:
 ExternClass:
 	'extern' 'class' name=ValidID typeParameters=TypeParameters? ('extends' extends=TypeReference)? (',' 'implements' implements+=TypeReference)*
 	'{'
+		(constructor=ExternClassConstructor? & (properties+=ExternClassProperty | methods+=ExternClassMethod)*)
 	'}';
 
 TypeParameters:
@@ -103,27 +104,28 @@ PropertyModifier:
 		visibility=Visibility?
 	);
 
-OptionalParameter:
-	Parameter optional?='?'?;
-
 Parameter:
 	name=ValidID (':' type=TypeReferenceOrMethodSignature)? ('=' defaultValue=Literal)?;
 
+OptionalParameter returns Parameter:
+	optional?='?'? name=ValidID (':' type=TypeReferenceOrMethodSignature)? ('=' defaultValue=Literal)?;
+
 ClassConstructor:
-	{ClassConstructor} visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')';
+	{ClassConstructor} visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')'
+		body=BlockExpression ';'?;
 
 ClassProperty:
-	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)? ('=' expression=Expression)?;
+	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)? ('=' expression=Expression)? ';'?;
 
 ClassMethod:
 	modifier=MethodModifier 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?
-		body=BlockExpression;
+		body=BlockExpression ';'?;
 
 InterfaceProperty:
-	'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? ':' type=TypeReferenceOrMethodSignature;
+	'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? ':' type=TypeReferenceOrMethodSignature ';'?;
 
 InterfaceMethod:
-	'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?;
+	'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)? ';'?;
 
 TypedefProperty:
 	visibility=Visibility? 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)?;
@@ -133,6 +135,15 @@ TypedefMethod:
 
 EnumConstructor:
 	name=ValidID ('(' parameters+=OptionalParameter (',' parameters+=OptionalParameter)* ')')?;
+
+ExternClassConstructor:
+	{ExternClassConstructor} visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' ';'?;
+
+ExternClassProperty:
+	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)? ';'?;
+
+ExternClassMethod:
+	modifier=MethodModifier 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)? ';'?;
 
 Feature returns Feature:
 	Type | Parameter | VariableDeclaration |

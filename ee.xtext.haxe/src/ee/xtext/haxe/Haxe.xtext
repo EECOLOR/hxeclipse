@@ -1,4 +1,4 @@
-grammar ee.xtext.haxe.Haxe hidden(WS, ML_COMMENT, SL_COMMENT)
+grammar ee.xtext.haxe.Haxe hidden(WS, ML_COMMENT, SL_COMMENT, CONDITIONAL)
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
@@ -7,10 +7,13 @@ generate haxe "http://www.xtext.ee/haxe/Haxe"
 /*
  * TODO list:
  * 
+ * - Implement else if
+ * 
  * - Check the ref for validation
  * - Add validation for types. Think of the types that can be extended and implemented
  * - Add validation for variables. non-static variables may not have an initial value
  * - Add default visibility. This depends on the context: example: default for Typedef is public where default for Class is private
+ * - Add validation for metadata
  */
 
 Package:
@@ -25,6 +28,16 @@ Using:
 	'using' importedClass=QualifiedName ';';
 
 /**********************
+ * CONDITIONAL COMPILATION (just the parsing)
+ */
+
+terminal CONDITIONAL:
+	'#if' (!('\n'|'\r'))+ (CONDITIONAL_END | ('\r'? '\n')) | '#elseif' (!('\n'|'\r'))+ | '#else' | CONDITIONAL_END;
+
+terminal fragment CONDITIONAL_END:
+	'#end';
+
+/**********************
  * CLASSES AND TYPES
  */
 
@@ -32,52 +45,81 @@ Type returns Type:
 	Class | Interface | Typedef | Enum | ExternClass | TypeParameter;
 
 Class:
-	visibility=Visibility? 'class' name=ValidID typeParameters=TypeParameters? (('extends' extends=TypeReference | 'implements' implements+=TypeReference) (',' 'implements' implements+=TypeReference)*)?
+	metadata=Metadata?
+	visibility=Visibility? 'class' name=ValidID typeParameters=TypeParameters? (('extends' extends=ParameterizedTypeReference | 'implements' implements+=ParameterizedTypeReference) (',' 'implements' implements+=ParameterizedTypeReference)*)?
 	'{'
 		(constructor=ClassConstructor? & (properties+=ClassProperty | methods+=ClassMethod)*)
 	'}';
 
 Interface:
-	visibility=Visibility? 'interface' name=ValidID typeParameters=TypeParameters? ('implements' implements+=TypeReference (',' 'implements' implements+=TypeReference)*)?
+	metadata=Metadata?
+	extern='extern'? visibility=Visibility? 'interface' name=ValidID typeParameters=TypeParameters? ('implements' implements+=ParameterizedTypeReference (',' 'implements' implements+=ParameterizedTypeReference)*)?
 	'{'
 		(properties+=InterfaceProperty | methods+=InterfaceMethod)*
 	'}';
 
 Typedef:
-	visibility=Visibility? 'typedef' name=ValidID '='
+	metadata=Metadata?
+	visibility=Visibility? 'typedef' name=ValidID typeParameters=TypeParameters? '='
 	(
-		('{' ('>' extends=TypeReference ',')?
+		('{' ('>' extends=ParameterizedTypeReference ',')?
 			(properties+=TypedefProperty | methods+=TypedefMethod)*
 		'}')
 		|
-		type=TypeReference
+		type=ParameterizedTypeReference
 	);
 
 Enum:
-	visibility=Visibility? 'enum' name=ValidID typeParameters=TypeParameters?
+	metadata=Metadata?
+	extern='extern'? visibility=Visibility? 'enum' name=ValidID typeParameters=TypeParameters?
 	'{'
 		(constructors+=EnumConstructor)*
 	'}';
 
 ExternClass:
-	'extern' 'class' name=ValidID typeParameters=TypeParameters? ('extends' extends=TypeReference)? (',' 'implements' implements+=TypeReference)*
+	metadata=Metadata?
+	visibility=Visibility? 'extern' 'class' name=ValidID typeParameters=TypeParameters? (('extends' extends=ParameterizedTypeReference | 'implements' implements+=ParameterizedTypeReference) (',' 'implements' implements+=ParameterizedTypeReference)*)?
 	'{'
-		(constructor=ExternClassConstructor? & (properties+=ExternClassProperty | methods+=ExternClassMethod)*)
+		(constructor=ExternClassConstructor? & properties+=ExternClassProperty* & methods+=ExternClassMethod*)
 	'}';
 
 TypeParameters:
 	'<' parameters+=TypeParameter (',' parameters+=TypeParameter)* '>';
 
 TypeParameter:
-	name=ValidID (':' '(' constraints+=TypeReference (',' constraints+=TypeReference)* ')')?;
+	name=ValidID (':' '(' constraints+=ParameterizedTypeReference (',' constraints+=ParameterizedTypeReference)* ')')?;
 
-TypeReferenceOrMethodSignature returns Reference:
-	TypeReference 
-	(=>({MethodSignature.argumentTypes+=current} '->') (=>(argumentTypes+=TypeReference '->'))* returnType=TypeReference /* ) */)?;
+TypeReference:
+	MethodSignature | TypedefType;
 
-TypeReference returns Reference:
-	{TypeReference}
-	type=[Type|QualifiedName] (=>'<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
+MethodSignature returns Reference:
+	ParameterizedTypeReference 
+	(=>({MethodSignature.argumentTypes+=current} '->') (=>(argumentTypes+=ParameterizedTypeReference '->'))* returnType=ParameterizedTypeReference)?;
+
+ParameterizedTypeReference returns Reference:
+	{ParameterizedTypeReference}
+	type=[Type|QualifiedName] ('<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
+
+TypedefType returns Reference:
+	{TypedefType}
+	('{' 
+		(properties+=TypedefTypeProperty (',' properties+=TypedefTypeProperty)*)+
+	'}');
+
+TypedefTypeProperty:
+	name=ValidID ':' type=TypeReference;
+
+/**********************
+ * METADATA
+ */
+
+Metadata:
+	'@' compiler?=':' name=ValidID (=>('(' body=MetadataExpression? ')'))?;
+
+MetadataExpression returns Expression:
+	StringLiteral |
+	NumberLiteral |
+	RegularExpressionLiteral;
 
 /**********************
  * MEMBERS
@@ -105,59 +147,79 @@ PropertyModifier:
 	);
 
 Parameter:
-	name=ValidID (':' type=TypeReferenceOrMethodSignature)? ('=' defaultValue=Literal)?;
+	name=ValidID (':' type=TypeReference)? ('=' defaultValue=Literal)?;
 
 OptionalParameter returns Parameter:
-	optional?='?'? name=ValidID (':' type=TypeReferenceOrMethodSignature)? ('=' defaultValue=Literal)?;
+	optional?='?'? name=ValidID (':' type=TypeReference)? ('=' defaultValue=Literal)?;
 
 ClassConstructor:
-	{ClassConstructor} visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')'
+	{ClassConstructor}
+	metadata=Metadata? 
+	visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)? 
 		body=BlockExpression ';'?;
 
 ClassProperty:
-	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)? ('=' expression=Expression)? ';'?;
+	metadata=Metadata?
+	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)? ('=' expression=Expression)? ';'?;
 
 ClassMethod:
-	modifier=MethodModifier 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?
-		body=BlockExpression ';'?;
+	metadata=Metadata?
+	modifier=MethodModifier 'function' name=ValidID typeParameters=TypeParameters? '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?
+		untyped?='untyped'? body=BlockExpression ';'?;
 
 InterfaceProperty:
-	'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? ':' type=TypeReferenceOrMethodSignature ';'?;
+	metadata=Metadata?
+	'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? ':' type=TypeReference ';'?;
 
 InterfaceMethod:
-	'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)? ';'?;
+	metadata=Metadata?
+	'function' name=ValidID typeParameters=TypeParameters? '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)? ';'?;
 
 TypedefProperty:
-	visibility=Visibility? 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)?;
+	metadata=Metadata?
+	visibility=Visibility? 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)? ';'?;
 
 TypedefMethod:
-	visibility=Visibility? 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?;
+	metadata=Metadata?
+	visibility=Visibility? 'function' name=ValidID typeParameters=TypeParameters? '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)? ';'?;
 
 EnumConstructor:
-	name=ValidID ('(' parameters+=OptionalParameter (',' parameters+=OptionalParameter)* ')')?;
+	metadata=Metadata?
+	name=ValidID ('(' parameters+=OptionalParameter (',' parameters+=OptionalParameter)* ')')? ';'?;
 
 ExternClassConstructor:
-	{ExternClassConstructor} visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' ';'?;
+	{ExternClassConstructor}
+	metadata=Metadata? 
+	visibility=Visibility? 'function' 'new' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)? ';'?;
 
 ExternClassProperty:
-	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReferenceOrMethodSignature)? ';'?;
+	metadata=Metadata?
+	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)? ('=' expression=Expression)? ';'?;
 
 ExternClassMethod:
-	modifier=MethodModifier 'function' name=ValidID '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)? ';'?;
+	metadata=Metadata?
+	modifier=MethodModifier 'function' name=ValidID typeParameters=TypeParameters? '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)? 
+		('untyped' body=BlockExpression)? ';'?;
 
 Feature returns Feature:
 	Type | Parameter | VariableDeclaration |
 	ClassMethod | ClassProperty |
 	InterfaceMethod | InterfaceProperty |
 	TypedefMethod | TypedefProperty |
-	EnumConstructor;
+	EnumConstructor |
+	ExternClassMethod | ExternClassProperty;
 
 /**********************
  * EXPRESSIONS - OPERATORS
  */
 
 Expression returns Expression :
-	Assignment;
+	ShortIfExpression |
+	{CastExpression} 'cast' (target=Expression | =>('(' target=Expression ',' type=TypeReference ')')) |
+	{UntypedExpression} 'untyped' target=Expression;
+
+ShortIfExpression returns Expression:
+	Assignment (=>({IfExpression.if=current} '?' then=Expression ':' else=Expression))?;
 
 Assignment returns Expression :
 	{Assignment} feature=[Feature|FeatureID] OpSingleAssign value=Assignment |	
@@ -203,7 +265,7 @@ OpBitwise:
 BitshiftExpression returns Expression:
 	AddExpression (=>({Operation.left=current} feature=OpBitshift) right=AddExpression)*;
 
-OpBitshift:
+OpBitshift hidden():
 	'<<' | '>>' | '>>>';
 
 AddExpression returns Expression:
@@ -313,13 +375,13 @@ VariableDeclarations returns Expression:
 	{VariableDeclarations} 'var' declarations+=VariableDeclaration (',' declarations+=VariableDeclaration)*;
 
 VariableDeclaration returns VariableDeclaration:
-	{VariableDeclaration} name=ValidID (':' type=TypeReferenceOrMethodSignature)? ('=' expression=Expression)?;
+	{VariableDeclaration} name=ValidID (':' type=TypeReference)? ('=' expression=Expression)?;
 
 ParenthesizedExpression returns Expression:
 	'(' Expression ')';
 
 FunctionExpression returns Expression:
-	{FunctionExpression} 'function' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReferenceOrMethodSignature)?
+	{FunctionExpression} 'function' '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?
 		body=BlockExpression;
 
 FeatureCall returns Expression:
@@ -331,7 +393,7 @@ FeatureCall returns Expression:
 
 ConstructorCall returns Expression:
 	{ConstructorCall}
-	'new' constructor=TypeReference
+	'new' constructor=ParameterizedTypeReference
 	'(' 
 		(arguments+=Expression)? (',' arguments+=Expression)*
 	')';
@@ -344,8 +406,8 @@ IfExpression returns Expression:
 	{IfExpression}
 	'if' '(' if=Expression ')'
 	then=Expression
-	(=>'else' else=Expression)?;
-
+	(=>(';'? 'else' else=Expression))?;
+	
 WhileExpression returns Expression:
 	{WhileExpression}
 	'while' '(' predicate=Expression ')'
@@ -403,7 +465,6 @@ ThrowExpression returns Expression :
  */
 
 Literal returns Expression:
-	BooleanLiteral |
 	NullLiteral |
 	StringLiteral |
 	NumberLiteral |
@@ -411,9 +472,6 @@ Literal returns Expression:
 	ArrayLiteral |
 	ObjectLiteral
 ;
-
-BooleanLiteral returns Expression:
-	{BooleanLiteral} ('false' | isTrue?='true');
 
 NullLiteral returns Expression:
 	{NullLiteral} 'null';

@@ -6,11 +6,14 @@
  */
 package ee.xtext.haxe.haxe.impl;
 
-import ee.xtext.haxe.haxe.ClassOrInterfaceReference;
-import ee.xtext.haxe.haxe.Constructor;
+import ee.xtext.haxe.haxe.ClassConstructor;
+import ee.xtext.haxe.haxe.ClassProperty;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Metadata;
+import ee.xtext.haxe.haxe.Method;
+import ee.xtext.haxe.haxe.Reference;
 import ee.xtext.haxe.haxe.TypeParameters;
-import ee.xtext.haxe.haxe.TypeReference;
+import ee.xtext.haxe.haxe.Visibility;
 
 import java.util.Collection;
 
@@ -34,17 +37,51 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getMetadata <em>Metadata</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getTypeParameters <em>Type Parameters</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getExtends <em>Extends</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getImplements <em>Implements</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getConstructor <em>Constructor</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getProperties <em>Properties</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.ClassImpl#getMethods <em>Methods</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.haxe.Class
+public class ClassImpl extends TypeImpl implements ee.xtext.haxe.haxe.Class
 {
+  /**
+   * The cached value of the '{@link #getMetadata() <em>Metadata</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMetadata()
+   * @generated
+   * @ordered
+   */
+  protected Metadata metadata;
+
+  /**
+   * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVisibility()
+   * @generated
+   * @ordered
+   */
+  protected static final Visibility VISIBILITY_EDEFAULT = Visibility.PRIVATE;
+
+  /**
+   * The cached value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVisibility()
+   * @generated
+   * @ordered
+   */
+  protected Visibility visibility = VISIBILITY_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getTypeParameters() <em>Type Parameters</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -63,7 +100,7 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * @generated
    * @ordered
    */
-  protected TypeReference extends_;
+  protected Reference extends_;
 
   /**
    * The cached value of the '{@link #getImplements() <em>Implements</em>}' containment reference list.
@@ -73,7 +110,7 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * @generated
    * @ordered
    */
-  protected EList<ClassOrInterfaceReference> implements_;
+  protected EList<Reference> implements_;
 
   /**
    * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' containment reference.
@@ -83,7 +120,27 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * @generated
    * @ordered
    */
-  protected Constructor constructor;
+  protected ClassConstructor constructor;
+
+  /**
+   * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getProperties()
+   * @generated
+   * @ordered
+   */
+  protected EList<ClassProperty> properties;
+
+  /**
+   * The cached value of the '{@link #getMethods() <em>Methods</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMethods()
+   * @generated
+   * @ordered
+   */
+  protected EList<Method> methods;
 
   /**
    * <!-- begin-user-doc -->
@@ -104,6 +161,77 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
   protected EClass eStaticClass()
   {
     return HaxePackage.Literals.CLASS;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Metadata getMetadata()
+  {
+    return metadata;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetMetadata(Metadata newMetadata, NotificationChain msgs)
+  {
+    Metadata oldMetadata = metadata;
+    metadata = newMetadata;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__METADATA, oldMetadata, newMetadata);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMetadata(Metadata newMetadata)
+  {
+    if (newMetadata != metadata)
+    {
+      NotificationChain msgs = null;
+      if (metadata != null)
+        msgs = ((InternalEObject)metadata).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CLASS__METADATA, null, msgs);
+      if (newMetadata != null)
+        msgs = ((InternalEObject)newMetadata).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.CLASS__METADATA, null, msgs);
+      msgs = basicSetMetadata(newMetadata, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__METADATA, newMetadata, newMetadata));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Visibility getVisibility()
+  {
+    return visibility;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVisibility(Visibility newVisibility)
+  {
+    Visibility oldVisibility = visibility;
+    visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.CLASS__VISIBILITY, oldVisibility, visibility));
   }
 
   /**
@@ -159,7 +287,7 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeReference getExtends()
+  public Reference getExtends()
   {
     return extends_;
   }
@@ -169,9 +297,9 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetExtends(TypeReference newExtends, NotificationChain msgs)
+  public NotificationChain basicSetExtends(Reference newExtends, NotificationChain msgs)
   {
-    TypeReference oldExtends = extends_;
+    Reference oldExtends = extends_;
     extends_ = newExtends;
     if (eNotificationRequired())
     {
@@ -186,7 +314,7 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setExtends(TypeReference newExtends)
+  public void setExtends(Reference newExtends)
   {
     if (newExtends != extends_)
     {
@@ -207,11 +335,11 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ClassOrInterfaceReference> getImplements()
+  public EList<Reference> getImplements()
   {
     if (implements_ == null)
     {
-      implements_ = new EObjectContainmentEList<ClassOrInterfaceReference>(ClassOrInterfaceReference.class, this, HaxePackage.CLASS__IMPLEMENTS);
+      implements_ = new EObjectContainmentEList<Reference>(Reference.class, this, HaxePackage.CLASS__IMPLEMENTS);
     }
     return implements_;
   }
@@ -221,7 +349,7 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * <!-- end-user-doc -->
    * @generated
    */
-  public Constructor getConstructor()
+  public ClassConstructor getConstructor()
   {
     return constructor;
   }
@@ -231,9 +359,9 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetConstructor(Constructor newConstructor, NotificationChain msgs)
+  public NotificationChain basicSetConstructor(ClassConstructor newConstructor, NotificationChain msgs)
   {
-    Constructor oldConstructor = constructor;
+    ClassConstructor oldConstructor = constructor;
     constructor = newConstructor;
     if (eNotificationRequired())
     {
@@ -248,7 +376,7 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setConstructor(Constructor newConstructor)
+  public void setConstructor(ClassConstructor newConstructor)
   {
     if (newConstructor != constructor)
     {
@@ -269,11 +397,41 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ClassProperty> getProperties()
+  {
+    if (properties == null)
+    {
+      properties = new EObjectContainmentEList<ClassProperty>(ClassProperty.class, this, HaxePackage.CLASS__PROPERTIES);
+    }
+    return properties;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Method> getMethods()
+  {
+    if (methods == null)
+    {
+      methods = new EObjectContainmentEList<Method>(Method.class, this, HaxePackage.CLASS__METHODS);
+    }
+    return methods;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
+      case HaxePackage.CLASS__METADATA:
+        return basicSetMetadata(null, msgs);
       case HaxePackage.CLASS__TYPE_PARAMETERS:
         return basicSetTypeParameters(null, msgs);
       case HaxePackage.CLASS__EXTENDS:
@@ -282,6 +440,10 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
         return ((InternalEList<?>)getImplements()).basicRemove(otherEnd, msgs);
       case HaxePackage.CLASS__CONSTRUCTOR:
         return basicSetConstructor(null, msgs);
+      case HaxePackage.CLASS__PROPERTIES:
+        return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
+      case HaxePackage.CLASS__METHODS:
+        return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -296,6 +458,10 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
   {
     switch (featureID)
     {
+      case HaxePackage.CLASS__METADATA:
+        return getMetadata();
+      case HaxePackage.CLASS__VISIBILITY:
+        return getVisibility();
       case HaxePackage.CLASS__TYPE_PARAMETERS:
         return getTypeParameters();
       case HaxePackage.CLASS__EXTENDS:
@@ -304,6 +470,10 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
         return getImplements();
       case HaxePackage.CLASS__CONSTRUCTOR:
         return getConstructor();
+      case HaxePackage.CLASS__PROPERTIES:
+        return getProperties();
+      case HaxePackage.CLASS__METHODS:
+        return getMethods();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -319,18 +489,32 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
   {
     switch (featureID)
     {
+      case HaxePackage.CLASS__METADATA:
+        setMetadata((Metadata)newValue);
+        return;
+      case HaxePackage.CLASS__VISIBILITY:
+        setVisibility((Visibility)newValue);
+        return;
       case HaxePackage.CLASS__TYPE_PARAMETERS:
         setTypeParameters((TypeParameters)newValue);
         return;
       case HaxePackage.CLASS__EXTENDS:
-        setExtends((TypeReference)newValue);
+        setExtends((Reference)newValue);
         return;
       case HaxePackage.CLASS__IMPLEMENTS:
         getImplements().clear();
-        getImplements().addAll((Collection<? extends ClassOrInterfaceReference>)newValue);
+        getImplements().addAll((Collection<? extends Reference>)newValue);
         return;
       case HaxePackage.CLASS__CONSTRUCTOR:
-        setConstructor((Constructor)newValue);
+        setConstructor((ClassConstructor)newValue);
+        return;
+      case HaxePackage.CLASS__PROPERTIES:
+        getProperties().clear();
+        getProperties().addAll((Collection<? extends ClassProperty>)newValue);
+        return;
+      case HaxePackage.CLASS__METHODS:
+        getMethods().clear();
+        getMethods().addAll((Collection<? extends Method>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -346,17 +530,29 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
   {
     switch (featureID)
     {
+      case HaxePackage.CLASS__METADATA:
+        setMetadata((Metadata)null);
+        return;
+      case HaxePackage.CLASS__VISIBILITY:
+        setVisibility(VISIBILITY_EDEFAULT);
+        return;
       case HaxePackage.CLASS__TYPE_PARAMETERS:
         setTypeParameters((TypeParameters)null);
         return;
       case HaxePackage.CLASS__EXTENDS:
-        setExtends((TypeReference)null);
+        setExtends((Reference)null);
         return;
       case HaxePackage.CLASS__IMPLEMENTS:
         getImplements().clear();
         return;
       case HaxePackage.CLASS__CONSTRUCTOR:
-        setConstructor((Constructor)null);
+        setConstructor((ClassConstructor)null);
+        return;
+      case HaxePackage.CLASS__PROPERTIES:
+        getProperties().clear();
+        return;
+      case HaxePackage.CLASS__METHODS:
+        getMethods().clear();
         return;
     }
     super.eUnset(featureID);
@@ -372,6 +568,10 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
   {
     switch (featureID)
     {
+      case HaxePackage.CLASS__METADATA:
+        return metadata != null;
+      case HaxePackage.CLASS__VISIBILITY:
+        return visibility != VISIBILITY_EDEFAULT;
       case HaxePackage.CLASS__TYPE_PARAMETERS:
         return typeParameters != null;
       case HaxePackage.CLASS__EXTENDS:
@@ -380,8 +580,29 @@ public class ClassImpl extends ClassOrInterfaceImpl implements ee.xtext.haxe.hax
         return implements_ != null && !implements_.isEmpty();
       case HaxePackage.CLASS__CONSTRUCTOR:
         return constructor != null;
+      case HaxePackage.CLASS__PROPERTIES:
+        return properties != null && !properties.isEmpty();
+      case HaxePackage.CLASS__METHODS:
+        return methods != null && !methods.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (visibility: ");
+    result.append(visibility);
+    result.append(')');
+    return result.toString();
   }
 
 } //ClassImpl

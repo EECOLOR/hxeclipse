@@ -9,7 +9,7 @@ package ee.xtext.haxe.haxe.impl;
 import ee.xtext.haxe.haxe.ConstructorCall;
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.HaxePackage;
-import ee.xtext.haxe.haxe.TypeReference;
+import ee.xtext.haxe.haxe.Reference;
 
 import java.util.Collection;
 
@@ -50,7 +50,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
    * @generated
    * @ordered
    */
-  protected TypeReference constructor;
+  protected Reference constructor;
 
   /**
    * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
@@ -88,7 +88,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeReference getConstructor()
+  public Reference getConstructor()
   {
     return constructor;
   }
@@ -98,9 +98,9 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetConstructor(TypeReference newConstructor, NotificationChain msgs)
+  public NotificationChain basicSetConstructor(Reference newConstructor, NotificationChain msgs)
   {
-    TypeReference oldConstructor = constructor;
+    Reference oldConstructor = constructor;
     constructor = newConstructor;
     if (eNotificationRequired())
     {
@@ -115,7 +115,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setConstructor(TypeReference newConstructor)
+  public void setConstructor(Reference newConstructor)
   {
     if (newConstructor != constructor)
     {
@@ -193,7 +193,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        setConstructor((TypeReference)newValue);
+        setConstructor((Reference)newValue);
         return;
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         getArguments().clear();
@@ -214,7 +214,7 @@ public class ConstructorCallImpl extends ExpressionImpl implements ConstructorCa
     switch (featureID)
     {
       case HaxePackage.CONSTRUCTOR_CALL__CONSTRUCTOR:
-        setConstructor((TypeReference)null);
+        setConstructor((Reference)null);
         return;
       case HaxePackage.CONSTRUCTOR_CALL__ARGUMENTS:
         getArguments().clear();

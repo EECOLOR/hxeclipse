@@ -16,9 +16,11 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link ee.xtext.haxe.haxe.Enum#isPrivate <em>Private</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.Enum#getMetadata <em>Metadata</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.Enum#getExtern <em>Extern</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.Enum#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.Enum#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link ee.xtext.haxe.haxe.Enum#getMembers <em>Members</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.Enum#getConstructors <em>Constructors</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,30 +31,85 @@ import org.eclipse.emf.common.util.EList;
 public interface Enum extends Type
 {
   /**
-   * Returns the value of the '<em><b>Private</b></em>' attribute.
+   * Returns the value of the '<em><b>Metadata</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Private</em>' attribute isn't clear,
+   * If the meaning of the '<em>Metadata</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Private</em>' attribute.
-   * @see #setPrivate(boolean)
-   * @see ee.xtext.haxe.haxe.HaxePackage#getEnum_Private()
+   * @return the value of the '<em>Metadata</em>' containment reference.
+   * @see #setMetadata(Metadata)
+   * @see ee.xtext.haxe.haxe.HaxePackage#getEnum_Metadata()
+   * @model containment="true"
+   * @generated
+   */
+  Metadata getMetadata();
+
+  /**
+   * Sets the value of the '{@link ee.xtext.haxe.haxe.Enum#getMetadata <em>Metadata</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Metadata</em>' containment reference.
+   * @see #getMetadata()
+   * @generated
+   */
+  void setMetadata(Metadata value);
+
+  /**
+   * Returns the value of the '<em><b>Extern</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Extern</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Extern</em>' attribute.
+   * @see #setExtern(String)
+   * @see ee.xtext.haxe.haxe.HaxePackage#getEnum_Extern()
    * @model
    * @generated
    */
-  boolean isPrivate();
+  String getExtern();
 
   /**
-   * Sets the value of the '{@link ee.xtext.haxe.haxe.Enum#isPrivate <em>Private</em>}' attribute.
+   * Sets the value of the '{@link ee.xtext.haxe.haxe.Enum#getExtern <em>Extern</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Private</em>' attribute.
-   * @see #isPrivate()
+   * @param value the new value of the '<em>Extern</em>' attribute.
+   * @see #getExtern()
    * @generated
    */
-  void setPrivate(boolean value);
+  void setExtern(String value);
+
+  /**
+   * Returns the value of the '<em><b>Visibility</b></em>' attribute.
+   * The literals are from the enumeration {@link ee.xtext.haxe.haxe.Visibility}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Visibility</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Visibility</em>' attribute.
+   * @see ee.xtext.haxe.haxe.Visibility
+   * @see #setVisibility(Visibility)
+   * @see ee.xtext.haxe.haxe.HaxePackage#getEnum_Visibility()
+   * @model
+   * @generated
+   */
+  Visibility getVisibility();
+
+  /**
+   * Sets the value of the '{@link ee.xtext.haxe.haxe.Enum#getVisibility <em>Visibility</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Visibility</em>' attribute.
+   * @see ee.xtext.haxe.haxe.Visibility
+   * @see #getVisibility()
+   * @generated
+   */
+  void setVisibility(Visibility value);
 
   /**
    * Returns the value of the '<em><b>Type Parameters</b></em>' containment reference.
@@ -81,19 +138,19 @@ public interface Enum extends Type
   void setTypeParameters(TypeParameters value);
 
   /**
-   * Returns the value of the '<em><b>Members</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Constructors</b></em>' containment reference list.
    * The list contents are of type {@link ee.xtext.haxe.haxe.EnumConstructor}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Members</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Constructors</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Members</em>' containment reference list.
-   * @see ee.xtext.haxe.haxe.HaxePackage#getEnum_Members()
+   * @return the value of the '<em>Constructors</em>' containment reference list.
+   * @see ee.xtext.haxe.haxe.HaxePackage#getEnum_Constructors()
    * @model containment="true"
    * @generated
    */
-  EList<EnumConstructor> getMembers();
+  EList<EnumConstructor> getConstructors();
 
 } // Enum

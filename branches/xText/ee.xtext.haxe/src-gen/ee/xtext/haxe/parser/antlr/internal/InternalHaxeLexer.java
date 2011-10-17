@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalHaxeLexer extends Lexer {
-    public static final int RULE_ID=4;
+    public static final int RULE_ID=9;
     public static final int T__29=29;
     public static final int T__28=28;
     public static final int T__27=27;
@@ -21,22 +21,18 @@ public class InternalHaxeLexer extends Lexer {
     public static final int T__24=24;
     public static final int T__23=23;
     public static final int T__22=22;
-    public static final int RULE_ANY_OTHER=13;
+    public static final int RULE_ANY_OTHER=20;
     public static final int T__21=21;
-    public static final int T__20=20;
+    public static final int RULE_CONDITIONAL_ELSE_IF=14;
     public static final int EOF=-1;
     public static final int T__93=93;
-    public static final int T__19=19;
     public static final int T__94=94;
     public static final int T__91=91;
-    public static final int T__92=92;
     public static final int RULE_HEX=6;
-    public static final int T__16=16;
+    public static final int T__92=92;
+    public static final int RULE_CONDITIONAL_IF=12;
     public static final int T__90=90;
-    public static final int T__15=15;
-    public static final int T__18=18;
-    public static final int T__17=17;
-    public static final int T__14=14;
+    public static final int RULE_CONDITIONAL_ELSE=13;
     public static final int T__99=99;
     public static final int T__98=98;
     public static final int T__97=97;
@@ -46,18 +42,20 @@ public class InternalHaxeLexer extends Lexer {
     public static final int T__81=81;
     public static final int T__82=82;
     public static final int T__83=83;
+    public static final int RULE_HEX_DIGIT=17;
     public static final int T__85=85;
     public static final int T__84=84;
     public static final int T__87=87;
     public static final int T__86=86;
     public static final int T__89=89;
-    public static final int RULE_EFLOAT=9;
     public static final int T__88=88;
-    public static final int RULE_ML_COMMENT=10;
+    public static final int RULE_ML_COMMENT=18;
     public static final int RULE_STRING=7;
     public static final int T__71=71;
     public static final int T__72=72;
     public static final int T__70=70;
+    public static final int RULE_EXPONENT=16;
+    public static final int RULE_EXPONENT_FLOAT=5;
     public static final int T__76=76;
     public static final int T__75=75;
     public static final int T__74=74;
@@ -65,8 +63,8 @@ public class InternalHaxeLexer extends Lexer {
     public static final int T__79=79;
     public static final int T__78=78;
     public static final int T__77=77;
-    public static final int RULE_REGULAR_EXPRESSION=8;
     public static final int T__68=68;
+    public static final int RULE_REGULAR_EXPRESSION=8;
     public static final int T__69=69;
     public static final int T__66=66;
     public static final int T__67=67;
@@ -74,6 +72,7 @@ public class InternalHaxeLexer extends Lexer {
     public static final int T__65=65;
     public static final int T__62=62;
     public static final int T__63=63;
+    public static final int RULE_CONDITIONAL_EXPRESSION=11;
     public static final int T__61=61;
     public static final int T__60=60;
     public static final int T__55=55;
@@ -85,7 +84,8 @@ public class InternalHaxeLexer extends Lexer {
     public static final int T__53=53;
     public static final int T__54=54;
     public static final int T__59=59;
-    public static final int RULE_INT=5;
+    public static final int T__103=103;
+    public static final int RULE_INT=4;
     public static final int T__50=50;
     public static final int T__42=42;
     public static final int T__43=43;
@@ -97,9 +97,10 @@ public class InternalHaxeLexer extends Lexer {
     public static final int T__45=45;
     public static final int T__48=48;
     public static final int T__49=49;
+    public static final int T__102=102;
     public static final int T__101=101;
     public static final int T__100=100;
-    public static final int RULE_SL_COMMENT=11;
+    public static final int RULE_SL_COMMENT=19;
     public static final int T__30=30;
     public static final int T__31=31;
     public static final int T__32=32;
@@ -110,7 +111,8 @@ public class InternalHaxeLexer extends Lexer {
     public static final int T__37=37;
     public static final int T__38=38;
     public static final int T__39=39;
-    public static final int RULE_WS=12;
+    public static final int RULE_CONDITIONAL_END=15;
+    public static final int RULE_WS=10;
 
     // delegates
     // delegators
@@ -125,161 +127,16 @@ public class InternalHaxeLexer extends Lexer {
     }
     public String getGrammarFileName() { return "../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g"; }
 
-    // $ANTLR start "T__14"
-    public final void mT__14() throws RecognitionException {
+    // $ANTLR start "T__21"
+    public final void mT__21() throws RecognitionException {
         try {
-            int _type = T__14;
+            int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:11:7: ( 'package' )
             // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:11:9: 'package'
             {
             match("package"); 
 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__14"
-
-    // $ANTLR start "T__15"
-    public final void mT__15() throws RecognitionException {
-        try {
-            int _type = T__15;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:12:7: ( ';' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:12:9: ';'
-            {
-            match(';'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__15"
-
-    // $ANTLR start "T__16"
-    public final void mT__16() throws RecognitionException {
-        try {
-            int _type = T__16;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:13:7: ( 'import' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:13:9: 'import'
-            {
-            match("import"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__16"
-
-    // $ANTLR start "T__17"
-    public final void mT__17() throws RecognitionException {
-        try {
-            int _type = T__17;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:14:7: ( 'using' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:14:9: 'using'
-            {
-            match("using"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__17"
-
-    // $ANTLR start "T__18"
-    public final void mT__18() throws RecognitionException {
-        try {
-            int _type = T__18;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:15:7: ( 'private' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:15:9: 'private'
-            {
-            match("private"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__18"
-
-    // $ANTLR start "T__19"
-    public final void mT__19() throws RecognitionException {
-        try {
-            int _type = T__19;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:16:7: ( 'class' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:16:9: 'class'
-            {
-            match("class"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__19"
-
-    // $ANTLR start "T__20"
-    public final void mT__20() throws RecognitionException {
-        try {
-            int _type = T__20;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:17:7: ( 'extends' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:17:9: 'extends'
-            {
-            match("extends"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__20"
-
-    // $ANTLR start "T__21"
-    public final void mT__21() throws RecognitionException {
-        try {
-            int _type = T__21;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:18:7: ( ',' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:18:9: ','
-            {
-            match(','); 
 
             }
 
@@ -296,11 +153,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:19:7: ( 'implements' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:19:9: 'implements'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:12:7: ( ';' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:12:9: ';'
             {
-            match("implements"); 
-
+            match(';'); 
 
             }
 
@@ -317,10 +173,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:20:7: ( '{' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:20:9: '{'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:13:7: ( 'import' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:13:9: 'import'
             {
-            match('{'); 
+            match("import"); 
+
 
             }
 
@@ -337,10 +194,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:21:7: ( '}' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:21:9: '}'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:14:7: ( 'using' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:14:9: 'using'
             {
-            match('}'); 
+            match("using"); 
+
 
             }
 
@@ -357,10 +215,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:22:7: ( 'interface' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:22:9: 'interface'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:15:7: ( 'class' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:15:9: 'class'
             {
-            match("interface"); 
+            match("class"); 
 
 
             }
@@ -378,10 +236,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:23:7: ( 'enum' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:23:9: 'enum'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:16:7: ( 'extends' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:16:9: 'extends'
             {
-            match("enum"); 
+            match("extends"); 
 
 
             }
@@ -399,10 +257,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:24:7: ( '(' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:24:9: '('
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:17:7: ( 'implements' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:17:9: 'implements'
             {
-            match('('); 
+            match("implements"); 
+
 
             }
 
@@ -419,10 +278,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:25:7: ( ')' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:25:9: ')'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:18:7: ( ',' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:18:9: ','
             {
-            match(')'); 
+            match(','); 
 
             }
 
@@ -439,11 +298,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:26:7: ( 'typedef' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:26:9: 'typedef'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:19:7: ( '{' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:19:9: '{'
             {
-            match("typedef"); 
-
+            match('{'); 
 
             }
 
@@ -460,10 +318,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:27:7: ( '=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:27:9: '='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:20:7: ( '}' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:20:9: '}'
             {
-            match('='); 
+            match('}'); 
 
             }
 
@@ -480,10 +338,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:28:7: ( '>' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:28:9: '>'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:21:7: ( 'extern' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:21:9: 'extern'
             {
-            match('>'); 
+            match("extern"); 
+
 
             }
 
@@ -500,10 +359,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:29:7: ( '<' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:29:9: '<'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:22:7: ( 'interface' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:22:9: 'interface'
             {
-            match('<'); 
+            match("interface"); 
+
 
             }
 
@@ -520,10 +380,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:30:7: ( ':' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:30:9: ':'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:23:7: ( 'typedef' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:23:9: 'typedef'
             {
-            match(':'); 
+            match("typedef"); 
+
 
             }
 
@@ -540,11 +401,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:31:7: ( 'var' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:31:9: 'var'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:24:7: ( '=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:24:9: '='
             {
-            match("var"); 
-
+            match('='); 
 
             }
 
@@ -561,11 +421,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:32:7: ( 'default' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:32:9: 'default'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:25:7: ( '>' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:25:9: '>'
             {
-            match("default"); 
-
+            match('>'); 
 
             }
 
@@ -582,10 +441,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:33:7: ( 'null' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:33:9: 'null'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:26:7: ( 'enum' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:26:9: 'enum'
             {
-            match("null"); 
+            match("enum"); 
 
 
             }
@@ -603,11 +462,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:34:7: ( 'dynamic' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:34:9: 'dynamic'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:27:7: ( '<' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:27:9: '<'
             {
-            match("dynamic"); 
-
+            match('<'); 
 
             }
 
@@ -624,11 +482,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:35:7: ( 'never' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:35:9: 'never'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:28:7: ( ':' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:28:9: ':'
             {
-            match("never"); 
-
+            match(':'); 
 
             }
 
@@ -645,11 +502,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:36:7: ( 'function' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:36:9: 'function'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:29:7: ( '(' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:29:9: '('
             {
-            match("function"); 
-
+            match('('); 
 
             }
 
@@ -666,11 +522,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:37:7: ( 'new' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:37:9: 'new'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:30:7: ( ')' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:30:9: ')'
             {
-            match("new"); 
-
+            match(')'); 
 
             }
 
@@ -687,10 +542,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:38:7: ( '.*' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:38:9: '.*'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:31:7: ( '->' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:31:9: '->'
             {
-            match(".*"); 
+            match("->"); 
 
 
             }
@@ -708,10 +563,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:39:7: ( '.' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:39:9: '.'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:32:7: ( '@' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:32:9: '@'
             {
-            match('.'); 
+            match('@'); 
 
             }
 
@@ -728,10 +583,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:40:7: ( 'super' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:40:9: 'super'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:33:7: ( 'static' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:33:9: 'static'
             {
-            match("super"); 
+            match("static"); 
 
 
             }
@@ -749,10 +604,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:41:7: ( 'this' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:41:9: 'this'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:34:7: ( 'final' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:34:9: 'final'
             {
-            match("this"); 
+            match("final"); 
 
 
             }
@@ -770,10 +625,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:42:7: ( '?' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:42:9: '?'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:35:7: ( 'dynamic' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:35:9: 'dynamic'
             {
-            match('?'); 
+            match("dynamic"); 
+
 
             }
 
@@ -790,10 +646,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:43:7: ( 'static' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:43:9: 'static'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:36:7: ( 'override' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:36:9: 'override'
             {
-            match("static"); 
+            match("override"); 
 
 
             }
@@ -811,10 +667,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:44:7: ( 'final' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:44:9: 'final'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:37:7: ( 'inline' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:37:9: 'inline'
             {
-            match("final"); 
+            match("inline"); 
 
 
             }
@@ -832,11 +688,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:45:7: ( 'override' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:45:9: 'override'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:38:7: ( '?' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:38:9: '?'
             {
-            match("override"); 
-
+            match('?'); 
 
             }
 
@@ -853,10 +708,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:46:7: ( 'inline' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:46:9: 'inline'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:39:7: ( 'function' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:39:9: 'function'
             {
-            match("inline"); 
+            match("function"); 
 
 
             }
@@ -874,10 +729,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:47:7: ( '+=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:47:9: '+='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:40:7: ( 'new' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:40:9: 'new'
             {
-            match("+="); 
+            match("new"); 
 
 
             }
@@ -895,10 +750,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:48:7: ( '-=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:48:9: '-='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:41:7: ( 'var' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:41:9: 'var'
             {
-            match("-="); 
+            match("var"); 
 
 
             }
@@ -916,10 +771,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:49:7: ( '*=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:49:9: '*='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:42:7: ( 'untyped' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:42:9: 'untyped'
             {
-            match("*="); 
+            match("untyped"); 
 
 
             }
@@ -937,10 +792,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:50:7: ( '/=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:50:9: '/='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:43:7: ( 'default' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:43:9: 'default'
             {
-            match("/="); 
+            match("default"); 
 
 
             }
@@ -958,10 +813,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:51:7: ( '%=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:51:9: '%='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:44:7: ( 'null' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:44:9: 'null'
             {
-            match("%="); 
+            match("null"); 
 
 
             }
@@ -979,10 +834,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:52:7: ( '&=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:52:9: '&='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:45:7: ( 'never' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:45:9: 'never'
             {
-            match("&="); 
+            match("never"); 
 
 
             }
@@ -1000,10 +855,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:53:7: ( '|=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:53:9: '|='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:46:7: ( 'cast' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:46:9: 'cast'
             {
-            match("|="); 
+            match("cast"); 
 
 
             }
@@ -1021,10 +876,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:54:7: ( '^=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:54:9: '^='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:47:7: ( '+=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:47:9: '+='
             {
-            match("^="); 
+            match("+="); 
 
 
             }
@@ -1042,10 +897,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:55:7: ( '<<=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:55:9: '<<='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:48:7: ( '-=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:48:9: '-='
             {
-            match("<<="); 
+            match("-="); 
 
 
             }
@@ -1063,10 +918,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:56:7: ( '>>=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:56:9: '>>='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:49:7: ( '*=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:49:9: '*='
             {
-            match(">>="); 
+            match("*="); 
 
 
             }
@@ -1084,10 +939,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:57:7: ( '>>>=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:57:9: '>>>='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:50:7: ( '/=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:50:9: '/='
             {
-            match(">>>="); 
+            match("/="); 
 
 
             }
@@ -1105,10 +960,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:58:7: ( '||' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:58:9: '||'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:51:7: ( '%=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:51:9: '%='
             {
-            match("||"); 
+            match("%="); 
 
 
             }
@@ -1126,10 +981,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:59:7: ( '&&' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:59:9: '&&'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:52:7: ( '&=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:52:9: '&='
             {
-            match("&&"); 
+            match("&="); 
 
 
             }
@@ -1147,10 +1002,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__63;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:60:7: ( '...' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:60:9: '...'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:53:7: ( '|=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:53:9: '|='
             {
-            match("..."); 
+            match("|="); 
 
 
             }
@@ -1168,10 +1023,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__64;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:61:7: ( '==' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:61:9: '=='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:54:7: ( '^=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:54:9: '^='
             {
-            match("=="); 
+            match("^="); 
 
 
             }
@@ -1189,10 +1044,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__65;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:62:7: ( '!=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:62:9: '!='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:55:7: ( '||' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:55:9: '||'
             {
-            match("!="); 
+            match("||"); 
 
 
             }
@@ -1210,10 +1065,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:63:7: ( '>=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:63:9: '>='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:56:7: ( '&&' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:56:9: '&&'
             {
-            match(">="); 
+            match("&&"); 
 
 
             }
@@ -1231,10 +1086,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:64:7: ( '<=' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:64:9: '<='
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:57:7: ( '...' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:57:9: '...'
             {
-            match("<="); 
+            match("..."); 
 
 
             }
@@ -1252,10 +1107,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:65:7: ( '|' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:65:9: '|'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:58:7: ( '==' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:58:9: '=='
             {
-            match('|'); 
+            match("=="); 
+
 
             }
 
@@ -1272,10 +1128,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:66:7: ( '&' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:66:9: '&'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:59:7: ( '!=' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:59:9: '!='
             {
-            match('&'); 
+            match("!="); 
+
 
             }
 
@@ -1292,10 +1149,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:67:7: ( '^' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:67:9: '^'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:60:7: ( '|' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:60:9: '|'
             {
-            match('^'); 
+            match('|'); 
 
             }
 
@@ -1312,11 +1169,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:68:7: ( '<<' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:68:9: '<<'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:61:7: ( '&' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:61:9: '&'
             {
-            match("<<"); 
-
+            match('&'); 
 
             }
 
@@ -1333,11 +1189,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:69:7: ( '>>' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:69:9: '>>'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:62:7: ( '^' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:62:9: '^'
             {
-            match(">>"); 
-
+            match('^'); 
 
             }
 
@@ -1354,11 +1209,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__73;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:70:7: ( '>>>' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:70:9: '>>>'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:63:7: ( '+' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:63:9: '+'
             {
-            match(">>>"); 
-
+            match('+'); 
 
             }
 
@@ -1375,10 +1229,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__74;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:71:7: ( '+' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:71:9: '+'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:64:7: ( '-' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:64:9: '-'
             {
-            match('+'); 
+            match('-'); 
 
             }
 
@@ -1395,10 +1249,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__75;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:72:7: ( '-' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:72:9: '-'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:65:7: ( '*' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:65:9: '*'
             {
-            match('-'); 
+            match('*'); 
 
             }
 
@@ -1415,10 +1269,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__76;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:73:7: ( '*' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:73:9: '*'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:66:7: ( '/' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:66:9: '/'
             {
-            match('*'); 
+            match('/'); 
 
             }
 
@@ -1435,10 +1289,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__77;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:74:7: ( '/' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:74:9: '/'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:67:7: ( '%' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:67:9: '%'
             {
-            match('/'); 
+            match('%'); 
 
             }
 
@@ -1455,10 +1309,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__78;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:75:7: ( '%' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:75:9: '%'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:68:7: ( '!' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:68:9: '!'
             {
-            match('%'); 
+            match('!'); 
 
             }
 
@@ -1475,10 +1329,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__79;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:76:7: ( '!' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:76:9: '!'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:69:7: ( '~' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:69:9: '~'
             {
-            match('!'); 
+            match('~'); 
 
             }
 
@@ -1495,10 +1349,11 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__80;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:77:7: ( '~' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:77:9: '~'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:70:7: ( '++' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:70:9: '++'
             {
-            match('~'); 
+            match("++"); 
+
 
             }
 
@@ -1515,10 +1370,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__81;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:78:7: ( '++' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:78:9: '++'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:71:7: ( '--' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:71:9: '--'
             {
-            match("++"); 
+            match("--"); 
 
 
             }
@@ -1536,11 +1391,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__82;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:79:7: ( '--' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:79:9: '--'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:72:7: ( '.' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:72:9: '.'
             {
-            match("--"); 
-
+            match('.'); 
 
             }
 
@@ -1557,8 +1411,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__83;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:80:7: ( '[' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:80:9: '['
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:73:7: ( '[' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:73:9: '['
             {
             match('['); 
 
@@ -1577,8 +1431,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__84;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:81:7: ( ']' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:81:9: ']'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:74:7: ( ']' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:74:9: ']'
             {
             match(']'); 
 
@@ -1597,8 +1451,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__85;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:82:7: ( 'if' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:82:9: 'if'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:75:7: ( 'if' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:75:9: 'if'
             {
             match("if"); 
 
@@ -1618,8 +1472,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__86;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:83:7: ( 'else' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:83:9: 'else'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:76:7: ( 'else' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:76:9: 'else'
             {
             match("else"); 
 
@@ -1639,8 +1493,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__87;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:84:7: ( 'while' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:84:9: 'while'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:77:7: ( 'while' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:77:9: 'while'
             {
             match("while"); 
 
@@ -1660,8 +1514,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__88;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:85:7: ( 'do' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:85:9: 'do'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:78:7: ( 'do' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:78:9: 'do'
             {
             match("do"); 
 
@@ -1681,8 +1535,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__89;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:86:7: ( 'for' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:86:9: 'for'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:79:7: ( 'for' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:79:9: 'for'
             {
             match("for"); 
 
@@ -1702,8 +1556,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__90;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:87:7: ( 'in' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:87:9: 'in'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:80:7: ( 'in' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:80:9: 'in'
             {
             match("in"); 
 
@@ -1723,10 +1577,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__91;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:88:7: ( 'return' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:88:9: 'return'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:81:7: ( 'try' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:81:9: 'try'
             {
-            match("return"); 
+            match("try"); 
 
 
             }
@@ -1744,10 +1598,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__92;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:89:7: ( 'break' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:89:9: 'break'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:82:7: ( 'catch' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:82:9: 'catch'
             {
-            match("break"); 
+            match("catch"); 
 
 
             }
@@ -1765,10 +1619,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__93;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:90:7: ( 'continue' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:90:9: 'continue'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:83:7: ( 'switch' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:83:9: 'switch'
             {
-            match("continue"); 
+            match("switch"); 
 
 
             }
@@ -1786,10 +1640,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__94;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:91:7: ( 'throw' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:91:9: 'throw'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:84:7: ( 'case' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:84:9: 'case'
             {
-            match("throw"); 
+            match("case"); 
 
 
             }
@@ -1807,10 +1661,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__95;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:92:7: ( 'try' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:92:9: 'try'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:85:7: ( 'return' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:85:9: 'return'
             {
-            match("try"); 
+            match("return"); 
 
 
             }
@@ -1828,10 +1682,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__96;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:93:7: ( 'catch' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:93:9: 'catch'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:86:7: ( 'break' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:86:9: 'break'
             {
-            match("catch"); 
+            match("break"); 
 
 
             }
@@ -1849,10 +1703,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__97;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:94:7: ( 'switch' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:94:9: 'switch'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:87:7: ( 'continue' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:87:9: 'continue'
             {
-            match("switch"); 
+            match("continue"); 
 
 
             }
@@ -1870,10 +1724,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__98;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:95:7: ( 'case' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:95:9: 'case'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:88:7: ( 'throw' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:88:9: 'throw'
             {
-            match("case"); 
+            match("throw"); 
 
 
             }
@@ -1891,10 +1745,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__99;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:96:7: ( 'false' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:96:9: 'false'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:89:7: ( '.*' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:89:9: '.*'
             {
-            match("false"); 
+            match(".*"); 
 
 
             }
@@ -1912,10 +1766,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__100;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:97:8: ( 'true' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:97:10: 'true'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:90:8: ( 'super' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:90:10: 'super'
             {
-            match("true"); 
+            match("super"); 
 
 
             }
@@ -1933,10 +1787,10 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = T__101;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:98:8: ( 'public' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:98:10: 'public'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:91:8: ( 'this' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:91:10: 'this'
             {
-            match("public"); 
+            match("this"); 
 
 
             }
@@ -1949,35 +1803,16 @@ public class InternalHaxeLexer extends Lexer {
     }
     // $ANTLR end "T__101"
 
-    // $ANTLR start "RULE_EFLOAT"
-    public final void mRULE_EFLOAT() throws RecognitionException {
+    // $ANTLR start "T__102"
+    public final void mT__102() throws RecognitionException {
         try {
-            int _type = RULE_EFLOAT;
+            int _type = T__102;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7206:13: ( RULE_INT 'e' ( '-' )? RULE_INT )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7206:15: RULE_INT 'e' ( '-' )? RULE_INT
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:92:8: ( 'private' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:92:10: 'private'
             {
-            mRULE_INT(); 
-            match('e'); 
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7206:28: ( '-' )?
-            int alt1=2;
-            int LA1_0 = input.LA(1);
+            match("private"); 
 
-            if ( (LA1_0=='-') ) {
-                alt1=1;
-            }
-            switch (alt1) {
-                case 1 :
-                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7206:28: '-'
-                    {
-                    match('-'); 
-
-                    }
-                    break;
-
-            }
-
-            mRULE_INT(); 
 
             }
 
@@ -1987,15 +1822,264 @@ public class InternalHaxeLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "RULE_EFLOAT"
+    // $ANTLR end "T__102"
+
+    // $ANTLR start "T__103"
+    public final void mT__103() throws RecognitionException {
+        try {
+            int _type = T__103;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:93:8: ( 'public' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:93:10: 'public'
+            {
+            match("public"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__103"
+
+    // $ANTLR start "RULE_CONDITIONAL_IF"
+    public final void mRULE_CONDITIONAL_IF() throws RecognitionException {
+        try {
+            int _type = RULE_CONDITIONAL_IF;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9454:21: ( '#if' ( RULE_WS )? RULE_CONDITIONAL_EXPRESSION )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9454:23: '#if' ( RULE_WS )? RULE_CONDITIONAL_EXPRESSION
+            {
+            match("#if"); 
+
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9454:29: ( RULE_WS )?
+            int alt1=2;
+            int LA1_0 = input.LA(1);
+
+            if ( ((LA1_0>='\t' && LA1_0<='\n')||LA1_0=='\r'||LA1_0==' ') ) {
+                alt1=1;
+            }
+            switch (alt1) {
+                case 1 :
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9454:29: RULE_WS
+                    {
+                    mRULE_WS(); 
+
+                    }
+                    break;
+
+            }
+
+            mRULE_CONDITIONAL_EXPRESSION(); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_CONDITIONAL_IF"
+
+    // $ANTLR start "RULE_CONDITIONAL_ELSE"
+    public final void mRULE_CONDITIONAL_ELSE() throws RecognitionException {
+        try {
+            int _type = RULE_CONDITIONAL_ELSE;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9456:23: ( '#else' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9456:25: '#else'
+            {
+            match("#else"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_CONDITIONAL_ELSE"
+
+    // $ANTLR start "RULE_CONDITIONAL_ELSE_IF"
+    public final void mRULE_CONDITIONAL_ELSE_IF() throws RecognitionException {
+        try {
+            int _type = RULE_CONDITIONAL_ELSE_IF;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9458:26: ( '#elseif' ( RULE_WS )? RULE_CONDITIONAL_EXPRESSION )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9458:28: '#elseif' ( RULE_WS )? RULE_CONDITIONAL_EXPRESSION
+            {
+            match("#elseif"); 
+
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9458:38: ( RULE_WS )?
+            int alt2=2;
+            int LA2_0 = input.LA(1);
+
+            if ( ((LA2_0>='\t' && LA2_0<='\n')||LA2_0=='\r'||LA2_0==' ') ) {
+                alt2=1;
+            }
+            switch (alt2) {
+                case 1 :
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9458:38: RULE_WS
+                    {
+                    mRULE_WS(); 
+
+                    }
+                    break;
+
+            }
+
+            mRULE_CONDITIONAL_EXPRESSION(); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_CONDITIONAL_ELSE_IF"
+
+    // $ANTLR start "RULE_CONDITIONAL_EXPRESSION"
+    public final void mRULE_CONDITIONAL_EXPRESSION() throws RecognitionException {
+        try {
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:38: ( ( '!' )? ( '(' (~ ( ')' ) )+ ')' | RULE_ID ) )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:40: ( '!' )? ( '(' (~ ( ')' ) )+ ')' | RULE_ID )
+            {
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:40: ( '!' )?
+            int alt3=2;
+            int LA3_0 = input.LA(1);
+
+            if ( (LA3_0=='!') ) {
+                alt3=1;
+            }
+            switch (alt3) {
+                case 1 :
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:40: '!'
+                    {
+                    match('!'); 
+
+                    }
+                    break;
+
+            }
+
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:45: ( '(' (~ ( ')' ) )+ ')' | RULE_ID )
+            int alt5=2;
+            int LA5_0 = input.LA(1);
+
+            if ( (LA5_0=='(') ) {
+                alt5=1;
+            }
+            else if ( (LA5_0=='$'||(LA5_0>='A' && LA5_0<='Z')||LA5_0=='_'||(LA5_0>='a' && LA5_0<='z')) ) {
+                alt5=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 5, 0, input);
+
+                throw nvae;
+            }
+            switch (alt5) {
+                case 1 :
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:46: '(' (~ ( ')' ) )+ ')'
+                    {
+                    match('('); 
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:50: (~ ( ')' ) )+
+                    int cnt4=0;
+                    loop4:
+                    do {
+                        int alt4=2;
+                        int LA4_0 = input.LA(1);
+
+                        if ( ((LA4_0>='\u0000' && LA4_0<='(')||(LA4_0>='*' && LA4_0<='\uFFFF')) ) {
+                            alt4=1;
+                        }
+
+
+                        switch (alt4) {
+                    	case 1 :
+                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:50: ~ ( ')' )
+                    	    {
+                    	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='(')||(input.LA(1)>='*' && input.LA(1)<='\uFFFF') ) {
+                    	        input.consume();
+
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;}
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt4 >= 1 ) break loop4;
+                                EarlyExitException eee =
+                                    new EarlyExitException(4, input);
+                                throw eee;
+                        }
+                        cnt4++;
+                    } while (true);
+
+                    match(')'); 
+
+                    }
+                    break;
+                case 2 :
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9460:62: RULE_ID
+                    {
+                    mRULE_ID(); 
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_CONDITIONAL_EXPRESSION"
+
+    // $ANTLR start "RULE_CONDITIONAL_END"
+    public final void mRULE_CONDITIONAL_END() throws RecognitionException {
+        try {
+            int _type = RULE_CONDITIONAL_END;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9462:22: ( '#end' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9462:24: '#end'
+            {
+            match("#end"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_CONDITIONAL_END"
 
     // $ANTLR start "RULE_ID"
     public final void mRULE_ID() throws RecognitionException {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7208:9: ( ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )* )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7208:11: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9464:9: ( ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )* )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9464:11: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
             {
             if ( input.LA(1)=='$'||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -2006,216 +2090,13 @@ public class InternalHaxeLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7208:39: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
-
-                if ( (LA2_0=='$'||(LA2_0>='0' && LA2_0<='9')||(LA2_0>='A' && LA2_0<='Z')||LA2_0=='_'||(LA2_0>='a' && LA2_0<='z')) ) {
-                    alt2=1;
-                }
-
-
-                switch (alt2) {
-            	case 1 :
-            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:
-            	    {
-            	    if ( input.LA(1)=='$'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop2;
-                }
-            } while (true);
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "RULE_ID"
-
-    // $ANTLR start "RULE_HEX"
-    public final void mRULE_HEX() throws RecognitionException {
-        try {
-            int _type = RULE_HEX;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7210:10: ( '0x' ( '0' .. '9' | 'A' .. 'F' )+ )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7210:12: '0x' ( '0' .. '9' | 'A' .. 'F' )+
-            {
-            match("0x"); 
-
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7210:17: ( '0' .. '9' | 'A' .. 'F' )+
-            int cnt3=0;
-            loop3:
-            do {
-                int alt3=2;
-                int LA3_0 = input.LA(1);
-
-                if ( ((LA3_0>='0' && LA3_0<='9')||(LA3_0>='A' && LA3_0<='F')) ) {
-                    alt3=1;
-                }
-
-
-                switch (alt3) {
-            	case 1 :
-            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:
-            	    {
-            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt3 >= 1 ) break loop3;
-                        EarlyExitException eee =
-                            new EarlyExitException(3, input);
-                        throw eee;
-                }
-                cnt3++;
-            } while (true);
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "RULE_HEX"
-
-    // $ANTLR start "RULE_INT"
-    public final void mRULE_INT() throws RecognitionException {
-        try {
-            int _type = RULE_INT;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7212:10: ( ( '0' .. '9' )+ )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7212:12: ( '0' .. '9' )+
-            {
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7212:12: ( '0' .. '9' )+
-            int cnt4=0;
-            loop4:
-            do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
-
-                if ( ((LA4_0>='0' && LA4_0<='9')) ) {
-                    alt4=1;
-                }
-
-
-                switch (alt4) {
-            	case 1 :
-            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7212:13: '0' .. '9'
-            	    {
-            	    matchRange('0','9'); 
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt4 >= 1 ) break loop4;
-                        EarlyExitException eee =
-                            new EarlyExitException(4, input);
-                        throw eee;
-                }
-                cnt4++;
-            } while (true);
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "RULE_INT"
-
-    // $ANTLR start "RULE_REGULAR_EXPRESSION"
-    public final void mRULE_REGULAR_EXPRESSION() throws RecognitionException {
-        try {
-            int _type = RULE_REGULAR_EXPRESSION;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7214:25: ( '~/' ( '\\\\/' | ~ ( '/' ) )+ '/' ( 'i' | 'g' | 'm' | 's' | 'u' )* )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7214:27: '~/' ( '\\\\/' | ~ ( '/' ) )+ '/' ( 'i' | 'g' | 'm' | 's' | 'u' )*
-            {
-            match("~/"); 
-
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7214:32: ( '\\\\/' | ~ ( '/' ) )+
-            int cnt5=0;
-            loop5:
-            do {
-                int alt5=3;
-                alt5 = dfa5.predict(input);
-                switch (alt5) {
-            	case 1 :
-            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7214:33: '\\\\/'
-            	    {
-            	    match("\\/"); 
-
-
-            	    }
-            	    break;
-            	case 2 :
-            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7214:39: ~ ( '/' )
-            	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='\uFFFF') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt5 >= 1 ) break loop5;
-                        EarlyExitException eee =
-                            new EarlyExitException(5, input);
-                        throw eee;
-                }
-                cnt5++;
-            } while (true);
-
-            match('/'); 
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7214:52: ( 'i' | 'g' | 'm' | 's' | 'u' )*
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9464:39: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
             loop6:
             do {
                 int alt6=2;
                 int LA6_0 = input.LA(1);
 
-                if ( (LA6_0=='g'||LA6_0=='i'||LA6_0=='m'||LA6_0=='s'||LA6_0=='u') ) {
+                if ( (LA6_0=='$'||(LA6_0>='0' && LA6_0<='9')||(LA6_0>='A' && LA6_0<='Z')||LA6_0=='_'||(LA6_0>='a' && LA6_0<='z')) ) {
                     alt6=1;
                 }
 
@@ -2224,7 +2105,7 @@ public class InternalHaxeLexer extends Lexer {
             	case 1 :
             	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:
             	    {
-            	    if ( input.LA(1)=='g'||input.LA(1)=='i'||input.LA(1)=='m'||input.LA(1)=='s'||input.LA(1)=='u' ) {
+            	    if ( input.LA(1)=='$'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
 
             	    }
@@ -2251,6 +2132,305 @@ public class InternalHaxeLexer extends Lexer {
         finally {
         }
     }
+    // $ANTLR end "RULE_ID"
+
+    // $ANTLR start "RULE_EXPONENT_FLOAT"
+    public final void mRULE_EXPONENT_FLOAT() throws RecognitionException {
+        try {
+            int _type = RULE_EXPONENT_FLOAT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9466:21: ( RULE_INT RULE_EXPONENT )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9466:23: RULE_INT RULE_EXPONENT
+            {
+            mRULE_INT(); 
+            mRULE_EXPONENT(); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_EXPONENT_FLOAT"
+
+    // $ANTLR start "RULE_EXPONENT"
+    public final void mRULE_EXPONENT() throws RecognitionException {
+        try {
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9468:24: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9468:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+            {
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9468:36: ( '+' | '-' )?
+            int alt7=2;
+            int LA7_0 = input.LA(1);
+
+            if ( (LA7_0=='+'||LA7_0=='-') ) {
+                alt7=1;
+            }
+            switch (alt7) {
+                case 1 :
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:
+                    {
+                    if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
+                        input.consume();
+
+                    }
+                    else {
+                        MismatchedSetException mse = new MismatchedSetException(null,input);
+                        recover(mse);
+                        throw mse;}
+
+
+                    }
+                    break;
+
+            }
+
+            mRULE_INT(); 
+
+            }
+
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_EXPONENT"
+
+    // $ANTLR start "RULE_HEX"
+    public final void mRULE_HEX() throws RecognitionException {
+        try {
+            int _type = RULE_HEX;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9470:10: ( '0' ( 'x' | 'X' ) ( RULE_HEX_DIGIT )+ )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9470:12: '0' ( 'x' | 'X' ) ( RULE_HEX_DIGIT )+
+            {
+            match('0'); 
+            if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9470:26: ( RULE_HEX_DIGIT )+
+            int cnt8=0;
+            loop8:
+            do {
+                int alt8=2;
+                int LA8_0 = input.LA(1);
+
+                if ( ((LA8_0>='0' && LA8_0<='9')||(LA8_0>='A' && LA8_0<='F')||(LA8_0>='a' && LA8_0<='f')) ) {
+                    alt8=1;
+                }
+
+
+                switch (alt8) {
+            	case 1 :
+            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9470:26: RULE_HEX_DIGIT
+            	    {
+            	    mRULE_HEX_DIGIT(); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt8 >= 1 ) break loop8;
+                        EarlyExitException eee =
+                            new EarlyExitException(8, input);
+                        throw eee;
+                }
+                cnt8++;
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_HEX"
+
+    // $ANTLR start "RULE_HEX_DIGIT"
+    public final void mRULE_HEX_DIGIT() throws RecognitionException {
+        try {
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9472:25: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9472:27: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            {
+            if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_HEX_DIGIT"
+
+    // $ANTLR start "RULE_INT"
+    public final void mRULE_INT() throws RecognitionException {
+        try {
+            int _type = RULE_INT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9474:10: ( ( '0' .. '9' )+ )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9474:12: ( '0' .. '9' )+
+            {
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9474:12: ( '0' .. '9' )+
+            int cnt9=0;
+            loop9:
+            do {
+                int alt9=2;
+                int LA9_0 = input.LA(1);
+
+                if ( ((LA9_0>='0' && LA9_0<='9')) ) {
+                    alt9=1;
+                }
+
+
+                switch (alt9) {
+            	case 1 :
+            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9474:13: '0' .. '9'
+            	    {
+            	    matchRange('0','9'); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt9 >= 1 ) break loop9;
+                        EarlyExitException eee =
+                            new EarlyExitException(9, input);
+                        throw eee;
+                }
+                cnt9++;
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_INT"
+
+    // $ANTLR start "RULE_REGULAR_EXPRESSION"
+    public final void mRULE_REGULAR_EXPRESSION() throws RecognitionException {
+        try {
+            int _type = RULE_REGULAR_EXPRESSION;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9476:25: ( '~/' ( '\\\\/' | ~ ( '/' ) )+ '/' ( 'i' | 'g' | 'm' | 's' | 'u' )* )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9476:27: '~/' ( '\\\\/' | ~ ( '/' ) )+ '/' ( 'i' | 'g' | 'm' | 's' | 'u' )*
+            {
+            match("~/"); 
+
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9476:32: ( '\\\\/' | ~ ( '/' ) )+
+            int cnt10=0;
+            loop10:
+            do {
+                int alt10=3;
+                alt10 = dfa10.predict(input);
+                switch (alt10) {
+            	case 1 :
+            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9476:33: '\\\\/'
+            	    {
+            	    match("\\/"); 
+
+
+            	    }
+            	    break;
+            	case 2 :
+            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9476:39: ~ ( '/' )
+            	    {
+            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='\uFFFF') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt10 >= 1 ) break loop10;
+                        EarlyExitException eee =
+                            new EarlyExitException(10, input);
+                        throw eee;
+                }
+                cnt10++;
+            } while (true);
+
+            match('/'); 
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9476:52: ( 'i' | 'g' | 'm' | 's' | 'u' )*
+            loop11:
+            do {
+                int alt11=2;
+                int LA11_0 = input.LA(1);
+
+                if ( (LA11_0=='g'||LA11_0=='i'||LA11_0=='m'||LA11_0=='s'||LA11_0=='u') ) {
+                    alt11=1;
+                }
+
+
+                switch (alt11) {
+            	case 1 :
+            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:
+            	    {
+            	    if ( input.LA(1)=='g'||input.LA(1)=='i'||input.LA(1)=='m'||input.LA(1)=='s'||input.LA(1)=='u' ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop11;
+                }
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
     // $ANTLR end "RULE_REGULAR_EXPRESSION"
 
     // $ANTLR start "RULE_STRING"
@@ -2258,47 +2438,47 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( (LA9_0=='\"') ) {
-                alt9=1;
+            if ( (LA14_0=='\"') ) {
+                alt14=1;
             }
-            else if ( (LA9_0=='\'') ) {
-                alt9=2;
+            else if ( (LA14_0=='\'') ) {
+                alt14=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 9, 0, input);
+                    new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
             }
-            switch (alt9) {
+            switch (alt14) {
                 case 1 :
-                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
-                    loop7:
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    loop12:
                     do {
-                        int alt7=3;
-                        int LA7_0 = input.LA(1);
+                        int alt12=3;
+                        int LA12_0 = input.LA(1);
 
-                        if ( (LA7_0=='\\') ) {
-                            alt7=1;
+                        if ( (LA12_0=='\\') ) {
+                            alt12=1;
                         }
-                        else if ( ((LA7_0>='\u0000' && LA7_0<='!')||(LA7_0>='#' && LA7_0<='[')||(LA7_0>=']' && LA7_0<='\uFFFF')) ) {
-                            alt7=2;
+                        else if ( ((LA12_0>='\u0000' && LA12_0<='!')||(LA12_0>='#' && LA12_0<='[')||(LA12_0>=']' && LA12_0<='\uFFFF')) ) {
+                            alt12=2;
                         }
 
 
-                        switch (alt7) {
+                        switch (alt12) {
                     	case 1 :
-                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2314,7 +2494,7 @@ public class InternalHaxeLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2330,7 +2510,7 @@ public class InternalHaxeLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop7;
+                    	    break loop12;
                         }
                     } while (true);
 
@@ -2339,26 +2519,26 @@ public class InternalHaxeLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
-                    loop8:
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    loop13:
                     do {
-                        int alt8=3;
-                        int LA8_0 = input.LA(1);
+                        int alt13=3;
+                        int LA13_0 = input.LA(1);
 
-                        if ( (LA8_0=='\\') ) {
-                            alt8=1;
+                        if ( (LA13_0=='\\') ) {
+                            alt13=1;
                         }
-                        else if ( ((LA8_0>='\u0000' && LA8_0<='&')||(LA8_0>='(' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFF')) ) {
-                            alt8=2;
+                        else if ( ((LA13_0>='\u0000' && LA13_0<='&')||(LA13_0>='(' && LA13_0<='[')||(LA13_0>=']' && LA13_0<='\uFFFF')) ) {
+                            alt13=2;
                         }
 
 
-                        switch (alt8) {
+                        switch (alt13) {
                     	case 1 :
-                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2374,7 +2554,7 @@ public class InternalHaxeLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7216:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9478:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2390,7 +2570,7 @@ public class InternalHaxeLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop8;
+                    	    break loop13;
                         }
                     } while (true);
 
@@ -2417,37 +2597,37 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7218:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7218:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9480:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9480:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7218:24: ( options {greedy=false; } : . )*
-            loop10:
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9480:24: ( options {greedy=false; } : . )*
+            loop15:
             do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
+                int alt15=2;
+                int LA15_0 = input.LA(1);
 
-                if ( (LA10_0=='*') ) {
-                    int LA10_1 = input.LA(2);
+                if ( (LA15_0=='*') ) {
+                    int LA15_1 = input.LA(2);
 
-                    if ( (LA10_1=='/') ) {
-                        alt10=2;
+                    if ( (LA15_1=='/') ) {
+                        alt15=2;
                     }
-                    else if ( ((LA10_1>='\u0000' && LA10_1<='.')||(LA10_1>='0' && LA10_1<='\uFFFF')) ) {
-                        alt10=1;
+                    else if ( ((LA15_1>='\u0000' && LA15_1<='.')||(LA15_1>='0' && LA15_1<='\uFFFF')) ) {
+                        alt15=1;
                     }
 
 
                 }
-                else if ( ((LA10_0>='\u0000' && LA10_0<=')')||(LA10_0>='+' && LA10_0<='\uFFFF')) ) {
-                    alt10=1;
+                else if ( ((LA15_0>='\u0000' && LA15_0<=')')||(LA15_0>='+' && LA15_0<='\uFFFF')) ) {
+                    alt15=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt15) {
             	case 1 :
-            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7218:52: .
+            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9480:52: .
             	    {
             	    matchAny(); 
 
@@ -2455,7 +2635,7 @@ public class InternalHaxeLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop10;
+            	    break loop15;
                 }
             } while (true);
 
@@ -2477,25 +2657,25 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7220:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7220:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9482:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9482:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7220:24: (~ ( ( '\\n' | '\\r' ) ) )*
-            loop11:
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9482:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            loop16:
             do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
+                int alt16=2;
+                int LA16_0 = input.LA(1);
 
-                if ( ((LA11_0>='\u0000' && LA11_0<='\t')||(LA11_0>='\u000B' && LA11_0<='\f')||(LA11_0>='\u000E' && LA11_0<='\uFFFF')) ) {
-                    alt11=1;
+                if ( ((LA16_0>='\u0000' && LA16_0<='\t')||(LA16_0>='\u000B' && LA16_0<='\f')||(LA16_0>='\u000E' && LA16_0<='\uFFFF')) ) {
+                    alt16=1;
                 }
 
 
-                switch (alt11) {
+                switch (alt16) {
             	case 1 :
-            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7220:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9482:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2511,31 +2691,31 @@ public class InternalHaxeLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop11;
+            	    break loop16;
                 }
             } while (true);
 
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7220:40: ( ( '\\r' )? '\\n' )?
-            int alt13=2;
-            int LA13_0 = input.LA(1);
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9482:40: ( ( '\\r' )? '\\n' )?
+            int alt18=2;
+            int LA18_0 = input.LA(1);
 
-            if ( (LA13_0=='\n'||LA13_0=='\r') ) {
-                alt13=1;
+            if ( (LA18_0=='\n'||LA18_0=='\r') ) {
+                alt18=1;
             }
-            switch (alt13) {
+            switch (alt18) {
                 case 1 :
-                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7220:41: ( '\\r' )? '\\n'
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9482:41: ( '\\r' )? '\\n'
                     {
-                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7220:41: ( '\\r' )?
-                    int alt12=2;
-                    int LA12_0 = input.LA(1);
+                    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9482:41: ( '\\r' )?
+                    int alt17=2;
+                    int LA17_0 = input.LA(1);
 
-                    if ( (LA12_0=='\r') ) {
-                        alt12=1;
+                    if ( (LA17_0=='\r') ) {
+                        alt17=1;
                     }
-                    switch (alt12) {
+                    switch (alt17) {
                         case 1 :
-                            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7220:41: '\\r'
+                            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9482:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2567,22 +2747,22 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7222:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7222:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9484:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9484:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7222:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
-            int cnt14=0;
-            loop14:
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9484:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            int cnt19=0;
+            loop19:
             do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
+                int alt19=2;
+                int LA19_0 = input.LA(1);
 
-                if ( ((LA14_0>='\t' && LA14_0<='\n')||LA14_0=='\r'||LA14_0==' ') ) {
-                    alt14=1;
+                if ( ((LA19_0>='\t' && LA19_0<='\n')||LA19_0=='\r'||LA19_0==' ') ) {
+                    alt19=1;
                 }
 
 
-                switch (alt14) {
+                switch (alt19) {
             	case 1 :
             	    // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:
             	    {
@@ -2600,12 +2780,12 @@ public class InternalHaxeLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt14 >= 1 ) break loop14;
+            	    if ( cnt19 >= 1 ) break loop19;
                         EarlyExitException eee =
-                            new EarlyExitException(14, input);
+                            new EarlyExitException(19, input);
                         throw eee;
                 }
-                cnt14++;
+                cnt19++;
             } while (true);
 
 
@@ -2624,8 +2804,8 @@ public class InternalHaxeLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7224:16: ( . )
-            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:7224:18: .
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9486:16: ( . )
+            // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:9486:18: .
             {
             matchAny(); 
 
@@ -2640,691 +2820,684 @@ public class InternalHaxeLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | RULE_EFLOAT | RULE_ID | RULE_HEX | RULE_INT | RULE_REGULAR_EXPRESSION | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt15=98;
-        alt15 = dfa15.predict(input);
-        switch (alt15) {
+        // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:8: ( T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | RULE_CONDITIONAL_IF | RULE_CONDITIONAL_ELSE | RULE_CONDITIONAL_ELSE_IF | RULE_CONDITIONAL_END | RULE_ID | RULE_EXPONENT_FLOAT | RULE_HEX | RULE_INT | RULE_REGULAR_EXPRESSION | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt20=97;
+        alt20 = dfa20.predict(input);
+        switch (alt20) {
             case 1 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:10: T__14
-                {
-                mT__14(); 
-
-                }
-                break;
-            case 2 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:16: T__15
-                {
-                mT__15(); 
-
-                }
-                break;
-            case 3 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:22: T__16
-                {
-                mT__16(); 
-
-                }
-                break;
-            case 4 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:28: T__17
-                {
-                mT__17(); 
-
-                }
-                break;
-            case 5 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:34: T__18
-                {
-                mT__18(); 
-
-                }
-                break;
-            case 6 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:40: T__19
-                {
-                mT__19(); 
-
-                }
-                break;
-            case 7 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:46: T__20
-                {
-                mT__20(); 
-
-                }
-                break;
-            case 8 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:52: T__21
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:10: T__21
                 {
                 mT__21(); 
 
                 }
                 break;
-            case 9 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:58: T__22
+            case 2 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:16: T__22
                 {
                 mT__22(); 
 
                 }
                 break;
-            case 10 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:64: T__23
+            case 3 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:22: T__23
                 {
                 mT__23(); 
 
                 }
                 break;
-            case 11 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:70: T__24
+            case 4 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:28: T__24
                 {
                 mT__24(); 
 
                 }
                 break;
-            case 12 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:76: T__25
+            case 5 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:34: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
-            case 13 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:82: T__26
+            case 6 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:40: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
-            case 14 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:88: T__27
+            case 7 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:46: T__27
                 {
                 mT__27(); 
 
                 }
                 break;
-            case 15 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:94: T__28
+            case 8 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:52: T__28
                 {
                 mT__28(); 
 
                 }
                 break;
-            case 16 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:100: T__29
+            case 9 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:58: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
-            case 17 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:106: T__30
+            case 10 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:64: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
-            case 18 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:112: T__31
+            case 11 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:70: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
-            case 19 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:118: T__32
+            case 12 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:76: T__32
                 {
                 mT__32(); 
 
                 }
                 break;
-            case 20 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:124: T__33
+            case 13 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:82: T__33
                 {
                 mT__33(); 
 
                 }
                 break;
-            case 21 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:130: T__34
+            case 14 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:88: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
-            case 22 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:136: T__35
+            case 15 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:94: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
-            case 23 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:142: T__36
+            case 16 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:100: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
-            case 24 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:148: T__37
+            case 17 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:106: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
-            case 25 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:154: T__38
+            case 18 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:112: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
-            case 26 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:160: T__39
+            case 19 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:118: T__39
                 {
                 mT__39(); 
 
                 }
                 break;
-            case 27 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:166: T__40
+            case 20 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:124: T__40
                 {
                 mT__40(); 
 
                 }
                 break;
-            case 28 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:172: T__41
+            case 21 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:130: T__41
                 {
                 mT__41(); 
 
                 }
                 break;
-            case 29 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:178: T__42
+            case 22 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:136: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
-            case 30 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:184: T__43
+            case 23 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:142: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
-            case 31 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:190: T__44
+            case 24 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:148: T__44
                 {
                 mT__44(); 
 
                 }
                 break;
-            case 32 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:196: T__45
+            case 25 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:154: T__45
                 {
                 mT__45(); 
 
                 }
                 break;
-            case 33 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:202: T__46
+            case 26 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:160: T__46
                 {
                 mT__46(); 
 
                 }
                 break;
-            case 34 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:208: T__47
+            case 27 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:166: T__47
                 {
                 mT__47(); 
 
                 }
                 break;
-            case 35 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:214: T__48
+            case 28 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:172: T__48
                 {
                 mT__48(); 
 
                 }
                 break;
-            case 36 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:220: T__49
+            case 29 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:178: T__49
                 {
                 mT__49(); 
 
                 }
                 break;
-            case 37 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:226: T__50
+            case 30 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:184: T__50
                 {
                 mT__50(); 
 
                 }
                 break;
-            case 38 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:232: T__51
+            case 31 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:190: T__51
                 {
                 mT__51(); 
 
                 }
                 break;
-            case 39 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:238: T__52
+            case 32 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:196: T__52
                 {
                 mT__52(); 
 
                 }
                 break;
-            case 40 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:244: T__53
+            case 33 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:202: T__53
                 {
                 mT__53(); 
 
                 }
                 break;
-            case 41 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:250: T__54
+            case 34 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:208: T__54
                 {
                 mT__54(); 
 
                 }
                 break;
-            case 42 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:256: T__55
+            case 35 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:214: T__55
                 {
                 mT__55(); 
 
                 }
                 break;
-            case 43 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:262: T__56
+            case 36 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:220: T__56
                 {
                 mT__56(); 
 
                 }
                 break;
-            case 44 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:268: T__57
+            case 37 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:226: T__57
                 {
                 mT__57(); 
 
                 }
                 break;
-            case 45 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:274: T__58
+            case 38 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:232: T__58
                 {
                 mT__58(); 
 
                 }
                 break;
-            case 46 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:280: T__59
+            case 39 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:238: T__59
                 {
                 mT__59(); 
 
                 }
                 break;
-            case 47 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:286: T__60
+            case 40 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:244: T__60
                 {
                 mT__60(); 
 
                 }
                 break;
-            case 48 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:292: T__61
+            case 41 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:250: T__61
                 {
                 mT__61(); 
 
                 }
                 break;
-            case 49 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:298: T__62
+            case 42 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:256: T__62
                 {
                 mT__62(); 
 
                 }
                 break;
-            case 50 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:304: T__63
+            case 43 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:262: T__63
                 {
                 mT__63(); 
 
                 }
                 break;
-            case 51 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:310: T__64
+            case 44 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:268: T__64
                 {
                 mT__64(); 
 
                 }
                 break;
-            case 52 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:316: T__65
+            case 45 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:274: T__65
                 {
                 mT__65(); 
 
                 }
                 break;
-            case 53 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:322: T__66
+            case 46 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:280: T__66
                 {
                 mT__66(); 
 
                 }
                 break;
-            case 54 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:328: T__67
+            case 47 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:286: T__67
                 {
                 mT__67(); 
 
                 }
                 break;
-            case 55 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:334: T__68
+            case 48 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:292: T__68
                 {
                 mT__68(); 
 
                 }
                 break;
-            case 56 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:340: T__69
+            case 49 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:298: T__69
                 {
                 mT__69(); 
 
                 }
                 break;
-            case 57 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:346: T__70
+            case 50 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:304: T__70
                 {
                 mT__70(); 
 
                 }
                 break;
-            case 58 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:352: T__71
+            case 51 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:310: T__71
                 {
                 mT__71(); 
 
                 }
                 break;
-            case 59 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:358: T__72
+            case 52 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:316: T__72
                 {
                 mT__72(); 
 
                 }
                 break;
-            case 60 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:364: T__73
+            case 53 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:322: T__73
                 {
                 mT__73(); 
 
                 }
                 break;
-            case 61 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:370: T__74
+            case 54 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:328: T__74
                 {
                 mT__74(); 
 
                 }
                 break;
-            case 62 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:376: T__75
+            case 55 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:334: T__75
                 {
                 mT__75(); 
 
                 }
                 break;
-            case 63 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:382: T__76
+            case 56 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:340: T__76
                 {
                 mT__76(); 
 
                 }
                 break;
-            case 64 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:388: T__77
+            case 57 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:346: T__77
                 {
                 mT__77(); 
 
                 }
                 break;
-            case 65 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:394: T__78
+            case 58 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:352: T__78
                 {
                 mT__78(); 
 
                 }
                 break;
-            case 66 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:400: T__79
+            case 59 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:358: T__79
                 {
                 mT__79(); 
 
                 }
                 break;
-            case 67 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:406: T__80
+            case 60 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:364: T__80
                 {
                 mT__80(); 
 
                 }
                 break;
-            case 68 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:412: T__81
+            case 61 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:370: T__81
                 {
                 mT__81(); 
 
                 }
                 break;
-            case 69 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:418: T__82
+            case 62 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:376: T__82
                 {
                 mT__82(); 
 
                 }
                 break;
-            case 70 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:424: T__83
+            case 63 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:382: T__83
                 {
                 mT__83(); 
 
                 }
                 break;
-            case 71 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:430: T__84
+            case 64 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:388: T__84
                 {
                 mT__84(); 
 
                 }
                 break;
-            case 72 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:436: T__85
+            case 65 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:394: T__85
                 {
                 mT__85(); 
 
                 }
                 break;
-            case 73 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:442: T__86
+            case 66 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:400: T__86
                 {
                 mT__86(); 
 
                 }
                 break;
-            case 74 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:448: T__87
+            case 67 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:406: T__87
                 {
                 mT__87(); 
 
                 }
                 break;
-            case 75 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:454: T__88
+            case 68 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:412: T__88
                 {
                 mT__88(); 
 
                 }
                 break;
-            case 76 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:460: T__89
+            case 69 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:418: T__89
                 {
                 mT__89(); 
 
                 }
                 break;
-            case 77 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:466: T__90
+            case 70 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:424: T__90
                 {
                 mT__90(); 
 
                 }
                 break;
-            case 78 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:472: T__91
+            case 71 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:430: T__91
                 {
                 mT__91(); 
 
                 }
                 break;
-            case 79 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:478: T__92
+            case 72 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:436: T__92
                 {
                 mT__92(); 
 
                 }
                 break;
-            case 80 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:484: T__93
+            case 73 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:442: T__93
                 {
                 mT__93(); 
 
                 }
                 break;
-            case 81 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:490: T__94
+            case 74 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:448: T__94
                 {
                 mT__94(); 
 
                 }
                 break;
-            case 82 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:496: T__95
+            case 75 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:454: T__95
                 {
                 mT__95(); 
 
                 }
                 break;
-            case 83 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:502: T__96
+            case 76 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:460: T__96
                 {
                 mT__96(); 
 
                 }
                 break;
-            case 84 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:508: T__97
+            case 77 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:466: T__97
                 {
                 mT__97(); 
 
                 }
                 break;
-            case 85 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:514: T__98
+            case 78 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:472: T__98
                 {
                 mT__98(); 
 
                 }
                 break;
-            case 86 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:520: T__99
+            case 79 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:478: T__99
                 {
                 mT__99(); 
 
                 }
                 break;
-            case 87 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:526: T__100
+            case 80 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:484: T__100
                 {
                 mT__100(); 
 
                 }
                 break;
-            case 88 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:533: T__101
+            case 81 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:491: T__101
                 {
                 mT__101(); 
 
                 }
                 break;
-            case 89 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:540: RULE_EFLOAT
+            case 82 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:498: T__102
                 {
-                mRULE_EFLOAT(); 
+                mT__102(); 
 
                 }
                 break;
-            case 90 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:552: RULE_ID
+            case 83 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:505: T__103
+                {
+                mT__103(); 
+
+                }
+                break;
+            case 84 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:512: RULE_CONDITIONAL_IF
+                {
+                mRULE_CONDITIONAL_IF(); 
+
+                }
+                break;
+            case 85 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:532: RULE_CONDITIONAL_ELSE
+                {
+                mRULE_CONDITIONAL_ELSE(); 
+
+                }
+                break;
+            case 86 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:554: RULE_CONDITIONAL_ELSE_IF
+                {
+                mRULE_CONDITIONAL_ELSE_IF(); 
+
+                }
+                break;
+            case 87 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:579: RULE_CONDITIONAL_END
+                {
+                mRULE_CONDITIONAL_END(); 
+
+                }
+                break;
+            case 88 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:600: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 91 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:560: RULE_HEX
+            case 89 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:608: RULE_EXPONENT_FLOAT
+                {
+                mRULE_EXPONENT_FLOAT(); 
+
+                }
+                break;
+            case 90 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:628: RULE_HEX
                 {
                 mRULE_HEX(); 
 
                 }
                 break;
-            case 92 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:569: RULE_INT
+            case 91 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:637: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 93 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:578: RULE_REGULAR_EXPRESSION
+            case 92 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:646: RULE_REGULAR_EXPRESSION
                 {
                 mRULE_REGULAR_EXPRESSION(); 
 
                 }
                 break;
-            case 94 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:602: RULE_STRING
+            case 93 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:670: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 95 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:614: RULE_ML_COMMENT
+            case 94 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:682: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 96 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:630: RULE_SL_COMMENT
+            case 95 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:698: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 97 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:646: RULE_WS
+            case 96 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:714: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 98 :
-                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:654: RULE_ANY_OTHER
+            case 97 :
+                // ../ee.xtext.haxe/src-gen/ee/xtext/haxe/parser/antlr/internal/InternalHaxe.g:1:722: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -3336,21 +3509,21 @@ public class InternalHaxeLexer extends Lexer {
     }
 
 
-    protected DFA5 dfa5 = new DFA5(this);
-    protected DFA15 dfa15 = new DFA15(this);
-    static final String DFA5_eotS =
+    protected DFA10 dfa10 = new DFA10(this);
+    protected DFA20 dfa20 = new DFA20(this);
+    static final String DFA10_eotS =
         "\4\uffff\2\3\1\uffff";
-    static final String DFA5_eofS =
+    static final String DFA10_eofS =
         "\7\uffff";
-    static final String DFA5_minS =
+    static final String DFA10_minS =
         "\1\0\1\uffff\1\0\1\uffff\2\0\1\uffff";
-    static final String DFA5_maxS =
+    static final String DFA10_maxS =
         "\1\uffff\1\uffff\1\uffff\1\uffff\2\uffff\1\uffff";
-    static final String DFA5_acceptS =
+    static final String DFA10_acceptS =
         "\1\uffff\1\3\1\uffff\1\2\2\uffff\1\1";
-    static final String DFA5_specialS =
-        "\1\3\1\uffff\1\2\1\uffff\1\1\1\0\1\uffff}>";
-    static final String[] DFA5_transitionS = {
+    static final String DFA10_specialS =
+        "\1\1\1\uffff\1\3\1\uffff\1\2\1\0\1\uffff}>";
+    static final String[] DFA10_transitionS = {
             "\57\3\1\1\54\3\1\2\uffa3\3",
             "",
             "\57\3\1\4\uffd0\3",
@@ -3360,218 +3533,220 @@ public class InternalHaxeLexer extends Lexer {
             ""
     };
 
-    static final short[] DFA5_eot = DFA.unpackEncodedString(DFA5_eotS);
-    static final short[] DFA5_eof = DFA.unpackEncodedString(DFA5_eofS);
-    static final char[] DFA5_min = DFA.unpackEncodedStringToUnsignedChars(DFA5_minS);
-    static final char[] DFA5_max = DFA.unpackEncodedStringToUnsignedChars(DFA5_maxS);
-    static final short[] DFA5_accept = DFA.unpackEncodedString(DFA5_acceptS);
-    static final short[] DFA5_special = DFA.unpackEncodedString(DFA5_specialS);
-    static final short[][] DFA5_transition;
+    static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+    static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+    static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+    static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+    static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+    static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+    static final short[][] DFA10_transition;
 
     static {
-        int numStates = DFA5_transitionS.length;
-        DFA5_transition = new short[numStates][];
+        int numStates = DFA10_transitionS.length;
+        DFA10_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA5_transition[i] = DFA.unpackEncodedString(DFA5_transitionS[i]);
+            DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
         }
     }
 
-    class DFA5 extends DFA {
+    class DFA10 extends DFA {
 
-        public DFA5(BaseRecognizer recognizer) {
+        public DFA10(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 5;
-            this.eot = DFA5_eot;
-            this.eof = DFA5_eof;
-            this.min = DFA5_min;
-            this.max = DFA5_max;
-            this.accept = DFA5_accept;
-            this.special = DFA5_special;
-            this.transition = DFA5_transition;
+            this.decisionNumber = 10;
+            this.eot = DFA10_eot;
+            this.eof = DFA10_eof;
+            this.min = DFA10_min;
+            this.max = DFA10_max;
+            this.accept = DFA10_accept;
+            this.special = DFA10_special;
+            this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "()+ loopback of 7214:32: ( '\\\\/' | ~ ( '/' ) )+";
+            return "()+ loopback of 9476:32: ( '\\\\/' | ~ ( '/' ) )+";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA5_5 = input.LA(1);
+                        int LA10_5 = input.LA(1);
 
                         s = -1;
-                        if ( (LA5_5=='g'||LA5_5=='i'||LA5_5=='m'||LA5_5=='s'||LA5_5=='u') ) {s = 5;}
+                        if ( (LA10_5=='g'||LA10_5=='i'||LA10_5=='m'||LA10_5=='s'||LA10_5=='u') ) {s = 5;}
 
-                        else if ( ((LA5_5>='\u0000' && LA5_5<='f')||LA5_5=='h'||(LA5_5>='j' && LA5_5<='l')||(LA5_5>='n' && LA5_5<='r')||LA5_5=='t'||(LA5_5>='v' && LA5_5<='\uFFFF')) ) {s = 6;}
+                        else if ( ((LA10_5>='\u0000' && LA10_5<='f')||LA10_5=='h'||(LA10_5>='j' && LA10_5<='l')||(LA10_5>='n' && LA10_5<='r')||LA10_5=='t'||(LA10_5>='v' && LA10_5<='\uFFFF')) ) {s = 6;}
 
                         else s = 3;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA5_4 = input.LA(1);
+                        int LA10_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA5_4=='g'||LA5_4=='i'||LA5_4=='m'||LA5_4=='s'||LA5_4=='u') ) {s = 5;}
+                        if ( (LA10_0=='/') ) {s = 1;}
 
-                        else if ( ((LA5_4>='\u0000' && LA5_4<='f')||LA5_4=='h'||(LA5_4>='j' && LA5_4<='l')||(LA5_4>='n' && LA5_4<='r')||LA5_4=='t'||(LA5_4>='v' && LA5_4<='\uFFFF')) ) {s = 6;}
+                        else if ( (LA10_0=='\\') ) {s = 2;}
+
+                        else if ( ((LA10_0>='\u0000' && LA10_0<='.')||(LA10_0>='0' && LA10_0<='[')||(LA10_0>=']' && LA10_0<='\uFFFF')) ) {s = 3;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA10_4 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA10_4=='g'||LA10_4=='i'||LA10_4=='m'||LA10_4=='s'||LA10_4=='u') ) {s = 5;}
+
+                        else if ( ((LA10_4>='\u0000' && LA10_4<='f')||LA10_4=='h'||(LA10_4>='j' && LA10_4<='l')||(LA10_4>='n' && LA10_4<='r')||LA10_4=='t'||(LA10_4>='v' && LA10_4<='\uFFFF')) ) {s = 6;}
 
                         else s = 3;
 
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
-                        int LA5_2 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA5_2=='/') ) {s = 4;}
-
-                        else if ( ((LA5_2>='\u0000' && LA5_2<='.')||(LA5_2>='0' && LA5_2<='\uFFFF')) ) {s = 3;}
-
-                        if ( s>=0 ) return s;
-                        break;
                     case 3 : 
-                        int LA5_0 = input.LA(1);
+                        int LA10_2 = input.LA(1);
 
                         s = -1;
-                        if ( (LA5_0=='/') ) {s = 1;}
+                        if ( (LA10_2=='/') ) {s = 4;}
 
-                        else if ( (LA5_0=='\\') ) {s = 2;}
-
-                        else if ( ((LA5_0>='\u0000' && LA5_0<='.')||(LA5_0>='0' && LA5_0<='[')||(LA5_0>=']' && LA5_0<='\uFFFF')) ) {s = 3;}
+                        else if ( ((LA10_2>='\u0000' && LA10_2<='.')||(LA10_2>='0' && LA10_2<='\uFFFF')) ) {s = 3;}
 
                         if ( s>=0 ) return s;
                         break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 5, _s, input);
+                new NoViableAltException(getDescription(), 10, _s, input);
             error(nvae);
             throw nvae;
         }
     }
-    static final String DFA15_eotS =
-        "\1\uffff\1\62\1\uffff\4\62\5\uffff\1\62\1\107\1\112\1\115\1\uffff"+
-        "\4\62\1\133\1\62\1\uffff\1\62\1\143\1\146\1\150\1\154\1\156\1\161"+
-        "\1\164\1\166\1\170\1\172\2\uffff\3\62\1\u0081\1\uffff\1\u0081\2"+
-        "\56\2\uffff\3\62\2\uffff\1\62\1\u008c\1\u008d\7\62\5\uffff\3\62"+
-        "\2\uffff\1\u009d\2\uffff\1\u009f\3\uffff\3\62\1\u00a3\6\62\3\uffff"+
-        "\3\62\1\uffff\1\62\34\uffff\3\62\3\uffff\1\u0081\2\uffff\6\62\2"+
-        "\uffff\13\62\1\u00c4\1\62\1\uffff\1\u00c7\3\uffff\1\u00c8\2\62\1"+
-        "\uffff\2\62\1\u00cd\2\62\1\u00d0\23\62\1\u00e4\1\62\1\u00e6\1\u00e7"+
-        "\1\62\1\u00e9\1\62\1\uffff\1\u00eb\3\uffff\2\62\1\u00ee\1\62\1\uffff"+
-        "\2\62\1\uffff\17\62\1\u0101\1\u0102\1\62\1\u0104\1\uffff\1\62\2"+
-        "\uffff\1\62\1\uffff\1\u0107\1\uffff\2\62\1\uffff\1\u010a\1\62\1"+
-        "\u010c\1\u010d\1\u010e\3\62\1\u0112\1\62\1\u0114\2\62\1\u0117\1"+
-        "\u0118\2\62\1\u011b\2\uffff\1\62\1\uffff\2\62\1\uffff\2\62\1\uffff"+
-        "\1\62\3\uffff\1\u0122\1\u0123\1\62\1\uffff\1\u0125\1\uffff\1\u0126"+
-        "\1\u0127\2\uffff\2\62\1\uffff\1\62\1\u012b\1\u012c\1\u012d\1\u012e"+
-        "\1\62\2\uffff\1\62\3\uffff\2\62\1\u0133\4\uffff\1\u0134\1\u0135"+
-        "\1\62\1\u0137\3\uffff\1\u0138\2\uffff";
-    static final String DFA15_eofS =
-        "\u0139\uffff";
-    static final String DFA15_minS =
-        "\1\0\1\141\1\uffff\1\146\1\163\1\141\1\154\5\uffff\1\150\2\75\1"+
-        "\74\1\uffff\1\141\2\145\1\141\1\52\1\164\1\uffff\1\166\1\53\1\55"+
-        "\1\75\1\52\1\75\1\46\3\75\1\57\2\uffff\1\150\1\145\1\162\1\60\1"+
-        "\uffff\1\60\2\0\2\uffff\1\143\1\151\1\142\2\uffff\1\160\2\44\1\151"+
-        "\1\141\1\156\1\163\1\164\1\165\1\163\5\uffff\1\160\1\151\1\165\2"+
-        "\uffff\1\75\2\uffff\1\75\3\uffff\1\162\1\146\1\156\1\44\1\154\1"+
-        "\166\2\156\1\162\1\154\3\uffff\1\160\1\141\1\151\1\uffff\1\145\34"+
-        "\uffff\1\151\1\164\1\145\3\uffff\1\60\2\uffff\1\153\1\166\2\154"+
-        "\1\145\1\151\2\uffff\1\156\1\163\1\164\1\143\2\145\1\155\2\145\1"+
-        "\163\1\157\1\44\1\145\1\uffff\1\75\3\uffff\1\44\2\141\1\uffff\1"+
-        "\154\1\145\1\44\1\143\1\141\1\44\1\163\1\145\2\164\1\162\1\154\1"+
-        "\165\3\141\1\151\1\162\1\145\1\162\1\156\1\147\1\163\1\151\1\150"+
-        "\1\44\1\156\2\44\1\144\1\44\1\167\1\uffff\1\44\3\uffff\1\165\1\155"+
-        "\1\44\1\162\1\uffff\1\164\1\154\1\uffff\1\145\1\162\1\151\1\143"+
-        "\1\162\1\145\1\162\1\153\1\147\1\164\1\143\1\164\1\155\1\146\1\145"+
-        "\2\44\1\156\1\44\1\uffff\1\144\2\uffff\1\145\1\uffff\1\44\1\uffff"+
-        "\1\154\1\151\1\uffff\1\44\1\151\3\44\1\143\1\150\1\151\1\44\1\156"+
-        "\1\44\2\145\2\44\1\145\1\141\1\44\2\uffff\1\165\1\uffff\1\163\1"+
-        "\146\1\uffff\1\164\1\143\1\uffff\1\157\3\uffff\2\44\1\144\1\uffff"+
-        "\1\44\1\uffff\2\44\2\uffff\1\156\1\143\1\uffff\1\145\4\44\1\156"+
-        "\2\uffff\1\145\3\uffff\1\164\1\145\1\44\4\uffff\2\44\1\163\1\44"+
-        "\3\uffff\1\44\2\uffff";
-    static final String DFA15_maxS =
-        "\1\uffff\1\165\1\uffff\1\156\1\163\1\157\1\170\5\uffff\1\171\1"+
-        "\75\1\76\1\75\1\uffff\1\141\1\171\2\165\1\56\1\167\1\uffff\1\166"+
-        "\6\75\1\174\2\75\1\57\2\uffff\1\150\1\145\1\162\1\170\1\uffff\1"+
-        "\145\2\uffff\2\uffff\1\143\1\151\1\142\2\uffff\1\160\2\172\1\151"+
-        "\1\141\1\156\2\164\1\165\1\163\5\uffff\1\160\1\162\1\171\2\uffff"+
-        "\1\76\2\uffff\1\75\3\uffff\1\162\1\146\1\156\1\172\1\154\1\167\2"+
-        "\156\1\162\1\154\3\uffff\1\160\1\141\1\151\1\uffff\1\145\34\uffff"+
-        "\1\151\1\164\1\145\3\uffff\1\145\2\uffff\1\153\1\166\1\154\1\157"+
-        "\1\145\1\151\2\uffff\1\156\1\163\1\164\1\143\2\145\1\155\2\145\1"+
-        "\163\1\157\1\172\1\145\1\uffff\1\75\3\uffff\1\172\2\141\1\uffff"+
-        "\1\154\1\145\1\172\1\143\1\141\1\172\1\163\1\145\2\164\1\162\1\154"+
-        "\1\165\3\141\1\151\1\162\1\145\1\162\1\156\1\147\1\163\1\151\1\150"+
-        "\1\172\1\156\2\172\1\144\1\172\1\167\1\uffff\1\172\3\uffff\1\165"+
-        "\1\155\1\172\1\162\1\uffff\1\164\1\154\1\uffff\1\145\1\162\1\151"+
-        "\1\143\1\162\1\145\1\162\1\153\1\147\1\164\1\143\1\164\1\155\1\146"+
-        "\1\145\2\172\1\156\1\172\1\uffff\1\144\2\uffff\1\145\1\uffff\1\172"+
-        "\1\uffff\1\154\1\151\1\uffff\1\172\1\151\3\172\1\143\1\150\1\151"+
-        "\1\172\1\156\1\172\2\145\2\172\1\145\1\141\1\172\2\uffff\1\165\1"+
-        "\uffff\1\163\1\146\1\uffff\1\164\1\143\1\uffff\1\157\3\uffff\2\172"+
-        "\1\144\1\uffff\1\172\1\uffff\2\172\2\uffff\1\156\1\143\1\uffff\1"+
-        "\145\4\172\1\156\2\uffff\1\145\3\uffff\1\164\1\145\1\172\4\uffff"+
-        "\2\172\1\163\1\172\3\uffff\1\172\2\uffff";
-    static final String DFA15_acceptS =
-        "\2\uffff\1\2\4\uffff\1\10\1\12\1\13\1\16\1\17\4\uffff\1\24\6\uffff"+
-        "\1\40\13\uffff\1\106\1\107\4\uffff\1\132\3\uffff\1\141\1\142\3\uffff"+
-        "\1\132\1\2\12\uffff\1\10\1\12\1\13\1\16\1\17\3\uffff\1\63\1\21\1"+
-        "\uffff\1\65\1\22\1\uffff\1\66\1\23\1\24\12\uffff\1\34\1\62\1\35"+
-        "\3\uffff\1\40\1\uffff\1\45\1\104\1\75\1\46\1\105\1\76\1\47\1\77"+
-        "\1\50\1\137\1\140\1\100\1\51\1\101\1\52\1\61\1\70\1\53\1\60\1\67"+
-        "\1\54\1\71\1\64\1\102\1\135\1\103\1\106\1\107\3\uffff\1\133\1\134"+
-        "\1\131\1\uffff\1\136\1\141\6\uffff\1\115\1\110\15\uffff\1\56\1\uffff"+
-        "\1\73\1\55\1\72\3\uffff\1\113\40\uffff\1\122\1\uffff\1\57\1\74\1"+
-        "\25\4\uffff\1\33\2\uffff\1\114\23\uffff\1\125\1\uffff\1\15\1\111"+
-        "\1\uffff\1\37\1\uffff\1\127\2\uffff\1\27\22\uffff\1\4\1\6\1\uffff"+
-        "\1\123\2\uffff\1\121\2\uffff\1\31\1\uffff\1\42\1\126\1\36\3\uffff"+
-        "\1\112\1\uffff\1\117\2\uffff\1\130\1\3\2\uffff\1\44\6\uffff\1\41"+
-        "\1\124\1\uffff\1\116\1\1\1\5\3\uffff\1\7\1\20\1\26\1\30\4\uffff"+
-        "\1\120\1\32\1\43\1\uffff\1\14\1\11";
-    static final String DFA15_specialS =
-        "\1\1\52\uffff\1\0\1\2\u010c\uffff}>";
-    static final String[] DFA15_transitionS = {
-            "\11\56\2\55\2\56\1\55\22\56\1\55\1\41\1\53\1\56\1\51\1\35\1"+
-            "\36\1\54\1\12\1\13\1\33\1\31\1\7\1\32\1\25\1\34\1\50\11\52\1"+
-            "\20\1\2\1\17\1\15\1\16\1\27\1\56\32\51\1\43\1\56\1\44\1\40\1"+
-            "\51\1\56\1\51\1\47\1\5\1\22\1\6\1\24\2\51\1\3\4\51\1\23\1\30"+
-            "\1\1\1\51\1\46\1\26\1\14\1\4\1\21\1\45\3\51\1\10\1\37\1\11\1"+
-            "\42\uff81\56",
-            "\1\57\20\uffff\1\60\2\uffff\1\61",
+    static final String DFA20_eotS =
+        "\1\uffff\1\64\1\uffff\4\64\3\uffff\1\64\1\110\5\uffff\1\121\1\uffff"+
+        "\4\64\1\uffff\2\64\1\143\1\145\1\151\1\153\1\156\1\161\1\163\1\166"+
+        "\1\170\1\172\2\uffff\3\64\1\60\1\uffff\2\u0083\2\60\2\uffff\3\64"+
+        "\2\uffff\1\64\1\u008e\1\u008f\10\64\3\uffff\3\64\14\uffff\10\64"+
+        "\1\u00a5\1\64\1\uffff\3\64\34\uffff\3\64\4\uffff\1\u0083\3\uffff"+
+        "\6\64\2\uffff\12\64\1\u00c2\7\64\1\u00ca\2\64\1\uffff\1\64\1\u00ce"+
+        "\2\64\1\u00d1\3\64\2\uffff\12\64\1\u00e0\1\u00e1\3\64\1\u00e6\1"+
+        "\u00e7\1\64\1\uffff\1\64\1\u00ea\5\64\1\uffff\3\64\1\uffff\1\64"+
+        "\1\u00f4\1\uffff\3\64\1\uffff\7\64\1\u0100\1\64\1\u0102\2\uffff"+
+        "\1\u0103\3\64\2\uffff\1\64\1\u0108\1\uffff\2\64\1\u010b\1\u010c"+
+        "\4\64\1\u0111\1\uffff\1\u0112\1\64\1\u0114\1\u0116\2\64\1\u0119"+
+        "\1\u011a\2\64\1\u011d\1\uffff\1\64\2\uffff\2\64\1\u0121\1\64\1\uffff"+
+        "\1\u0123\1\u0124\2\uffff\4\64\2\uffff\1\u0129\3\uffff\1\u012a\1"+
+        "\u012b\2\uffff\2\64\1\uffff\1\u012e\1\64\1\u0130\1\uffff\1\u0131"+
+        "\2\uffff\1\64\1\u0133\1\u0134\1\64\3\uffff\2\64\1\uffff\1\u0138"+
+        "\2\uffff\1\u0139\2\uffff\1\u013a\1\64\1\u013c\3\uffff\1\u013d\2"+
+        "\uffff";
+    static final String DFA20_eofS =
+        "\u013e\uffff";
+    static final String DFA20_minS =
+        "\1\0\1\141\1\uffff\1\146\1\156\1\141\1\154\3\uffff\1\150\1\75\5"+
+        "\uffff\1\55\1\uffff\1\164\1\151\1\145\1\166\1\uffff\1\145\1\141"+
+        "\1\53\1\75\1\52\1\75\1\46\2\75\1\52\1\75\1\57\2\uffff\1\150\1\145"+
+        "\1\162\1\145\1\uffff\2\60\2\0\2\uffff\1\143\1\151\1\142\2\uffff"+
+        "\1\160\2\44\1\151\1\164\1\141\1\163\1\156\1\164\1\165\1\163\3\uffff"+
+        "\1\160\1\171\1\151\14\uffff\1\141\1\151\1\160\2\156\1\162\1\156"+
+        "\1\146\1\44\1\145\1\uffff\1\166\1\154\1\162\34\uffff\1\151\1\164"+
+        "\1\145\1\uffff\1\154\2\uffff\1\60\3\uffff\1\153\1\166\2\154\1\145"+
+        "\1\151\2\uffff\1\156\1\171\1\163\1\145\1\143\1\164\1\145\1\155\2"+
+        "\145\1\44\1\157\1\163\2\164\1\145\1\141\1\143\1\44\2\141\1\uffff"+
+        "\1\162\1\44\1\145\1\154\1\44\1\154\1\165\1\141\1\163\1\uffff\2\141"+
+        "\1\151\1\162\1\145\1\162\1\156\1\147\1\160\1\163\2\44\1\150\1\151"+
+        "\1\156\2\44\1\144\1\uffff\1\167\1\44\1\151\1\143\1\162\1\154\1\164"+
+        "\1\uffff\1\155\1\165\1\162\1\uffff\1\162\1\44\1\uffff\1\145\1\162"+
+        "\1\153\1\145\1\147\1\164\1\143\1\164\1\155\1\146\1\145\1\44\1\145"+
+        "\1\44\2\uffff\1\44\1\156\1\144\1\156\2\uffff\1\145\1\44\1\uffff"+
+        "\1\143\1\150\2\44\2\151\1\154\1\151\1\44\1\uffff\1\44\1\156\1\44"+
+        "\1\151\2\145\2\44\1\145\1\141\1\44\1\uffff\1\144\2\uffff\1\165\1"+
+        "\163\1\44\1\146\1\uffff\2\44\2\uffff\1\157\1\143\1\164\1\144\2\uffff"+
+        "\1\44\3\uffff\2\44\2\uffff\1\156\1\143\1\uffff\1\44\1\145\1\44\1"+
+        "\uffff\1\44\2\uffff\1\156\2\44\1\145\3\uffff\1\164\1\145\1\uffff"+
+        "\1\44\2\uffff\1\44\2\uffff\1\44\1\163\1\44\3\uffff\1\44\2\uffff";
+    static final String DFA20_maxS =
+        "\1\uffff\1\165\1\uffff\1\156\1\163\1\157\1\170\3\uffff\1\171\1"+
+        "\75\5\uffff\1\76\1\uffff\1\167\1\165\1\171\1\166\1\uffff\1\165\1"+
+        "\141\5\75\1\174\1\75\1\56\1\75\1\57\2\uffff\1\150\1\145\1\162\1"+
+        "\151\1\uffff\1\170\1\145\2\uffff\2\uffff\1\143\1\151\1\142\2\uffff"+
+        "\1\160\2\172\1\151\1\164\1\141\1\164\1\156\1\164\1\165\1\163\3\uffff"+
+        "\1\160\1\171\1\162\14\uffff\1\141\1\151\1\160\2\156\1\162\1\156"+
+        "\1\146\1\172\1\145\1\uffff\1\167\1\154\1\162\34\uffff\1\151\1\164"+
+        "\1\145\1\uffff\1\156\2\uffff\1\145\3\uffff\1\153\1\166\1\154\1\157"+
+        "\1\145\1\151\2\uffff\1\156\1\171\1\163\1\164\1\143\1\164\1\145\1"+
+        "\155\2\145\1\172\1\157\1\163\2\164\1\145\1\141\1\143\1\172\2\141"+
+        "\1\uffff\1\162\1\172\1\145\1\154\1\172\1\154\1\165\1\141\1\163\1"+
+        "\uffff\2\141\1\151\1\162\1\145\1\162\1\156\1\147\1\160\1\163\2\172"+
+        "\1\150\1\151\1\162\2\172\1\144\1\uffff\1\167\1\172\1\151\1\143\1"+
+        "\162\1\154\1\164\1\uffff\1\155\1\165\1\162\1\uffff\1\162\1\172\1"+
+        "\uffff\1\145\1\162\1\153\1\145\1\147\1\164\1\143\1\164\1\155\1\146"+
+        "\1\145\1\172\1\145\1\172\2\uffff\1\172\1\156\1\144\1\156\2\uffff"+
+        "\1\145\1\172\1\uffff\1\143\1\150\2\172\2\151\1\154\1\151\1\172\1"+
+        "\uffff\1\172\1\156\1\172\1\151\2\145\2\172\1\145\1\141\1\172\1\uffff"+
+        "\1\144\2\uffff\1\165\1\163\1\172\1\146\1\uffff\2\172\2\uffff\1\157"+
+        "\1\143\1\164\1\144\2\uffff\1\172\3\uffff\2\172\2\uffff\1\156\1\143"+
+        "\1\uffff\1\172\1\145\1\172\1\uffff\1\172\2\uffff\1\156\2\172\1\145"+
+        "\3\uffff\1\164\1\145\1\uffff\1\172\2\uffff\1\172\2\uffff\1\172\1"+
+        "\163\1\172\3\uffff\1\172\2\uffff";
+    static final String DFA20_acceptS =
+        "\2\uffff\1\2\4\uffff\1\10\1\11\1\12\2\uffff\1\17\1\21\1\22\1\23"+
+        "\1\24\1\uffff\1\26\4\uffff\1\34\14\uffff\1\77\1\100\4\uffff\1\130"+
+        "\4\uffff\1\140\1\141\3\uffff\1\130\1\2\13\uffff\1\10\1\11\1\12\3"+
+        "\uffff\1\60\1\16\1\17\1\21\1\22\1\23\1\24\1\25\1\46\1\75\1\66\1"+
+        "\26\12\uffff\1\34\3\uffff\1\45\1\74\1\65\1\47\1\67\1\50\1\136\1"+
+        "\137\1\70\1\51\1\71\1\52\1\56\1\63\1\53\1\55\1\62\1\54\1\64\1\57"+
+        "\1\117\1\76\1\61\1\72\1\134\1\73\1\77\1\100\3\uffff\1\124\1\uffff"+
+        "\1\132\1\133\1\uffff\1\131\1\135\1\140\6\uffff\1\106\1\101\25\uffff"+
+        "\1\104\11\uffff\1\127\22\uffff\1\107\7\uffff\1\105\3\uffff\1\36"+
+        "\2\uffff\1\37\16\uffff\1\44\1\112\4\uffff\1\20\1\102\2\uffff\1\121"+
+        "\11\uffff\1\42\13\uffff\1\4\1\uffff\1\5\1\110\4\uffff\1\116\2\uffff"+
+        "\1\120\1\30\4\uffff\1\43\1\103\1\uffff\1\114\1\126\1\125\2\uffff"+
+        "\1\123\1\3\2\uffff\1\33\3\uffff\1\13\1\uffff\1\27\1\111\4\uffff"+
+        "\1\113\1\1\1\122\2\uffff\1\40\1\uffff\1\6\1\15\1\uffff\1\31\1\41"+
+        "\3\uffff\1\115\1\35\1\32\1\uffff\1\14\1\7";
+    static final String DFA20_specialS =
+        "\1\1\54\uffff\1\0\1\2\u010f\uffff}>";
+    static final String[] DFA20_transitionS = {
+            "\11\60\2\57\2\60\1\57\22\60\1\57\1\42\1\55\1\51\1\52\1\35\1"+
+            "\36\1\56\1\17\1\20\1\33\1\32\1\7\1\21\1\41\1\34\1\53\11\54\1"+
+            "\16\1\2\1\15\1\13\1\14\1\27\1\22\32\52\1\44\1\60\1\45\1\40\1"+
+            "\52\1\60\1\52\1\50\1\5\1\25\1\6\1\24\2\52\1\3\4\52\1\30\1\26"+
+            "\1\1\1\52\1\47\1\23\1\12\1\4\1\31\1\46\3\52\1\10\1\37\1\11\1"+
+            "\43\uff81\60",
+            "\1\61\20\uffff\1\62\2\uffff\1\63",
             "",
-            "\1\66\6\uffff\1\64\1\65",
-            "\1\67",
-            "\1\72\12\uffff\1\70\2\uffff\1\71",
-            "\1\75\1\uffff\1\74\11\uffff\1\73",
-            "",
-            "",
-            "",
+            "\1\70\6\uffff\1\66\1\67",
+            "\1\72\4\uffff\1\71",
+            "\1\74\12\uffff\1\73\2\uffff\1\75",
+            "\1\100\1\uffff\1\77\11\uffff\1\76",
             "",
             "",
-            "\1\104\11\uffff\1\105\6\uffff\1\103",
-            "\1\106",
-            "\1\111\1\110",
-            "\1\113\1\114",
             "",
-            "\1\117",
-            "\1\120\11\uffff\1\122\11\uffff\1\121",
-            "\1\124\17\uffff\1\123",
-            "\1\130\7\uffff\1\126\5\uffff\1\127\5\uffff\1\125",
-            "\1\131\3\uffff\1\132",
-            "\1\135\1\134\1\uffff\1\136",
+            "\1\106\11\uffff\1\105\6\uffff\1\104",
+            "\1\107",
             "",
+            "",
+            "",
+            "",
+            "",
+            "\1\120\17\uffff\1\117\1\116",
+            "",
+            "\1\123\1\125\1\uffff\1\124",
+            "\1\126\5\uffff\1\130\5\uffff\1\127",
+            "\1\132\11\uffff\1\133\11\uffff\1\131",
+            "\1\134",
+            "",
+            "\1\136\17\uffff\1\137",
             "\1\140",
             "\1\142\21\uffff\1\141",
-            "\1\145\17\uffff\1\144",
-            "\1\147",
-            "\1\152\4\uffff\1\153\15\uffff\1\151",
-            "\1\155",
-            "\1\160\26\uffff\1\157",
-            "\1\162\76\uffff\1\163",
-            "\1\165",
+            "\1\144",
+            "\1\147\4\uffff\1\150\15\uffff\1\146",
+            "\1\152",
+            "\1\155\26\uffff\1\154",
+            "\1\157\76\uffff\1\160",
+            "\1\162",
+            "\1\165\3\uffff\1\164",
             "\1\167",
             "\1\171",
             "",
@@ -3579,58 +3754,91 @@ public class InternalHaxeLexer extends Lexer {
             "\1\175",
             "\1\176",
             "\1\177",
-            "\12\u0083\53\uffff\1\u0082\22\uffff\1\u0080",
+            "\1\u0081\3\uffff\1\u0080",
             "",
-            "\12\u0083\53\uffff\1\u0082",
-            "\0\u0084",
-            "\0\u0084",
+            "\12\u0084\13\uffff\1\u0085\22\uffff\1\u0082\14\uffff\1\u0085"+
+            "\22\uffff\1\u0082",
+            "\12\u0084\13\uffff\1\u0085\37\uffff\1\u0085",
+            "\0\u0086",
+            "\0\u0086",
             "",
             "",
-            "\1\u0086",
-            "\1\u0087",
             "\1\u0088",
-            "",
-            "",
             "\1\u0089",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\13"+
-            "\62\1\u008b\7\62\1\u008a\6\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u008e",
-            "\1\u008f",
+            "\1\u008a",
+            "",
+            "",
+            "\1\u008b",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\13"+
+            "\64\1\u008d\7\64\1\u008c\6\64",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u0090",
-            "\1\u0092\1\u0091",
-            "\1\u0093",
-            "\1\u0094",
+            "\1\u0091",
+            "\1\u0092",
+            "\1\u0093\1\u0094",
             "\1\u0095",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\u0096",
-            "\1\u0097\10\uffff\1\u0098",
-            "\1\u009a\3\uffff\1\u0099",
+            "\1\u0097",
+            "\1\u0098",
             "",
             "",
-            "\1\u009b\1\u009c",
+            "",
+            "\1\u0099",
+            "\1\u009a",
+            "\1\u009c\10\uffff\1\u009b",
             "",
             "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\u009d",
             "\1\u009e",
-            "",
-            "",
-            "",
+            "\1\u009f",
             "\1\u00a0",
             "\1\u00a1",
             "\1\u00a2",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\u00a3",
             "\1\u00a4",
-            "\1\u00a5\1\u00a6",
-            "\1\u00a7",
-            "\1\u00a8",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u00a6",
+            "",
+            "\1\u00a8\1\u00a7",
             "\1\u00a9",
             "\1\u00aa",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -3638,89 +3846,57 @@ public class InternalHaxeLexer extends Lexer {
             "\1\u00ac",
             "\1\u00ad",
             "",
-            "\1\u00ae",
+            "\1\u00ae\1\uffff\1\u00af",
+            "",
+            "",
+            "\12\u0084\13\uffff\1\u0085\37\uffff\1\u0085",
             "",
             "",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\u00af",
             "\1\u00b0",
             "\1\u00b1",
-            "",
-            "",
-            "",
-            "\12\u0083\53\uffff\1\u0082",
-            "",
-            "",
             "\1\u00b2",
-            "\1\u00b3",
-            "\1\u00b4",
-            "\1\u00b6\2\uffff\1\u00b5",
+            "\1\u00b4\2\uffff\1\u00b3",
+            "\1\u00b5",
+            "\1\u00b6",
+            "",
+            "",
             "\1\u00b7",
             "\1\u00b8",
-            "",
-            "",
             "\1\u00b9",
-            "\1\u00ba",
-            "\1\u00bb",
+            "\1\u00bb\16\uffff\1\u00ba",
             "\1\u00bc",
             "\1\u00bd",
             "\1\u00be",
             "\1\u00bf",
             "\1\u00c0",
             "\1\u00c1",
-            "\1\u00c2",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u00c3",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\u00c4",
             "\1\u00c5",
-            "",
             "\1\u00c6",
-            "",
-            "",
-            "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\u00c7",
+            "\1\u00c8",
             "\1\u00c9",
-            "\1\u00ca",
-            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u00cb",
             "\1\u00cc",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u00ce",
+            "",
+            "\1\u00cd",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u00cf",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u00d1",
+            "\1\u00d0",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u00d2",
             "\1\u00d3",
             "\1\u00d4",
             "\1\u00d5",
+            "",
             "\1\u00d6",
             "\1\u00d7",
             "\1\u00d8",
@@ -3731,39 +3907,36 @@ public class InternalHaxeLexer extends Lexer {
             "\1\u00dd",
             "\1\u00de",
             "\1\u00df",
-            "\1\u00e0",
-            "\1\u00e1",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u00e2",
             "\1\u00e3",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u00e5",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\u00e4\3\uffff\1\u00e5",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u00e8",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u00ea",
             "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "",
-            "",
-            "",
+            "\1\u00e9",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u00eb",
             "\1\u00ec",
             "\1\u00ed",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\u00ee",
             "\1\u00ef",
             "",
             "\1\u00f0",
             "\1\u00f1",
-            "",
             "\1\u00f2",
+            "",
             "\1\u00f3",
-            "\1\u00f4",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "",
             "\1\u00f5",
             "\1\u00f6",
             "\1\u00f7",
@@ -3775,282 +3948,294 @@ public class InternalHaxeLexer extends Lexer {
             "\1\u00fd",
             "\1\u00fe",
             "\1\u00ff",
-            "\1\u0100",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u0103",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u0101",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u0104",
             "\1\u0105",
-            "",
-            "",
             "\1\u0106",
             "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
             "",
-            "\1\u0108",
+            "\1\u0107",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "",
             "\1\u0109",
-            "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u010b",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\u010a",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u010d",
+            "\1\u010e",
             "\1\u010f",
             "\1\u0110",
-            "\1\u0111",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u0113",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u0115",
-            "\1\u0116",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u0119",
-            "\1\u011a",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "",
-            "",
+            "\1\u0117",
+            "\1\u0118",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u011b",
             "\1\u011c",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "",
-            "\1\u011d",
             "\1\u011e",
+            "",
             "",
             "\1\u011f",
             "\1\u0120",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u0122",
             "",
-            "\1\u0121",
-            "",
-            "",
-            "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\u0124",
-            "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "",
             "",
+            "\1\u0125",
+            "\1\u0126",
+            "\1\u0127",
             "\1\u0128",
-            "\1\u0129",
             "",
-            "\1\u012a",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "",
+            "",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "",
+            "",
+            "\1\u012c",
+            "\1\u012d",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "\1\u012f",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "",
             "",
-            "\1\u0130",
-            "",
-            "",
-            "",
-            "\1\u0131",
             "\1\u0132",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u0135",
             "",
             "",
             "",
-            "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
             "\1\u0136",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\u0137",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "",
+            "",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
+            "\1\u013b",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "",
             "",
             "",
-            "\1\62\13\uffff\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32"+
-            "\62",
+            "\1\64\13\uffff\12\64\7\uffff\32\64\4\uffff\1\64\1\uffff\32"+
+            "\64",
             "",
             ""
     };
 
-    static final short[] DFA15_eot = DFA.unpackEncodedString(DFA15_eotS);
-    static final short[] DFA15_eof = DFA.unpackEncodedString(DFA15_eofS);
-    static final char[] DFA15_min = DFA.unpackEncodedStringToUnsignedChars(DFA15_minS);
-    static final char[] DFA15_max = DFA.unpackEncodedStringToUnsignedChars(DFA15_maxS);
-    static final short[] DFA15_accept = DFA.unpackEncodedString(DFA15_acceptS);
-    static final short[] DFA15_special = DFA.unpackEncodedString(DFA15_specialS);
-    static final short[][] DFA15_transition;
+    static final short[] DFA20_eot = DFA.unpackEncodedString(DFA20_eotS);
+    static final short[] DFA20_eof = DFA.unpackEncodedString(DFA20_eofS);
+    static final char[] DFA20_min = DFA.unpackEncodedStringToUnsignedChars(DFA20_minS);
+    static final char[] DFA20_max = DFA.unpackEncodedStringToUnsignedChars(DFA20_maxS);
+    static final short[] DFA20_accept = DFA.unpackEncodedString(DFA20_acceptS);
+    static final short[] DFA20_special = DFA.unpackEncodedString(DFA20_specialS);
+    static final short[][] DFA20_transition;
 
     static {
-        int numStates = DFA15_transitionS.length;
-        DFA15_transition = new short[numStates][];
+        int numStates = DFA20_transitionS.length;
+        DFA20_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA15_transition[i] = DFA.unpackEncodedString(DFA15_transitionS[i]);
+            DFA20_transition[i] = DFA.unpackEncodedString(DFA20_transitionS[i]);
         }
     }
 
-    class DFA15 extends DFA {
+    class DFA20 extends DFA {
 
-        public DFA15(BaseRecognizer recognizer) {
+        public DFA20(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 15;
-            this.eot = DFA15_eot;
-            this.eof = DFA15_eof;
-            this.min = DFA15_min;
-            this.max = DFA15_max;
-            this.accept = DFA15_accept;
-            this.special = DFA15_special;
-            this.transition = DFA15_transition;
+            this.decisionNumber = 20;
+            this.eot = DFA20_eot;
+            this.eof = DFA20_eof;
+            this.min = DFA20_min;
+            this.max = DFA20_max;
+            this.accept = DFA20_accept;
+            this.special = DFA20_special;
+            this.transition = DFA20_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | RULE_EFLOAT | RULE_ID | RULE_HEX | RULE_INT | RULE_REGULAR_EXPRESSION | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | RULE_CONDITIONAL_IF | RULE_CONDITIONAL_ELSE | RULE_CONDITIONAL_ELSE_IF | RULE_CONDITIONAL_END | RULE_ID | RULE_EXPONENT_FLOAT | RULE_HEX | RULE_INT | RULE_REGULAR_EXPRESSION | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA15_43 = input.LA(1);
+                        int LA20_45 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA15_43>='\u0000' && LA15_43<='\uFFFF')) ) {s = 132;}
+                        if ( ((LA20_45>='\u0000' && LA20_45<='\uFFFF')) ) {s = 134;}
 
-                        else s = 46;
+                        else s = 48;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA15_0 = input.LA(1);
+                        int LA20_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA15_0=='p') ) {s = 1;}
+                        if ( (LA20_0=='p') ) {s = 1;}
 
-                        else if ( (LA15_0==';') ) {s = 2;}
+                        else if ( (LA20_0==';') ) {s = 2;}
 
-                        else if ( (LA15_0=='i') ) {s = 3;}
+                        else if ( (LA20_0=='i') ) {s = 3;}
 
-                        else if ( (LA15_0=='u') ) {s = 4;}
+                        else if ( (LA20_0=='u') ) {s = 4;}
 
-                        else if ( (LA15_0=='c') ) {s = 5;}
+                        else if ( (LA20_0=='c') ) {s = 5;}
 
-                        else if ( (LA15_0=='e') ) {s = 6;}
+                        else if ( (LA20_0=='e') ) {s = 6;}
 
-                        else if ( (LA15_0==',') ) {s = 7;}
+                        else if ( (LA20_0==',') ) {s = 7;}
 
-                        else if ( (LA15_0=='{') ) {s = 8;}
+                        else if ( (LA20_0=='{') ) {s = 8;}
 
-                        else if ( (LA15_0=='}') ) {s = 9;}
+                        else if ( (LA20_0=='}') ) {s = 9;}
 
-                        else if ( (LA15_0=='(') ) {s = 10;}
+                        else if ( (LA20_0=='t') ) {s = 10;}
 
-                        else if ( (LA15_0==')') ) {s = 11;}
+                        else if ( (LA20_0=='=') ) {s = 11;}
 
-                        else if ( (LA15_0=='t') ) {s = 12;}
+                        else if ( (LA20_0=='>') ) {s = 12;}
 
-                        else if ( (LA15_0=='=') ) {s = 13;}
+                        else if ( (LA20_0=='<') ) {s = 13;}
 
-                        else if ( (LA15_0=='>') ) {s = 14;}
+                        else if ( (LA20_0==':') ) {s = 14;}
 
-                        else if ( (LA15_0=='<') ) {s = 15;}
+                        else if ( (LA20_0=='(') ) {s = 15;}
 
-                        else if ( (LA15_0==':') ) {s = 16;}
+                        else if ( (LA20_0==')') ) {s = 16;}
 
-                        else if ( (LA15_0=='v') ) {s = 17;}
+                        else if ( (LA20_0=='-') ) {s = 17;}
 
-                        else if ( (LA15_0=='d') ) {s = 18;}
+                        else if ( (LA20_0=='@') ) {s = 18;}
 
-                        else if ( (LA15_0=='n') ) {s = 19;}
+                        else if ( (LA20_0=='s') ) {s = 19;}
 
-                        else if ( (LA15_0=='f') ) {s = 20;}
+                        else if ( (LA20_0=='f') ) {s = 20;}
 
-                        else if ( (LA15_0=='.') ) {s = 21;}
+                        else if ( (LA20_0=='d') ) {s = 21;}
 
-                        else if ( (LA15_0=='s') ) {s = 22;}
+                        else if ( (LA20_0=='o') ) {s = 22;}
 
-                        else if ( (LA15_0=='?') ) {s = 23;}
+                        else if ( (LA20_0=='?') ) {s = 23;}
 
-                        else if ( (LA15_0=='o') ) {s = 24;}
+                        else if ( (LA20_0=='n') ) {s = 24;}
 
-                        else if ( (LA15_0=='+') ) {s = 25;}
+                        else if ( (LA20_0=='v') ) {s = 25;}
 
-                        else if ( (LA15_0=='-') ) {s = 26;}
+                        else if ( (LA20_0=='+') ) {s = 26;}
 
-                        else if ( (LA15_0=='*') ) {s = 27;}
+                        else if ( (LA20_0=='*') ) {s = 27;}
 
-                        else if ( (LA15_0=='/') ) {s = 28;}
+                        else if ( (LA20_0=='/') ) {s = 28;}
 
-                        else if ( (LA15_0=='%') ) {s = 29;}
+                        else if ( (LA20_0=='%') ) {s = 29;}
 
-                        else if ( (LA15_0=='&') ) {s = 30;}
+                        else if ( (LA20_0=='&') ) {s = 30;}
 
-                        else if ( (LA15_0=='|') ) {s = 31;}
+                        else if ( (LA20_0=='|') ) {s = 31;}
 
-                        else if ( (LA15_0=='^') ) {s = 32;}
+                        else if ( (LA20_0=='^') ) {s = 32;}
 
-                        else if ( (LA15_0=='!') ) {s = 33;}
+                        else if ( (LA20_0=='.') ) {s = 33;}
 
-                        else if ( (LA15_0=='~') ) {s = 34;}
+                        else if ( (LA20_0=='!') ) {s = 34;}
 
-                        else if ( (LA15_0=='[') ) {s = 35;}
+                        else if ( (LA20_0=='~') ) {s = 35;}
 
-                        else if ( (LA15_0==']') ) {s = 36;}
+                        else if ( (LA20_0=='[') ) {s = 36;}
 
-                        else if ( (LA15_0=='w') ) {s = 37;}
+                        else if ( (LA20_0==']') ) {s = 37;}
 
-                        else if ( (LA15_0=='r') ) {s = 38;}
+                        else if ( (LA20_0=='w') ) {s = 38;}
 
-                        else if ( (LA15_0=='b') ) {s = 39;}
+                        else if ( (LA20_0=='r') ) {s = 39;}
 
-                        else if ( (LA15_0=='0') ) {s = 40;}
+                        else if ( (LA20_0=='b') ) {s = 40;}
 
-                        else if ( (LA15_0=='$'||(LA15_0>='A' && LA15_0<='Z')||LA15_0=='_'||LA15_0=='a'||(LA15_0>='g' && LA15_0<='h')||(LA15_0>='j' && LA15_0<='m')||LA15_0=='q'||(LA15_0>='x' && LA15_0<='z')) ) {s = 41;}
+                        else if ( (LA20_0=='#') ) {s = 41;}
 
-                        else if ( ((LA15_0>='1' && LA15_0<='9')) ) {s = 42;}
+                        else if ( (LA20_0=='$'||(LA20_0>='A' && LA20_0<='Z')||LA20_0=='_'||LA20_0=='a'||(LA20_0>='g' && LA20_0<='h')||(LA20_0>='j' && LA20_0<='m')||LA20_0=='q'||(LA20_0>='x' && LA20_0<='z')) ) {s = 42;}
 
-                        else if ( (LA15_0=='\"') ) {s = 43;}
+                        else if ( (LA20_0=='0') ) {s = 43;}
 
-                        else if ( (LA15_0=='\'') ) {s = 44;}
+                        else if ( ((LA20_0>='1' && LA20_0<='9')) ) {s = 44;}
 
-                        else if ( ((LA15_0>='\t' && LA15_0<='\n')||LA15_0=='\r'||LA15_0==' ') ) {s = 45;}
+                        else if ( (LA20_0=='\"') ) {s = 45;}
 
-                        else if ( ((LA15_0>='\u0000' && LA15_0<='\b')||(LA15_0>='\u000B' && LA15_0<='\f')||(LA15_0>='\u000E' && LA15_0<='\u001F')||LA15_0=='#'||LA15_0=='@'||LA15_0=='\\'||LA15_0=='`'||(LA15_0>='\u007F' && LA15_0<='\uFFFF')) ) {s = 46;}
+                        else if ( (LA20_0=='\'') ) {s = 46;}
+
+                        else if ( ((LA20_0>='\t' && LA20_0<='\n')||LA20_0=='\r'||LA20_0==' ') ) {s = 47;}
+
+                        else if ( ((LA20_0>='\u0000' && LA20_0<='\b')||(LA20_0>='\u000B' && LA20_0<='\f')||(LA20_0>='\u000E' && LA20_0<='\u001F')||LA20_0=='\\'||LA20_0=='`'||(LA20_0>='\u007F' && LA20_0<='\uFFFF')) ) {s = 48;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA15_44 = input.LA(1);
+                        int LA20_46 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA15_44>='\u0000' && LA15_44<='\uFFFF')) ) {s = 132;}
+                        if ( ((LA20_46>='\u0000' && LA20_46<='\uFFFF')) ) {s = 134;}
 
-                        else s = 46;
+                        else s = 48;
 
                         if ( s>=0 ) return s;
                         break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 15, _s, input);
+                new NoViableAltException(getDescription(), 20, _s, input);
             error(nvae);
             throw nvae;
         }

@@ -54,12 +54,12 @@ public interface CasePart extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Then</em>' containment reference.
-   * @see #setThen(Expression)
+   * @see #setThen(CasePartExpressions)
    * @see ee.xtext.haxe.haxe.HaxePackage#getCasePart_Then()
    * @model containment="true"
    * @generated
    */
-  Expression getThen();
+  CasePartExpressions getThen();
 
   /**
    * Sets the value of the '{@link ee.xtext.haxe.haxe.CasePart#getThen <em>Then</em>}' containment reference.
@@ -69,6 +69,6 @@ public interface CasePart extends EObject
    * @see #getThen()
    * @generated
    */
-  void setThen(Expression value);
+  void setThen(CasePartExpressions value);
 
 } // CasePart

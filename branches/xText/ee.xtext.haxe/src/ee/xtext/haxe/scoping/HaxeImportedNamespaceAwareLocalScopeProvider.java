@@ -1,65 +1,153 @@
 package ee.xtext.haxe.scoping;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import static java.util.Collections.singletonList;
+
+import java.lang.reflect.Field;
+import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.resource.ISelectable;
 import org.eclipse.xtext.scoping.IScope;
-import org.eclipse.xtext.scoping.impl.IScopeWrapper;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
+import org.eclipse.xtext.scoping.impl.ImportScope;
 import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
+import org.eclipse.xtext.util.Strings;
 
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 
-public class HaxeImportedNamespaceAwareLocalScopeProvider extends
-		ImportedNamespaceAwareLocalScopeProvider {
-	
+import ee.xtext.haxe.haxe.Enum;
+import ee.xtext.haxe.haxe.EnumConstructor;
+import ee.xtext.haxe.haxe.HaxePackage;
+
+public class HaxeImportedNamespaceAwareLocalScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
+
 	protected List<ImportNormalizer> getImplicitImports(boolean ignoreCase) {
+		List<ImportNormalizer> implicitImports = super.getImplicitImports(ignoreCase);
+		implicitImports = Lists.newArrayList(implicitImports);
 		
-		StringBuilder contents = new StringBuilder();
+		QualifiedName qualifiedName = QualifiedName.create("Bool");
+		/*
+		EClass eClass = HaxePackage.eINSTANCE.getEnum();
+		
+		IEObjectDescription singleElement = getGlobalScope(res, reference).getSingleElement(qualifiedName);
+		
+		if (singleElement != null && singleElement.getEClass().equals(eClass))
+		{
+			
+			Enum resolve = (Enum) EcoreUtil2.resolve(singleElement.getEObjectOrProxy(), res);
+			EList<EnumConstructor> constructors = resolve.getConstructors();
+			
+			for (EnumConstructor constructor : constructors)
+			{
+				implicitImports.add(new ImportNormalizer(qualifiedName.append(constructor.getName()), false, ignoreCase));
+			}
+		}
+		*/
 
-		try {
-	      //use buffering, reading one line at a time
-	      //FileReader always assumes default encoding is OK!
-	    	
-	      ClassLoader classLoader = getClass().getClassLoader();
-		InputStream resourceAsStream = classLoader.getResourceAsStream("String.hx");
-	      
-	      if (resourceAsStream == null) throw new RuntimeException("Could not find file");
-	      
-		BufferedReader input =  new BufferedReader(new InputStreamReader(resourceAsStream));
-	      try {
-	        String line = null; //not declared within while loop
-	        /*
-	        * readLine is a bit quirky :
-	        * it returns the content of a line MINUS the newline.
-	        * it returns null only for the END of the stream.
-	        * it returns an empty String if two newlines appear in a row.
-	        */
-	        while (( line = input.readLine()) != null){
-	          contents.append(line);
-	          contents.append(System.getProperty("line.separator"));
-	        }
-	      }
-	      finally {
-	        input.close();
-	      }
-	    }
-	    catch (IOException ex){
-	      ex.printStackTrace();
-	    }
-	    
-	   System.out.println(contents.toString());
-		
-		
-		
-		List<ImportNormalizer> implicitImports = Lists.newArrayList();
-		implicitImports.add(new ImportNormalizer(QualifiedName.create("String"), false, ignoreCase));
-		
+		implicitImports.add(
+				new ImportNormalizer(
+						qualifiedName, 
+						false, 
+						ignoreCase
+				)
+		);
 		return implicitImports;
+	}
+	
+	private static final Field importedNamespacePrefixField = _getImportedNamespacePrefixField();
+	
+	protected ImportScope createImportScope(IScope parent, List<ImportNormalizer> namespaceResolvers, ISelectable importFrom, EClass type, boolean ignoreCase) {
+		
+		List<ImportNormalizer> newNamespaceResolvers = namespaceResolvers;
+		
+		if (isFeature(type)) {
+			newNamespaceResolvers = Lists.newArrayList(namespaceResolvers);
+			
+			try {
+				importedNamespacePrefixField.setAccessible(true);
+				
+				for (ImportNormalizer namespaceResolver : namespaceResolvers) {
+					QualifiedName qn = (QualifiedName) importedNamespacePrefixField.get(namespaceResolver);
+					
+					IEObjectDescription singleElement = parent.getSingleElement(qn);
+					
+					if (singleElement != null && isEnum(singleElement)) {
+						newNamespaceResolvers.add(new ImportNormalizer(qn, true, ignoreCase));
+					}
+				}
+				
+				importedNamespacePrefixField.setAccessible(false);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
+		return super.createImportScope(parent, newNamespaceResolvers, importFrom, type, ignoreCase);
+	}
+
+
+	private static Field _getImportedNamespacePrefixField() {
+		try {
+			return ImportNormalizer.class.getDeclaredField("importedNamespacePrefix");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+
+	private boolean isEnum(IEObjectDescription singleElement) {
+		return singleElement.getEClass().equals(HaxePackage.eINSTANCE.getEnum());
+	}
+
+	private boolean isFeature(EClass type) {
+		return type.equals(HaxePackage.eINSTANCE.getFeature());
+	}
+
+	protected IScope getLocalElementsScope(IScope parent, final EObject context,
+			final EReference reference) {
+		IScope result = super.getLocalElementsScope(parent, context, reference);
+		/*
+		ISelectable allDescriptions = getAllDescriptions(context.eResource());
+		QualifiedName name = getQualifiedNameOfLocalElement(context);
+		boolean ignoreCase = isIgnoreCase(reference);
+		
+		Iterable<IEObjectDescription> exportedObjects = allDescriptions.getExportedObjects();
+		for (IEObjectDescription o : exportedObjects)
+		{
+			System.out.println(o.getName());
+		}
+		Iterable<IEObjectDescription> enumConstructors = allDescriptions.getExportedObjectsByType(HaxePackage.eINSTANCE.getEnumConstructor());
+		
+		int length = name == null ? 1 : name.getSegmentCount() + 1;
+		
+		List<IEObjectDescription> aliases = new ArrayList<IEObjectDescription>();
+		
+		for (IEObjectDescription enumConstructor : enumConstructors)
+		{
+			QualifiedName qualifiedName = enumConstructor.getQualifiedName();
+			boolean check = name == null || qualifiedName.startsWith(name);
+System.out.println(qualifiedName);
+			if (check && qualifiedName.getSegmentCount() - length == 1)
+			{
+				aliases.add(new AliasedEObjectDescription(qualifiedName.skipFirst(length), enumConstructor));
+			}
+		}
+		
+		if (!aliases.isEmpty())
+		{
+			return new SimpleScope(result, aliases);
+		}
+		*/
+		return result;
 	}
 }

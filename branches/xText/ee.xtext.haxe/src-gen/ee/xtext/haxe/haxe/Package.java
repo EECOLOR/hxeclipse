@@ -23,8 +23,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link ee.xtext.haxe.haxe.Package#getUsing <em>Using</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.Package#getClasses <em>Classes</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.Package#getInterfaces <em>Interfaces</em>}</li>
- *   <li>{@link ee.xtext.haxe.haxe.Package#getEnums <em>Enums</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.Package#getTypedefs <em>Typedefs</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.Package#getEnums <em>Enums</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.Package#getExternClasses <em>Extern Classes</em>}</li>
  * </ul>
  * </p>
  *
@@ -125,6 +126,22 @@ public interface Package extends EObject
   EList<Interface> getInterfaces();
 
   /**
+   * Returns the value of the '<em><b>Typedefs</b></em>' containment reference list.
+   * The list contents are of type {@link ee.xtext.haxe.haxe.Typedef}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Typedefs</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Typedefs</em>' containment reference list.
+   * @see ee.xtext.haxe.haxe.HaxePackage#getPackage_Typedefs()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Typedef> getTypedefs();
+
+  /**
    * Returns the value of the '<em><b>Enums</b></em>' containment reference list.
    * The list contents are of type {@link ee.xtext.haxe.haxe.Enum}.
    * <!-- begin-user-doc -->
@@ -141,19 +158,19 @@ public interface Package extends EObject
   EList<ee.xtext.haxe.haxe.Enum> getEnums();
 
   /**
-   * Returns the value of the '<em><b>Typedefs</b></em>' containment reference list.
-   * The list contents are of type {@link ee.xtext.haxe.haxe.Typedef}.
+   * Returns the value of the '<em><b>Extern Classes</b></em>' containment reference list.
+   * The list contents are of type {@link ee.xtext.haxe.haxe.ExternClass}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Typedefs</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Extern Classes</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Typedefs</em>' containment reference list.
-   * @see ee.xtext.haxe.haxe.HaxePackage#getPackage_Typedefs()
+   * @return the value of the '<em>Extern Classes</em>' containment reference list.
+   * @see ee.xtext.haxe.haxe.HaxePackage#getPackage_ExternClasses()
    * @model containment="true"
    * @generated
    */
-  EList<Typedef> getTypedefs();
+  EList<ExternClass> getExternClasses();
 
 } // Package

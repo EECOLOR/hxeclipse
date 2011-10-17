@@ -8,8 +8,8 @@ package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.CatchClause;
 import ee.xtext.haxe.haxe.Expression;
-import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Parameter;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -44,7 +44,7 @@ public class CatchClauseImpl extends MinimalEObjectImpl.Container implements Cat
    * @generated
    * @ordered
    */
-  protected FormalParameter declaredParam;
+  protected Parameter declaredParam;
 
   /**
    * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
@@ -82,7 +82,7 @@ public class CatchClauseImpl extends MinimalEObjectImpl.Container implements Cat
    * <!-- end-user-doc -->
    * @generated
    */
-  public FormalParameter getDeclaredParam()
+  public Parameter getDeclaredParam()
   {
     return declaredParam;
   }
@@ -92,9 +92,9 @@ public class CatchClauseImpl extends MinimalEObjectImpl.Container implements Cat
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDeclaredParam(FormalParameter newDeclaredParam, NotificationChain msgs)
+  public NotificationChain basicSetDeclaredParam(Parameter newDeclaredParam, NotificationChain msgs)
   {
-    FormalParameter oldDeclaredParam = declaredParam;
+    Parameter oldDeclaredParam = declaredParam;
     declaredParam = newDeclaredParam;
     if (eNotificationRequired())
     {
@@ -109,7 +109,7 @@ public class CatchClauseImpl extends MinimalEObjectImpl.Container implements Cat
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDeclaredParam(FormalParameter newDeclaredParam)
+  public void setDeclaredParam(Parameter newDeclaredParam)
   {
     if (newDeclaredParam != declaredParam)
     {
@@ -220,7 +220,7 @@ public class CatchClauseImpl extends MinimalEObjectImpl.Container implements Cat
     switch (featureID)
     {
       case HaxePackage.CATCH_CLAUSE__DECLARED_PARAM:
-        setDeclaredParam((FormalParameter)newValue);
+        setDeclaredParam((Parameter)newValue);
         return;
       case HaxePackage.CATCH_CLAUSE__EXPRESSION:
         setExpression((Expression)newValue);
@@ -240,7 +240,7 @@ public class CatchClauseImpl extends MinimalEObjectImpl.Container implements Cat
     switch (featureID)
     {
       case HaxePackage.CATCH_CLAUSE__DECLARED_PARAM:
-        setDeclaredParam((FormalParameter)null);
+        setDeclaredParam((Parameter)null);
         return;
       case HaxePackage.CATCH_CLAUSE__EXPRESSION:
         setExpression((Expression)null);

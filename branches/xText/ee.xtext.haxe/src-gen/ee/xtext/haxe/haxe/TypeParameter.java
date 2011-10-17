@@ -28,7 +28,7 @@ public interface TypeParameter extends Type
 {
   /**
    * Returns the value of the '<em><b>Constraints</b></em>' containment reference list.
-   * The list contents are of type {@link ee.xtext.haxe.haxe.TypeReference}.
+   * The list contents are of type {@link ee.xtext.haxe.haxe.Reference}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constraints</em>' containment reference list isn't clear,
@@ -40,6 +40,6 @@ public interface TypeParameter extends Type
    * @model containment="true"
    * @generated
    */
-  EList<TypeReference> getConstraints();
+  EList<Reference> getConstraints();
 
 } // TypeParameter

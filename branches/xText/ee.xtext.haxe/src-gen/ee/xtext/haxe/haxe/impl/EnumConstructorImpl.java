@@ -7,8 +7,9 @@
 package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.EnumConstructor;
-import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Metadata;
+import ee.xtext.haxe.haxe.Parameter;
 
 import java.util.Collection;
 
@@ -21,7 +22,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -33,34 +33,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ee.xtext.haxe.haxe.impl.EnumConstructorImpl#getName <em>Name</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.EnumConstructorImpl#getMetadata <em>Metadata</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.EnumConstructorImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements EnumConstructor
+public class EnumConstructorImpl extends FeatureImpl implements EnumConstructor
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getMetadata() <em>Metadata</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getMetadata()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected Metadata metadata;
 
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -70,7 +60,7 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected EList<FormalParameter> parameters;
+  protected EList<Parameter> parameters;
 
   /**
    * <!-- begin-user-doc -->
@@ -98,9 +88,9 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public Metadata getMetadata()
   {
-    return name;
+    return metadata;
   }
 
   /**
@@ -108,12 +98,16 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public NotificationChain basicSetMetadata(Metadata newMetadata, NotificationChain msgs)
   {
-    String oldName = name;
-    name = newName;
+    Metadata oldMetadata = metadata;
+    metadata = newMetadata;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.ENUM_CONSTRUCTOR__NAME, oldName, name));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.ENUM_CONSTRUCTOR__METADATA, oldMetadata, newMetadata);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -121,11 +115,32 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<FormalParameter> getParameters()
+  public void setMetadata(Metadata newMetadata)
+  {
+    if (newMetadata != metadata)
+    {
+      NotificationChain msgs = null;
+      if (metadata != null)
+        msgs = ((InternalEObject)metadata).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.ENUM_CONSTRUCTOR__METADATA, null, msgs);
+      if (newMetadata != null)
+        msgs = ((InternalEObject)newMetadata).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.ENUM_CONSTRUCTOR__METADATA, null, msgs);
+      msgs = basicSetMetadata(newMetadata, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.ENUM_CONSTRUCTOR__METADATA, newMetadata, newMetadata));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Parameter> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, HaxePackage.ENUM_CONSTRUCTOR__PARAMETERS);
+      parameters = new EObjectContainmentEList<Parameter>(Parameter.class, this, HaxePackage.ENUM_CONSTRUCTOR__PARAMETERS);
     }
     return parameters;
   }
@@ -140,6 +155,8 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
+      case HaxePackage.ENUM_CONSTRUCTOR__METADATA:
+        return basicSetMetadata(null, msgs);
       case HaxePackage.ENUM_CONSTRUCTOR__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
     }
@@ -156,8 +173,8 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case HaxePackage.ENUM_CONSTRUCTOR__NAME:
-        return getName();
+      case HaxePackage.ENUM_CONSTRUCTOR__METADATA:
+        return getMetadata();
       case HaxePackage.ENUM_CONSTRUCTOR__PARAMETERS:
         return getParameters();
     }
@@ -175,12 +192,12 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case HaxePackage.ENUM_CONSTRUCTOR__NAME:
-        setName((String)newValue);
+      case HaxePackage.ENUM_CONSTRUCTOR__METADATA:
+        setMetadata((Metadata)newValue);
         return;
       case HaxePackage.ENUM_CONSTRUCTOR__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends FormalParameter>)newValue);
+        getParameters().addAll((Collection<? extends Parameter>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,8 +213,8 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case HaxePackage.ENUM_CONSTRUCTOR__NAME:
-        setName(NAME_EDEFAULT);
+      case HaxePackage.ENUM_CONSTRUCTOR__METADATA:
+        setMetadata((Metadata)null);
         return;
       case HaxePackage.ENUM_CONSTRUCTOR__PARAMETERS:
         getParameters().clear();
@@ -216,29 +233,12 @@ public class EnumConstructorImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case HaxePackage.ENUM_CONSTRUCTOR__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case HaxePackage.ENUM_CONSTRUCTOR__METADATA:
+        return metadata != null;
       case HaxePackage.ENUM_CONSTRUCTOR__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //EnumConstructorImpl

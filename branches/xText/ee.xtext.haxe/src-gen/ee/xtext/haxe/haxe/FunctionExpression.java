@@ -30,7 +30,7 @@ public interface FunctionExpression extends Expression
 {
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-   * The list contents are of type {@link ee.xtext.haxe.haxe.FormalParameter}.
+   * The list contents are of type {@link ee.xtext.haxe.haxe.Parameter}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
@@ -42,7 +42,7 @@ public interface FunctionExpression extends Expression
    * @model containment="true"
    * @generated
    */
-  EList<FormalParameter> getParameters();
+  EList<Parameter> getParameters();
 
   /**
    * Returns the value of the '<em><b>Return Type</b></em>' containment reference.

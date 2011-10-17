@@ -7,6 +7,7 @@
 package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.CasePart;
+import ee.xtext.haxe.haxe.CasePartExpressions;
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.SwitchExpression;
@@ -71,7 +72,7 @@ public class SwitchExpressionImpl extends ExpressionImpl implements SwitchExpres
    * @generated
    * @ordered
    */
-  protected Expression default_;
+  protected CasePartExpressions default_;
 
   /**
    * <!-- begin-user-doc -->
@@ -161,7 +162,7 @@ public class SwitchExpressionImpl extends ExpressionImpl implements SwitchExpres
    * <!-- end-user-doc -->
    * @generated
    */
-  public Expression getDefault()
+  public CasePartExpressions getDefault()
   {
     return default_;
   }
@@ -171,9 +172,9 @@ public class SwitchExpressionImpl extends ExpressionImpl implements SwitchExpres
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDefault(Expression newDefault, NotificationChain msgs)
+  public NotificationChain basicSetDefault(CasePartExpressions newDefault, NotificationChain msgs)
   {
-    Expression oldDefault = default_;
+    CasePartExpressions oldDefault = default_;
     default_ = newDefault;
     if (eNotificationRequired())
     {
@@ -188,7 +189,7 @@ public class SwitchExpressionImpl extends ExpressionImpl implements SwitchExpres
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDefault(Expression newDefault)
+  public void setDefault(CasePartExpressions newDefault)
   {
     if (newDefault != default_)
     {
@@ -263,7 +264,7 @@ public class SwitchExpressionImpl extends ExpressionImpl implements SwitchExpres
         getCases().addAll((Collection<? extends CasePart>)newValue);
         return;
       case HaxePackage.SWITCH_EXPRESSION__DEFAULT:
-        setDefault((Expression)newValue);
+        setDefault((CasePartExpressions)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -286,7 +287,7 @@ public class SwitchExpressionImpl extends ExpressionImpl implements SwitchExpres
         getCases().clear();
         return;
       case HaxePackage.SWITCH_EXPRESSION__DEFAULT:
-        setDefault((Expression)null);
+        setDefault((CasePartExpressions)null);
         return;
     }
     super.eUnset(featureID);

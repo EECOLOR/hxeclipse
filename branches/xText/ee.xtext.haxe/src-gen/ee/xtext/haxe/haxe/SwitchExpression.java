@@ -79,12 +79,12 @@ public interface SwitchExpression extends Expression
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Default</em>' containment reference.
-   * @see #setDefault(Expression)
+   * @see #setDefault(CasePartExpressions)
    * @see ee.xtext.haxe.haxe.HaxePackage#getSwitchExpression_Default()
    * @model containment="true"
    * @generated
    */
-  Expression getDefault();
+  CasePartExpressions getDefault();
 
   /**
    * Sets the value of the '{@link ee.xtext.haxe.haxe.SwitchExpression#getDefault <em>Default</em>}' containment reference.
@@ -94,6 +94,6 @@ public interface SwitchExpression extends Expression
    * @see #getDefault()
    * @generated
    */
-  void setDefault(Expression value);
+  void setDefault(CasePartExpressions value);
 
 } // SwitchExpression

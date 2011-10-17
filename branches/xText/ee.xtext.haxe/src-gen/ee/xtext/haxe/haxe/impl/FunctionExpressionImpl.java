@@ -7,9 +7,9 @@
 package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.Expression;
-import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.FunctionExpression;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Parameter;
 import ee.xtext.haxe.haxe.TypeReference;
 
 import java.util.Collection;
@@ -52,7 +52,7 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
    * @generated
    * @ordered
    */
-  protected EList<FormalParameter> parameters;
+  protected EList<Parameter> parameters;
 
   /**
    * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' containment reference.
@@ -100,11 +100,11 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<FormalParameter> getParameters()
+  public EList<Parameter> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, HaxePackage.FUNCTION_EXPRESSION__PARAMETERS);
+      parameters = new EObjectContainmentEList<Parameter>(Parameter.class, this, HaxePackage.FUNCTION_EXPRESSION__PARAMETERS);
     }
     return parameters;
   }
@@ -258,7 +258,7 @@ public class FunctionExpressionImpl extends ExpressionImpl implements FunctionEx
     {
       case HaxePackage.FUNCTION_EXPRESSION__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends FormalParameter>)newValue);
+        getParameters().addAll((Collection<? extends Parameter>)newValue);
         return;
       case HaxePackage.FUNCTION_EXPRESSION__RETURN_TYPE:
         setReturnType((TypeReference)newValue);

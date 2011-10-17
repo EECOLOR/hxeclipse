@@ -10,13 +10,13 @@ import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.VariableDeclaration;
 import ee.xtext.haxe.haxe.VariableDeclarations;
  
-
 public class HaxeJavaValidator extends AbstractHaxeJavaValidator {
 
 	//TODO super and this can only be used in the bodies of function declarations, not in function expressions
 	//TODO non-static variables may not have an initial value
 	//TODO constructor may not be static
-	
+
+	/*
 	@Check
 	public void checkUniqueVariableName(VariableDeclaration variableDeclaration)
 	{
@@ -54,5 +54,6 @@ public class HaxeJavaValidator extends AbstractHaxeJavaValidator {
 		}
 		
 	}
+	*/
 
 }

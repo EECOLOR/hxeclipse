@@ -24,16 +24,6 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum Visibility implements Enumerator
 {
   /**
-   * The '<em><b>PUBLIC</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #PUBLIC_VALUE
-   * @generated
-   * @ordered
-   */
-  PUBLIC(0, "PUBLIC", "public"),
-
-  /**
    * The '<em><b>PRIVATE</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -41,22 +31,17 @@ public enum Visibility implements Enumerator
    * @generated
    * @ordered
    */
-  PRIVATE(1, "PRIVATE", "private");
+  PRIVATE(0, "PRIVATE", "private"),
 
   /**
-   * The '<em><b>PUBLIC</b></em>' literal value.
+   * The '<em><b>PUBLIC</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>PUBLIC</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #PUBLIC
-   * @model literal="public"
+   * @see #PUBLIC_VALUE
    * @generated
    * @ordered
    */
-  public static final int PUBLIC_VALUE = 0;
+  PUBLIC(1, "PUBLIC", "public");
 
   /**
    * The '<em><b>PRIVATE</b></em>' literal value.
@@ -71,7 +56,22 @@ public enum Visibility implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int PRIVATE_VALUE = 1;
+  public static final int PRIVATE_VALUE = 0;
+
+  /**
+   * The '<em><b>PUBLIC</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>PUBLIC</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #PUBLIC
+   * @model literal="public"
+   * @generated
+   * @ordered
+   */
+  public static final int PUBLIC_VALUE = 1;
 
   /**
    * An array of all the '<em><b>Visibility</b></em>' enumerators.
@@ -82,8 +82,8 @@ public enum Visibility implements Enumerator
   private static final Visibility[] VALUES_ARRAY =
     new Visibility[]
     {
-      PUBLIC,
       PRIVATE,
+      PUBLIC,
     };
 
   /**
@@ -142,8 +142,8 @@ public enum Visibility implements Enumerator
   {
     switch (value)
     {
-      case PUBLIC_VALUE: return PUBLIC;
       case PRIVATE_VALUE: return PRIVATE;
+      case PUBLIC_VALUE: return PUBLIC;
     }
     return null;
   }

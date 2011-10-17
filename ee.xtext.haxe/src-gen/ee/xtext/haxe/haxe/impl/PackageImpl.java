@@ -6,6 +6,7 @@
  */
 package ee.xtext.haxe.haxe.impl;
 
+import ee.xtext.haxe.haxe.ExternClass;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.Import;
 import ee.xtext.haxe.haxe.Interface;
@@ -40,8 +41,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link ee.xtext.haxe.haxe.impl.PackageImpl#getUsing <em>Using</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.PackageImpl#getClasses <em>Classes</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.PackageImpl#getInterfaces <em>Interfaces</em>}</li>
- *   <li>{@link ee.xtext.haxe.haxe.impl.PackageImpl#getEnums <em>Enums</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.PackageImpl#getTypedefs <em>Typedefs</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.PackageImpl#getEnums <em>Enums</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.PackageImpl#getExternClasses <em>Extern Classes</em>}</li>
  * </ul>
  * </p>
  *
@@ -110,6 +112,16 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
   protected EList<Interface> interfaces;
 
   /**
+   * The cached value of the '{@link #getTypedefs() <em>Typedefs</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTypedefs()
+   * @generated
+   * @ordered
+   */
+  protected EList<Typedef> typedefs;
+
+  /**
    * The cached value of the '{@link #getEnums() <em>Enums</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -120,14 +132,14 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
   protected EList<ee.xtext.haxe.haxe.Enum> enums;
 
   /**
-   * The cached value of the '{@link #getTypedefs() <em>Typedefs</em>}' containment reference list.
+   * The cached value of the '{@link #getExternClasses() <em>Extern Classes</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTypedefs()
+   * @see #getExternClasses()
    * @generated
    * @ordered
    */
-  protected EList<Typedef> typedefs;
+  protected EList<ExternClass> externClasses;
 
   /**
    * <!-- begin-user-doc -->
@@ -234,6 +246,20 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Typedef> getTypedefs()
+  {
+    if (typedefs == null)
+    {
+      typedefs = new EObjectContainmentEList<Typedef>(Typedef.class, this, HaxePackage.PACKAGE__TYPEDEFS);
+    }
+    return typedefs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ee.xtext.haxe.haxe.Enum> getEnums()
   {
     if (enums == null)
@@ -248,13 +274,13 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Typedef> getTypedefs()
+  public EList<ExternClass> getExternClasses()
   {
-    if (typedefs == null)
+    if (externClasses == null)
     {
-      typedefs = new EObjectContainmentEList<Typedef>(Typedef.class, this, HaxePackage.PACKAGE__TYPEDEFS);
+      externClasses = new EObjectContainmentEList<ExternClass>(ExternClass.class, this, HaxePackage.PACKAGE__EXTERN_CLASSES);
     }
-    return typedefs;
+    return externClasses;
   }
 
   /**
@@ -275,10 +301,12 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
         return ((InternalEList<?>)getClasses()).basicRemove(otherEnd, msgs);
       case HaxePackage.PACKAGE__INTERFACES:
         return ((InternalEList<?>)getInterfaces()).basicRemove(otherEnd, msgs);
-      case HaxePackage.PACKAGE__ENUMS:
-        return ((InternalEList<?>)getEnums()).basicRemove(otherEnd, msgs);
       case HaxePackage.PACKAGE__TYPEDEFS:
         return ((InternalEList<?>)getTypedefs()).basicRemove(otherEnd, msgs);
+      case HaxePackage.PACKAGE__ENUMS:
+        return ((InternalEList<?>)getEnums()).basicRemove(otherEnd, msgs);
+      case HaxePackage.PACKAGE__EXTERN_CLASSES:
+        return ((InternalEList<?>)getExternClasses()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -303,10 +331,12 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
         return getClasses();
       case HaxePackage.PACKAGE__INTERFACES:
         return getInterfaces();
-      case HaxePackage.PACKAGE__ENUMS:
-        return getEnums();
       case HaxePackage.PACKAGE__TYPEDEFS:
         return getTypedefs();
+      case HaxePackage.PACKAGE__ENUMS:
+        return getEnums();
+      case HaxePackage.PACKAGE__EXTERN_CLASSES:
+        return getExternClasses();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -341,13 +371,17 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
         getInterfaces().clear();
         getInterfaces().addAll((Collection<? extends Interface>)newValue);
         return;
+      case HaxePackage.PACKAGE__TYPEDEFS:
+        getTypedefs().clear();
+        getTypedefs().addAll((Collection<? extends Typedef>)newValue);
+        return;
       case HaxePackage.PACKAGE__ENUMS:
         getEnums().clear();
         getEnums().addAll((Collection<? extends ee.xtext.haxe.haxe.Enum>)newValue);
         return;
-      case HaxePackage.PACKAGE__TYPEDEFS:
-        getTypedefs().clear();
-        getTypedefs().addAll((Collection<? extends Typedef>)newValue);
+      case HaxePackage.PACKAGE__EXTERN_CLASSES:
+        getExternClasses().clear();
+        getExternClasses().addAll((Collection<? extends ExternClass>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -378,11 +412,14 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
       case HaxePackage.PACKAGE__INTERFACES:
         getInterfaces().clear();
         return;
+      case HaxePackage.PACKAGE__TYPEDEFS:
+        getTypedefs().clear();
+        return;
       case HaxePackage.PACKAGE__ENUMS:
         getEnums().clear();
         return;
-      case HaxePackage.PACKAGE__TYPEDEFS:
-        getTypedefs().clear();
+      case HaxePackage.PACKAGE__EXTERN_CLASSES:
+        getExternClasses().clear();
         return;
     }
     super.eUnset(featureID);
@@ -408,10 +445,12 @@ public class PackageImpl extends MinimalEObjectImpl.Container implements ee.xtex
         return classes != null && !classes.isEmpty();
       case HaxePackage.PACKAGE__INTERFACES:
         return interfaces != null && !interfaces.isEmpty();
-      case HaxePackage.PACKAGE__ENUMS:
-        return enums != null && !enums.isEmpty();
       case HaxePackage.PACKAGE__TYPEDEFS:
         return typedefs != null && !typedefs.isEmpty();
+      case HaxePackage.PACKAGE__ENUMS:
+        return enums != null && !enums.isEmpty();
+      case HaxePackage.PACKAGE__EXTERN_CLASSES:
+        return externClasses != null && !externClasses.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -17,11 +17,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="interfaces" upperBound="-1"
         eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Interface"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedefs" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Typedef"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="enums" upperBound="-1"
         eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Enum"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typedefs" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Typedef"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="externClasses" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ExternClass"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import">
@@ -30,118 +33,91 @@
   <eClassifiers xsi:type="ecore:EClass" name="Using">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Type">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ClassOrInterface" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="private" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassMember"
+  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassOrInterface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeParameters"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="implements" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassOrInterfaceReference"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Constructor"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassConstructor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassProperty"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Method"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ClassMember"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Interface" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassOrInterface">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="implements" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+  <eClassifiers xsi:type="ecore:EClass" name="Interface" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Enum" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="private" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="extern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeParameters"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//EnumConstructor"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implements" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EnumConstructor">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FormalParameter"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//InterfaceProperty"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Method"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Typedef" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="private" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassMember"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeReference" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassOrInterfaceReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ClassOrInterfaceReference"/>
-  <eClassifiers xsi:type="ecore:EClass" name="VariableDeclaration" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VariableMemberDeclaration" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassMember platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modified" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Modifier"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="getter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionMemberDeclaration"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="setter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FunctionMemberDeclaration"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FunctionMemberDeclaration" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ClassMember platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modified" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Modifier"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FormalParameter"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Constructor">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modified" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Modifier"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FormalParameter"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Feature">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FormalParameter" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Modifier">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="static" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dynamic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="override" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeParameters"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypedefProperty"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Method"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
+        containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Visibility">
-    <eLiterals name="PUBLIC" literal="public"/>
-    <eLiterals name="PRIVATE" value="1" literal="private"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Enum" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="extern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeParameters"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constructors" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//EnumConstructor"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternClass" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeParameters"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implements" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ExternClassConstructor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//ExternClassProperty"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Method"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeParameters">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
@@ -150,12 +126,149 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeParameter" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Reference" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypedefTypeProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Metadata">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="compiler" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Expression"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="Visibility">
+    <eLiterals name="PRIVATE" literal="private"/>
+    <eLiterals name="PUBLIC" value="1" literal="public"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodModifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyModifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassConstructor">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Parameter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassProperty" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//PropertyModifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="setter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Method" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//MethodModifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeParameters"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Parameter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="untyped" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InterfaceProperty" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="setter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypedefProperty" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="setter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumConstructor" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Parameter"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternClassConstructor">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Parameter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternClassProperty" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Metadata"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//PropertyModifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="setter" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetterSetter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassMethodReference" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Method"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetterSetterLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//GetterSetter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Feature">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableDeclaration" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CatchClause">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="declaredParam" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FormalParameter"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declaredParam" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Parameter"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
@@ -164,12 +277,61 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
         eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CasePartExpressions"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CasePartExpressions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ObjectElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodSignature" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="argumentTypes" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterizedTypeReference" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypedefType" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypedefTypeProperty"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Modifier" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//MethodModifier platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//PropertyModifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="static" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dynamic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="override" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="ecore:EEnum platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Visibility"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CastExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UntypedExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IfExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="if" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Assignment" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
@@ -240,12 +402,28 @@
         eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//VariableDeclaration"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IfExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="if" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Parameter"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureCall" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="explicitOperationCall"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstructorCall" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
+        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WhileExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
@@ -261,20 +439,11 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ForLoopExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="declaredParam" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FormalParameter"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declaredParam" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Parameter"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="forExpression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReturnExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BreakExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ThrowExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TryCatchExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
@@ -290,44 +459,21 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
         eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CasePart"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="default" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="default" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//CasePartExpressions"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FunctionExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//FormalParameter"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="ReturnExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ThisExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SuperExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureCall" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Feature"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="explicitOperationCall"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="BreakExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ThrowExpression" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConstructorCall" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//TypeReference"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
-        eType="ecore:EClass platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BooleanLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isTrue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NullLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IntLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FloatLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NumberLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StringLiteral" eSuperTypes="platform:/resource/ee.xtext.haxe/src-gen/ee/xtext/haxe/Haxe.ecore#//Expression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

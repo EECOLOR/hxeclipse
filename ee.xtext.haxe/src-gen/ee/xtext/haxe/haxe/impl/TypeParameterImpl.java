@@ -7,8 +7,8 @@
 package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Reference;
 import ee.xtext.haxe.haxe.TypeParameter;
-import ee.xtext.haxe.haxe.TypeReference;
 
 import java.util.Collection;
 
@@ -45,7 +45,7 @@ public class TypeParameterImpl extends TypeImpl implements TypeParameter
    * @generated
    * @ordered
    */
-  protected EList<TypeReference> constraints;
+  protected EList<Reference> constraints;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,11 +73,11 @@ public class TypeParameterImpl extends TypeImpl implements TypeParameter
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<TypeReference> getConstraints()
+  public EList<Reference> getConstraints()
   {
     if (constraints == null)
     {
-      constraints = new EObjectContainmentEList<TypeReference>(TypeReference.class, this, HaxePackage.TYPE_PARAMETER__CONSTRAINTS);
+      constraints = new EObjectContainmentEList<Reference>(Reference.class, this, HaxePackage.TYPE_PARAMETER__CONSTRAINTS);
     }
     return constraints;
   }
@@ -127,7 +127,7 @@ public class TypeParameterImpl extends TypeImpl implements TypeParameter
     {
       case HaxePackage.TYPE_PARAMETER__CONSTRAINTS:
         getConstraints().clear();
-        getConstraints().addAll((Collection<? extends TypeReference>)newValue);
+        getConstraints().addAll((Collection<? extends Reference>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

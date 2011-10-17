@@ -8,6 +8,7 @@ var grammarURI = "classpath:/ee/xtext/haxe/Haxe.xtext"
 var file.extensions = "hx"
 var projectName = "ee.xtext.haxe"
 var runtimeProject = "../${projectName}"
+var antlrTimeout = "10000"
 
 Workflow {
     bean = StandaloneSetup {
@@ -22,7 +23,7 @@ Workflow {
     component = DirectoryCleaner {
         directory = "${runtimeProject}.ui/src-gen"
     }
-
+    
     component = Generator {
         pathRtProject = runtimeProject
         pathUiProject = "${runtimeProject}.ui"
@@ -58,19 +59,20 @@ Workflow {
             // The antlr parser generator fragment.
             fragment = parser.antlr.XtextAntlrGeneratorFragment {
               options = {
-                  backtrack = true
-                  memoize = true
+                  //backtrack = true
+                  //memoize = true
               }
+              antlrParam = "-Xconversiontimeout" antlrParam = "${antlrTimeout}"
             }
-
+            
             // java-based API for validation
             fragment = validation.JavaValidatorFragment {
-                composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
+                //composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
                 //composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
             }
 
             // scoping and exporting API
-            fragment = scoping.ImportURIScopingFragment {}
+            // fragment = scoping.ImportURIScopingFragment {}
             // fragment = exporting.SimpleNamesFragment {}
 
             // scoping and exporting API

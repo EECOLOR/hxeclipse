@@ -6,7 +6,6 @@
  */
 package ee.xtext.haxe.haxe;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Modifier extends EObject
+public interface Modifier extends MethodModifier, PropertyModifier
 {
   /**
    * Returns the value of the '<em><b>Static</b></em>' attribute.

@@ -3,28 +3,40 @@
  */
 package ee.xtext.haxe;
 
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
+
+import com.google.inject.Binder;
+
 import ee.xtext.haxe.converter.HaxeValueConverterService;
-
-
-
-
+import ee.xtext.haxe.scoping.HaxeDefaultResourceDescriptionStrategy;
+import ee.xtext.haxe.scoping.HaxeImportedNamespaceAwareLocalScopeProvider;
+import ee.xtext.haxe.scoping.HaxeQualifiedNameProvider;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class HaxeRuntimeModule extends ee.xtext.haxe.AbstractHaxeRuntimeModule {
-	/*
-	public void configureIScopeProviderDelegate(Binder binder) {
-		binder.bind(IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(HaxeSimpleLocalScopeProvider.class);
+	
+	@Override
+	public void configure(Binder binder) {
+		super.configure(binder);
+		
+		binder.bind(IDefaultResourceDescriptionStrategy.class).to(HaxeDefaultResourceDescriptionStrategy.class);
 	}
-	
-	
-	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return HaxeImportUriGlobalScopeProvider.class;
-	}
-	*/
-	
+
 	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
 		return HaxeValueConverterService.class;
 	}
+	
+	public void configureIScopeProviderDelegate(com.google.inject.Binder binder) {
+		binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(HaxeImportedNamespaceAwareLocalScopeProvider.class);
+	}
+
+	@Override
+	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return HaxeQualifiedNameProvider.class;
+	}
+
+	
 }

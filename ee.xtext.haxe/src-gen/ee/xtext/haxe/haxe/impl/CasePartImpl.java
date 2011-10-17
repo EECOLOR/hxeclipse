@@ -7,6 +7,7 @@
 package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.CasePart;
+import ee.xtext.haxe.haxe.CasePartExpressions;
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.HaxePackage;
 
@@ -60,7 +61,7 @@ public class CasePartImpl extends MinimalEObjectImpl.Container implements CasePa
    * @generated
    * @ordered
    */
-  protected Expression then;
+  protected CasePartExpressions then;
 
   /**
    * <!-- begin-user-doc -->
@@ -102,7 +103,7 @@ public class CasePartImpl extends MinimalEObjectImpl.Container implements CasePa
    * <!-- end-user-doc -->
    * @generated
    */
-  public Expression getThen()
+  public CasePartExpressions getThen()
   {
     return then;
   }
@@ -112,9 +113,9 @@ public class CasePartImpl extends MinimalEObjectImpl.Container implements CasePa
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetThen(Expression newThen, NotificationChain msgs)
+  public NotificationChain basicSetThen(CasePartExpressions newThen, NotificationChain msgs)
   {
-    Expression oldThen = then;
+    CasePartExpressions oldThen = then;
     then = newThen;
     if (eNotificationRequired())
     {
@@ -129,7 +130,7 @@ public class CasePartImpl extends MinimalEObjectImpl.Container implements CasePa
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setThen(Expression newThen)
+  public void setThen(CasePartExpressions newThen)
   {
     if (newThen != then)
     {
@@ -197,7 +198,7 @@ public class CasePartImpl extends MinimalEObjectImpl.Container implements CasePa
         getCases().addAll((Collection<? extends Expression>)newValue);
         return;
       case HaxePackage.CASE_PART__THEN:
-        setThen((Expression)newValue);
+        setThen((CasePartExpressions)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -217,7 +218,7 @@ public class CasePartImpl extends MinimalEObjectImpl.Container implements CasePa
         getCases().clear();
         return;
       case HaxePackage.CASE_PART__THEN:
-        setThen((Expression)null);
+        setThen((CasePartExpressions)null);
         return;
     }
     super.eUnset(featureID);

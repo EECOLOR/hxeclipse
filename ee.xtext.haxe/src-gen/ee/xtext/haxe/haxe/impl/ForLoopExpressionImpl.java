@@ -8,8 +8,8 @@ package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.Expression;
 import ee.xtext.haxe.haxe.ForLoopExpression;
-import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Parameter;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -44,7 +44,7 @@ public class ForLoopExpressionImpl extends ExpressionImpl implements ForLoopExpr
    * @generated
    * @ordered
    */
-  protected FormalParameter declaredParam;
+  protected Parameter declaredParam;
 
   /**
    * The cached value of the '{@link #getForExpression() <em>For Expression</em>}' containment reference.
@@ -92,7 +92,7 @@ public class ForLoopExpressionImpl extends ExpressionImpl implements ForLoopExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public FormalParameter getDeclaredParam()
+  public Parameter getDeclaredParam()
   {
     return declaredParam;
   }
@@ -102,9 +102,9 @@ public class ForLoopExpressionImpl extends ExpressionImpl implements ForLoopExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDeclaredParam(FormalParameter newDeclaredParam, NotificationChain msgs)
+  public NotificationChain basicSetDeclaredParam(Parameter newDeclaredParam, NotificationChain msgs)
   {
-    FormalParameter oldDeclaredParam = declaredParam;
+    Parameter oldDeclaredParam = declaredParam;
     declaredParam = newDeclaredParam;
     if (eNotificationRequired())
     {
@@ -119,7 +119,7 @@ public class ForLoopExpressionImpl extends ExpressionImpl implements ForLoopExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDeclaredParam(FormalParameter newDeclaredParam)
+  public void setDeclaredParam(Parameter newDeclaredParam)
   {
     if (newDeclaredParam != declaredParam)
     {
@@ -282,7 +282,7 @@ public class ForLoopExpressionImpl extends ExpressionImpl implements ForLoopExpr
     switch (featureID)
     {
       case HaxePackage.FOR_LOOP_EXPRESSION__DECLARED_PARAM:
-        setDeclaredParam((FormalParameter)newValue);
+        setDeclaredParam((Parameter)newValue);
         return;
       case HaxePackage.FOR_LOOP_EXPRESSION__FOR_EXPRESSION:
         setForExpression((Expression)newValue);
@@ -305,7 +305,7 @@ public class ForLoopExpressionImpl extends ExpressionImpl implements ForLoopExpr
     switch (featureID)
     {
       case HaxePackage.FOR_LOOP_EXPRESSION__DECLARED_PARAM:
-        setDeclaredParam((FormalParameter)null);
+        setDeclaredParam((Parameter)null);
         return;
       case HaxePackage.FOR_LOOP_EXPRESSION__FOR_EXPRESSION:
         setForExpression((Expression)null);

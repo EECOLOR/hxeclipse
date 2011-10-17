@@ -3,7 +3,6 @@ package ee.xtext.haxe.converter;
 import org.eclipse.xtext.common.services.DefaultTerminalConverters;
 import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.conversion.ValueConverter;
-import org.eclipse.xtext.conversion.impl.KeywordAlternativeConverter;
 
 import com.google.inject.Inject;
 
@@ -17,4 +16,13 @@ public class HaxeValueConverterService extends DefaultTerminalConverters {
 		return featureIDConverter;
 	}
 	*/
+	
+	@Inject 
+	private HexValueConverter hexValueConverter;
+	
+	@ValueConverter(rule = "HEX")
+	public IValueConverter<Integer> HEX() {
+		return hexValueConverter;
+	}
+	
 }

@@ -36,12 +36,12 @@ public interface ConstructorCall extends Expression
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constructor</em>' containment reference.
-   * @see #setConstructor(TypeReference)
+   * @see #setConstructor(Reference)
    * @see ee.xtext.haxe.haxe.HaxePackage#getConstructorCall_Constructor()
    * @model containment="true"
    * @generated
    */
-  TypeReference getConstructor();
+  Reference getConstructor();
 
   /**
    * Sets the value of the '{@link ee.xtext.haxe.haxe.ConstructorCall#getConstructor <em>Constructor</em>}' containment reference.
@@ -51,7 +51,7 @@ public interface ConstructorCall extends Expression
    * @see #getConstructor()
    * @generated
    */
-  void setConstructor(TypeReference value);
+  void setConstructor(Reference value);
 
   /**
    * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.

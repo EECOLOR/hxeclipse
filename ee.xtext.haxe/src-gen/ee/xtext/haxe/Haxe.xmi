@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="ee.xtext.haxe.Haxe" definesHiddenTokens="true" hiddenTokens="//@rules.103 //@rules.101 //@rules.102">
+<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="ee.xtext.haxe.Haxe" definesHiddenTokens="true" hiddenTokens="//@rules.121 //@rules.119 //@rules.120 //@rules.3 //@rules.4 //@rules.5 //@rules.7">
   <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
     <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
   </metamodelDeclarations>
@@ -14,27 +14,34 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="package"/>
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
       </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="imports" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.1"/>
+      <elements xsi:type="xtext:Alternatives" cardinality="*">
+        <elements xsi:type="xtext:Assignment" feature="imports" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.1"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="using" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
+        </elements>
       </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="using" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
-      </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="classes" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.5"/>
-      </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="interfaces" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.7"/>
-      </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="enums" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
-      </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="typedefs" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.10"/>
+      <elements xsi:type="xtext:Alternatives" cardinality="*">
+        <elements xsi:type="xtext:Assignment" feature="classes" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.9"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="interfaces" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.10"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="typedefs" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="enums" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.12"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="externClasses" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.13"/>
+        </elements>
       </elements>
     </alternatives>
   </rules>
@@ -45,8 +52,9 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="import"/>
       <elements xsi:type="xtext:Assignment" feature="importedNamespace" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.20"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.107"/>
       </elements>
+      <elements xsi:type="xtext:Keyword" value=";"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Using">
@@ -56,28 +64,72 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="using"/>
       <elements xsi:type="xtext:Assignment" feature="importedClass" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="CONDITIONAL_IF">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="#if"/>
+      <elements xsi:type="xtext:RuleCall" cardinality="?" rule="//@rules.121"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="CONDITIONAL_ELSE">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="#else"/>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="CONDITIONAL_ELSE_IF">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="#elseif"/>
+      <elements xsi:type="xtext:RuleCall" cardinality="?" rule="//@rules.121"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="CONDITIONAL_EXPRESSION" fragment="true">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" cardinality="?" value="!"/>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="("/>
+          <elements xsi:type="xtext:NegatedToken" cardinality="+">
+            <terminal xsi:type="xtext:Keyword" value=")"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value=")"/>
+        </elements>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.111"/>
       </elements>
     </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="CONDITIONAL_END">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="#end"/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Type">
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Type"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.4"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.29"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.9"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.10"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="ClassOrInterface">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ClassOrInterface"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.5"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.7"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.12"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.13"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.15"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Class">
@@ -85,46 +137,57 @@
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Class"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="private" operator="?=">
-        <terminal xsi:type="xtext:Keyword" value="private"/>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="class"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.28"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value="extends"/>
-        <elements xsi:type="xtext:Assignment" feature="extends" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.12"/>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="extends"/>
+            <elements xsi:type="xtext:Assignment" feature="extends" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="implements"/>
+            <elements xsi:type="xtext:Assignment" feature="implements" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+            </elements>
+          </elements>
         </elements>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Keyword" value=","/>
-        <elements xsi:type="xtext:Keyword" value="implements"/>
-        <elements xsi:type="xtext:Assignment" feature="implements" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Keyword" value="implements"/>
+          <elements xsi:type="xtext:Assignment" feature="implements" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+          </elements>
         </elements>
       </elements>
       <elements xsi:type="xtext:Keyword" value="{"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="constructor" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.19"/>
-      </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="members" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+      <elements xsi:type="xtext:UnorderedGroup">
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="constructor" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.28"/>
+        </elements>
+        <elements xsi:type="xtext:Alternatives" cardinality="*">
+          <elements xsi:type="xtext:Assignment" feature="properties" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="methods" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+          </elements>
+        </elements>
       </elements>
       <elements xsi:type="xtext:Keyword" value="}"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="ClassMember">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ClassMember"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.18"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.16"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Interface">
@@ -132,70 +195,45 @@
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Interface"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="private" operator="?=">
-        <terminal xsi:type="xtext:Keyword" value="private"/>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="extern" operator="=">
+        <terminal xsi:type="xtext:Keyword" value="extern"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="interface"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Keyword" value=","/>
-        <elements xsi:type="xtext:Keyword" value="implements"/>
-        <elements xsi:type="xtext:Assignment" feature="implements" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.13"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="{"/>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="members" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="}"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="Enum">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Enum"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="private" operator="?=">
-        <terminal xsi:type="xtext:Keyword" value="private"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="enum"/>
-      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.28"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="{"/>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="members" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.9"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="}"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="EnumConstructor">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//EnumConstructor"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value="("/>
-        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
+        <elements xsi:type="xtext:Keyword" value="implements"/>
+        <elements xsi:type="xtext:Assignment" feature="implements" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
+          <elements xsi:type="xtext:Keyword" value="implements"/>
+          <elements xsi:type="xtext:Assignment" feature="implements" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
           </elements>
         </elements>
-        <elements xsi:type="xtext:Keyword" value=")"/>
       </elements>
+      <elements xsi:type="xtext:Keyword" value="{"/>
+      <elements xsi:type="xtext:Alternatives" cardinality="*">
+        <elements xsi:type="xtext:Assignment" feature="properties" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.31"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="methods" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.32"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="}"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Typedef">
@@ -203,361 +241,340 @@
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Typedef"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="private" operator="?=">
-        <terminal xsi:type="xtext:Keyword" value="private"/>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="typedef"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="="/>
-      <elements xsi:type="xtext:Keyword" value="{"/>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value=">"/>
-        <elements xsi:type="xtext:Assignment" feature="extends" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="{"/>
+          <elements xsi:type="xtext:Group" cardinality="?">
+            <elements xsi:type="xtext:Keyword" value=">"/>
+            <elements xsi:type="xtext:Assignment" feature="extends" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+            </elements>
+            <elements xsi:type="xtext:Keyword" value=","/>
+          </elements>
+          <elements xsi:type="xtext:Alternatives" cardinality="*">
+            <elements xsi:type="xtext:Assignment" feature="properties" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.33"/>
+            </elements>
+            <elements xsi:type="xtext:Assignment" feature="methods" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.34"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value="}"/>
         </elements>
-        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+        </elements>
       </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="members" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Enum">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Enum"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="extern" operator="=">
+        <terminal xsi:type="xtext:Keyword" value="extern"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="enum"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="{"/>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="constructors" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.35"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="}"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ExternClass">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ExternClass"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="extern"/>
+      <elements xsi:type="xtext:Keyword" value="class"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="extends"/>
+            <elements xsi:type="xtext:Assignment" feature="extends" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="implements"/>
+            <elements xsi:type="xtext:Assignment" feature="implements" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Keyword" value="implements"/>
+          <elements xsi:type="xtext:Assignment" feature="implements" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="{"/>
+      <elements xsi:type="xtext:UnorderedGroup">
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="constructor" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" cardinality="*" feature="properties" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.37"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" cardinality="*" feature="methods" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.38"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="}"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TypeParameters">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypeParameters"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="&lt;"/>
+      <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=">"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TypeParameter">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypeParameter"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Assignment" feature="constraints" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="constraints" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="TypeReference">
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypeReference"/>
     </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-        <terminal xsi:type="xtext:CrossReference">
-          <type metamodel="//@metamodelDeclarations.1">
-            <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Type"/>
-          </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
-        </terminal>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" predicated="true" value="&lt;"/>
-        <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Keyword" value=">"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="ClassReference">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypeReference"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-        <terminal xsi:type="xtext:CrossReference">
-          <type metamodel="//@metamodelDeclarations.1">
-            <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Class"/>
-          </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
-        </terminal>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" predicated="true" value="&lt;"/>
-        <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Keyword" value=">"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="InterfaceReference">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypeReference"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-        <terminal xsi:type="xtext:CrossReference">
-          <type metamodel="//@metamodelDeclarations.1">
-            <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Interface"/>
-          </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
-        </terminal>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" predicated="true" value="&lt;"/>
-        <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Keyword" value=">"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="ClassOrInterfaceReference">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ClassOrInterfaceReference"/>
-    </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.12"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.13"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.19"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="VariableDeclaration">
+  <rules xsi:type="xtext:ParserRule" name="MethodSignature">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//VariableDeclaration"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Reference"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Group" predicated="true">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Action" feature="argumentTypes" operator="+=">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//MethodSignature"/>
+              </type>
+            </elements>
+            <elements xsi:type="xtext:Keyword" value="->"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*" predicated="true">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="argumentTypes" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+            </elements>
+            <elements xsi:type="xtext:Keyword" value="->"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ParameterizedTypeReference">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Reference"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
         <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//VariableDeclaration"/>
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ParameterizedTypeReference"/>
         </type>
       </elements>
-      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value=":"/>
-        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value="="/>
-        <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+      <elements xsi:type="xtext:Group" predicated="true">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Type"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
+            </terminal>
+          </elements>
+          <elements xsi:type="xtext:Group" cardinality="?">
+            <elements xsi:type="xtext:Keyword" value="&lt;"/>
+            <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="*">
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+              </elements>
+            </elements>
+            <elements xsi:type="xtext:Keyword" value=">"/>
+          </elements>
         </elements>
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="VariableMemberDeclaration">
+  <rules xsi:type="xtext:ParserRule" name="TypedefType">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//VariableMemberDeclaration"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Reference"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
         <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//VariableMemberDeclaration"/>
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypedefType"/>
         </type>
       </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="modified" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="{"/>
+        <elements xsi:type="xtext:Assignment" feature="properties" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.20"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="properties" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.20"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="}"/>
       </elements>
-      <elements xsi:type="xtext:Keyword" value="var"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TypedefTypeProperty">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypedefTypeProperty"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value="("/>
-        <elements xsi:type="xtext:Assignment" feature="getter" operator="=">
-          <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="//@metamodelDeclarations.1">
-              <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FunctionMemberDeclaration"/>
-            </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
-          </terminal>
-        </elements>
-        <elements xsi:type="xtext:Keyword" value=","/>
-        <elements xsi:type="xtext:Assignment" feature="setter" operator="=">
-          <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="//@metamodelDeclarations.1">
-              <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FunctionMemberDeclaration"/>
-            </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
-          </terminal>
-        </elements>
-        <elements xsi:type="xtext:Keyword" value=")"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value=":"/>
       <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
       </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value="="/>
-        <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="GetterSetterID">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      <elements xsi:type="xtext:Keyword" value="default"/>
-      <elements xsi:type="xtext:Keyword" value="null"/>
-      <elements xsi:type="xtext:Keyword" value="dynamic"/>
-      <elements xsi:type="xtext:Keyword" value="never"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="FunctionMemberDeclaration">
+  <rules xsi:type="xtext:ParserRule" name="Metadata">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FunctionMemberDeclaration"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Metadata"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FunctionMemberDeclaration"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="modified" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="function"/>
-      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="("/>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
-          </elements>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value=")"/>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value=":"/>
-        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Assignment" feature="body" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.63"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="Constructor">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Constructor"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Constructor"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="modified" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="function"/>
-      <elements xsi:type="xtext:Keyword" value="new"/>
-      <elements xsi:type="xtext:Keyword" value="("/>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
-          </elements>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value=")"/>
-      <elements xsi:type="xtext:Assignment" feature="body" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.63"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="QualifiedNameWithWildcard">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.21"/>
-      <elements xsi:type="xtext:Keyword" cardinality="?" value=".*"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="QualifiedName">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Keyword" value="."/>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="ValidID">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:RuleCall" rule="//@rules.96"/>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="FeatureID">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      <elements xsi:type="xtext:Keyword" value="super"/>
-      <elements xsi:type="xtext:Keyword" value="this"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="Feature">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Feature"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.15"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.25"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.18"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.16"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="FormalParameter">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FormalParameter"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="optional" operator="?=">
-        <terminal xsi:type="xtext:Keyword" value="?"/>
+      <elements xsi:type="xtext:Keyword" value="@"/>
+      <elements xsi:type="xtext:Assignment" feature="compiler" operator="?=">
+        <terminal xsi:type="xtext:Keyword" value=":"/>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
       </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value=":"/>
-        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value="="/>
-        <elements xsi:type="xtext:Assignment" feature="defaultValue" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.84"/>
+      <elements xsi:type="xtext:Group" cardinality="?" predicated="true">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="("/>
+          <elements xsi:type="xtext:Assignment" cardinality="?" feature="body" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="Modifier">
+  <rules xsi:type="xtext:ParserRule" name="MetadataExpression">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Modifier"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.102"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.100"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.103"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:EnumRule" name="Visibility">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EEnum" href="http://www.xtext.ee/haxe/Haxe#//Visibility"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:EnumLiteralDeclaration">
+        <enumLiteral href="http://www.xtext.ee/haxe/Haxe#//Visibility/PRIVATE"/>
+        <literal value="private"/>
+      </elements>
+      <elements xsi:type="xtext:EnumLiteralDeclaration">
+        <enumLiteral href="http://www.xtext.ee/haxe/Haxe#//Visibility/PUBLIC"/>
+        <literal value="public"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="MethodModifier">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//MethodModifier"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
@@ -582,75 +599,626 @@
           <terminal xsi:type="xtext:Keyword" value="inline"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
         </elements>
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:EnumRule" name="Visibility">
+  <rules xsi:type="xtext:ParserRule" name="PropertyModifier">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EEnum" href="http://www.xtext.ee/haxe/Haxe#//Visibility"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:EnumLiteralDeclaration">
-        <enumLiteral href="http://www.xtext.ee/haxe/Haxe#//Visibility/PUBLIC"/>
-        <literal value="public"/>
-      </elements>
-      <elements xsi:type="xtext:EnumLiteralDeclaration">
-        <enumLiteral href="http://www.xtext.ee/haxe/Haxe#//Visibility/PRIVATE"/>
-        <literal value="private"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="TypeParameters">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypeParameters"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//PropertyModifier"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Keyword" value="&lt;"/>
-      <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Modifier"/>
+        </type>
       </elements>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Keyword" value=","/>
-        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+      <elements xsi:type="xtext:UnorderedGroup">
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="static" operator="?=">
+          <terminal xsi:type="xtext:Keyword" value="static"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
         </elements>
       </elements>
-      <elements xsi:type="xtext:Keyword" value=">"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="TypeParameter">
+  <rules xsi:type="xtext:ParserRule" name="Parameter">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypeParameter"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Parameter"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value=":"/>
-        <elements xsi:type="xtext:Keyword" value="("/>
-        <elements xsi:type="xtext:Assignment" feature="constraints" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="="/>
+        <elements xsi:type="xtext:Assignment" feature="defaultValue" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.98"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OptionalParameter">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Parameter"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="optional" operator="?=">
+        <terminal xsi:type="xtext:Keyword" value="?"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="="/>
+        <elements xsi:type="xtext:Assignment" feature="defaultValue" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.98"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ClassConstructor">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ClassConstructor"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ClassConstructor"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="function"/>
+      <elements xsi:type="xtext:Keyword" value="new"/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="constraints" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="body" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.77"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ClassProperty">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ClassProperty"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="modifier" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="var"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Assignment" feature="getter" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="setter" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="="/>
+        <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ClassMethod">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Method"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="modifier" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="function"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="untyped" operator="?=">
+        <terminal xsi:type="xtext:Keyword" value="untyped"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="body" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.77"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="InterfaceProperty">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//InterfaceProperty"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="var"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Assignment" feature="getter" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="setter" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=":"/>
+      <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="InterfaceMethod">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Method"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="function"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TypedefProperty">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TypedefProperty"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="var"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Assignment" feature="getter" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="setter" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TypedefMethod">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Method"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="function"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="EnumConstructor">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//EnumConstructor"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=")"/>
       </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ExternClassConstructor">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ExternClassConstructor"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ExternClassConstructor"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="visibility" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="function"/>
+      <elements xsi:type="xtext:Keyword" value="new"/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ExternClassProperty">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ExternClassProperty"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="modifier" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="var"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Assignment" feature="getter" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="setter" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="="/>
+        <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ExternClassMethod">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Method"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="metadata" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="modifier" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="function"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParameters" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="untyped"/>
+        <elements xsi:type="xtext:Assignment" feature="body" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.77"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="GetterSetter">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//GetterSetter"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.41"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ClassMethodReference">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ClassMethodReference"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="reference" operator="=">
+      <terminal xsi:type="xtext:CrossReference">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Method"/>
+        </type>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </terminal>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="GetterSetterLiteral">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//GetterSetterLiteral"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="value" operator="=">
+      <terminal xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Keyword" value="default"/>
+        <elements xsi:type="xtext:Keyword" value="null"/>
+        <elements xsi:type="xtext:Keyword" value="dynamic"/>
+        <elements xsi:type="xtext:Keyword" value="never"/>
+      </terminal>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Feature">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Feature"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.26"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.80"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.32"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.31"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.34"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.33"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.35"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.38"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.37"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Expression">
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Action">
+          <type metamodel="//@metamodelDeclarations.1">
+            <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//CastExpression"/>
+          </type>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="cast"/>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Assignment" feature="target" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+          </elements>
+          <elements xsi:type="xtext:Group" predicated="true">
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Keyword" value="("/>
+              <elements xsi:type="xtext:Assignment" feature="target" operator="=">
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+              </elements>
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+              </elements>
+              <elements xsi:type="xtext:Keyword" value=")"/>
+            </elements>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Action">
+          <type metamodel="//@metamodelDeclarations.1">
+            <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//UntypedExpression"/>
+          </type>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="untyped"/>
+        <elements xsi:type="xtext:Assignment" feature="target" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ShortIfExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.31"/>
-      <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+      <elements xsi:type="xtext:Group" cardinality="?" predicated="true">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Action" feature="if" operator="=">
+            <type metamodel="//@metamodelDeclarations.1">
+              <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//IfExpression"/>
+            </type>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value="?"/>
+          <elements xsi:type="xtext:Assignment" feature="then" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value=":"/>
+          <elements xsi:type="xtext:Assignment" feature="else" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+          </elements>
+        </elements>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Assignment">
@@ -669,31 +1237,29 @@
             <type metamodel="//@metamodelDeclarations.1">
               <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Feature"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.110"/>
           </terminal>
         </elements>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.32"/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
         <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.31"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
         </elements>
       </elements>
       <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.34"/>
-        <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Group" predicated="true">
-            <elements xsi:type="xtext:Group">
-              <elements xsi:type="xtext:Action" feature="left" operator="=">
-                <type metamodel="//@metamodelDeclarations.1">
-                  <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
-                </type>
-              </elements>
-              <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.33"/>
-              </elements>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.48"/>
+        <elements xsi:type="xtext:Group" cardinality="?" predicated="true">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Action" feature="left" operator="=">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
+              </type>
             </elements>
-          </elements>
-          <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.31"/>
+            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.47"/>
+            </elements>
+            <elements xsi:type="xtext:Assignment" feature="right" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+            </elements>
           </elements>
         </elements>
       </elements>
@@ -705,7 +1271,7 @@
     </type>
     <alternatives xsi:type="xtext:Keyword" value="="/>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpMultiAssign">
+  <rules xsi:type="xtext:ParserRule" name="OpMultiAssign" definesHiddenTokens="true">
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
@@ -718,244 +1284,20 @@
       <elements xsi:type="xtext:Keyword" value="&amp;="/>
       <elements xsi:type="xtext:Keyword" value="|="/>
       <elements xsi:type="xtext:Keyword" value="^="/>
-      <elements xsi:type="xtext:Keyword" value="&lt;&lt;="/>
-      <elements xsi:type="xtext:Keyword" value=">>="/>
-      <elements xsi:type="xtext:Keyword" value=">>>="/>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="&lt;"/>
+        <elements xsi:type="xtext:Keyword" value="&lt;"/>
+        <elements xsi:type="xtext:Keyword" value="="/>
+      </elements>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value=">"/>
+        <elements xsi:type="xtext:Keyword" value=">"/>
+        <elements xsi:type="xtext:Keyword" cardinality="?" value=">"/>
+        <elements xsi:type="xtext:Keyword" value="="/>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="OrExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.36"/>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Group" predicated="true">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action" feature="left" operator="=">
-              <type metamodel="//@metamodelDeclarations.1">
-                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.35"/>
-            </elements>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
-        </elements>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpOr">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Keyword" value="||"/>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="AndExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.38"/>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Group" predicated="true">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action" feature="left" operator="=">
-              <type metamodel="//@metamodelDeclarations.1">
-                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.37"/>
-            </elements>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.38"/>
-        </elements>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpAnd">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Keyword" value="&amp;&amp;"/>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="OtherOperatorExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.40"/>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Group" predicated="true">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action" feature="left" operator="=">
-              <type metamodel="//@metamodelDeclarations.1">
-                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
-            </elements>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
-        </elements>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpOther">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Keyword" value="..."/>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="CompareExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.42"/>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Group" predicated="true">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action" feature="left" operator="=">
-              <type metamodel="//@metamodelDeclarations.1">
-                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.41"/>
-            </elements>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.42"/>
-        </elements>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpCompare">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:Keyword" value="=="/>
-      <elements xsi:type="xtext:Keyword" value="!="/>
-      <elements xsi:type="xtext:Keyword" value=">="/>
-      <elements xsi:type="xtext:Keyword" value="&lt;="/>
-      <elements xsi:type="xtext:Keyword" value=">"/>
-      <elements xsi:type="xtext:Keyword" value="&lt;"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="BitwiseExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.44"/>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Group" predicated="true">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action" feature="left" operator="=">
-              <type metamodel="//@metamodelDeclarations.1">
-                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
-            </elements>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
-        </elements>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpBitwise">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:Keyword" value="|"/>
-      <elements xsi:type="xtext:Keyword" value="&amp;"/>
-      <elements xsi:type="xtext:Keyword" value="^"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="BitshiftExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Group" predicated="true">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action" feature="left" operator="=">
-              <type metamodel="//@metamodelDeclarations.1">
-                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
-            </elements>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
-        </elements>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpBitshift">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:Keyword" value="&lt;&lt;"/>
-      <elements xsi:type="xtext:Keyword" value=">>"/>
-      <elements xsi:type="xtext:Keyword" value=">>>"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="AddExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.48"/>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Group" predicated="true">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action" feature="left" operator="=">
-              <type metamodel="//@metamodelDeclarations.1">
-                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.47"/>
-            </elements>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.48"/>
-        </elements>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpAdd">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </type>
-    <alternatives xsi:type="xtext:Keyword" value="+"/>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="SubtractExpression">
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
@@ -980,13 +1322,13 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpSubtract">
+  <rules xsi:type="xtext:ParserRule" name="OpOr">
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
-    <alternatives xsi:type="xtext:Keyword" value="-"/>
+    <alternatives xsi:type="xtext:Keyword" value="||"/>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="MultiplyExpression">
+  <rules xsi:type="xtext:ParserRule" name="AndExpression">
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
@@ -1011,13 +1353,13 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="OpMultiply">
+  <rules xsi:type="xtext:ParserRule" name="OpAnd">
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
-    <alternatives xsi:type="xtext:Keyword" value="*"/>
+    <alternatives xsi:type="xtext:Keyword" value="&amp;&amp;"/>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="DivideExpression">
+  <rules xsi:type="xtext:ParserRule" name="OtherOperatorExpression">
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
@@ -1042,6 +1384,244 @@
       </elements>
     </alternatives>
   </rules>
+  <rules xsi:type="xtext:ParserRule" name="OpOther">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="..."/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="CompareExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      <elements xsi:type="xtext:Group" cardinality="*" predicated="true">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Action" feature="left" operator="=">
+            <type metamodel="//@metamodelDeclarations.1">
+              <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
+            </type>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.55"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="right" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+          </elements>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OpCompare" definesHiddenTokens="true">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:Keyword" value="=="/>
+      <elements xsi:type="xtext:Keyword" value="!="/>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value=">"/>
+        <elements xsi:type="xtext:Keyword" cardinality="?" value="="/>
+      </elements>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="&lt;"/>
+        <elements xsi:type="xtext:Keyword" cardinality="?" value="="/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="BitwiseExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.58"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Group" predicated="true">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Action" feature="left" operator="=">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
+              </type>
+            </elements>
+            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.57"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.58"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OpBitwise">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:Keyword" value="|"/>
+      <elements xsi:type="xtext:Keyword" value="&amp;"/>
+      <elements xsi:type="xtext:Keyword" value="^"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="BitshiftExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.60"/>
+      <elements xsi:type="xtext:Group" cardinality="*" predicated="true">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Action" feature="left" operator="=">
+            <type metamodel="//@metamodelDeclarations.1">
+              <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
+            </type>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.59"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="right" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.60"/>
+          </elements>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OpBitshift" definesHiddenTokens="true">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="&lt;"/>
+        <elements xsi:type="xtext:Keyword" value="&lt;"/>
+      </elements>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value=">"/>
+        <elements xsi:type="xtext:Keyword" value=">"/>
+        <elements xsi:type="xtext:Keyword" cardinality="?" value=">"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="AddExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.62"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Group" predicated="true">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Action" feature="left" operator="=">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
+              </type>
+            </elements>
+            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.61"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.62"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OpAdd">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="+"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SubtractExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.64"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Group" predicated="true">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Action" feature="left" operator="=">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
+              </type>
+            </elements>
+            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.63"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.64"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OpSubtract">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="-"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="MultiplyExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.66"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Group" predicated="true">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Action" feature="left" operator="=">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
+              </type>
+            </elements>
+            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.65"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.66"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OpMultiply">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="*"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="DivideExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.68"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Group" predicated="true">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Action" feature="left" operator="=">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Operation"/>
+              </type>
+            </elements>
+            <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.67"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="right" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.68"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
   <rules xsi:type="xtext:ParserRule" name="OpDivide">
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -1053,7 +1633,7 @@
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.70"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Group" predicated="true">
           <elements xsi:type="xtext:Group">
@@ -1063,12 +1643,12 @@
               </type>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.55"/>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.69"/>
             </elements>
           </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="right" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.70"/>
         </elements>
       </elements>
     </alternatives>
@@ -1091,13 +1671,13 @@
           </type>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.57"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.71"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="operand" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.58"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.72"/>
         </elements>
       </elements>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.58"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.72"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="OpUnary">
@@ -1123,14 +1703,14 @@
             </type>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.60"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.74"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="operand" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.59"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.73"/>
           </elements>
         </elements>
       </elements>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.59"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.73"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="PostIncrementOperation">
@@ -1146,14 +1726,14 @@
             </type>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="operand" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.61"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.75"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.60"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.74"/>
           </elements>
         </elements>
       </elements>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.61"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.75"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="OpIncrement">
@@ -1170,7 +1750,7 @@
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.62"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.76"/>
       <elements xsi:type="xtext:Alternatives" cardinality="*">
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Group" predicated="true">
@@ -1186,14 +1766,14 @@
                   <type metamodel="//@metamodelDeclarations.1">
                     <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Feature"/>
                   </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.110"/>
                 </terminal>
               </elements>
-              <elements xsi:type="xtext:RuleCall" rule="//@rules.32"/>
+              <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
             </elements>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.31"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group">
@@ -1206,14 +1786,14 @@
               </elements>
               <elements xsi:type="xtext:Keyword" value="["/>
               <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
               </elements>
               <elements xsi:type="xtext:Keyword" value="]"/>
-              <elements xsi:type="xtext:RuleCall" rule="//@rules.32"/>
+              <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
             </elements>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.31"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group">
@@ -1232,7 +1812,7 @@
               <type metamodel="//@metamodelDeclarations.1">
                 <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Feature"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.110"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="?">
@@ -1241,12 +1821,12 @@
             </elements>
             <elements xsi:type="xtext:Group" cardinality="?">
               <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
               </elements>
               <elements xsi:type="xtext:Group" cardinality="*">
                 <elements xsi:type="xtext:Keyword" value=","/>
                 <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
                 </elements>
               </elements>
             </elements>
@@ -1263,7 +1843,7 @@
           </elements>
           <elements xsi:type="xtext:Keyword" value="["/>
           <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
           </elements>
           <elements xsi:type="xtext:Keyword" value="]"/>
           <elements xsi:type="xtext:Group" cardinality="?">
@@ -1272,12 +1852,12 @@
             </elements>
             <elements xsi:type="xtext:Group" cardinality="?">
               <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
               </elements>
               <elements xsi:type="xtext:Group" cardinality="*">
                 <elements xsi:type="xtext:Keyword" value=","/>
                 <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
                 </elements>
               </elements>
             </elements>
@@ -1292,22 +1872,22 @@
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.63"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.66"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.67"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.68"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.69"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.70"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.71"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.72"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.73"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.74"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.75"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.77"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.79"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.81"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.85"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.88"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.94"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.95"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.96"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.97"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.91"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.82"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.83"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.84"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.98"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="BlockExpression">
@@ -1323,7 +1903,7 @@
       <elements xsi:type="xtext:Keyword" value="{"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Assignment" feature="expressions" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.64"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.78"/>
         </elements>
         <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
       </elements>
@@ -1335,8 +1915,8 @@
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.65"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.79"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.43"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="VariableDeclarations">
@@ -1351,12 +1931,39 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="var"/>
       <elements xsi:type="xtext:Assignment" feature="declarations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.80"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Keyword" value=","/>
         <elements xsi:type="xtext:Assignment" feature="declarations" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.80"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="VariableDeclaration">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//VariableDeclaration"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//VariableDeclaration"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="="/>
+        <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
         </elements>
       </elements>
     </alternatives>
@@ -1367,7 +1974,104 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="("/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="FunctionExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FunctionExpression"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="function"/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="body" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.77"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="FeatureCall">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FeatureCall"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.1">
+            <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Feature"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.110"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Assignment" predicated="true" feature="explicitOperationCall" operator="?=">
+          <terminal xsi:type="xtext:Keyword" value="("/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="arguments" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ConstructorCall">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ConstructorCall"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="new"/>
+      <elements xsi:type="xtext:Assignment" feature="constructor" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="arguments" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+        </elements>
+      </elements>
       <elements xsi:type="xtext:Keyword" value=")"/>
     </alternatives>
   </rules>
@@ -1384,16 +2088,19 @@
       <elements xsi:type="xtext:Keyword" value="if"/>
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Assignment" feature="if" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value=")"/>
       <elements xsi:type="xtext:Assignment" feature="then" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" predicated="true" value="else"/>
-        <elements xsi:type="xtext:Assignment" feature="else" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+      <elements xsi:type="xtext:Group" cardinality="?" predicated="true">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
+          <elements xsi:type="xtext:Keyword" value="else"/>
+          <elements xsi:type="xtext:Assignment" feature="else" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+          </elements>
         </elements>
       </elements>
     </alternatives>
@@ -1411,11 +2118,11 @@
       <elements xsi:type="xtext:Keyword" value="while"/>
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Assignment" feature="predicate" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value=")"/>
       <elements xsi:type="xtext:Assignment" feature="body" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
     </alternatives>
   </rules>
@@ -1431,12 +2138,12 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="do"/>
       <elements xsi:type="xtext:Assignment" feature="body" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="while"/>
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Assignment" feature="predicate" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value=")"/>
     </alternatives>
@@ -1456,17 +2163,119 @@
           <elements xsi:type="xtext:Keyword" value="for"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Assignment" feature="declaredParam" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
           </elements>
           <elements xsi:type="xtext:Keyword" value="in"/>
           <elements xsi:type="xtext:Assignment" feature="forExpression" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
           </elements>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="body" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TryCatchExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TryCatchExpression"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="try"/>
+      <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="+" feature="catchClauses" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.90"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="CatchClause">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//CatchClause"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" predicated="true" value="catch"/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Assignment" feature="declaredParam" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+      <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SwitchExpression">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//SwitchExpression"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="switch"/>
+      <elements xsi:type="xtext:Assignment" feature="switch" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="{"/>
+      <elements xsi:type="xtext:Assignment" cardinality="+" feature="cases" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.92"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="default"/>
+        <elements xsi:type="xtext:Keyword" value=":"/>
+        <elements xsi:type="xtext:Assignment" feature="default" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.93"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="}"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="CasePart">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//CasePart"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" predicated="true" value="case"/>
+      <elements xsi:type="xtext:Assignment" feature="cases" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="cases" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=":"/>
+      <elements xsi:type="xtext:Assignment" feature="then" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.93"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="CasePartExpressions">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//CasePartExpressions"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//CasePartExpressions"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Assignment" feature="expressions" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.78"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" cardinality="?" value=";"/>
       </elements>
     </alternatives>
   </rules>
@@ -1482,7 +2291,7 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="return"/>
       <elements xsi:type="xtext:Assignment" cardinality="?" predicated="true" feature="expression" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
     </alternatives>
   </rules>
@@ -1524,215 +2333,8 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="throw"/>
       <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="TryCatchExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//TryCatchExpression"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="try"/>
-      <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-      </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="+" feature="catchClauses" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.76"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="CatchClause">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//CatchClause"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Keyword" predicated="true" value="catch"/>
-      <elements xsi:type="xtext:Keyword" value="("/>
-      <elements xsi:type="xtext:Assignment" feature="declaredParam" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value=")"/>
-      <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="SwitchExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//SwitchExpression"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="switch"/>
-      <elements xsi:type="xtext:Assignment" feature="switch" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="{"/>
-      <elements xsi:type="xtext:Assignment" cardinality="+" feature="cases" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.78"/>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value="default"/>
-        <elements xsi:type="xtext:Keyword" value=":"/>
-        <elements xsi:type="xtext:Assignment" feature="default" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="}"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="CasePart">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//CasePart"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Keyword" predicated="true" value="case"/>
-      <elements xsi:type="xtext:Assignment" feature="cases" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value=","/>
-        <elements xsi:type="xtext:Assignment" feature="cases" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value=":"/>
-      <elements xsi:type="xtext:Assignment" feature="then" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="FunctionExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FunctionExpression"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="function"/>
-      <elements xsi:type="xtext:Keyword" value="("/>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
-          </elements>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value=")"/>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" value=":"/>
-        <elements xsi:type="xtext:Assignment" feature="returnType" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Assignment" feature="body" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.63"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="ThisExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ThisExpression"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="this"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="SuperExpression">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//SuperExpression"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="super"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="FeatureCall">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FeatureCall"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Assignment" feature="feature" operator="=">
-        <terminal xsi:type="xtext:CrossReference">
-          <type metamodel="//@metamodelDeclarations.1">
-            <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Feature"/>
-          </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
-        </terminal>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Assignment" predicated="true" feature="explicitOperationCall" operator="?=">
-          <terminal xsi:type="xtext:Keyword" value="("/>
-        </elements>
-        <elements xsi:type="xtext:Assignment" cardinality="?" feature="arguments" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Keyword" value=")"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="ConstructorCall">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//ConstructorCall"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="new"/>
-      <elements xsi:type="xtext:Assignment" feature="constructor" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value="("/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="arguments" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-      </elements>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Keyword" value=","/>
-        <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:Keyword" value=")"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Literal">
@@ -1740,32 +2342,12 @@
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.85"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.86"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.89"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.88"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.87"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.90"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.91"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.92"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="BooleanLiteral">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//BooleanLiteral"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:Keyword" value="false"/>
-        <elements xsi:type="xtext:Assignment" feature="isTrue" operator="?=">
-          <terminal xsi:type="xtext:Keyword" value="true"/>
-        </elements>
-      </elements>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.99"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.102"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.100"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.103"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.104"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.105"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="NullLiteral">
@@ -1781,37 +2363,39 @@
       <elements xsi:type="xtext:Keyword" value="null"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="IntLiteral">
+  <rules xsi:type="xtext:ParserRule" name="NumberLiteral">
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
         <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//IntLiteral"/>
-        </type>
-      </elements>
-      <elements xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.98"/>
-        </elements>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.97"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="FloatLiteral">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//Expression"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Action">
-        <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//FloatLiteral"/>
+          <classifier xsi:type="ecore:EClass" href="http://www.xtext.ee/haxe/Haxe#//NumberLiteral"/>
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.94"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.101"/>
       </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Number" definesHiddenTokens="true">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:Group" predicated="true">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:RuleCall" cardinality="?" rule="//@rules.116"/>
+          <elements xsi:type="xtext:Keyword" value="."/>
+          <elements xsi:type="xtext:Alternatives">
+            <elements xsi:type="xtext:RuleCall" rule="//@rules.116"/>
+            <elements xsi:type="xtext:RuleCall" rule="//@rules.112"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.114"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.112"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.116"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="StringLiteral">
@@ -1825,7 +2409,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.100"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.118"/>
       </elements>
     </alternatives>
   </rules>
@@ -1840,7 +2424,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.99"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.117"/>
       </elements>
     </alternatives>
   </rules>
@@ -1856,12 +2440,12 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="["/>
       <elements xsi:type="xtext:Assignment" cardinality="?" feature="elements" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Keyword" value=","/>
         <elements xsi:type="xtext:Assignment" feature="elements" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
         </elements>
       </elements>
       <elements xsi:type="xtext:Keyword" value="]"/>
@@ -1879,12 +2463,12 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="{"/>
       <elements xsi:type="xtext:Assignment" feature="elements" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.93"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Keyword" value=","/>
         <elements xsi:type="xtext:Assignment" feature="elements" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.93"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
         </elements>
       </elements>
       <elements xsi:type="xtext:Keyword" value="}"/>
@@ -1896,40 +2480,49 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" feature="key" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value=":"/>
       <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="Float" definesHiddenTokens="true">
-    <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-    </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.95"/>
-      <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.98"/>
-        <elements xsi:type="xtext:Keyword" value="."/>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.98"/>
-      </elements>
-      <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Keyword" value="."/>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.98"/>
-      </elements>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:TerminalRule" name="EFLOAT">
+  <rules xsi:type="xtext:ParserRule" name="QualifiedNameWithWildcard">
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.98"/>
-      <elements xsi:type="xtext:Keyword" value="e"/>
-      <elements xsi:type="xtext:Keyword" cardinality="?" value="-"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.98"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.108"/>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=".*"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="QualifiedName">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value="."/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ValidID">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:RuleCall" rule="//@rules.111"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="FeatureID">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.109"/>
+      <elements xsi:type="xtext:Keyword" value="super"/>
+      <elements xsi:type="xtext:Keyword" value="this"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="ID">
@@ -1967,21 +2560,60 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:TerminalRule" name="HEX">
+  <rules xsi:type="xtext:TerminalRule" name="EXPONENT_FLOAT">
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Keyword" value="0x"/>
-      <elements xsi:type="xtext:Alternatives" cardinality="+">
-        <elements xsi:type="xtext:CharacterRange">
-          <left value="0"/>
-          <right value="9"/>
-        </elements>
-        <elements xsi:type="xtext:CharacterRange">
-          <left value="A"/>
-          <right value="F"/>
-        </elements>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.116"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.113"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="EXPONENT" fragment="true">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Keyword" value="e"/>
+        <elements xsi:type="xtext:Keyword" value="E"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="+"/>
+        <elements xsi:type="xtext:Keyword" value="-"/>
+      </elements>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.116"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="HEX">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="0"/>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Keyword" value="x"/>
+        <elements xsi:type="xtext:Keyword" value="X"/>
+      </elements>
+      <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.115"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="HEX_DIGIT" fragment="true">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:CharacterRange">
+        <left value="0"/>
+        <right value="9"/>
+      </elements>
+      <elements xsi:type="xtext:CharacterRange">
+        <left value="a"/>
+        <right value="f"/>
+      </elements>
+      <elements xsi:type="xtext:CharacterRange">
+        <left value="A"/>
+        <right value="F"/>
       </elements>
     </alternatives>
   </rules>

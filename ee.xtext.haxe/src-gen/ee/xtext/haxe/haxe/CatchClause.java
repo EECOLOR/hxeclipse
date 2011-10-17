@@ -36,12 +36,12 @@ public interface CatchClause extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Declared Param</em>' containment reference.
-   * @see #setDeclaredParam(FormalParameter)
+   * @see #setDeclaredParam(Parameter)
    * @see ee.xtext.haxe.haxe.HaxePackage#getCatchClause_DeclaredParam()
    * @model containment="true"
    * @generated
    */
-  FormalParameter getDeclaredParam();
+  Parameter getDeclaredParam();
 
   /**
    * Sets the value of the '{@link ee.xtext.haxe.haxe.CatchClause#getDeclaredParam <em>Declared Param</em>}' containment reference.
@@ -51,7 +51,7 @@ public interface CatchClause extends EObject
    * @see #getDeclaredParam()
    * @generated
    */
-  void setDeclaredParam(FormalParameter value);
+  void setDeclaredParam(Parameter value);
 
   /**
    * Returns the value of the '<em><b>Expression</b></em>' containment reference.

@@ -8,8 +8,6 @@ package ee.xtext.haxe.haxe;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Enum Constructor</b></em>'.
@@ -18,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link ee.xtext.haxe.haxe.EnumConstructor#getName <em>Name</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.EnumConstructor#getMetadata <em>Metadata</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.EnumConstructor#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
@@ -27,37 +25,37 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface EnumConstructor extends EObject
+public interface EnumConstructor extends Feature
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Metadata</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Metadata</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see ee.xtext.haxe.haxe.HaxePackage#getEnumConstructor_Name()
-   * @model
+   * @return the value of the '<em>Metadata</em>' containment reference.
+   * @see #setMetadata(Metadata)
+   * @see ee.xtext.haxe.haxe.HaxePackage#getEnumConstructor_Metadata()
+   * @model containment="true"
    * @generated
    */
-  String getName();
+  Metadata getMetadata();
 
   /**
-   * Sets the value of the '{@link ee.xtext.haxe.haxe.EnumConstructor#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link ee.xtext.haxe.haxe.EnumConstructor#getMetadata <em>Metadata</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Metadata</em>' containment reference.
+   * @see #getMetadata()
    * @generated
    */
-  void setName(String value);
+  void setMetadata(Metadata value);
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-   * The list contents are of type {@link ee.xtext.haxe.haxe.FormalParameter}.
+   * The list contents are of type {@link ee.xtext.haxe.haxe.Parameter}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
@@ -69,6 +67,6 @@ public interface EnumConstructor extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<FormalParameter> getParameters();
+  EList<Parameter> getParameters();
 
 } // EnumConstructor

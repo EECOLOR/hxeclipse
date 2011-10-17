@@ -1,4 +1,4 @@
-grammar ee.xtext.haxe.Haxe hidden(WS, ML_COMMENT, SL_COMMENT, CONDITIONAL)
+grammar ee.xtext.haxe.Haxe hidden(WS, ML_COMMENT, SL_COMMENT, CONDITIONAL_IF, CONDITIONAL_ELSE, CONDITIONAL_ELSE_IF, CONDITIONAL_END)
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
@@ -31,10 +31,19 @@ Using:
  * CONDITIONAL COMPILATION (just the parsing)
  */
 
-terminal CONDITIONAL:
-	'#if' (!('\n'|'\r'))+ (CONDITIONAL_END | ('\r'? '\n')) | '#elseif' (!('\n'|'\r'))+ | '#else' | CONDITIONAL_END;
+terminal CONDITIONAL_IF:
+	'#if' WS? CONDITIONAL_EXPRESSION;
+	
+terminal CONDITIONAL_ELSE:
+	'#else';
+	
+terminal CONDITIONAL_ELSE_IF:
+	'#elseif' WS? CONDITIONAL_EXPRESSION;
 
-terminal fragment CONDITIONAL_END:
+terminal fragment CONDITIONAL_EXPRESSION:
+	'!'? ('(' (!')')+ ')' | ID);
+
+terminal CONDITIONAL_END:
 	'#end';
 
 /**********************
@@ -98,12 +107,12 @@ MethodSignature returns Reference:
 
 ParameterizedTypeReference returns Reference:
 	{ParameterizedTypeReference}
-	type=[Type|QualifiedName] ('<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?;
+	=>(type=[Type|QualifiedName] ('<' arguments+=TypeReference (',' arguments+=TypeReference)* '>')?);
 
 TypedefType returns Reference:
 	{TypedefType}
 	('{' 
-		(properties+=TypedefTypeProperty (',' properties+=TypedefTypeProperty)*)+
+		properties+=TypedefTypeProperty (',' properties+=TypedefTypeProperty)*
 	'}');
 
 TypedefTypeProperty:
@@ -160,26 +169,26 @@ ClassConstructor:
 
 ClassProperty:
 	metadata=Metadata?
-	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)? ('=' expression=Expression)? ';'?;
+	modifier=PropertyModifier 'var' name=ValidID ('(' getter=GetterSetter ',' setter=GetterSetter ')')? (':' type=TypeReference)? ('=' expression=Expression)? ';'?;
 
-ClassMethod:
+ClassMethod returns Method:
 	metadata=Metadata?
 	modifier=MethodModifier 'function' name=ValidID typeParameters=TypeParameters? '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)?
 		untyped?='untyped'? body=BlockExpression ';'?;
 
 InterfaceProperty:
 	metadata=Metadata?
-	'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? ':' type=TypeReference ';'?;
+	'var' name=ValidID ('(' getter=GetterSetter ',' setter=GetterSetter ')')? ':' type=TypeReference ';'?;
 
-InterfaceMethod:
+InterfaceMethod returns Method:
 	metadata=Metadata?
 	'function' name=ValidID typeParameters=TypeParameters? '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)? ';'?;
 
 TypedefProperty:
 	metadata=Metadata?
-	visibility=Visibility? 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)? ';'?;
+	visibility=Visibility? 'var' name=ValidID ('(' getter=GetterSetter ',' setter=GetterSetter ')')? (':' type=TypeReference)? ';'?;
 
-TypedefMethod:
+TypedefMethod returns Method:
 	metadata=Metadata?
 	visibility=Visibility? 'function' name=ValidID typeParameters=TypeParameters? '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)? ';'?;
 
@@ -194,12 +203,21 @@ ExternClassConstructor:
 
 ExternClassProperty:
 	metadata=Metadata?
-	modifier=PropertyModifier 'var' name=ValidID ('(' getter=[ClassMethod|GetterSetterID] ',' setter=[ClassMethod|GetterSetterID] ')')? (':' type=TypeReference)? ('=' expression=Expression)? ';'?;
+	modifier=PropertyModifier 'var' name=ValidID ('(' getter=GetterSetter ',' setter=GetterSetter ')')? (':' type=TypeReference)? ('=' expression=Expression)? ';'?;
 
-ExternClassMethod:
+ExternClassMethod returns Method:
 	metadata=Metadata?
 	modifier=MethodModifier 'function' name=ValidID typeParameters=TypeParameters? '(' (parameters+=OptionalParameter (',' parameters+=OptionalParameter)*)? ')' (':' returnType=TypeReference)? 
 		('untyped' body=BlockExpression)? ';'?;
+
+GetterSetter:
+	ClassMethodReference | GetterSetterLiteral;
+
+ClassMethodReference:
+	reference=[Method|ValidID];
+
+GetterSetterLiteral:
+	value=('default' | 'null' | 'dynamic' | 'never');
 
 Feature returns Feature:
 	Type | Parameter | VariableDeclaration |
@@ -223,14 +241,14 @@ ShortIfExpression returns Expression:
 
 Assignment returns Expression :
 	{Assignment} feature=[Feature|FeatureID] OpSingleAssign value=Assignment |	
-	OrExpression (=>({Operation.left=current} feature=OpMultiAssign) right=Assignment)?;
+	OrExpression (=>({Operation.left=current} feature=OpMultiAssign right=Assignment))?;
 
 OpSingleAssign:
 	'='
 ;
 
-OpMultiAssign:
-	'+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | ">>>=";
+OpMultiAssign hidden():
+	'+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<''<''=' | '>''>''>'?'=';
 
 OrExpression returns Expression:
 	AndExpression (=>({Operation.left=current} feature=OpOr) right=AndExpression)*;
@@ -251,10 +269,10 @@ OpOther:
 	'...';
 
 CompareExpression returns Expression:
-	BitwiseExpression (=>({Operation.left=current} feature=OpCompare) right=BitwiseExpression)*;
+	BitwiseExpression (=>({Operation.left=current} feature=OpCompare right=BitwiseExpression))*;
 
-OpCompare:
-	'==' | '!=' | '>=' | '<=' | '>' | '<';
+OpCompare hidden():
+	'==' | '!=' | '>''='? | '<''='?;
 
 BitwiseExpression returns Expression:
 	BitshiftExpression (=>({Operation.left=current} feature=OpBitwise) right=BitshiftExpression)*;
@@ -263,10 +281,10 @@ OpBitwise:
 	'|' | '&' | '^';
 
 BitshiftExpression returns Expression:
-	AddExpression (=>({Operation.left=current} feature=OpBitshift) right=AddExpression)*;
+	AddExpression (=>({Operation.left=current} feature=OpBitshift right=AddExpression))*;
 
 OpBitshift hidden():
-	'<<' | '>>' | '>>>';
+	'<''<' | '>''>''>'?;
 
 AddExpression returns Expression:
 	SubtractExpression (=>({Operation.left=current} feature=OpAdd) right=SubtractExpression)*;
@@ -303,7 +321,7 @@ UnaryOperation returns Expression:
 	| PreIncrementOperation;
 		
 OpUnary:
-	"!" | "-" | "~";
+	'!' | '-' | '~';
 	
 PreIncrementOperation returns Expression:
 	=>({PreIncrementOperation} feature=OpIncrement operand=PostIncrementOperation) |
@@ -314,7 +332,7 @@ PostIncrementOperation returns Expression:
 	MemberFeatureCall;
 	
 OpIncrement:
-	"++" | "--";
+	'++' | '--';
 
 /**********************
  * EXPRESSIONS - OTHER
@@ -515,10 +533,6 @@ ValidID:
 
 FeatureID:
 	ValidID | 'super' | 'this';
-
-GetterSetterID:
-	ValidID | 'default' | 'null' | 'dynamic' | 'never';
-
 
 /**********************
  * TERMINALS

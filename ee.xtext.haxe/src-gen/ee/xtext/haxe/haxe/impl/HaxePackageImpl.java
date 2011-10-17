@@ -11,45 +11,54 @@ import ee.xtext.haxe.haxe.ArrayAssignment;
 import ee.xtext.haxe.haxe.ArrayLiteral;
 import ee.xtext.haxe.haxe.Assignment;
 import ee.xtext.haxe.haxe.BlockExpression;
-import ee.xtext.haxe.haxe.BooleanLiteral;
 import ee.xtext.haxe.haxe.BreakExpression;
 import ee.xtext.haxe.haxe.CasePart;
+import ee.xtext.haxe.haxe.CasePartExpressions;
+import ee.xtext.haxe.haxe.CastExpression;
 import ee.xtext.haxe.haxe.CatchClause;
-import ee.xtext.haxe.haxe.ClassMember;
-import ee.xtext.haxe.haxe.ClassOrInterface;
-import ee.xtext.haxe.haxe.ClassOrInterfaceReference;
-import ee.xtext.haxe.haxe.Constructor;
+import ee.xtext.haxe.haxe.ClassConstructor;
+import ee.xtext.haxe.haxe.ClassMethodReference;
+import ee.xtext.haxe.haxe.ClassProperty;
 import ee.xtext.haxe.haxe.ConstructorCall;
 import ee.xtext.haxe.haxe.DoWhileExpression;
 import ee.xtext.haxe.haxe.EnumConstructor;
 import ee.xtext.haxe.haxe.Expression;
+import ee.xtext.haxe.haxe.ExternClass;
+import ee.xtext.haxe.haxe.ExternClassConstructor;
+import ee.xtext.haxe.haxe.ExternClassProperty;
 import ee.xtext.haxe.haxe.Feature;
 import ee.xtext.haxe.haxe.FeatureCall;
-import ee.xtext.haxe.haxe.FloatLiteral;
 import ee.xtext.haxe.haxe.ForLoopExpression;
-import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.FunctionExpression;
-import ee.xtext.haxe.haxe.FunctionMemberDeclaration;
+import ee.xtext.haxe.haxe.GetterSetter;
+import ee.xtext.haxe.haxe.GetterSetterLiteral;
 import ee.xtext.haxe.haxe.HaxeFactory;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.IfExpression;
 import ee.xtext.haxe.haxe.Import;
-import ee.xtext.haxe.haxe.IntLiteral;
 import ee.xtext.haxe.haxe.Interface;
+import ee.xtext.haxe.haxe.InterfaceProperty;
 import ee.xtext.haxe.haxe.MemberFeatureCall;
+import ee.xtext.haxe.haxe.Metadata;
+import ee.xtext.haxe.haxe.Method;
+import ee.xtext.haxe.haxe.MethodModifier;
+import ee.xtext.haxe.haxe.MethodSignature;
 import ee.xtext.haxe.haxe.Modifier;
 import ee.xtext.haxe.haxe.NullLiteral;
+import ee.xtext.haxe.haxe.NumberLiteral;
 import ee.xtext.haxe.haxe.ObjectElement;
 import ee.xtext.haxe.haxe.ObjectLiteral;
 import ee.xtext.haxe.haxe.Operation;
+import ee.xtext.haxe.haxe.Parameter;
+import ee.xtext.haxe.haxe.ParameterizedTypeReference;
 import ee.xtext.haxe.haxe.PostIncrementOperation;
 import ee.xtext.haxe.haxe.PreIncrementOperation;
+import ee.xtext.haxe.haxe.PropertyModifier;
+import ee.xtext.haxe.haxe.Reference;
 import ee.xtext.haxe.haxe.RegularExpressionLiteral;
 import ee.xtext.haxe.haxe.ReturnExpression;
 import ee.xtext.haxe.haxe.StringLiteral;
-import ee.xtext.haxe.haxe.SuperExpression;
 import ee.xtext.haxe.haxe.SwitchExpression;
-import ee.xtext.haxe.haxe.ThisExpression;
 import ee.xtext.haxe.haxe.ThrowExpression;
 import ee.xtext.haxe.haxe.TryCatchExpression;
 import ee.xtext.haxe.haxe.Type;
@@ -57,11 +66,14 @@ import ee.xtext.haxe.haxe.TypeParameter;
 import ee.xtext.haxe.haxe.TypeParameters;
 import ee.xtext.haxe.haxe.TypeReference;
 import ee.xtext.haxe.haxe.Typedef;
+import ee.xtext.haxe.haxe.TypedefProperty;
+import ee.xtext.haxe.haxe.TypedefType;
+import ee.xtext.haxe.haxe.TypedefTypeProperty;
 import ee.xtext.haxe.haxe.UnaryOperation;
+import ee.xtext.haxe.haxe.UntypedExpression;
 import ee.xtext.haxe.haxe.Using;
 import ee.xtext.haxe.haxe.VariableDeclaration;
 import ee.xtext.haxe.haxe.VariableDeclarations;
-import ee.xtext.haxe.haxe.VariableMemberDeclaration;
 import ee.xtext.haxe.haxe.Visibility;
 import ee.xtext.haxe.haxe.WhileExpression;
 
@@ -114,21 +126,7 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass classOrInterfaceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass classEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass classMemberEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -142,20 +140,6 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass enumEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass enumConstructorEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass typedefEClass = null;
 
   /**
@@ -163,63 +147,14 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass typeReferenceEClass = null;
+  private EClass enumEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass classOrInterfaceReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass variableDeclarationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass variableMemberDeclarationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass functionMemberDeclarationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass constructorEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass featureEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass formalParameterEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass modifierEClass = null;
+  private EClass externClassEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -240,7 +175,147 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass typeReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass referenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typedefTypePropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass metadataEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass expressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass methodModifierEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyModifierEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parameterEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass classConstructorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass classPropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass methodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass interfacePropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typedefPropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass enumConstructorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass externClassConstructorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass externClassPropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass getterSetterEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass classMethodReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass getterSetterLiteralEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass featureEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass variableDeclarationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -261,7 +336,63 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass casePartExpressionsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass objectElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass methodSignatureEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parameterizedTypeReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typedefTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass modifierEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass castExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass untypedExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ifExpressionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -338,7 +469,21 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass ifExpressionEClass = null;
+  private EClass functionExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass featureCallEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass constructorCallEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -366,6 +511,20 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass tryCatchExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass switchExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass returnExpressionEClass = null;
 
   /**
@@ -387,62 +546,6 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass tryCatchExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass switchExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass functionExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass thisExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass superExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass featureCallEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass constructorCallEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass booleanLiteralEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass nullLiteralEClass = null;
 
   /**
@@ -450,14 +553,7 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass intLiteralEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass floatLiteralEClass = null;
+  private EClass numberLiteralEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -622,7 +718,7 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPackage_Enums()
+  public EReference getPackage_Typedefs()
   {
     return (EReference)packageEClass.getEStructuralFeatures().get(5);
   }
@@ -632,9 +728,19 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPackage_Typedefs()
+  public EReference getPackage_Enums()
   {
     return (EReference)packageEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPackage_ExternClasses()
+  {
+    return (EReference)packageEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -692,46 +798,6 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getType_Name()
-  {
-    return (EAttribute)typeEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getClassOrInterface()
-  {
-    return classOrInterfaceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getClassOrInterface_Private()
-  {
-    return (EAttribute)classOrInterfaceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getClassOrInterface_Members()
-  {
-    return (EReference)classOrInterfaceEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getClass_()
   {
     return classEClass;
@@ -742,7 +808,7 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClass_TypeParameters()
+  public EReference getClass_Metadata()
   {
     return (EReference)classEClass.getEStructuralFeatures().get(0);
   }
@@ -752,9 +818,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClass_Extends()
+  public EAttribute getClass_Visibility()
   {
-    return (EReference)classEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)classEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -762,7 +828,7 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClass_Implements()
+  public EReference getClass_TypeParameters()
   {
     return (EReference)classEClass.getEStructuralFeatures().get(2);
   }
@@ -772,7 +838,7 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClass_Constructor()
+  public EReference getClass_Extends()
   {
     return (EReference)classEClass.getEStructuralFeatures().get(3);
   }
@@ -782,9 +848,39 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getClassMember()
+  public EReference getClass_Implements()
   {
-    return classMemberEClass;
+    return (EReference)classEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClass_Constructor()
+  {
+    return (EReference)classEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClass_Properties()
+  {
+    return (EReference)classEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClass_Methods()
+  {
+    return (EReference)classEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -802,7 +898,7 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getInterface_Implements()
+  public EReference getInterface_Metadata()
   {
     return (EReference)interfaceEClass.getEStructuralFeatures().get(0);
   }
@@ -812,9 +908,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getEnum()
+  public EAttribute getInterface_Extern()
   {
-    return enumEClass;
+    return (EAttribute)interfaceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -822,9 +918,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEnum_Private()
+  public EAttribute getInterface_Visibility()
   {
-    return (EAttribute)enumEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)interfaceEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -832,9 +928,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEnum_TypeParameters()
+  public EReference getInterface_TypeParameters()
   {
-    return (EReference)enumEClass.getEStructuralFeatures().get(1);
+    return (EReference)interfaceEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -842,9 +938,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEnum_Members()
+  public EReference getInterface_Implements()
   {
-    return (EReference)enumEClass.getEStructuralFeatures().get(2);
+    return (EReference)interfaceEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -852,9 +948,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getEnumConstructor()
+  public EReference getInterface_Properties()
   {
-    return enumConstructorEClass;
+    return (EReference)interfaceEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -862,19 +958,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEnumConstructor_Name()
+  public EReference getInterface_Methods()
   {
-    return (EAttribute)enumConstructorEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEnumConstructor_Parameters()
-  {
-    return (EReference)enumConstructorEClass.getEStructuralFeatures().get(1);
+    return (EReference)interfaceEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -892,9 +978,29 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTypedef_Private()
+  public EReference getTypedef_Metadata()
   {
-    return (EAttribute)typedefEClass.getEStructuralFeatures().get(0);
+    return (EReference)typedefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTypedef_Visibility()
+  {
+    return (EAttribute)typedefEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedef_TypeParameters()
+  {
+    return (EReference)typedefEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -904,7 +1010,7 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    */
   public EReference getTypedef_Extends()
   {
-    return (EReference)typedefEClass.getEStructuralFeatures().get(1);
+    return (EReference)typedefEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -912,9 +1018,219 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTypedef_Members()
+  public EReference getTypedef_Properties()
   {
-    return (EReference)typedefEClass.getEStructuralFeatures().get(2);
+    return (EReference)typedefEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedef_Methods()
+  {
+    return (EReference)typedefEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedef_Type()
+  {
+    return (EReference)typedefEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEnum()
+  {
+    return enumEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEnum_Metadata()
+  {
+    return (EReference)enumEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEnum_Extern()
+  {
+    return (EAttribute)enumEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEnum_Visibility()
+  {
+    return (EAttribute)enumEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEnum_TypeParameters()
+  {
+    return (EReference)enumEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEnum_Constructors()
+  {
+    return (EReference)enumEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExternClass()
+  {
+    return externClassEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClass_Metadata()
+  {
+    return (EReference)externClassEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExternClass_Visibility()
+  {
+    return (EAttribute)externClassEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClass_TypeParameters()
+  {
+    return (EReference)externClassEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClass_Extends()
+  {
+    return (EReference)externClassEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClass_Implements()
+  {
+    return (EReference)externClassEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClass_Constructor()
+  {
+    return (EReference)externClassEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClass_Properties()
+  {
+    return (EReference)externClassEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClass_Methods()
+  {
+    return (EReference)externClassEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeParameters()
+  {
+    return typeParametersEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypeParameters_Parameters()
+  {
+    return (EReference)typeParametersEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeParameter()
+  {
+    return typeParameterEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypeParameter_Constraints()
+  {
+    return (EReference)typeParameterEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -932,9 +1248,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTypeReference_Type()
+  public EClass getReference()
   {
-    return (EReference)typeReferenceEClass.getEStructuralFeatures().get(0);
+    return referenceEClass;
   }
 
   /**
@@ -942,9 +1258,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTypeReference_Arguments()
+  public EClass getTypedefTypeProperty()
   {
-    return (EReference)typeReferenceEClass.getEStructuralFeatures().get(1);
+    return typedefTypePropertyEClass;
   }
 
   /**
@@ -952,9 +1268,679 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getClassOrInterfaceReference()
+  public EAttribute getTypedefTypeProperty_Name()
   {
-    return classOrInterfaceReferenceEClass;
+    return (EAttribute)typedefTypePropertyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedefTypeProperty_Type()
+  {
+    return (EReference)typedefTypePropertyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMetadata()
+  {
+    return metadataEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetadata_Compiler()
+  {
+    return (EAttribute)metadataEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetadata_Name()
+  {
+    return (EAttribute)metadataEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMetadata_Body()
+  {
+    return (EReference)metadataEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExpression()
+  {
+    return expressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMethodModifier()
+  {
+    return methodModifierEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyModifier()
+  {
+    return propertyModifierEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getParameter()
+  {
+    return parameterEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getParameter_Type()
+  {
+    return (EReference)parameterEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getParameter_DefaultValue()
+  {
+    return (EReference)parameterEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getParameter_Optional()
+  {
+    return (EAttribute)parameterEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getClassConstructor()
+  {
+    return classConstructorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassConstructor_Metadata()
+  {
+    return (EReference)classConstructorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClassConstructor_Visibility()
+  {
+    return (EAttribute)classConstructorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassConstructor_Parameters()
+  {
+    return (EReference)classConstructorEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassConstructor_ReturnType()
+  {
+    return (EReference)classConstructorEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassConstructor_Body()
+  {
+    return (EReference)classConstructorEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getClassProperty()
+  {
+    return classPropertyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassProperty_Metadata()
+  {
+    return (EReference)classPropertyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassProperty_Modifier()
+  {
+    return (EReference)classPropertyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassProperty_Getter()
+  {
+    return (EReference)classPropertyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassProperty_Setter()
+  {
+    return (EReference)classPropertyEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassProperty_Type()
+  {
+    return (EReference)classPropertyEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassProperty_Expression()
+  {
+    return (EReference)classPropertyEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMethod()
+  {
+    return methodEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMethod_Metadata()
+  {
+    return (EReference)methodEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMethod_Modifier()
+  {
+    return (EReference)methodEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMethod_TypeParameters()
+  {
+    return (EReference)methodEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMethod_Parameters()
+  {
+    return (EReference)methodEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMethod_ReturnType()
+  {
+    return (EReference)methodEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMethod_Untyped()
+  {
+    return (EAttribute)methodEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMethod_Body()
+  {
+    return (EReference)methodEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMethod_Visibility()
+  {
+    return (EAttribute)methodEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getInterfaceProperty()
+  {
+    return interfacePropertyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInterfaceProperty_Metadata()
+  {
+    return (EReference)interfacePropertyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInterfaceProperty_Getter()
+  {
+    return (EReference)interfacePropertyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInterfaceProperty_Setter()
+  {
+    return (EReference)interfacePropertyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInterfaceProperty_Type()
+  {
+    return (EReference)interfacePropertyEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypedefProperty()
+  {
+    return typedefPropertyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedefProperty_Metadata()
+  {
+    return (EReference)typedefPropertyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTypedefProperty_Visibility()
+  {
+    return (EAttribute)typedefPropertyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedefProperty_Getter()
+  {
+    return (EReference)typedefPropertyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedefProperty_Setter()
+  {
+    return (EReference)typedefPropertyEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedefProperty_Type()
+  {
+    return (EReference)typedefPropertyEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEnumConstructor()
+  {
+    return enumConstructorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEnumConstructor_Metadata()
+  {
+    return (EReference)enumConstructorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEnumConstructor_Parameters()
+  {
+    return (EReference)enumConstructorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExternClassConstructor()
+  {
+    return externClassConstructorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassConstructor_Metadata()
+  {
+    return (EReference)externClassConstructorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExternClassConstructor_Visibility()
+  {
+    return (EAttribute)externClassConstructorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassConstructor_Parameters()
+  {
+    return (EReference)externClassConstructorEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassConstructor_ReturnType()
+  {
+    return (EReference)externClassConstructorEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExternClassProperty()
+  {
+    return externClassPropertyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassProperty_Metadata()
+  {
+    return (EReference)externClassPropertyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassProperty_Modifier()
+  {
+    return (EReference)externClassPropertyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassProperty_Getter()
+  {
+    return (EReference)externClassPropertyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassProperty_Setter()
+  {
+    return (EReference)externClassPropertyEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassProperty_Type()
+  {
+    return (EReference)externClassPropertyEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExternClassProperty_Expression()
+  {
+    return (EReference)externClassPropertyEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getGetterSetter()
+  {
+    return getterSetterEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getClassMethodReference()
+  {
+    return classMethodReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassMethodReference_Reference()
+  {
+    return (EReference)classMethodReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getGetterSetterLiteral()
+  {
+    return getterSetterLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getGetterSetterLiteral_Value()
+  {
+    return (EAttribute)getterSetterLiteralEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFeature()
+  {
+    return featureEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFeature_Name()
+  {
+    return (EAttribute)featureEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -992,9 +1978,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getVariableMemberDeclaration()
+  public EClass getCatchClause()
   {
-    return variableMemberDeclarationEClass;
+    return catchClauseEClass;
   }
 
   /**
@@ -1002,9 +1988,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVariableMemberDeclaration_Modified()
+  public EReference getCatchClause_DeclaredParam()
   {
-    return (EReference)variableMemberDeclarationEClass.getEStructuralFeatures().get(0);
+    return (EReference)catchClauseEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1012,9 +1998,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVariableMemberDeclaration_Getter()
+  public EReference getCatchClause_Expression()
   {
-    return (EReference)variableMemberDeclarationEClass.getEStructuralFeatures().get(1);
+    return (EReference)catchClauseEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1022,9 +2008,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVariableMemberDeclaration_Setter()
+  public EClass getCasePart()
   {
-    return (EReference)variableMemberDeclarationEClass.getEStructuralFeatures().get(2);
+    return casePartEClass;
   }
 
   /**
@@ -1032,9 +2018,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVariableMemberDeclaration_Type()
+  public EReference getCasePart_Cases()
   {
-    return (EReference)variableMemberDeclarationEClass.getEStructuralFeatures().get(3);
+    return (EReference)casePartEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1042,9 +2028,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVariableMemberDeclaration_Expression()
+  public EReference getCasePart_Then()
   {
-    return (EReference)variableMemberDeclarationEClass.getEStructuralFeatures().get(4);
+    return (EReference)casePartEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1052,9 +2038,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getFunctionMemberDeclaration()
+  public EClass getCasePartExpressions()
   {
-    return functionMemberDeclarationEClass;
+    return casePartExpressionsEClass;
   }
 
   /**
@@ -1062,9 +2048,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFunctionMemberDeclaration_Modified()
+  public EReference getCasePartExpressions_Expressions()
   {
-    return (EReference)functionMemberDeclarationEClass.getEStructuralFeatures().get(0);
+    return (EReference)casePartExpressionsEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1072,9 +2058,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFunctionMemberDeclaration_Parameters()
+  public EClass getObjectElement()
   {
-    return (EReference)functionMemberDeclarationEClass.getEStructuralFeatures().get(1);
+    return objectElementEClass;
   }
 
   /**
@@ -1082,9 +2068,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFunctionMemberDeclaration_ReturnType()
+  public EAttribute getObjectElement_Key()
   {
-    return (EReference)functionMemberDeclarationEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)objectElementEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1092,9 +2078,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFunctionMemberDeclaration_Body()
+  public EReference getObjectElement_Value()
   {
-    return (EReference)functionMemberDeclarationEClass.getEStructuralFeatures().get(3);
+    return (EReference)objectElementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1102,9 +2088,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConstructor()
+  public EClass getMethodSignature()
   {
-    return constructorEClass;
+    return methodSignatureEClass;
   }
 
   /**
@@ -1112,9 +2098,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstructor_Modified()
+  public EReference getMethodSignature_ArgumentTypes()
   {
-    return (EReference)constructorEClass.getEStructuralFeatures().get(0);
+    return (EReference)methodSignatureEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1122,9 +2108,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstructor_Parameters()
+  public EReference getMethodSignature_ReturnType()
   {
-    return (EReference)constructorEClass.getEStructuralFeatures().get(1);
+    return (EReference)methodSignatureEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1132,9 +2118,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstructor_Body()
+  public EClass getParameterizedTypeReference()
   {
-    return (EReference)constructorEClass.getEStructuralFeatures().get(2);
+    return parameterizedTypeReferenceEClass;
   }
 
   /**
@@ -1142,9 +2128,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getFeature()
+  public EReference getParameterizedTypeReference_Type()
   {
-    return featureEClass;
+    return (EReference)parameterizedTypeReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1152,9 +2138,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFeature_Name()
+  public EReference getParameterizedTypeReference_Arguments()
   {
-    return (EAttribute)featureEClass.getEStructuralFeatures().get(0);
+    return (EReference)parameterizedTypeReferenceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1162,9 +2148,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getFormalParameter()
+  public EClass getTypedefType()
   {
-    return formalParameterEClass;
+    return typedefTypeEClass;
   }
 
   /**
@@ -1172,29 +2158,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFormalParameter_Optional()
+  public EReference getTypedefType_Properties()
   {
-    return (EAttribute)formalParameterEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFormalParameter_Type()
-  {
-    return (EReference)formalParameterEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFormalParameter_DefaultValue()
-  {
-    return (EReference)formalParameterEClass.getEStructuralFeatures().get(2);
+    return (EReference)typedefTypeEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1272,9 +2238,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getTypeParameters()
+  public EClass getCastExpression()
   {
-    return typeParametersEClass;
+    return castExpressionEClass;
   }
 
   /**
@@ -1282,9 +2248,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTypeParameters_Parameters()
+  public EReference getCastExpression_Target()
   {
-    return (EReference)typeParametersEClass.getEStructuralFeatures().get(0);
+    return (EReference)castExpressionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1292,9 +2258,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getTypeParameter()
+  public EReference getCastExpression_Type()
   {
-    return typeParameterEClass;
+    return (EReference)castExpressionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1302,9 +2268,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTypeParameter_Constraints()
+  public EClass getUntypedExpression()
   {
-    return (EReference)typeParameterEClass.getEStructuralFeatures().get(0);
+    return untypedExpressionEClass;
   }
 
   /**
@@ -1312,9 +2278,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getExpression()
+  public EReference getUntypedExpression_Target()
   {
-    return expressionEClass;
+    return (EReference)untypedExpressionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1322,9 +2288,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCatchClause()
+  public EClass getIfExpression()
   {
-    return catchClauseEClass;
+    return ifExpressionEClass;
   }
 
   /**
@@ -1332,9 +2298,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCatchClause_DeclaredParam()
+  public EReference getIfExpression_If()
   {
-    return (EReference)catchClauseEClass.getEStructuralFeatures().get(0);
+    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1342,9 +2308,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCatchClause_Expression()
+  public EReference getIfExpression_Then()
   {
-    return (EReference)catchClauseEClass.getEStructuralFeatures().get(1);
+    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1352,59 +2318,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCasePart()
+  public EReference getIfExpression_Else()
   {
-    return casePartEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCasePart_Cases()
-  {
-    return (EReference)casePartEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCasePart_Then()
-  {
-    return (EReference)casePartEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getObjectElement()
-  {
-    return objectElementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getObjectElement_Key()
-  {
-    return (EAttribute)objectElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getObjectElement_Value()
-  {
-    return (EReference)objectElementEClass.getEStructuralFeatures().get(1);
+    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1762,9 +2678,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getIfExpression()
+  public EClass getFunctionExpression()
   {
-    return ifExpressionEClass;
+    return functionExpressionEClass;
   }
 
   /**
@@ -1772,9 +2688,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getIfExpression_If()
+  public EReference getFunctionExpression_Parameters()
   {
-    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(0);
+    return (EReference)functionExpressionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1782,9 +2698,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getIfExpression_Then()
+  public EReference getFunctionExpression_ReturnType()
   {
-    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(1);
+    return (EReference)functionExpressionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1792,9 +2708,79 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getIfExpression_Else()
+  public EReference getFunctionExpression_Body()
   {
-    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(2);
+    return (EReference)functionExpressionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFeatureCall()
+  {
+    return featureCallEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFeatureCall_Feature()
+  {
+    return (EReference)featureCallEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFeatureCall_ExplicitOperationCall()
+  {
+    return (EAttribute)featureCallEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFeatureCall_Arguments()
+  {
+    return (EReference)featureCallEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getConstructorCall()
+  {
+    return constructorCallEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getConstructorCall_Constructor()
+  {
+    return (EReference)constructorCallEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getConstructorCall_Arguments()
+  {
+    return (EReference)constructorCallEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1902,56 +2888,6 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getReturnExpression()
-  {
-    return returnExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getReturnExpression_Expression()
-  {
-    return (EReference)returnExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBreakExpression()
-  {
-    return breakExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getThrowExpression()
-  {
-    return throwExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getThrowExpression_Expression()
-  {
-    return (EReference)throwExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getTryCatchExpression()
   {
     return tryCatchExpressionEClass;
@@ -2022,9 +2958,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getFunctionExpression()
+  public EClass getReturnExpression()
   {
-    return functionExpressionEClass;
+    return returnExpressionEClass;
   }
 
   /**
@@ -2032,9 +2968,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFunctionExpression_Parameters()
+  public EReference getReturnExpression_Expression()
   {
-    return (EReference)functionExpressionEClass.getEStructuralFeatures().get(0);
+    return (EReference)returnExpressionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2042,9 +2978,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFunctionExpression_ReturnType()
+  public EClass getBreakExpression()
   {
-    return (EReference)functionExpressionEClass.getEStructuralFeatures().get(1);
+    return breakExpressionEClass;
   }
 
   /**
@@ -2052,9 +2988,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFunctionExpression_Body()
+  public EClass getThrowExpression()
   {
-    return (EReference)functionExpressionEClass.getEStructuralFeatures().get(2);
+    return throwExpressionEClass;
   }
 
   /**
@@ -2062,109 +2998,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getThisExpression()
+  public EReference getThrowExpression_Expression()
   {
-    return thisExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSuperExpression()
-  {
-    return superExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getFeatureCall()
-  {
-    return featureCallEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFeatureCall_Feature()
-  {
-    return (EReference)featureCallEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getFeatureCall_ExplicitOperationCall()
-  {
-    return (EAttribute)featureCallEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFeatureCall_Arguments()
-  {
-    return (EReference)featureCallEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getConstructorCall()
-  {
-    return constructorCallEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConstructorCall_Constructor()
-  {
-    return (EReference)constructorCallEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConstructorCall_Arguments()
-  {
-    return (EReference)constructorCallEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBooleanLiteral()
-  {
-    return booleanLiteralEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getBooleanLiteral_IsTrue()
-  {
-    return (EAttribute)booleanLiteralEClass.getEStructuralFeatures().get(0);
+    return (EReference)throwExpressionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2182,9 +3018,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getIntLiteral()
+  public EClass getNumberLiteral()
   {
-    return intLiteralEClass;
+    return numberLiteralEClass;
   }
 
   /**
@@ -2192,29 +3028,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getIntLiteral_Value()
+  public EAttribute getNumberLiteral_Value()
   {
-    return (EAttribute)intLiteralEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getFloatLiteral()
-  {
-    return floatLiteralEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getFloatLiteral_Value()
-  {
-    return (EAttribute)floatLiteralEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)numberLiteralEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2343,8 +3159,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     createEReference(packageEClass, PACKAGE__USING);
     createEReference(packageEClass, PACKAGE__CLASSES);
     createEReference(packageEClass, PACKAGE__INTERFACES);
-    createEReference(packageEClass, PACKAGE__ENUMS);
     createEReference(packageEClass, PACKAGE__TYPEDEFS);
+    createEReference(packageEClass, PACKAGE__ENUMS);
+    createEReference(packageEClass, PACKAGE__EXTERN_CLASSES);
 
     importEClass = createEClass(IMPORT);
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
@@ -2353,80 +3170,51 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     createEAttribute(usingEClass, USING__IMPORTED_CLASS);
 
     typeEClass = createEClass(TYPE);
-    createEAttribute(typeEClass, TYPE__NAME);
-
-    classOrInterfaceEClass = createEClass(CLASS_OR_INTERFACE);
-    createEAttribute(classOrInterfaceEClass, CLASS_OR_INTERFACE__PRIVATE);
-    createEReference(classOrInterfaceEClass, CLASS_OR_INTERFACE__MEMBERS);
 
     classEClass = createEClass(CLASS);
+    createEReference(classEClass, CLASS__METADATA);
+    createEAttribute(classEClass, CLASS__VISIBILITY);
     createEReference(classEClass, CLASS__TYPE_PARAMETERS);
     createEReference(classEClass, CLASS__EXTENDS);
     createEReference(classEClass, CLASS__IMPLEMENTS);
     createEReference(classEClass, CLASS__CONSTRUCTOR);
-
-    classMemberEClass = createEClass(CLASS_MEMBER);
+    createEReference(classEClass, CLASS__PROPERTIES);
+    createEReference(classEClass, CLASS__METHODS);
 
     interfaceEClass = createEClass(INTERFACE);
+    createEReference(interfaceEClass, INTERFACE__METADATA);
+    createEAttribute(interfaceEClass, INTERFACE__EXTERN);
+    createEAttribute(interfaceEClass, INTERFACE__VISIBILITY);
+    createEReference(interfaceEClass, INTERFACE__TYPE_PARAMETERS);
     createEReference(interfaceEClass, INTERFACE__IMPLEMENTS);
-
-    enumEClass = createEClass(ENUM);
-    createEAttribute(enumEClass, ENUM__PRIVATE);
-    createEReference(enumEClass, ENUM__TYPE_PARAMETERS);
-    createEReference(enumEClass, ENUM__MEMBERS);
-
-    enumConstructorEClass = createEClass(ENUM_CONSTRUCTOR);
-    createEAttribute(enumConstructorEClass, ENUM_CONSTRUCTOR__NAME);
-    createEReference(enumConstructorEClass, ENUM_CONSTRUCTOR__PARAMETERS);
+    createEReference(interfaceEClass, INTERFACE__PROPERTIES);
+    createEReference(interfaceEClass, INTERFACE__METHODS);
 
     typedefEClass = createEClass(TYPEDEF);
-    createEAttribute(typedefEClass, TYPEDEF__PRIVATE);
+    createEReference(typedefEClass, TYPEDEF__METADATA);
+    createEAttribute(typedefEClass, TYPEDEF__VISIBILITY);
+    createEReference(typedefEClass, TYPEDEF__TYPE_PARAMETERS);
     createEReference(typedefEClass, TYPEDEF__EXTENDS);
-    createEReference(typedefEClass, TYPEDEF__MEMBERS);
+    createEReference(typedefEClass, TYPEDEF__PROPERTIES);
+    createEReference(typedefEClass, TYPEDEF__METHODS);
+    createEReference(typedefEClass, TYPEDEF__TYPE);
 
-    typeReferenceEClass = createEClass(TYPE_REFERENCE);
-    createEReference(typeReferenceEClass, TYPE_REFERENCE__TYPE);
-    createEReference(typeReferenceEClass, TYPE_REFERENCE__ARGUMENTS);
+    enumEClass = createEClass(ENUM);
+    createEReference(enumEClass, ENUM__METADATA);
+    createEAttribute(enumEClass, ENUM__EXTERN);
+    createEAttribute(enumEClass, ENUM__VISIBILITY);
+    createEReference(enumEClass, ENUM__TYPE_PARAMETERS);
+    createEReference(enumEClass, ENUM__CONSTRUCTORS);
 
-    classOrInterfaceReferenceEClass = createEClass(CLASS_OR_INTERFACE_REFERENCE);
-
-    variableDeclarationEClass = createEClass(VARIABLE_DECLARATION);
-    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__TYPE);
-    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__EXPRESSION);
-
-    variableMemberDeclarationEClass = createEClass(VARIABLE_MEMBER_DECLARATION);
-    createEReference(variableMemberDeclarationEClass, VARIABLE_MEMBER_DECLARATION__MODIFIED);
-    createEReference(variableMemberDeclarationEClass, VARIABLE_MEMBER_DECLARATION__GETTER);
-    createEReference(variableMemberDeclarationEClass, VARIABLE_MEMBER_DECLARATION__SETTER);
-    createEReference(variableMemberDeclarationEClass, VARIABLE_MEMBER_DECLARATION__TYPE);
-    createEReference(variableMemberDeclarationEClass, VARIABLE_MEMBER_DECLARATION__EXPRESSION);
-
-    functionMemberDeclarationEClass = createEClass(FUNCTION_MEMBER_DECLARATION);
-    createEReference(functionMemberDeclarationEClass, FUNCTION_MEMBER_DECLARATION__MODIFIED);
-    createEReference(functionMemberDeclarationEClass, FUNCTION_MEMBER_DECLARATION__PARAMETERS);
-    createEReference(functionMemberDeclarationEClass, FUNCTION_MEMBER_DECLARATION__RETURN_TYPE);
-    createEReference(functionMemberDeclarationEClass, FUNCTION_MEMBER_DECLARATION__BODY);
-
-    constructorEClass = createEClass(CONSTRUCTOR);
-    createEReference(constructorEClass, CONSTRUCTOR__MODIFIED);
-    createEReference(constructorEClass, CONSTRUCTOR__PARAMETERS);
-    createEReference(constructorEClass, CONSTRUCTOR__BODY);
-
-    featureEClass = createEClass(FEATURE);
-    createEAttribute(featureEClass, FEATURE__NAME);
-
-    formalParameterEClass = createEClass(FORMAL_PARAMETER);
-    createEAttribute(formalParameterEClass, FORMAL_PARAMETER__OPTIONAL);
-    createEReference(formalParameterEClass, FORMAL_PARAMETER__TYPE);
-    createEReference(formalParameterEClass, FORMAL_PARAMETER__DEFAULT_VALUE);
-
-    modifierEClass = createEClass(MODIFIER);
-    createEAttribute(modifierEClass, MODIFIER__STATIC);
-    createEAttribute(modifierEClass, MODIFIER__FINAL);
-    createEAttribute(modifierEClass, MODIFIER__DYNAMIC);
-    createEAttribute(modifierEClass, MODIFIER__OVERRIDE);
-    createEAttribute(modifierEClass, MODIFIER__INLINE);
-    createEAttribute(modifierEClass, MODIFIER__VISIBILITY);
+    externClassEClass = createEClass(EXTERN_CLASS);
+    createEReference(externClassEClass, EXTERN_CLASS__METADATA);
+    createEAttribute(externClassEClass, EXTERN_CLASS__VISIBILITY);
+    createEReference(externClassEClass, EXTERN_CLASS__TYPE_PARAMETERS);
+    createEReference(externClassEClass, EXTERN_CLASS__EXTENDS);
+    createEReference(externClassEClass, EXTERN_CLASS__IMPLEMENTS);
+    createEReference(externClassEClass, EXTERN_CLASS__CONSTRUCTOR);
+    createEReference(externClassEClass, EXTERN_CLASS__PROPERTIES);
+    createEReference(externClassEClass, EXTERN_CLASS__METHODS);
 
     typeParametersEClass = createEClass(TYPE_PARAMETERS);
     createEReference(typeParametersEClass, TYPE_PARAMETERS__PARAMETERS);
@@ -2434,7 +3222,100 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     typeParameterEClass = createEClass(TYPE_PARAMETER);
     createEReference(typeParameterEClass, TYPE_PARAMETER__CONSTRAINTS);
 
+    typeReferenceEClass = createEClass(TYPE_REFERENCE);
+
+    referenceEClass = createEClass(REFERENCE);
+
+    typedefTypePropertyEClass = createEClass(TYPEDEF_TYPE_PROPERTY);
+    createEAttribute(typedefTypePropertyEClass, TYPEDEF_TYPE_PROPERTY__NAME);
+    createEReference(typedefTypePropertyEClass, TYPEDEF_TYPE_PROPERTY__TYPE);
+
+    metadataEClass = createEClass(METADATA);
+    createEAttribute(metadataEClass, METADATA__COMPILER);
+    createEAttribute(metadataEClass, METADATA__NAME);
+    createEReference(metadataEClass, METADATA__BODY);
+
     expressionEClass = createEClass(EXPRESSION);
+
+    methodModifierEClass = createEClass(METHOD_MODIFIER);
+
+    propertyModifierEClass = createEClass(PROPERTY_MODIFIER);
+
+    parameterEClass = createEClass(PARAMETER);
+    createEReference(parameterEClass, PARAMETER__TYPE);
+    createEReference(parameterEClass, PARAMETER__DEFAULT_VALUE);
+    createEAttribute(parameterEClass, PARAMETER__OPTIONAL);
+
+    classConstructorEClass = createEClass(CLASS_CONSTRUCTOR);
+    createEReference(classConstructorEClass, CLASS_CONSTRUCTOR__METADATA);
+    createEAttribute(classConstructorEClass, CLASS_CONSTRUCTOR__VISIBILITY);
+    createEReference(classConstructorEClass, CLASS_CONSTRUCTOR__PARAMETERS);
+    createEReference(classConstructorEClass, CLASS_CONSTRUCTOR__RETURN_TYPE);
+    createEReference(classConstructorEClass, CLASS_CONSTRUCTOR__BODY);
+
+    classPropertyEClass = createEClass(CLASS_PROPERTY);
+    createEReference(classPropertyEClass, CLASS_PROPERTY__METADATA);
+    createEReference(classPropertyEClass, CLASS_PROPERTY__MODIFIER);
+    createEReference(classPropertyEClass, CLASS_PROPERTY__GETTER);
+    createEReference(classPropertyEClass, CLASS_PROPERTY__SETTER);
+    createEReference(classPropertyEClass, CLASS_PROPERTY__TYPE);
+    createEReference(classPropertyEClass, CLASS_PROPERTY__EXPRESSION);
+
+    methodEClass = createEClass(METHOD);
+    createEReference(methodEClass, METHOD__METADATA);
+    createEReference(methodEClass, METHOD__MODIFIER);
+    createEReference(methodEClass, METHOD__TYPE_PARAMETERS);
+    createEReference(methodEClass, METHOD__PARAMETERS);
+    createEReference(methodEClass, METHOD__RETURN_TYPE);
+    createEAttribute(methodEClass, METHOD__UNTYPED);
+    createEReference(methodEClass, METHOD__BODY);
+    createEAttribute(methodEClass, METHOD__VISIBILITY);
+
+    interfacePropertyEClass = createEClass(INTERFACE_PROPERTY);
+    createEReference(interfacePropertyEClass, INTERFACE_PROPERTY__METADATA);
+    createEReference(interfacePropertyEClass, INTERFACE_PROPERTY__GETTER);
+    createEReference(interfacePropertyEClass, INTERFACE_PROPERTY__SETTER);
+    createEReference(interfacePropertyEClass, INTERFACE_PROPERTY__TYPE);
+
+    typedefPropertyEClass = createEClass(TYPEDEF_PROPERTY);
+    createEReference(typedefPropertyEClass, TYPEDEF_PROPERTY__METADATA);
+    createEAttribute(typedefPropertyEClass, TYPEDEF_PROPERTY__VISIBILITY);
+    createEReference(typedefPropertyEClass, TYPEDEF_PROPERTY__GETTER);
+    createEReference(typedefPropertyEClass, TYPEDEF_PROPERTY__SETTER);
+    createEReference(typedefPropertyEClass, TYPEDEF_PROPERTY__TYPE);
+
+    enumConstructorEClass = createEClass(ENUM_CONSTRUCTOR);
+    createEReference(enumConstructorEClass, ENUM_CONSTRUCTOR__METADATA);
+    createEReference(enumConstructorEClass, ENUM_CONSTRUCTOR__PARAMETERS);
+
+    externClassConstructorEClass = createEClass(EXTERN_CLASS_CONSTRUCTOR);
+    createEReference(externClassConstructorEClass, EXTERN_CLASS_CONSTRUCTOR__METADATA);
+    createEAttribute(externClassConstructorEClass, EXTERN_CLASS_CONSTRUCTOR__VISIBILITY);
+    createEReference(externClassConstructorEClass, EXTERN_CLASS_CONSTRUCTOR__PARAMETERS);
+    createEReference(externClassConstructorEClass, EXTERN_CLASS_CONSTRUCTOR__RETURN_TYPE);
+
+    externClassPropertyEClass = createEClass(EXTERN_CLASS_PROPERTY);
+    createEReference(externClassPropertyEClass, EXTERN_CLASS_PROPERTY__METADATA);
+    createEReference(externClassPropertyEClass, EXTERN_CLASS_PROPERTY__MODIFIER);
+    createEReference(externClassPropertyEClass, EXTERN_CLASS_PROPERTY__GETTER);
+    createEReference(externClassPropertyEClass, EXTERN_CLASS_PROPERTY__SETTER);
+    createEReference(externClassPropertyEClass, EXTERN_CLASS_PROPERTY__TYPE);
+    createEReference(externClassPropertyEClass, EXTERN_CLASS_PROPERTY__EXPRESSION);
+
+    getterSetterEClass = createEClass(GETTER_SETTER);
+
+    classMethodReferenceEClass = createEClass(CLASS_METHOD_REFERENCE);
+    createEReference(classMethodReferenceEClass, CLASS_METHOD_REFERENCE__REFERENCE);
+
+    getterSetterLiteralEClass = createEClass(GETTER_SETTER_LITERAL);
+    createEAttribute(getterSetterLiteralEClass, GETTER_SETTER_LITERAL__VALUE);
+
+    featureEClass = createEClass(FEATURE);
+    createEAttribute(featureEClass, FEATURE__NAME);
+
+    variableDeclarationEClass = createEClass(VARIABLE_DECLARATION);
+    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__TYPE);
+    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__EXPRESSION);
 
     catchClauseEClass = createEClass(CATCH_CLAUSE);
     createEReference(catchClauseEClass, CATCH_CLAUSE__DECLARED_PARAM);
@@ -2444,9 +3325,43 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     createEReference(casePartEClass, CASE_PART__CASES);
     createEReference(casePartEClass, CASE_PART__THEN);
 
+    casePartExpressionsEClass = createEClass(CASE_PART_EXPRESSIONS);
+    createEReference(casePartExpressionsEClass, CASE_PART_EXPRESSIONS__EXPRESSIONS);
+
     objectElementEClass = createEClass(OBJECT_ELEMENT);
     createEAttribute(objectElementEClass, OBJECT_ELEMENT__KEY);
     createEReference(objectElementEClass, OBJECT_ELEMENT__VALUE);
+
+    methodSignatureEClass = createEClass(METHOD_SIGNATURE);
+    createEReference(methodSignatureEClass, METHOD_SIGNATURE__ARGUMENT_TYPES);
+    createEReference(methodSignatureEClass, METHOD_SIGNATURE__RETURN_TYPE);
+
+    parameterizedTypeReferenceEClass = createEClass(PARAMETERIZED_TYPE_REFERENCE);
+    createEReference(parameterizedTypeReferenceEClass, PARAMETERIZED_TYPE_REFERENCE__TYPE);
+    createEReference(parameterizedTypeReferenceEClass, PARAMETERIZED_TYPE_REFERENCE__ARGUMENTS);
+
+    typedefTypeEClass = createEClass(TYPEDEF_TYPE);
+    createEReference(typedefTypeEClass, TYPEDEF_TYPE__PROPERTIES);
+
+    modifierEClass = createEClass(MODIFIER);
+    createEAttribute(modifierEClass, MODIFIER__STATIC);
+    createEAttribute(modifierEClass, MODIFIER__FINAL);
+    createEAttribute(modifierEClass, MODIFIER__DYNAMIC);
+    createEAttribute(modifierEClass, MODIFIER__OVERRIDE);
+    createEAttribute(modifierEClass, MODIFIER__INLINE);
+    createEAttribute(modifierEClass, MODIFIER__VISIBILITY);
+
+    castExpressionEClass = createEClass(CAST_EXPRESSION);
+    createEReference(castExpressionEClass, CAST_EXPRESSION__TARGET);
+    createEReference(castExpressionEClass, CAST_EXPRESSION__TYPE);
+
+    untypedExpressionEClass = createEClass(UNTYPED_EXPRESSION);
+    createEReference(untypedExpressionEClass, UNTYPED_EXPRESSION__TARGET);
+
+    ifExpressionEClass = createEClass(IF_EXPRESSION);
+    createEReference(ifExpressionEClass, IF_EXPRESSION__IF);
+    createEReference(ifExpressionEClass, IF_EXPRESSION__THEN);
+    createEReference(ifExpressionEClass, IF_EXPRESSION__ELSE);
 
     assignmentEClass = createEClass(ASSIGNMENT);
     createEReference(assignmentEClass, ASSIGNMENT__FEATURE);
@@ -2493,10 +3408,19 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     variableDeclarationsEClass = createEClass(VARIABLE_DECLARATIONS);
     createEReference(variableDeclarationsEClass, VARIABLE_DECLARATIONS__DECLARATIONS);
 
-    ifExpressionEClass = createEClass(IF_EXPRESSION);
-    createEReference(ifExpressionEClass, IF_EXPRESSION__IF);
-    createEReference(ifExpressionEClass, IF_EXPRESSION__THEN);
-    createEReference(ifExpressionEClass, IF_EXPRESSION__ELSE);
+    functionExpressionEClass = createEClass(FUNCTION_EXPRESSION);
+    createEReference(functionExpressionEClass, FUNCTION_EXPRESSION__PARAMETERS);
+    createEReference(functionExpressionEClass, FUNCTION_EXPRESSION__RETURN_TYPE);
+    createEReference(functionExpressionEClass, FUNCTION_EXPRESSION__BODY);
+
+    featureCallEClass = createEClass(FEATURE_CALL);
+    createEReference(featureCallEClass, FEATURE_CALL__FEATURE);
+    createEAttribute(featureCallEClass, FEATURE_CALL__EXPLICIT_OPERATION_CALL);
+    createEReference(featureCallEClass, FEATURE_CALL__ARGUMENTS);
+
+    constructorCallEClass = createEClass(CONSTRUCTOR_CALL);
+    createEReference(constructorCallEClass, CONSTRUCTOR_CALL__CONSTRUCTOR);
+    createEReference(constructorCallEClass, CONSTRUCTOR_CALL__ARGUMENTS);
 
     whileExpressionEClass = createEClass(WHILE_EXPRESSION);
     createEReference(whileExpressionEClass, WHILE_EXPRESSION__PREDICATE);
@@ -2511,14 +3435,6 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     createEReference(forLoopExpressionEClass, FOR_LOOP_EXPRESSION__FOR_EXPRESSION);
     createEReference(forLoopExpressionEClass, FOR_LOOP_EXPRESSION__BODY);
 
-    returnExpressionEClass = createEClass(RETURN_EXPRESSION);
-    createEReference(returnExpressionEClass, RETURN_EXPRESSION__EXPRESSION);
-
-    breakExpressionEClass = createEClass(BREAK_EXPRESSION);
-
-    throwExpressionEClass = createEClass(THROW_EXPRESSION);
-    createEReference(throwExpressionEClass, THROW_EXPRESSION__EXPRESSION);
-
     tryCatchExpressionEClass = createEClass(TRY_CATCH_EXPRESSION);
     createEReference(tryCatchExpressionEClass, TRY_CATCH_EXPRESSION__EXPRESSION);
     createEReference(tryCatchExpressionEClass, TRY_CATCH_EXPRESSION__CATCH_CLAUSES);
@@ -2528,34 +3444,18 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     createEReference(switchExpressionEClass, SWITCH_EXPRESSION__CASES);
     createEReference(switchExpressionEClass, SWITCH_EXPRESSION__DEFAULT);
 
-    functionExpressionEClass = createEClass(FUNCTION_EXPRESSION);
-    createEReference(functionExpressionEClass, FUNCTION_EXPRESSION__PARAMETERS);
-    createEReference(functionExpressionEClass, FUNCTION_EXPRESSION__RETURN_TYPE);
-    createEReference(functionExpressionEClass, FUNCTION_EXPRESSION__BODY);
+    returnExpressionEClass = createEClass(RETURN_EXPRESSION);
+    createEReference(returnExpressionEClass, RETURN_EXPRESSION__EXPRESSION);
 
-    thisExpressionEClass = createEClass(THIS_EXPRESSION);
+    breakExpressionEClass = createEClass(BREAK_EXPRESSION);
 
-    superExpressionEClass = createEClass(SUPER_EXPRESSION);
-
-    featureCallEClass = createEClass(FEATURE_CALL);
-    createEReference(featureCallEClass, FEATURE_CALL__FEATURE);
-    createEAttribute(featureCallEClass, FEATURE_CALL__EXPLICIT_OPERATION_CALL);
-    createEReference(featureCallEClass, FEATURE_CALL__ARGUMENTS);
-
-    constructorCallEClass = createEClass(CONSTRUCTOR_CALL);
-    createEReference(constructorCallEClass, CONSTRUCTOR_CALL__CONSTRUCTOR);
-    createEReference(constructorCallEClass, CONSTRUCTOR_CALL__ARGUMENTS);
-
-    booleanLiteralEClass = createEClass(BOOLEAN_LITERAL);
-    createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__IS_TRUE);
+    throwExpressionEClass = createEClass(THROW_EXPRESSION);
+    createEReference(throwExpressionEClass, THROW_EXPRESSION__EXPRESSION);
 
     nullLiteralEClass = createEClass(NULL_LITERAL);
 
-    intLiteralEClass = createEClass(INT_LITERAL);
-    createEAttribute(intLiteralEClass, INT_LITERAL__VALUE);
-
-    floatLiteralEClass = createEClass(FLOAT_LITERAL);
-    createEAttribute(floatLiteralEClass, FLOAT_LITERAL__VALUE);
+    numberLiteralEClass = createEClass(NUMBER_LITERAL);
+    createEAttribute(numberLiteralEClass, NUMBER_LITERAL__VALUE);
 
     stringLiteralEClass = createEClass(STRING_LITERAL);
     createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
@@ -2602,19 +3502,32 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    classOrInterfaceEClass.getESuperTypes().add(this.getType());
-    classEClass.getESuperTypes().add(this.getClassOrInterface());
-    interfaceEClass.getESuperTypes().add(this.getClassOrInterface());
-    enumEClass.getESuperTypes().add(this.getType());
+    typeEClass.getESuperTypes().add(this.getFeature());
+    classEClass.getESuperTypes().add(this.getType());
+    interfaceEClass.getESuperTypes().add(this.getType());
     typedefEClass.getESuperTypes().add(this.getType());
-    typeReferenceEClass.getESuperTypes().add(this.getClassOrInterfaceReference());
-    variableDeclarationEClass.getESuperTypes().add(this.getFeature());
-    variableMemberDeclarationEClass.getESuperTypes().add(this.getClassMember());
-    variableMemberDeclarationEClass.getESuperTypes().add(this.getFeature());
-    functionMemberDeclarationEClass.getESuperTypes().add(this.getClassMember());
-    functionMemberDeclarationEClass.getESuperTypes().add(this.getFeature());
-    formalParameterEClass.getESuperTypes().add(this.getFeature());
+    enumEClass.getESuperTypes().add(this.getType());
+    externClassEClass.getESuperTypes().add(this.getType());
     typeParameterEClass.getESuperTypes().add(this.getType());
+    referenceEClass.getESuperTypes().add(this.getTypeReference());
+    parameterEClass.getESuperTypes().add(this.getFeature());
+    classPropertyEClass.getESuperTypes().add(this.getFeature());
+    methodEClass.getESuperTypes().add(this.getFeature());
+    interfacePropertyEClass.getESuperTypes().add(this.getFeature());
+    typedefPropertyEClass.getESuperTypes().add(this.getFeature());
+    enumConstructorEClass.getESuperTypes().add(this.getFeature());
+    externClassPropertyEClass.getESuperTypes().add(this.getFeature());
+    classMethodReferenceEClass.getESuperTypes().add(this.getGetterSetter());
+    getterSetterLiteralEClass.getESuperTypes().add(this.getGetterSetter());
+    variableDeclarationEClass.getESuperTypes().add(this.getFeature());
+    methodSignatureEClass.getESuperTypes().add(this.getReference());
+    parameterizedTypeReferenceEClass.getESuperTypes().add(this.getReference());
+    typedefTypeEClass.getESuperTypes().add(this.getReference());
+    modifierEClass.getESuperTypes().add(this.getMethodModifier());
+    modifierEClass.getESuperTypes().add(this.getPropertyModifier());
+    castExpressionEClass.getESuperTypes().add(this.getExpression());
+    untypedExpressionEClass.getESuperTypes().add(this.getExpression());
+    ifExpressionEClass.getESuperTypes().add(this.getExpression());
     assignmentEClass.getESuperTypes().add(this.getExpression());
     operationEClass.getESuperTypes().add(this.getExpression());
     unaryOperationEClass.getESuperTypes().add(this.getExpression());
@@ -2625,24 +3538,19 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     arrayAccessEClass.getESuperTypes().add(this.getExpression());
     blockExpressionEClass.getESuperTypes().add(this.getExpression());
     variableDeclarationsEClass.getESuperTypes().add(this.getExpression());
-    ifExpressionEClass.getESuperTypes().add(this.getExpression());
+    functionExpressionEClass.getESuperTypes().add(this.getExpression());
+    featureCallEClass.getESuperTypes().add(this.getExpression());
+    constructorCallEClass.getESuperTypes().add(this.getExpression());
     whileExpressionEClass.getESuperTypes().add(this.getExpression());
     doWhileExpressionEClass.getESuperTypes().add(this.getExpression());
     forLoopExpressionEClass.getESuperTypes().add(this.getExpression());
+    tryCatchExpressionEClass.getESuperTypes().add(this.getExpression());
+    switchExpressionEClass.getESuperTypes().add(this.getExpression());
     returnExpressionEClass.getESuperTypes().add(this.getExpression());
     breakExpressionEClass.getESuperTypes().add(this.getExpression());
     throwExpressionEClass.getESuperTypes().add(this.getExpression());
-    tryCatchExpressionEClass.getESuperTypes().add(this.getExpression());
-    switchExpressionEClass.getESuperTypes().add(this.getExpression());
-    functionExpressionEClass.getESuperTypes().add(this.getExpression());
-    thisExpressionEClass.getESuperTypes().add(this.getExpression());
-    superExpressionEClass.getESuperTypes().add(this.getExpression());
-    featureCallEClass.getESuperTypes().add(this.getExpression());
-    constructorCallEClass.getESuperTypes().add(this.getExpression());
-    booleanLiteralEClass.getESuperTypes().add(this.getExpression());
     nullLiteralEClass.getESuperTypes().add(this.getExpression());
-    intLiteralEClass.getESuperTypes().add(this.getExpression());
-    floatLiteralEClass.getESuperTypes().add(this.getExpression());
+    numberLiteralEClass.getESuperTypes().add(this.getExpression());
     stringLiteralEClass.getESuperTypes().add(this.getExpression());
     regularExpressionLiteralEClass.getESuperTypes().add(this.getExpression());
     arrayLiteralEClass.getESuperTypes().add(this.getExpression());
@@ -2655,8 +3563,9 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     initEReference(getPackage_Using(), this.getUsing(), null, "using", null, 0, -1, ee.xtext.haxe.haxe.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPackage_Classes(), this.getClass_(), null, "classes", null, 0, -1, ee.xtext.haxe.haxe.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPackage_Interfaces(), this.getInterface(), null, "interfaces", null, 0, -1, ee.xtext.haxe.haxe.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPackage_Enums(), this.getEnum(), null, "enums", null, 0, -1, ee.xtext.haxe.haxe.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPackage_Typedefs(), this.getTypedef(), null, "typedefs", null, 0, -1, ee.xtext.haxe.haxe.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPackage_Enums(), this.getEnum(), null, "enums", null, 0, -1, ee.xtext.haxe.haxe.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPackage_ExternClasses(), this.getExternClass(), null, "externClasses", null, 0, -1, ee.xtext.haxe.haxe.Package.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImport_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2665,72 +3574,178 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     initEAttribute(getUsing_ImportedClass(), ecorePackage.getEString(), "importedClass", null, 0, 1, Using.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(classOrInterfaceEClass, ClassOrInterface.class, "ClassOrInterface", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getClassOrInterface_Private(), ecorePackage.getEBoolean(), "private", null, 0, 1, ClassOrInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getClassOrInterface_Members(), this.getClassMember(), null, "members", null, 0, -1, ClassOrInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(classEClass, ee.xtext.haxe.haxe.Class.class, "Class", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getClass_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClass_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClass_TypeParameters(), this.getTypeParameters(), null, "typeParameters", null, 0, 1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getClass_Extends(), this.getTypeReference(), null, "extends", null, 0, 1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getClass_Implements(), this.getClassOrInterfaceReference(), null, "implements", null, 0, -1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getClass_Constructor(), this.getConstructor(), null, "constructor", null, 0, 1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(classMemberEClass, ClassMember.class, "ClassMember", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getClass_Extends(), this.getReference(), null, "extends", null, 0, 1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClass_Implements(), this.getReference(), null, "implements", null, 0, -1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClass_Constructor(), this.getClassConstructor(), null, "constructor", null, 0, 1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClass_Properties(), this.getClassProperty(), null, "properties", null, 0, -1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClass_Methods(), this.getMethod(), null, "methods", null, 0, -1, ee.xtext.haxe.haxe.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(interfaceEClass, Interface.class, "Interface", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getInterface_Implements(), this.getTypeReference(), null, "implements", null, 0, -1, Interface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(enumEClass, ee.xtext.haxe.haxe.Enum.class, "Enum", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getEnum_Private(), ecorePackage.getEBoolean(), "private", null, 0, 1, ee.xtext.haxe.haxe.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEnum_TypeParameters(), this.getTypeParameters(), null, "typeParameters", null, 0, 1, ee.xtext.haxe.haxe.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEnum_Members(), this.getEnumConstructor(), null, "members", null, 0, -1, ee.xtext.haxe.haxe.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(enumConstructorEClass, EnumConstructor.class, "EnumConstructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getEnumConstructor_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnumConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEnumConstructor_Parameters(), this.getFormalParameter(), null, "parameters", null, 0, -1, EnumConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInterface_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, Interface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInterface_Extern(), ecorePackage.getEString(), "extern", null, 0, 1, Interface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInterface_Visibility(), this.getVisibility(), "visibility", null, 0, 1, Interface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInterface_TypeParameters(), this.getTypeParameters(), null, "typeParameters", null, 0, 1, Interface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInterface_Implements(), this.getReference(), null, "implements", null, 0, -1, Interface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInterface_Properties(), this.getInterfaceProperty(), null, "properties", null, 0, -1, Interface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInterface_Methods(), this.getMethod(), null, "methods", null, 0, -1, Interface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typedefEClass, Typedef.class, "Typedef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTypedef_Private(), ecorePackage.getEBoolean(), "private", null, 0, 1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTypedef_Extends(), this.getTypeReference(), null, "extends", null, 0, 1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTypedef_Members(), this.getClassMember(), null, "members", null, 0, -1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedef_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTypedef_Visibility(), this.getVisibility(), "visibility", null, 0, 1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedef_TypeParameters(), this.getTypeParameters(), null, "typeParameters", null, 0, 1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedef_Extends(), this.getReference(), null, "extends", null, 0, 1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedef_Properties(), this.getTypedefProperty(), null, "properties", null, 0, -1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedef_Methods(), this.getMethod(), null, "methods", null, 0, -1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedef_Type(), this.getReference(), null, "type", null, 0, 1, Typedef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(enumEClass, ee.xtext.haxe.haxe.Enum.class, "Enum", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEnum_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, ee.xtext.haxe.haxe.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEnum_Extern(), ecorePackage.getEString(), "extern", null, 0, 1, ee.xtext.haxe.haxe.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEnum_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ee.xtext.haxe.haxe.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEnum_TypeParameters(), this.getTypeParameters(), null, "typeParameters", null, 0, 1, ee.xtext.haxe.haxe.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEnum_Constructors(), this.getEnumConstructor(), null, "constructors", null, 0, -1, ee.xtext.haxe.haxe.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(externClassEClass, ExternClass.class, "ExternClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getExternClass_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, ExternClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExternClass_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ExternClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClass_TypeParameters(), this.getTypeParameters(), null, "typeParameters", null, 0, 1, ExternClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClass_Extends(), this.getReference(), null, "extends", null, 0, 1, ExternClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClass_Implements(), this.getReference(), null, "implements", null, 0, -1, ExternClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClass_Constructor(), this.getExternClassConstructor(), null, "constructor", null, 0, 1, ExternClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClass_Properties(), this.getExternClassProperty(), null, "properties", null, 0, -1, ExternClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClass_Methods(), this.getMethod(), null, "methods", null, 0, -1, ExternClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeParametersEClass, TypeParameters.class, "TypeParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypeParameters_Parameters(), this.getTypeParameter(), null, "parameters", null, 0, -1, TypeParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeParameterEClass, TypeParameter.class, "TypeParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypeParameter_Constraints(), this.getReference(), null, "constraints", null, 0, -1, TypeParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeReferenceEClass, TypeReference.class, "TypeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTypeReference_Type(), this.getType(), null, "type", null, 0, 1, TypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTypeReference_Arguments(), this.getTypeReference(), null, "arguments", null, 0, -1, TypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(classOrInterfaceReferenceEClass, ClassOrInterfaceReference.class, "ClassOrInterfaceReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(referenceEClass, Reference.class, "Reference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typedefTypePropertyEClass, TypedefTypeProperty.class, "TypedefTypeProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTypedefTypeProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, TypedefTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedefTypeProperty_Type(), this.getTypeReference(), null, "type", null, 0, 1, TypedefTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getMetadata_Compiler(), ecorePackage.getEBoolean(), "compiler", null, 0, 1, Metadata.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetadata_Name(), ecorePackage.getEString(), "name", null, 0, 1, Metadata.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMetadata_Body(), this.getExpression(), null, "body", null, 0, 1, Metadata.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(methodModifierEClass, MethodModifier.class, "MethodModifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(propertyModifierEClass, PropertyModifier.class, "PropertyModifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParameter_Type(), this.getTypeReference(), null, "type", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getParameter_DefaultValue(), this.getExpression(), null, "defaultValue", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getParameter_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(classConstructorEClass, ClassConstructor.class, "ClassConstructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getClassConstructor_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, ClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClassConstructor_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClassConstructor_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, ClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClassConstructor_ReturnType(), this.getTypeReference(), null, "returnType", null, 0, 1, ClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClassConstructor_Body(), this.getExpression(), null, "body", null, 0, 1, ClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(classPropertyEClass, ClassProperty.class, "ClassProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getClassProperty_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, ClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClassProperty_Modifier(), this.getPropertyModifier(), null, "modifier", null, 0, 1, ClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClassProperty_Getter(), this.getGetterSetter(), null, "getter", null, 0, 1, ClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClassProperty_Setter(), this.getGetterSetter(), null, "setter", null, 0, 1, ClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClassProperty_Type(), this.getTypeReference(), null, "type", null, 0, 1, ClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClassProperty_Expression(), this.getExpression(), null, "expression", null, 0, 1, ClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(methodEClass, Method.class, "Method", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMethod_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMethod_Modifier(), this.getMethodModifier(), null, "modifier", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMethod_TypeParameters(), this.getTypeParameters(), null, "typeParameters", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMethod_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMethod_ReturnType(), this.getTypeReference(), null, "returnType", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMethod_Untyped(), ecorePackage.getEBoolean(), "untyped", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMethod_Body(), this.getExpression(), null, "body", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMethod_Visibility(), this.getVisibility(), "visibility", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(interfacePropertyEClass, InterfaceProperty.class, "InterfaceProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getInterfaceProperty_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, InterfaceProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInterfaceProperty_Getter(), this.getGetterSetter(), null, "getter", null, 0, 1, InterfaceProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInterfaceProperty_Setter(), this.getGetterSetter(), null, "setter", null, 0, 1, InterfaceProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInterfaceProperty_Type(), this.getTypeReference(), null, "type", null, 0, 1, InterfaceProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typedefPropertyEClass, TypedefProperty.class, "TypedefProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypedefProperty_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, TypedefProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTypedefProperty_Visibility(), this.getVisibility(), "visibility", null, 0, 1, TypedefProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedefProperty_Getter(), this.getGetterSetter(), null, "getter", null, 0, 1, TypedefProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedefProperty_Setter(), this.getGetterSetter(), null, "setter", null, 0, 1, TypedefProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedefProperty_Type(), this.getTypeReference(), null, "type", null, 0, 1, TypedefProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(enumConstructorEClass, EnumConstructor.class, "EnumConstructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEnumConstructor_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, EnumConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEnumConstructor_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, EnumConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(externClassConstructorEClass, ExternClassConstructor.class, "ExternClassConstructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getExternClassConstructor_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, ExternClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExternClassConstructor_Visibility(), this.getVisibility(), "visibility", null, 0, 1, ExternClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClassConstructor_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, ExternClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClassConstructor_ReturnType(), this.getTypeReference(), null, "returnType", null, 0, 1, ExternClassConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(externClassPropertyEClass, ExternClassProperty.class, "ExternClassProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getExternClassProperty_Metadata(), this.getMetadata(), null, "metadata", null, 0, 1, ExternClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClassProperty_Modifier(), this.getPropertyModifier(), null, "modifier", null, 0, 1, ExternClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClassProperty_Getter(), this.getGetterSetter(), null, "getter", null, 0, 1, ExternClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClassProperty_Setter(), this.getGetterSetter(), null, "setter", null, 0, 1, ExternClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClassProperty_Type(), this.getTypeReference(), null, "type", null, 0, 1, ExternClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExternClassProperty_Expression(), this.getExpression(), null, "expression", null, 0, 1, ExternClassProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(getterSetterEClass, GetterSetter.class, "GetterSetter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(classMethodReferenceEClass, ClassMethodReference.class, "ClassMethodReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getClassMethodReference_Reference(), this.getMethod(), null, "reference", null, 0, 1, ClassMethodReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(getterSetterLiteralEClass, GetterSetterLiteral.class, "GetterSetterLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getGetterSetterLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, GetterSetterLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variableDeclarationEClass, VariableDeclaration.class, "VariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariableDeclaration_Type(), this.getTypeReference(), null, "type", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariableDeclaration_Expression(), this.getExpression(), null, "expression", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(variableMemberDeclarationEClass, VariableMemberDeclaration.class, "VariableMemberDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVariableMemberDeclaration_Modified(), this.getModifier(), null, "modified", null, 0, 1, VariableMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVariableMemberDeclaration_Getter(), this.getFunctionMemberDeclaration(), null, "getter", null, 0, 1, VariableMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVariableMemberDeclaration_Setter(), this.getFunctionMemberDeclaration(), null, "setter", null, 0, 1, VariableMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVariableMemberDeclaration_Type(), this.getTypeReference(), null, "type", null, 0, 1, VariableMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVariableMemberDeclaration_Expression(), this.getExpression(), null, "expression", null, 0, 1, VariableMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(catchClauseEClass, CatchClause.class, "CatchClause", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCatchClause_DeclaredParam(), this.getParameter(), null, "declaredParam", null, 0, 1, CatchClause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCatchClause_Expression(), this.getExpression(), null, "expression", null, 0, 1, CatchClause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(functionMemberDeclarationEClass, FunctionMemberDeclaration.class, "FunctionMemberDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFunctionMemberDeclaration_Modified(), this.getModifier(), null, "modified", null, 0, 1, FunctionMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionMemberDeclaration_Parameters(), this.getFormalParameter(), null, "parameters", null, 0, -1, FunctionMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionMemberDeclaration_ReturnType(), this.getTypeReference(), null, "returnType", null, 0, 1, FunctionMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionMemberDeclaration_Body(), this.getExpression(), null, "body", null, 0, 1, FunctionMemberDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(casePartEClass, CasePart.class, "CasePart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCasePart_Cases(), this.getExpression(), null, "cases", null, 0, -1, CasePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCasePart_Then(), this.getCasePartExpressions(), null, "then", null, 0, 1, CasePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(constructorEClass, Constructor.class, "Constructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConstructor_Modified(), this.getModifier(), null, "modified", null, 0, 1, Constructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConstructor_Parameters(), this.getFormalParameter(), null, "parameters", null, 0, -1, Constructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConstructor_Body(), this.getExpression(), null, "body", null, 0, 1, Constructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(casePartExpressionsEClass, CasePartExpressions.class, "CasePartExpressions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCasePartExpressions_Expressions(), this.getExpression(), null, "expressions", null, 0, -1, CasePartExpressions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(objectElementEClass, ObjectElement.class, "ObjectElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getObjectElement_Key(), ecorePackage.getEString(), "key", null, 0, 1, ObjectElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectElement_Value(), this.getExpression(), null, "value", null, 0, 1, ObjectElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(formalParameterEClass, FormalParameter.class, "FormalParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFormalParameter_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1, FormalParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFormalParameter_Type(), this.getTypeReference(), null, "type", null, 0, 1, FormalParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFormalParameter_DefaultValue(), this.getExpression(), null, "defaultValue", null, 0, 1, FormalParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(methodSignatureEClass, MethodSignature.class, "MethodSignature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMethodSignature_ArgumentTypes(), this.getReference(), null, "argumentTypes", null, 0, -1, MethodSignature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMethodSignature_ReturnType(), this.getReference(), null, "returnType", null, 0, 1, MethodSignature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(parameterizedTypeReferenceEClass, ParameterizedTypeReference.class, "ParameterizedTypeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParameterizedTypeReference_Type(), this.getType(), null, "type", null, 0, 1, ParameterizedTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getParameterizedTypeReference_Arguments(), this.getTypeReference(), null, "arguments", null, 0, -1, ParameterizedTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typedefTypeEClass, TypedefType.class, "TypedefType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypedefType_Properties(), this.getTypedefTypeProperty(), null, "properties", null, 0, -1, TypedefType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(modifierEClass, Modifier.class, "Modifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getModifier_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2740,25 +3755,17 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     initEAttribute(getModifier_Inline(), ecorePackage.getEBoolean(), "inline", null, 0, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getModifier_Visibility(), this.getVisibility(), "visibility", null, 0, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(typeParametersEClass, TypeParameters.class, "TypeParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTypeParameters_Parameters(), this.getTypeParameter(), null, "parameters", null, 0, -1, TypeParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(castExpressionEClass, CastExpression.class, "CastExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCastExpression_Target(), this.getExpression(), null, "target", null, 0, 1, CastExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCastExpression_Type(), this.getTypeReference(), null, "type", null, 0, 1, CastExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(typeParameterEClass, TypeParameter.class, "TypeParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTypeParameter_Constraints(), this.getTypeReference(), null, "constraints", null, 0, -1, TypeParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(untypedExpressionEClass, UntypedExpression.class, "UntypedExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUntypedExpression_Target(), this.getExpression(), null, "target", null, 0, 1, UntypedExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(catchClauseEClass, CatchClause.class, "CatchClause", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCatchClause_DeclaredParam(), this.getFormalParameter(), null, "declaredParam", null, 0, 1, CatchClause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCatchClause_Expression(), this.getExpression(), null, "expression", null, 0, 1, CatchClause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(casePartEClass, CasePart.class, "CasePart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCasePart_Cases(), this.getExpression(), null, "cases", null, 0, -1, CasePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCasePart_Then(), this.getExpression(), null, "then", null, 0, 1, CasePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(objectElementEClass, ObjectElement.class, "ObjectElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getObjectElement_Key(), ecorePackage.getEString(), "key", null, 0, 1, ObjectElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getObjectElement_Value(), this.getExpression(), null, "value", null, 0, 1, ObjectElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(ifExpressionEClass, IfExpression.class, "IfExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getIfExpression_If(), this.getExpression(), null, "if", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIfExpression_Then(), this.getExpression(), null, "then", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIfExpression_Else(), this.getExpression(), null, "else", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assignmentEClass, Assignment.class, "Assignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAssignment_Feature(), this.getFeature(), null, "feature", null, 0, 1, Assignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2805,10 +3812,19 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     initEClass(variableDeclarationsEClass, VariableDeclarations.class, "VariableDeclarations", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariableDeclarations_Declarations(), this.getVariableDeclaration(), null, "declarations", null, 0, -1, VariableDeclarations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(ifExpressionEClass, IfExpression.class, "IfExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getIfExpression_If(), this.getExpression(), null, "if", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getIfExpression_Then(), this.getExpression(), null, "then", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getIfExpression_Else(), this.getExpression(), null, "else", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(functionExpressionEClass, FunctionExpression.class, "FunctionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFunctionExpression_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, FunctionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunctionExpression_ReturnType(), this.getTypeReference(), null, "returnType", null, 0, 1, FunctionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunctionExpression_Body(), this.getExpression(), null, "body", null, 0, 1, FunctionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(featureCallEClass, FeatureCall.class, "FeatureCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFeatureCall_Feature(), this.getFeature(), null, "feature", null, 0, 1, FeatureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFeatureCall_ExplicitOperationCall(), ecorePackage.getEBoolean(), "explicitOperationCall", null, 0, 1, FeatureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFeatureCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, FeatureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(constructorCallEClass, ConstructorCall.class, "ConstructorCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getConstructorCall_Constructor(), this.getReference(), null, "constructor", null, 0, 1, ConstructorCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConstructorCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, ConstructorCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(whileExpressionEClass, WhileExpression.class, "WhileExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getWhileExpression_Predicate(), this.getExpression(), null, "predicate", null, 0, 1, WhileExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2819,9 +3835,18 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     initEReference(getDoWhileExpression_Predicate(), this.getExpression(), null, "predicate", null, 0, 1, DoWhileExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(forLoopExpressionEClass, ForLoopExpression.class, "ForLoopExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getForLoopExpression_DeclaredParam(), this.getFormalParameter(), null, "declaredParam", null, 0, 1, ForLoopExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForLoopExpression_DeclaredParam(), this.getParameter(), null, "declaredParam", null, 0, 1, ForLoopExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForLoopExpression_ForExpression(), this.getExpression(), null, "forExpression", null, 0, 1, ForLoopExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForLoopExpression_Body(), this.getExpression(), null, "body", null, 0, 1, ForLoopExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tryCatchExpressionEClass, TryCatchExpression.class, "TryCatchExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTryCatchExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, TryCatchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTryCatchExpression_CatchClauses(), this.getCatchClause(), null, "catchClauses", null, 0, -1, TryCatchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(switchExpressionEClass, SwitchExpression.class, "SwitchExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSwitchExpression_Switch(), this.getExpression(), null, "switch", null, 0, 1, SwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSwitchExpression_Cases(), this.getCasePart(), null, "cases", null, 0, -1, SwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSwitchExpression_Default(), this.getCasePartExpressions(), null, "default", null, 0, 1, SwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(returnExpressionEClass, ReturnExpression.class, "ReturnExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getReturnExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, ReturnExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2831,43 +3856,10 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
     initEClass(throwExpressionEClass, ThrowExpression.class, "ThrowExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getThrowExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, ThrowExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(tryCatchExpressionEClass, TryCatchExpression.class, "TryCatchExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTryCatchExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, TryCatchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTryCatchExpression_CatchClauses(), this.getCatchClause(), null, "catchClauses", null, 0, -1, TryCatchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(switchExpressionEClass, SwitchExpression.class, "SwitchExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSwitchExpression_Switch(), this.getExpression(), null, "switch", null, 0, 1, SwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSwitchExpression_Cases(), this.getCasePart(), null, "cases", null, 0, -1, SwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSwitchExpression_Default(), this.getExpression(), null, "default", null, 0, 1, SwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(functionExpressionEClass, FunctionExpression.class, "FunctionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFunctionExpression_Parameters(), this.getFormalParameter(), null, "parameters", null, 0, -1, FunctionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionExpression_ReturnType(), this.getTypeReference(), null, "returnType", null, 0, 1, FunctionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionExpression_Body(), this.getExpression(), null, "body", null, 0, 1, FunctionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(thisExpressionEClass, ThisExpression.class, "ThisExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(superExpressionEClass, SuperExpression.class, "SuperExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(featureCallEClass, FeatureCall.class, "FeatureCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFeatureCall_Feature(), this.getFeature(), null, "feature", null, 0, 1, FeatureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFeatureCall_ExplicitOperationCall(), ecorePackage.getEBoolean(), "explicitOperationCall", null, 0, 1, FeatureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFeatureCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, FeatureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(constructorCallEClass, ConstructorCall.class, "ConstructorCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConstructorCall_Constructor(), this.getTypeReference(), null, "constructor", null, 0, 1, ConstructorCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConstructorCall_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, ConstructorCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getBooleanLiteral_IsTrue(), ecorePackage.getEBoolean(), "isTrue", null, 0, 1, BooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(nullLiteralEClass, NullLiteral.class, "NullLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(intLiteralEClass, IntLiteral.class, "IntLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getIntLiteral_Value(), ecorePackage.getEInt(), "value", null, 0, 1, IntLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(floatLiteralEClass, FloatLiteral.class, "FloatLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFloatLiteral_Value(), ecorePackage.getEDouble(), "value", null, 0, 1, FloatLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(numberLiteralEClass, NumberLiteral.class, "NumberLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getNumberLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, NumberLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStringLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2883,8 +3875,8 @@ public class HaxePackageImpl extends EPackageImpl implements HaxePackage
 
     // Initialize enums and add enum literals
     initEEnum(visibilityEEnum, Visibility.class, "Visibility");
-    addEEnumLiteral(visibilityEEnum, Visibility.PUBLIC);
     addEEnumLiteral(visibilityEEnum, Visibility.PRIVATE);
+    addEEnumLiteral(visibilityEEnum, Visibility.PUBLIC);
 
     // Create resource
     createResource(eNS_URI);

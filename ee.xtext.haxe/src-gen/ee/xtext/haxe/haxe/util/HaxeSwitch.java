@@ -11,44 +11,53 @@ import ee.xtext.haxe.haxe.ArrayAssignment;
 import ee.xtext.haxe.haxe.ArrayLiteral;
 import ee.xtext.haxe.haxe.Assignment;
 import ee.xtext.haxe.haxe.BlockExpression;
-import ee.xtext.haxe.haxe.BooleanLiteral;
 import ee.xtext.haxe.haxe.BreakExpression;
 import ee.xtext.haxe.haxe.CasePart;
+import ee.xtext.haxe.haxe.CasePartExpressions;
+import ee.xtext.haxe.haxe.CastExpression;
 import ee.xtext.haxe.haxe.CatchClause;
-import ee.xtext.haxe.haxe.ClassMember;
-import ee.xtext.haxe.haxe.ClassOrInterface;
-import ee.xtext.haxe.haxe.ClassOrInterfaceReference;
-import ee.xtext.haxe.haxe.Constructor;
+import ee.xtext.haxe.haxe.ClassConstructor;
+import ee.xtext.haxe.haxe.ClassMethodReference;
+import ee.xtext.haxe.haxe.ClassProperty;
 import ee.xtext.haxe.haxe.ConstructorCall;
 import ee.xtext.haxe.haxe.DoWhileExpression;
 import ee.xtext.haxe.haxe.EnumConstructor;
 import ee.xtext.haxe.haxe.Expression;
+import ee.xtext.haxe.haxe.ExternClass;
+import ee.xtext.haxe.haxe.ExternClassConstructor;
+import ee.xtext.haxe.haxe.ExternClassProperty;
 import ee.xtext.haxe.haxe.Feature;
 import ee.xtext.haxe.haxe.FeatureCall;
-import ee.xtext.haxe.haxe.FloatLiteral;
 import ee.xtext.haxe.haxe.ForLoopExpression;
-import ee.xtext.haxe.haxe.FormalParameter;
 import ee.xtext.haxe.haxe.FunctionExpression;
-import ee.xtext.haxe.haxe.FunctionMemberDeclaration;
+import ee.xtext.haxe.haxe.GetterSetter;
+import ee.xtext.haxe.haxe.GetterSetterLiteral;
 import ee.xtext.haxe.haxe.HaxePackage;
 import ee.xtext.haxe.haxe.IfExpression;
 import ee.xtext.haxe.haxe.Import;
-import ee.xtext.haxe.haxe.IntLiteral;
 import ee.xtext.haxe.haxe.Interface;
+import ee.xtext.haxe.haxe.InterfaceProperty;
 import ee.xtext.haxe.haxe.MemberFeatureCall;
+import ee.xtext.haxe.haxe.Metadata;
+import ee.xtext.haxe.haxe.Method;
+import ee.xtext.haxe.haxe.MethodModifier;
+import ee.xtext.haxe.haxe.MethodSignature;
 import ee.xtext.haxe.haxe.Modifier;
 import ee.xtext.haxe.haxe.NullLiteral;
+import ee.xtext.haxe.haxe.NumberLiteral;
 import ee.xtext.haxe.haxe.ObjectElement;
 import ee.xtext.haxe.haxe.ObjectLiteral;
 import ee.xtext.haxe.haxe.Operation;
+import ee.xtext.haxe.haxe.Parameter;
+import ee.xtext.haxe.haxe.ParameterizedTypeReference;
 import ee.xtext.haxe.haxe.PostIncrementOperation;
 import ee.xtext.haxe.haxe.PreIncrementOperation;
+import ee.xtext.haxe.haxe.PropertyModifier;
+import ee.xtext.haxe.haxe.Reference;
 import ee.xtext.haxe.haxe.RegularExpressionLiteral;
 import ee.xtext.haxe.haxe.ReturnExpression;
 import ee.xtext.haxe.haxe.StringLiteral;
-import ee.xtext.haxe.haxe.SuperExpression;
 import ee.xtext.haxe.haxe.SwitchExpression;
-import ee.xtext.haxe.haxe.ThisExpression;
 import ee.xtext.haxe.haxe.ThrowExpression;
 import ee.xtext.haxe.haxe.TryCatchExpression;
 import ee.xtext.haxe.haxe.Type;
@@ -56,11 +65,14 @@ import ee.xtext.haxe.haxe.TypeParameter;
 import ee.xtext.haxe.haxe.TypeParameters;
 import ee.xtext.haxe.haxe.TypeReference;
 import ee.xtext.haxe.haxe.Typedef;
+import ee.xtext.haxe.haxe.TypedefProperty;
+import ee.xtext.haxe.haxe.TypedefType;
+import ee.xtext.haxe.haxe.TypedefTypeProperty;
 import ee.xtext.haxe.haxe.UnaryOperation;
+import ee.xtext.haxe.haxe.UntypedExpression;
 import ee.xtext.haxe.haxe.Using;
 import ee.xtext.haxe.haxe.VariableDeclaration;
 import ee.xtext.haxe.haxe.VariableDeclarations;
-import ee.xtext.haxe.haxe.VariableMemberDeclaration;
 import ee.xtext.haxe.haxe.WhileExpression;
 
 import org.eclipse.emf.ecore.EObject;
@@ -156,14 +168,7 @@ public class HaxeSwitch<T> extends Switch<T>
       {
         Type type = (Type)theEObject;
         T result = caseType(type);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.CLASS_OR_INTERFACE:
-      {
-        ClassOrInterface classOrInterface = (ClassOrInterface)theEObject;
-        T result = caseClassOrInterface(classOrInterface);
-        if (result == null) result = caseType(classOrInterface);
+        if (result == null) result = caseFeature(type);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -171,15 +176,8 @@ public class HaxeSwitch<T> extends Switch<T>
       {
         ee.xtext.haxe.haxe.Class class_ = (ee.xtext.haxe.haxe.Class)theEObject;
         T result = caseClass(class_);
-        if (result == null) result = caseClassOrInterface(class_);
         if (result == null) result = caseType(class_);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.CLASS_MEMBER:
-      {
-        ClassMember classMember = (ClassMember)theEObject;
-        T result = caseClassMember(classMember);
+        if (result == null) result = caseFeature(class_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -187,23 +185,8 @@ public class HaxeSwitch<T> extends Switch<T>
       {
         Interface interface_ = (Interface)theEObject;
         T result = caseInterface(interface_);
-        if (result == null) result = caseClassOrInterface(interface_);
         if (result == null) result = caseType(interface_);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.ENUM:
-      {
-        ee.xtext.haxe.haxe.Enum enum_ = (ee.xtext.haxe.haxe.Enum)theEObject;
-        T result = caseEnum(enum_);
-        if (result == null) result = caseType(enum_);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.ENUM_CONSTRUCTOR:
-      {
-        EnumConstructor enumConstructor = (EnumConstructor)theEObject;
-        T result = caseEnumConstructor(enumConstructor);
+        if (result == null) result = caseFeature(interface_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -212,76 +195,25 @@ public class HaxeSwitch<T> extends Switch<T>
         Typedef typedef = (Typedef)theEObject;
         T result = caseTypedef(typedef);
         if (result == null) result = caseType(typedef);
+        if (result == null) result = caseFeature(typedef);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case HaxePackage.TYPE_REFERENCE:
+      case HaxePackage.ENUM:
       {
-        TypeReference typeReference = (TypeReference)theEObject;
-        T result = caseTypeReference(typeReference);
-        if (result == null) result = caseClassOrInterfaceReference(typeReference);
+        ee.xtext.haxe.haxe.Enum enum_ = (ee.xtext.haxe.haxe.Enum)theEObject;
+        T result = caseEnum(enum_);
+        if (result == null) result = caseType(enum_);
+        if (result == null) result = caseFeature(enum_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case HaxePackage.CLASS_OR_INTERFACE_REFERENCE:
+      case HaxePackage.EXTERN_CLASS:
       {
-        ClassOrInterfaceReference classOrInterfaceReference = (ClassOrInterfaceReference)theEObject;
-        T result = caseClassOrInterfaceReference(classOrInterfaceReference);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.VARIABLE_DECLARATION:
-      {
-        VariableDeclaration variableDeclaration = (VariableDeclaration)theEObject;
-        T result = caseVariableDeclaration(variableDeclaration);
-        if (result == null) result = caseFeature(variableDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.VARIABLE_MEMBER_DECLARATION:
-      {
-        VariableMemberDeclaration variableMemberDeclaration = (VariableMemberDeclaration)theEObject;
-        T result = caseVariableMemberDeclaration(variableMemberDeclaration);
-        if (result == null) result = caseClassMember(variableMemberDeclaration);
-        if (result == null) result = caseFeature(variableMemberDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.FUNCTION_MEMBER_DECLARATION:
-      {
-        FunctionMemberDeclaration functionMemberDeclaration = (FunctionMemberDeclaration)theEObject;
-        T result = caseFunctionMemberDeclaration(functionMemberDeclaration);
-        if (result == null) result = caseClassMember(functionMemberDeclaration);
-        if (result == null) result = caseFeature(functionMemberDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.CONSTRUCTOR:
-      {
-        Constructor constructor = (Constructor)theEObject;
-        T result = caseConstructor(constructor);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.FEATURE:
-      {
-        Feature feature = (Feature)theEObject;
-        T result = caseFeature(feature);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.FORMAL_PARAMETER:
-      {
-        FormalParameter formalParameter = (FormalParameter)theEObject;
-        T result = caseFormalParameter(formalParameter);
-        if (result == null) result = caseFeature(formalParameter);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.MODIFIER:
-      {
-        Modifier modifier = (Modifier)theEObject;
-        T result = caseModifier(modifier);
+        ExternClass externClass = (ExternClass)theEObject;
+        T result = caseExternClass(externClass);
+        if (result == null) result = caseType(externClass);
+        if (result == null) result = caseFeature(externClass);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -297,6 +229,36 @@ public class HaxeSwitch<T> extends Switch<T>
         TypeParameter typeParameter = (TypeParameter)theEObject;
         T result = caseTypeParameter(typeParameter);
         if (result == null) result = caseType(typeParameter);
+        if (result == null) result = caseFeature(typeParameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.TYPE_REFERENCE:
+      {
+        TypeReference typeReference = (TypeReference)theEObject;
+        T result = caseTypeReference(typeReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.REFERENCE:
+      {
+        Reference reference = (Reference)theEObject;
+        T result = caseReference(reference);
+        if (result == null) result = caseTypeReference(reference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.TYPEDEF_TYPE_PROPERTY:
+      {
+        TypedefTypeProperty typedefTypeProperty = (TypedefTypeProperty)theEObject;
+        T result = caseTypedefTypeProperty(typedefTypeProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.METADATA:
+      {
+        Metadata metadata = (Metadata)theEObject;
+        T result = caseMetadata(metadata);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -304,6 +266,128 @@ public class HaxeSwitch<T> extends Switch<T>
       {
         Expression expression = (Expression)theEObject;
         T result = caseExpression(expression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.METHOD_MODIFIER:
+      {
+        MethodModifier methodModifier = (MethodModifier)theEObject;
+        T result = caseMethodModifier(methodModifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.PROPERTY_MODIFIER:
+      {
+        PropertyModifier propertyModifier = (PropertyModifier)theEObject;
+        T result = casePropertyModifier(propertyModifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.PARAMETER:
+      {
+        Parameter parameter = (Parameter)theEObject;
+        T result = caseParameter(parameter);
+        if (result == null) result = caseFeature(parameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.CLASS_CONSTRUCTOR:
+      {
+        ClassConstructor classConstructor = (ClassConstructor)theEObject;
+        T result = caseClassConstructor(classConstructor);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.CLASS_PROPERTY:
+      {
+        ClassProperty classProperty = (ClassProperty)theEObject;
+        T result = caseClassProperty(classProperty);
+        if (result == null) result = caseFeature(classProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.METHOD:
+      {
+        Method method = (Method)theEObject;
+        T result = caseMethod(method);
+        if (result == null) result = caseFeature(method);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.INTERFACE_PROPERTY:
+      {
+        InterfaceProperty interfaceProperty = (InterfaceProperty)theEObject;
+        T result = caseInterfaceProperty(interfaceProperty);
+        if (result == null) result = caseFeature(interfaceProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.TYPEDEF_PROPERTY:
+      {
+        TypedefProperty typedefProperty = (TypedefProperty)theEObject;
+        T result = caseTypedefProperty(typedefProperty);
+        if (result == null) result = caseFeature(typedefProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.ENUM_CONSTRUCTOR:
+      {
+        EnumConstructor enumConstructor = (EnumConstructor)theEObject;
+        T result = caseEnumConstructor(enumConstructor);
+        if (result == null) result = caseFeature(enumConstructor);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.EXTERN_CLASS_CONSTRUCTOR:
+      {
+        ExternClassConstructor externClassConstructor = (ExternClassConstructor)theEObject;
+        T result = caseExternClassConstructor(externClassConstructor);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.EXTERN_CLASS_PROPERTY:
+      {
+        ExternClassProperty externClassProperty = (ExternClassProperty)theEObject;
+        T result = caseExternClassProperty(externClassProperty);
+        if (result == null) result = caseFeature(externClassProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.GETTER_SETTER:
+      {
+        GetterSetter getterSetter = (GetterSetter)theEObject;
+        T result = caseGetterSetter(getterSetter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.CLASS_METHOD_REFERENCE:
+      {
+        ClassMethodReference classMethodReference = (ClassMethodReference)theEObject;
+        T result = caseClassMethodReference(classMethodReference);
+        if (result == null) result = caseGetterSetter(classMethodReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.GETTER_SETTER_LITERAL:
+      {
+        GetterSetterLiteral getterSetterLiteral = (GetterSetterLiteral)theEObject;
+        T result = caseGetterSetterLiteral(getterSetterLiteral);
+        if (result == null) result = caseGetterSetter(getterSetterLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.FEATURE:
+      {
+        Feature feature = (Feature)theEObject;
+        T result = caseFeature(feature);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.VARIABLE_DECLARATION:
+      {
+        VariableDeclaration variableDeclaration = (VariableDeclaration)theEObject;
+        T result = caseVariableDeclaration(variableDeclaration);
+        if (result == null) result = caseFeature(variableDeclaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -321,10 +405,77 @@ public class HaxeSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case HaxePackage.CASE_PART_EXPRESSIONS:
+      {
+        CasePartExpressions casePartExpressions = (CasePartExpressions)theEObject;
+        T result = caseCasePartExpressions(casePartExpressions);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case HaxePackage.OBJECT_ELEMENT:
       {
         ObjectElement objectElement = (ObjectElement)theEObject;
         T result = caseObjectElement(objectElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.METHOD_SIGNATURE:
+      {
+        MethodSignature methodSignature = (MethodSignature)theEObject;
+        T result = caseMethodSignature(methodSignature);
+        if (result == null) result = caseReference(methodSignature);
+        if (result == null) result = caseTypeReference(methodSignature);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.PARAMETERIZED_TYPE_REFERENCE:
+      {
+        ParameterizedTypeReference parameterizedTypeReference = (ParameterizedTypeReference)theEObject;
+        T result = caseParameterizedTypeReference(parameterizedTypeReference);
+        if (result == null) result = caseReference(parameterizedTypeReference);
+        if (result == null) result = caseTypeReference(parameterizedTypeReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.TYPEDEF_TYPE:
+      {
+        TypedefType typedefType = (TypedefType)theEObject;
+        T result = caseTypedefType(typedefType);
+        if (result == null) result = caseReference(typedefType);
+        if (result == null) result = caseTypeReference(typedefType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.MODIFIER:
+      {
+        Modifier modifier = (Modifier)theEObject;
+        T result = caseModifier(modifier);
+        if (result == null) result = caseMethodModifier(modifier);
+        if (result == null) result = casePropertyModifier(modifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.CAST_EXPRESSION:
+      {
+        CastExpression castExpression = (CastExpression)theEObject;
+        T result = caseCastExpression(castExpression);
+        if (result == null) result = caseExpression(castExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.UNTYPED_EXPRESSION:
+      {
+        UntypedExpression untypedExpression = (UntypedExpression)theEObject;
+        T result = caseUntypedExpression(untypedExpression);
+        if (result == null) result = caseExpression(untypedExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.IF_EXPRESSION:
+      {
+        IfExpression ifExpression = (IfExpression)theEObject;
+        T result = caseIfExpression(ifExpression);
+        if (result == null) result = caseExpression(ifExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -408,11 +559,27 @@ public class HaxeSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case HaxePackage.IF_EXPRESSION:
+      case HaxePackage.FUNCTION_EXPRESSION:
       {
-        IfExpression ifExpression = (IfExpression)theEObject;
-        T result = caseIfExpression(ifExpression);
-        if (result == null) result = caseExpression(ifExpression);
+        FunctionExpression functionExpression = (FunctionExpression)theEObject;
+        T result = caseFunctionExpression(functionExpression);
+        if (result == null) result = caseExpression(functionExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.FEATURE_CALL:
+      {
+        FeatureCall featureCall = (FeatureCall)theEObject;
+        T result = caseFeatureCall(featureCall);
+        if (result == null) result = caseExpression(featureCall);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.CONSTRUCTOR_CALL:
+      {
+        ConstructorCall constructorCall = (ConstructorCall)theEObject;
+        T result = caseConstructorCall(constructorCall);
+        if (result == null) result = caseExpression(constructorCall);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -440,6 +607,22 @@ public class HaxeSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case HaxePackage.TRY_CATCH_EXPRESSION:
+      {
+        TryCatchExpression tryCatchExpression = (TryCatchExpression)theEObject;
+        T result = caseTryCatchExpression(tryCatchExpression);
+        if (result == null) result = caseExpression(tryCatchExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case HaxePackage.SWITCH_EXPRESSION:
+      {
+        SwitchExpression switchExpression = (SwitchExpression)theEObject;
+        T result = caseSwitchExpression(switchExpression);
+        if (result == null) result = caseExpression(switchExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case HaxePackage.RETURN_EXPRESSION:
       {
         ReturnExpression returnExpression = (ReturnExpression)theEObject;
@@ -464,70 +647,6 @@ public class HaxeSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case HaxePackage.TRY_CATCH_EXPRESSION:
-      {
-        TryCatchExpression tryCatchExpression = (TryCatchExpression)theEObject;
-        T result = caseTryCatchExpression(tryCatchExpression);
-        if (result == null) result = caseExpression(tryCatchExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.SWITCH_EXPRESSION:
-      {
-        SwitchExpression switchExpression = (SwitchExpression)theEObject;
-        T result = caseSwitchExpression(switchExpression);
-        if (result == null) result = caseExpression(switchExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.FUNCTION_EXPRESSION:
-      {
-        FunctionExpression functionExpression = (FunctionExpression)theEObject;
-        T result = caseFunctionExpression(functionExpression);
-        if (result == null) result = caseExpression(functionExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.THIS_EXPRESSION:
-      {
-        ThisExpression thisExpression = (ThisExpression)theEObject;
-        T result = caseThisExpression(thisExpression);
-        if (result == null) result = caseExpression(thisExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.SUPER_EXPRESSION:
-      {
-        SuperExpression superExpression = (SuperExpression)theEObject;
-        T result = caseSuperExpression(superExpression);
-        if (result == null) result = caseExpression(superExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.FEATURE_CALL:
-      {
-        FeatureCall featureCall = (FeatureCall)theEObject;
-        T result = caseFeatureCall(featureCall);
-        if (result == null) result = caseExpression(featureCall);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.CONSTRUCTOR_CALL:
-      {
-        ConstructorCall constructorCall = (ConstructorCall)theEObject;
-        T result = caseConstructorCall(constructorCall);
-        if (result == null) result = caseExpression(constructorCall);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.BOOLEAN_LITERAL:
-      {
-        BooleanLiteral booleanLiteral = (BooleanLiteral)theEObject;
-        T result = caseBooleanLiteral(booleanLiteral);
-        if (result == null) result = caseExpression(booleanLiteral);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case HaxePackage.NULL_LITERAL:
       {
         NullLiteral nullLiteral = (NullLiteral)theEObject;
@@ -536,19 +655,11 @@ public class HaxeSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case HaxePackage.INT_LITERAL:
+      case HaxePackage.NUMBER_LITERAL:
       {
-        IntLiteral intLiteral = (IntLiteral)theEObject;
-        T result = caseIntLiteral(intLiteral);
-        if (result == null) result = caseExpression(intLiteral);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case HaxePackage.FLOAT_LITERAL:
-      {
-        FloatLiteral floatLiteral = (FloatLiteral)theEObject;
-        T result = caseFloatLiteral(floatLiteral);
-        if (result == null) result = caseExpression(floatLiteral);
+        NumberLiteral numberLiteral = (NumberLiteral)theEObject;
+        T result = caseNumberLiteral(numberLiteral);
+        if (result == null) result = caseExpression(numberLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -653,22 +764,6 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Class Or Interface</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Class Or Interface</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseClassOrInterface(ClassOrInterface object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -680,22 +775,6 @@ public class HaxeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseClass(ee.xtext.haxe.haxe.Class object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Class Member</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Class Member</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseClassMember(ClassMember object)
   {
     return null;
   }
@@ -717,38 +796,6 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Enum</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Enum</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEnum(ee.xtext.haxe.haxe.Enum object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Enum Constructor</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Enum Constructor</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEnumConstructor(EnumConstructor object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Typedef</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -765,145 +812,33 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Enum</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Enum</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseTypeReference(TypeReference object)
+  public T caseEnum(ee.xtext.haxe.haxe.Enum object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Class Or Interface Reference</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Extern Class</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Class Or Interface Reference</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Extern Class</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseClassOrInterfaceReference(ClassOrInterfaceReference object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVariableDeclaration(VariableDeclaration object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Variable Member Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Variable Member Declaration</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVariableMemberDeclaration(VariableMemberDeclaration object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Function Member Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Function Member Declaration</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFunctionMemberDeclaration(FunctionMemberDeclaration object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Constructor</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constructor</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseConstructor(Constructor object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFeature(Feature object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Formal Parameter</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Formal Parameter</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFormalParameter(FormalParameter object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Modifier</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Modifier</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseModifier(Modifier object)
+  public T caseExternClass(ExternClass object)
   {
     return null;
   }
@@ -941,6 +876,70 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeReference(TypeReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseReference(Reference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Typedef Type Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Typedef Type Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypedefTypeProperty(TypedefTypeProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Metadata</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Metadata</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMetadata(Metadata object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -952,6 +951,262 @@ public class HaxeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseExpression(Expression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Method Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Method Modifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMethodModifier(MethodModifier object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Modifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyModifier(PropertyModifier object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parameter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParameter(Parameter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Class Constructor</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Class Constructor</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClassConstructor(ClassConstructor object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Class Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Class Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClassProperty(ClassProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Method</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Method</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMethod(Method object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Interface Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Interface Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseInterfaceProperty(InterfaceProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Typedef Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Typedef Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypedefProperty(TypedefProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Enum Constructor</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Enum Constructor</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEnumConstructor(EnumConstructor object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Extern Class Constructor</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Extern Class Constructor</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExternClassConstructor(ExternClassConstructor object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Extern Class Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Extern Class Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExternClassProperty(ExternClassProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Getter Setter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Getter Setter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseGetterSetter(GetterSetter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Class Method Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Class Method Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClassMethodReference(ClassMethodReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Getter Setter Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Getter Setter Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseGetterSetterLiteral(GetterSetterLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFeature(Feature object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariableDeclaration(VariableDeclaration object)
   {
     return null;
   }
@@ -989,6 +1244,22 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Case Part Expressions</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Case Part Expressions</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCasePartExpressions(CasePartExpressions object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Object Element</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1000,6 +1271,118 @@ public class HaxeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseObjectElement(ObjectElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Method Signature</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Method Signature</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMethodSignature(MethodSignature object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parameterized Type Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parameterized Type Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParameterizedTypeReference(ParameterizedTypeReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Typedef Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Typedef Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypedefType(TypedefType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Modifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModifier(Modifier object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Cast Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Cast Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCastExpression(CastExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Untyped Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Untyped Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUntypedExpression(UntypedExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>If Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>If Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIfExpression(IfExpression object)
   {
     return null;
   }
@@ -1165,17 +1548,49 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>If Expression</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Function Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>If Expression</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Function Expression</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseIfExpression(IfExpression object)
+  public T caseFunctionExpression(FunctionExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Feature Call</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Feature Call</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFeatureCall(FeatureCall object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Constructor Call</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constructor Call</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstructorCall(ConstructorCall object)
   {
     return null;
   }
@@ -1229,6 +1644,38 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Try Catch Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Try Catch Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTryCatchExpression(TryCatchExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Switch Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Switch Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSwitchExpression(SwitchExpression object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Return Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1277,134 +1724,6 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Try Catch Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Try Catch Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTryCatchExpression(TryCatchExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Switch Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Switch Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSwitchExpression(SwitchExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Function Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Function Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFunctionExpression(FunctionExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>This Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>This Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseThisExpression(ThisExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Super Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Super Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSuperExpression(SuperExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Feature Call</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Feature Call</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFeatureCall(FeatureCall object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Constructor Call</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constructor Call</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseConstructorCall(ConstructorCall object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseBooleanLiteral(BooleanLiteral object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Null Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1421,33 +1740,17 @@ public class HaxeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Int Literal</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Number Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Int Literal</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Number Literal</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseIntLiteral(IntLiteral object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Float Literal</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Float Literal</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFloatLiteral(FloatLiteral object)
+  public T caseNumberLiteral(NumberLiteral object)
   {
     return null;
   }

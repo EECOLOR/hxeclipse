@@ -15,7 +15,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +34,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifier
+public class ModifierImpl extends MethodModifierImpl implements Modifier
 {
   /**
    * The default value of the '{@link #isStatic() <em>Static</em>}' attribute.
@@ -145,7 +144,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
    * @generated
    * @ordered
    */
-  protected static final Visibility VISIBILITY_EDEFAULT = Visibility.PUBLIC;
+  protected static final Visibility VISIBILITY_EDEFAULT = Visibility.PRIVATE;
 
   /**
    * The cached value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.

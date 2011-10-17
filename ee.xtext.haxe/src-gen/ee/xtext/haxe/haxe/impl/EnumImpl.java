@@ -8,7 +8,9 @@ package ee.xtext.haxe.haxe.impl;
 
 import ee.xtext.haxe.haxe.EnumConstructor;
 import ee.xtext.haxe.haxe.HaxePackage;
+import ee.xtext.haxe.haxe.Metadata;
 import ee.xtext.haxe.haxe.TypeParameters;
+import ee.xtext.haxe.haxe.Visibility;
 
 import java.util.Collection;
 
@@ -32,9 +34,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ee.xtext.haxe.haxe.impl.EnumImpl#isPrivate <em>Private</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.EnumImpl#getMetadata <em>Metadata</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.EnumImpl#getExtern <em>Extern</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.EnumImpl#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link ee.xtext.haxe.haxe.impl.EnumImpl#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link ee.xtext.haxe.haxe.impl.EnumImpl#getMembers <em>Members</em>}</li>
+ *   <li>{@link ee.xtext.haxe.haxe.impl.EnumImpl#getConstructors <em>Constructors</em>}</li>
  * </ul>
  * </p>
  *
@@ -43,24 +47,54 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
 {
   /**
-   * The default value of the '{@link #isPrivate() <em>Private</em>}' attribute.
+   * The cached value of the '{@link #getMetadata() <em>Metadata</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isPrivate()
+   * @see #getMetadata()
    * @generated
    * @ordered
    */
-  protected static final boolean PRIVATE_EDEFAULT = false;
+  protected Metadata metadata;
 
   /**
-   * The cached value of the '{@link #isPrivate() <em>Private</em>}' attribute.
+   * The default value of the '{@link #getExtern() <em>Extern</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isPrivate()
+   * @see #getExtern()
    * @generated
    * @ordered
    */
-  protected boolean private_ = PRIVATE_EDEFAULT;
+  protected static final String EXTERN_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getExtern() <em>Extern</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExtern()
+   * @generated
+   * @ordered
+   */
+  protected String extern = EXTERN_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVisibility()
+   * @generated
+   * @ordered
+   */
+  protected static final Visibility VISIBILITY_EDEFAULT = Visibility.PRIVATE;
+
+  /**
+   * The cached value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVisibility()
+   * @generated
+   * @ordered
+   */
+  protected Visibility visibility = VISIBILITY_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getTypeParameters() <em>Type Parameters</em>}' containment reference.
@@ -73,14 +107,14 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
   protected TypeParameters typeParameters;
 
   /**
-   * The cached value of the '{@link #getMembers() <em>Members</em>}' containment reference list.
+   * The cached value of the '{@link #getConstructors() <em>Constructors</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMembers()
+   * @see #getConstructors()
    * @generated
    * @ordered
    */
-  protected EList<EnumConstructor> members;
+  protected EList<EnumConstructor> constructors;
 
   /**
    * <!-- begin-user-doc -->
@@ -108,9 +142,9 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isPrivate()
+  public Metadata getMetadata()
   {
-    return private_;
+    return metadata;
   }
 
   /**
@@ -118,12 +152,83 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrivate(boolean newPrivate)
+  public NotificationChain basicSetMetadata(Metadata newMetadata, NotificationChain msgs)
   {
-    boolean oldPrivate = private_;
-    private_ = newPrivate;
+    Metadata oldMetadata = metadata;
+    metadata = newMetadata;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.ENUM__PRIVATE, oldPrivate, private_));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, HaxePackage.ENUM__METADATA, oldMetadata, newMetadata);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMetadata(Metadata newMetadata)
+  {
+    if (newMetadata != metadata)
+    {
+      NotificationChain msgs = null;
+      if (metadata != null)
+        msgs = ((InternalEObject)metadata).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - HaxePackage.ENUM__METADATA, null, msgs);
+      if (newMetadata != null)
+        msgs = ((InternalEObject)newMetadata).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - HaxePackage.ENUM__METADATA, null, msgs);
+      msgs = basicSetMetadata(newMetadata, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.ENUM__METADATA, newMetadata, newMetadata));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getExtern()
+  {
+    return extern;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExtern(String newExtern)
+  {
+    String oldExtern = extern;
+    extern = newExtern;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.ENUM__EXTERN, oldExtern, extern));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Visibility getVisibility()
+  {
+    return visibility;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVisibility(Visibility newVisibility)
+  {
+    Visibility oldVisibility = visibility;
+    visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, HaxePackage.ENUM__VISIBILITY, oldVisibility, visibility));
   }
 
   /**
@@ -179,13 +284,13 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EnumConstructor> getMembers()
+  public EList<EnumConstructor> getConstructors()
   {
-    if (members == null)
+    if (constructors == null)
     {
-      members = new EObjectContainmentEList<EnumConstructor>(EnumConstructor.class, this, HaxePackage.ENUM__MEMBERS);
+      constructors = new EObjectContainmentEList<EnumConstructor>(EnumConstructor.class, this, HaxePackage.ENUM__CONSTRUCTORS);
     }
-    return members;
+    return constructors;
   }
 
   /**
@@ -198,10 +303,12 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
   {
     switch (featureID)
     {
+      case HaxePackage.ENUM__METADATA:
+        return basicSetMetadata(null, msgs);
       case HaxePackage.ENUM__TYPE_PARAMETERS:
         return basicSetTypeParameters(null, msgs);
-      case HaxePackage.ENUM__MEMBERS:
-        return ((InternalEList<?>)getMembers()).basicRemove(otherEnd, msgs);
+      case HaxePackage.ENUM__CONSTRUCTORS:
+        return ((InternalEList<?>)getConstructors()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -216,12 +323,16 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
   {
     switch (featureID)
     {
-      case HaxePackage.ENUM__PRIVATE:
-        return isPrivate();
+      case HaxePackage.ENUM__METADATA:
+        return getMetadata();
+      case HaxePackage.ENUM__EXTERN:
+        return getExtern();
+      case HaxePackage.ENUM__VISIBILITY:
+        return getVisibility();
       case HaxePackage.ENUM__TYPE_PARAMETERS:
         return getTypeParameters();
-      case HaxePackage.ENUM__MEMBERS:
-        return getMembers();
+      case HaxePackage.ENUM__CONSTRUCTORS:
+        return getConstructors();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -237,15 +348,21 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
   {
     switch (featureID)
     {
-      case HaxePackage.ENUM__PRIVATE:
-        setPrivate((Boolean)newValue);
+      case HaxePackage.ENUM__METADATA:
+        setMetadata((Metadata)newValue);
+        return;
+      case HaxePackage.ENUM__EXTERN:
+        setExtern((String)newValue);
+        return;
+      case HaxePackage.ENUM__VISIBILITY:
+        setVisibility((Visibility)newValue);
         return;
       case HaxePackage.ENUM__TYPE_PARAMETERS:
         setTypeParameters((TypeParameters)newValue);
         return;
-      case HaxePackage.ENUM__MEMBERS:
-        getMembers().clear();
-        getMembers().addAll((Collection<? extends EnumConstructor>)newValue);
+      case HaxePackage.ENUM__CONSTRUCTORS:
+        getConstructors().clear();
+        getConstructors().addAll((Collection<? extends EnumConstructor>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -261,14 +378,20 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
   {
     switch (featureID)
     {
-      case HaxePackage.ENUM__PRIVATE:
-        setPrivate(PRIVATE_EDEFAULT);
+      case HaxePackage.ENUM__METADATA:
+        setMetadata((Metadata)null);
+        return;
+      case HaxePackage.ENUM__EXTERN:
+        setExtern(EXTERN_EDEFAULT);
+        return;
+      case HaxePackage.ENUM__VISIBILITY:
+        setVisibility(VISIBILITY_EDEFAULT);
         return;
       case HaxePackage.ENUM__TYPE_PARAMETERS:
         setTypeParameters((TypeParameters)null);
         return;
-      case HaxePackage.ENUM__MEMBERS:
-        getMembers().clear();
+      case HaxePackage.ENUM__CONSTRUCTORS:
+        getConstructors().clear();
         return;
     }
     super.eUnset(featureID);
@@ -284,12 +407,16 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
   {
     switch (featureID)
     {
-      case HaxePackage.ENUM__PRIVATE:
-        return private_ != PRIVATE_EDEFAULT;
+      case HaxePackage.ENUM__METADATA:
+        return metadata != null;
+      case HaxePackage.ENUM__EXTERN:
+        return EXTERN_EDEFAULT == null ? extern != null : !EXTERN_EDEFAULT.equals(extern);
+      case HaxePackage.ENUM__VISIBILITY:
+        return visibility != VISIBILITY_EDEFAULT;
       case HaxePackage.ENUM__TYPE_PARAMETERS:
         return typeParameters != null;
-      case HaxePackage.ENUM__MEMBERS:
-        return members != null && !members.isEmpty();
+      case HaxePackage.ENUM__CONSTRUCTORS:
+        return constructors != null && !constructors.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -305,8 +432,10 @@ public class EnumImpl extends TypeImpl implements ee.xtext.haxe.haxe.Enum
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (private: ");
-    result.append(private_);
+    result.append(" (extern: ");
+    result.append(extern);
+    result.append(", visibility: ");
+    result.append(visibility);
     result.append(')');
     return result.toString();
   }
